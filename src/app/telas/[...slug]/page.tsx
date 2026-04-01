@@ -67,7 +67,7 @@ export default function TelasPage({ params }: { params: { slug: string[] } }) {
           <div className="flex flex-col gap-2 basis-full">
             <h1 className="text-2xl font-semibold mb-2 text-[#363636] tracking-wide">{tela?.nombre}</h1>
             <p className="text-zinc-600"> Precio por unidad:</p>
-            <h2 className="text-2xl font-semibold mb-2 text-[#363636] tracking-wide">${tela?.precio}</h2>
+            <h2 className="text-2xl font-semibold mb-2 text-[#363636] tracking-wide">€{tela?.precio}</h2>
             <p className="text-zinc-600 mb-3">Color</p>
             <div className="flex flex-row gap-2">
               {

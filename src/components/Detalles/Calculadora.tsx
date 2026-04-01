@@ -25,11 +25,11 @@ export const Calculadora = ({ precio, nombreTela }: { precio: number, nombreTela
                 </div>
                 <div className="flex flex-col items-center justify-center gap-1">
                     <p className="text-xs sm:text-[10px] lg:text-xs">Precio por metros</p>
-                    <p className="text-base font-semibold mt-1">${precio}</p>
+                    <p className="text-base font-semibold mt-1">€{precio}</p>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-1 w-20">
                     <p className="text-xs sm:text-[10px] lg:text-xs">Monto*</p>
-                    <p className="text-base font-semibold mt-1">${total.toLocaleString('en')}</p>
+                    <p className="text-base font-semibold mt-1">€{total.toLocaleString('en')}</p>
                 </div>
             </div>
             <div className="flex flex-row justify-between items-start mt-5 gap-3">

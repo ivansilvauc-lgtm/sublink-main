@@ -64,22 +64,23 @@ Key configuration:
 
 ### Layout & Viewport
 - **Root Layout** (`src/app/layout.tsx`):
-  - Poppins font (weights: 200, 300, 400, 600, 700, 800, 900; styles: normal, italic)
-  - Global metadata base with SUBLINK_URL
-  - Viewport constraints: device-width, initialScale 1, maximumScale 1, no user scaling
-  - JSON-LD schema (LocalBusiness type with address, areaServed, contactPoint, sameAs)
-  - Vercel Analytics + Google Analytics (GA ID: G-FQ4RY25W5X)
+  - Poppins font (weights: 200, 300, 400, 600, 700, 800, 900; styles: normal, italic; display: swap)
+  - Global metadata base with SUBLINK_URL, metadata title template, and default keywords
+  - Viewport constraints: device-width, initialScale 1, maximumScale 1, userScalable false
+  - JSON-LD schema (LocalBusiness type with name, url, logo, description, address, areaServed, contactPoint, sameAs Instagram)
+  - Vercel Analytics (@vercel/analytics/react) + Google Analytics (GA ID: G-FQ4RY25W5X via @next/third-parties)
   - Suspense-wrapped Video component for lazy loading search params
-  - Header > MiniPop > {children} > Video (lazy) > Footer structure
+  - Layout structure: Header > MiniPop > {children} > Video (lazy) > Footer
+  - Max-width container: max-w-[1920px] mx-auto with Poppins className
 
 ### Metadata & SEO
 - **Base Metadata**:
   - Title template: `Sublink | %s` (dynamic pages)
-  - Default keywords: telas, sublimacion, estampados, sublimacion textil, sublimacion continua, sublimacion digital, sublimacion por rollo/metro, sublimacion venezuela, estampados venezuela
+  - Default keywords: telas, sublimacion, estampados, sublimacion textil, sublimacion continua, sublimacion digital, sublimacion por rollo, sublimacion por metro, sublimacion venezuela, sublimacion textil venezuela, estampados venezuela
   - Canonical URLs based on SUBLINK_URL
   - OpenGraph: title, description, url, siteName, images (1200x630), locale (es_ES), type (website)
   - Robots: index, follow
-  - Default description: Services for personalizing 40+ fabric types via continuous textile sublimation, plus labels, vinyl, DTF, laser cutting, and supplies
+  - Default description: Personalizamos +40 tipos de telas a través de sublimación textil continua desde 1 metro hasta rollo completo, más etiquetas, vinil textil, DTF, corte laser e insumos
 
 - **Dynamic Route Metadata Pattern**:
   - `generateMetadata()` async function pulls data from static arrays (servicios or telas)
@@ -202,38 +203,74 @@ interface ITela {
 - **Metadata**: Dynamic metadata generation with SEO fields (metaTitle fallback to title, metaDescription fallback to description)
 
 ### Fabrics Data (src/lib/telas.ts)
-- Large static array of ITela objects
-- **Categories**: Telas Importadas, Telas Nacionales, Telas Ecológicas
-- **Dynamic Routing**: Fabrics pages at `/telas/[categoria_slug]/[slug]`
-- **Metadata**: Dynamic metadata generation from telas array
+- Large static array of ITela objects with full data structures
+- **Export**: `export const telas: ITela[]`
+- **Categories**: Telas Importadas, Telas Nacionales, Telas Ecológicas (with corresponding category_slug values)
+- **Data Structure Per Fabric**:
+  - Required: id, nombre, categoria, categoria_slug, slug, caracteristicas, descripcion, composition, ancho, peso, precio, usos, tejido, rotacion, base_ecologica, imagen_zoom, imagenes array, iconos array, colors array
+  - All fabric records include both rotacion ("Si"/"No") for stamping capability and base_ecologica ("Si"/"No") for ecology classification
+- **Dynamic Routing**: Fabrics pages at `/telas/[categoria_slug]/[slug]` use slug and categoria_slug for lookups
+- **Metadata**: Dynamic metadata generation from telas array via generateMetadata in page.tsx
+- **Usage**: Consumed by:
+  - `/app/telas/[...slug]/page.tsx` for dynamic page generation and recommendations
+  - `/app/telas/[...slug]/page.tsx generateStaticParams()` for pre-rendering all fabric routes
+  - InteractiveImage component for hotspot fabric links
+  - Ofrecemos component for filtered fabric displays (eco vs non-eco)
 <!-- END AUTO-MANAGED -->
 
 ## Component Details
 
 <!-- AUTO-MANAGED: components -->
+### Calculadora Component
+- **Location**: `src/components/Detalles/Calculadora.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Price calculator widget on fabric product pages
+- **Props**: `precio` (number), `nombreTela` (string)
+- **State Management**:
+  - `total`: number state (initial: precio), updated via handleTotal()
+  - `metrosTela`: string state, tracks input value from metros field
+  - `handleTotal(metros: string)`: Updates both states, calculates total = Number(metros) * precio
+- **Layout Structure**:
+  - Container: flex flex-col gap-2, w-full, responsive margin (mt-10 sm:mt-0 lg:mt-10)
+  - Heading: "Calculadora de precios" (text-[#363636], font-semibold, text-xl)
+  - Calculator section: flex bg-[#0082c9] text-white p-3 rounded-lg items-start justify-between
+- **Calculator Fields** (inside blue container):
+  - Icon: Calculator symbol `/assets/calculadora-simbolo.png` (20x20)
+  - Metros input: type="number", defaultValue={1}, min={0}, w-20 h-8, bg-[#a6f6ff], rounded-lg, text-center, border-transparent, onChange triggers handleTotal()
+  - Price per meter: displays "Precio por metros" label + €{precio}
+  - Total amount: displays "Monto*" label + €{total.toLocaleString('en')}
+- **Bottom Section**:
+  - Disclaimer: "*Precio basado en el tiempo de producción" (text-xs)
+  - WhatsApp button: href to api.whatsapp.com/send with encodeURIComponent() for message: "¡Hola! Me gustaría comprar {metrosTela}mts de tela: {nombreTela}"
+  - Button styling: bg-[#0082c9] text-white py-1 px-10 rounded-lg font-semibold
+- **Responsive**: text-xs sm:text-[10px] lg:text-xs for field labels
+
 ### Counter Component
 - **Location**: `src/components/Counter/Counter.tsx`
 - **Type**: Client component (`"use client"`)
 - **Purpose**: Animated statistics display with intersection observer
 - **Implementation**:
   - Uses `useInView` hook from framer-motion with `{ once: true }` option
-  - Displays three metrics: 15+ years experience, 60,000 mts fabrics/year, 25+ white fabrics
+  - Displays three metrics: 15+ years experience (prefix '+ ', suffix 'años'), 60,000 mts/year (suffix 'mts'), 25+ white fabrics
   - CountUp animation (2.75s duration) triggered when element enters viewport
   - Full-width primary-bg section with flex layout
   - Responsive: flex-col (mobile) to flex-row (sm and up) with adaptive spacing
+  - Text layout with section groups aligned by items-center justify-center with adaptive widths (sm:w-[15-20ch] md:w-[30ch])
 
 ### Footer Component
 - **Location**: `src/components/UI/Footer.tsx`
 - **Type**: Client component (`"use client"`)
 - **Purpose**: Page footer with contact info and company details
-- **Layout**: Three-column responsive layout (responsive stacking)
-  - Left: Location info (Valencia address, phone +58 424-4067274) with localization icon
-  - Center: "SUBLINK COMPANY" heading with "Quiénes Somos" subtext
-  - Right: Contact details (email: sublinkve@gmail.com, Instagram: sublink.ve, hours: MON-FRI 8:30am-4:30pm)
-- **Styling**: footer-bg class with responsive icon and text sizing (scales from 45px mobile to 10xl desktop)
+- **Layout**: Three-column responsive layout with flex-col lg:flex-row
+  - Left: Location info with localization icon - Address: "Av. 137, CC IMPERIAL II 3-08, PISO 3 (frente al CC Galeria), Valencia, Carabobo, Venezuela" with phone "+58 424-4067274"
+  - Center: "SUBLINK COMPANY" text-4xl bold heading with "Quiénes Somos" text-2xl subtext
+  - Right: Three contact items - Email (sublinkve@gmail.com), Instagram link (sublink.ve), Hours ("We are open from: MON - FRI 8:30 am - 4:30 pm")
+- **Styling**: footer-bg class with responsive text sizes (text-base sm:text-xs md:text-sm xl:text-base on left, text-zinc-50)
+- **Icon Sizing**: localization icon w-8 xl:w-10; email/instagram/horario icons w-5 sm:w-6 xl:w-10
+- **Responsive**: flex-col lg:flex-row with items-center lg:items-start, gap-10 lg:gap-0
 - **Assets**: Icons from `/assets/` directory (localization.svg, email.svg, instagram.svg, horario.svg)
 
-### VideoReciclar Component
+### Video Component (Modal)
 - **Location**: `src/components/VideoReciclar/Video.tsx`
 - **Type**: Client component (`"use client"`)
 - **Purpose**: Modal video player for embedded YouTube content
@@ -246,6 +283,82 @@ interface ITela {
     - `onClose={() => router.back()}`
   - Hook dependencies: `useSearchParams` and `useRouter` from `next/navigation`
   - Styling: Imported `./modal-video.min.css`
+
+### VideoReciclar Component
+- **Location**: `src/components/VideoReciclar/VideoReciclar.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Animated recycling section with reveal effect, floating elements, and video link
+- **Implementation**:
+  - Uses framer-motion with `useInView` hook (`{ once: true }`) for viewport detection and `useAnimation`
+  - Main section: motion.section with aspect-[1/1] (mobile) lg:aspect-[4/1], relative w-full overflow-hidden
+  - Clip-path animation on section entry: polygon(0 0, 100% 0, 100% 0, 0 0) to polygon(0 0, 100% 0, 100% 100%, 0 100%), duration 2s, delay 0.5s
+  - Background layer: Infinite zoom/pan (scale 1.1 to 1.2, y: 0 to -10, x: 0 to -10, 16s duration, easeInOut reverse)
+    - Desktop: `/img/reciclaje/fondo-cielo.webp` (hidden lg:block)
+    - Mobile: `/img/reciclaje/cielo-sublink-square.webp` (block lg:hidden)
+  - Content container: Centered positioned (top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2), scale fade-in (0.8→1 opacity, 1s duration, 0.8s delay)
+  - Bottle image: `/img/reciclaje/botella.webp` with bounce animation (y: 0 to -5, 2.5s duration, infinite reverse), basis-1/2 p-6
+  - Text section: animated heading "Descubre cómo se elaboran las telas de poliéster reciclado" (text-2xl, drop-shadow, opacity 0→1, 1s duration, 0.9s delay)
+  - Video link: Link to "/" with query param `video=descubre-como-se-elaboran-nuestras-telas`, scroll={false}, bg-zinc-100 px-5 py-2 rounded-full
+  - Cloud elements: Two motion.divs with horizontal scroll animation (x: 0→100% and 100%→0, 100s duration, linear infinite)
+    - Cloud-a: absolute -left-1/2 -bottom-[580px] (hidden xl:block, p-6)
+    - Cloud-a: absolute -left-1/2 responsive bottom (-bottom-32 sm:-bottom-96 lg:-bottom-32 xl:-bottom-20 2xl:-bottom-10), p-6, opacity-80
+- **Responsive**: flex-col-reverse (mobile) to lg:flex-row with px-10 lg:space-x-20 at container, pt-10 lg:pt-0 on text section
+
+### InteractiveImage Component
+- **Location**: `src/components/InteractiveImage/InteractiveImage.tsx`
+- **Type**: Server component (no `"use client"`)
+- **Purpose**: Interactive image with hotspot links to fabric products
+- **Implementation**:
+  - Dual-variant design with conditional rendering:
+    - Desktop (hidden md:block): 1920x830px image (`/img/imagen-interactiva-final.webp`)
+    - Mobile (block md:hidden): 950x980px image (`/img/imagen-interactiva-final-mobile.webp`)
+  - Four positioned hotspots (item + CSS class):
+    - "Tela de Toalla" → `/telas/telas-ecologicas/toalla-microfibra` (desktop: 75% top, 30% left; mobile: 54% top, 48% left)
+    - "Tela traje de baño" → `/telas/telas-importadas/lycra-lafayette` (desktop: 64% top, 25% left; mobile: 45% top, 43% left)
+    - "Tela cortina" → `/telas/telas-nacionales/microfibra-nacional` (desktop: 30% top, 90% left; mobile: 30% top, 80% left)
+    - "Tela para muebles" → `/telas/telas-importadas/loneta-soft` (desktop: 77% top, 68% left; mobile: 77% top, 68% left)
+  - Hotspot styling: w-8 h-8 circular with opacity-70, border-2 border-zinc-50, with tooltip showing fabric name in primary color
+  - Custom CSS classes (cojin, trapo) for positioning different hotspot types
+  - z-index management: desktop z-50 on towel, mobile z-40/z-50 variants
+
+### Ofrecemos Component
+- **Location**: `src/components/Ofrecemos/Ofrecemos.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Services overview section with animated cards and modal integration
+- **Implementation**:
+  - Uses framer-motion `useInView` with `{ once: true }` for viewport animation
+  - Container animation: opacity 0 to 1, y 20 to 0, delay 0.3s, duration 0.6s
+  - Icons section: Four responsive feature icons (metro.webp, rapidez.webp, telas.webp, ecologica.webp) with flex-row spacing
+    - Icon sizing: w-16 md:w-24
+    - Icon labels: "Desde 1 metro", "Producción rápida", "Diferentes telas", "Tela ecológica" (text-xs sm:text-sm md:text-lg)
+  - Heading section: "¿Qué ofrecemos?" in text-primary, responsive text-5xl sm:text-7xl, bold, tracking-tighter
+  - Service description:
+    - Line 1: "Servicio de sublimación textil a gran formato." (text-lg sm:text-xl, font-bold, uppercase)
+    - Line 2: "Convertimos telas blancas en telas exclusivas con el print de tu preferencia." (text-lg sm:text-xl, font-bold, uppercase)
+    - Line 3: "Usamos tintas y materiales de primera calidad..." (text-sm sm:text-base, text-zinc-500)
+  - Three modal cards with aspect-[40/50] sizing and 600x799px images:
+    - "TELAS" card (image: `/img/ofrecemos/sublimacion-textil.webp`, telas filtered by non-ecológicas)
+    - "SERVICIOS TEXTILES" card (image: `/img/ofrecemos/servicios-textiles.webp`, all servicios)
+    - "TELAS ECO" card (image: `/img/ofrecemos/productos-complementarios.webp`, telas filtered by ecológicas)
+  - Card layout: w-80 md:w-60 lg:w-72 xl:w-96, rounded-3xl, overflow-hidden with absolute positioned image background
+  - Text overlay: "TELAS" / "SERVICIOS TEXTILES" / "TELAS ECO" heading (text-4xl md:text-3xl xl:text-4xl, zinc-50, font-semibold, tracking-tighter)
+  - Responsive: flex-col md:flex-row with md:space-x-4 lg:space-x-10
+
+### MiniPop Component
+- **Location**: `src/components/UI/MiniPop.tsx`
+- **Type**: Server component (no `"use client"` directive)
+- **Purpose**: Fixed left-side floating navigation panel with social links
+- **Implementation**:
+  - Hidden on mobile, visible on desktop (lg:block)
+  - Fixed positioning at left side, top-1/4, z-50 with drop-shadow effects
+  - Three interactive links inside absolute positioned container:
+    - WhatsApp (href: api.whatsapp.com/send/?phone=584244067274&text=Vengo%20de%20la%20Web)
+    - Instagram (target="_blank" to instagram.com/sublink.ve)
+    - Home (Next.js Link component to "/" route)
+  - SVG icons (20x20, white fill, hover:scale-105 effect)
+  - Primary background color container (w-16 h-28) with minipop-clip custom clip-path styling
+  - Inner flex layout: flex-col, items-center, justify-center, space-y-2 gaps, absolute positioned
+  - Responsive drop-shadow: default [0_15px_10px_rgba(0,0,0,0.4)] on hover [0_8px_8px_rgba(0,0,0,0.4)] with transition-all duration-300
 
 ### Dynamic Service Pages
 - **Location**: `src/app/servicios/[slug]/page.tsx`
@@ -263,16 +376,37 @@ interface ITela {
 ### Dynamic Fabric Pages
 - **Location**: `src/app/telas/[...slug]/page.tsx`
 - **Pattern**: Catch-all dynamic routing with [categoria_slug]/[slug] - slug array lookup by params.slug[1]
-- **Metadata**: `generateMetadata()` pulls nombre, descripcion, imagen_zoom from telas array, setting canonical with categoria_slug and slug
-- **Static Params**: `generateStaticParams()` maps [categoria_slug, slug] array pairs for all fabrics
-- **Layout** (main grid with flex-col-reverse lg:flex-row):
-  - Left: ImageGallery with imagen_zoom, imagenes array, eco/stamping badges
-  - Right: Price ($), color swatches (colors array as square divs), Calculadora component
-- **Detail Section** (flex-col-reverse lg:flex-row):
-  - Table: Composition, uses, weight (gr/m2), width (cm), characteristics, weave, ecological base (border-4 border-primary)
-  - Description: Fabric details, icon indicators (responsive sizing w-12 sm:w-20)
-- **Recommendations**: Carousel displays same-category fabrics filtered by categoria_slug
-- **Responsive**: flex-col-reverse (mobile) to flex-row (lg), gaps 8px, max-width 6xl centered
+- **Configuration**: `export const dynamicParams = true` allows runtime rendering of unknown segments
+- **Metadata Generation**:
+  - `generateMetadata({ params })`: Returns metadata with title=nombre, description=descripcion
+  - Canonical: SUBLINK_URL + "/telas/" + categoria_slug + "/" + slug
+  - OpenGraph: title=nombre, description=descripcion, url (canonical), images[1200x630]=imagen_zoom, locale=es_ES, type=website
+  - Sets category="Tela", siteName="Sublink Company"
+- **Static Params**: `generateStaticParams()` returns array of {slug: [categoria_slug, slug]} for all fabrics
+- **Data Lookup**: `telas.find(tela => tela.slug === params.slug[1])` retrieves fabric data
+- **Recommendations Filter**: `telas.filter(tela => tela.categoria_slug === params.slug[0] && tela.slug !== params.slug[1])`
+- **Main Layout** (flex-col-reverse lg:flex-row gap-8, mt-32 sm:mt-44, max-w-6xl mx-auto mb-20, px-2 lg:px-1, h-full):
+  - Left section (basis-full): ImageGallery with imagen_zoom, imagenes array, isEco={tela.base_ecologica}, isEstampar={tela.rotacion}
+  - Right section (flex-col sm:flex-row lg:flex-col gap-2, basis-full):
+    - Fabric name: h1 text-2xl font-semibold text-[#363636] tracking-wide
+    - Price label: p text-zinc-600 "Precio por unidad:"
+    - Price display: h2 text-2xl font-semibold text-[#363636] tracking-wide €{precio}
+    - Color label: p text-zinc-600 "Color"
+    - Color swatches: flex flex-row gap-2, each color square is w-12 h-12 border-[1px] border-zinc-900 with dynamic backgroundColor
+    - Calculadora component: <Calculadora precio={tela.precio} nombreTela={tela.nombre} />
+- **Detail Section** (flex-col-reverse lg:flex-row gap-8, mt-10):
+  - Left table (basis-full): border-4 border-[#0082c9] rounded-xl px-6 py-14, w-full, max-w-2xl lg:max-w-lg
+    - Rows: Composición, Usos, Peso(gr)/m2, Ancho (cm), Características, Tipo de tejido, Base ecologica
+    - Row styling: border-b-[1px] border-zinc-400, text-left sm:text-center font-semibold text-sm py-3
+    - Cell styling: td text-right py-1 text-zinc-700 font-regular text-sm
+  - Right description (basis-full): border-t-2 border-[#0082c9], flex flex-col items-center lg:items-start lg:justify-start
+    - Heading: h2 text-2xl font-semibold text-[#363636] tracking-wide "Descripción de la tela"
+    - Description text: p text-zinc-600 text-sm text-center lg:text-left
+    - Icons row: flex flex-row border-t-2 border-b-2 border-[#0082c9] pt-7 pb-6 w-full items-center lg:items-start justify-center lg:justify-start gap-3
+    - Icon images: Next.js Image component, w-12 sm:w-20 aspect-square, alt from IconosAlt mapping
+- **Recommendations**: Carousel rendered conditionally if recomendaciones.length > 0, displays same-category fabrics
+- **Error Handling**: Returns h1 "Not found" if tela data not found
+- **Not Found Case**: min-h-screen mt-56 max-w-5xl mx-auto mb-20 px-2 lg:px-0
 
 ### Sostenibilidad Page
 - **Location**: `src/app/sostenibilidad/page.tsx`
