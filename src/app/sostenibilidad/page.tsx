@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export const metadata: Metadata = {
 
-    title: "Sostenibilidad",
+    title: "Telas Ecológicas y Sostenibilidad Textil | Sublink Company",
     description: 'Un tejido sostenible es aquel que se preocupa por minimizar las emisiones y generar el mínimo impacto posible en el medio ambiente a la hora de ser fabricado. En la lista de tejidos sostenibles podríamos incluir algunos tejidos reciclados, orgánicos, ecológicos, veganos, o incluso biodegradables.',
     keywords: ['sostenibilidad', 'telas ecológicas', 'telas recicladas', 'telas pet', 'telas sostenibles', 'telas ecológicas venezuela'],
     category: 'Ecología',
@@ -66,7 +66,7 @@ export default function SostenibilidadPage() {
                         src="https://www.youtube.com/embed/0lTb4e28IMU"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        title="YouTube video player"
+                        title="Proceso de fabricación de telas ecológicas recicladas - Sublink"
                     ></iframe>
                 </div>
             </section>
@@ -95,13 +95,13 @@ export default function SostenibilidadPage() {
             <section className="py-20 px-20">
                 <div className="flex flex-row items-center justify-between max-w-xl mx-auto gap-10 flex-wrap">
                     <div className="w-52 h-auto">
-                        <Image src="/img/sostenibilidad/logo-sutex.png" alt="Sostenibilidad" width={490} height={143} className="object-cover" />
+                        <Image src="/img/sostenibilidad/logo-sutex.png" alt="Logo Sutex - proveedor de telas sostenibles" width={490} height={143} className="object-cover" />
                     </div>
                     <div className="w-56 h-auto">
-                        <Image src="/img/sostenibilidad/logo-greentex.png" alt="Sostenibilidad" width={640} height={240} className="object-cover" />
+                        <Image src="/img/sostenibilidad/logo-greentex.png" alt="Logo Greentex - certificación de telas ecológicas" width={640} height={240} className="object-cover" />
                     </div>
                     <div className="w-56 h-auto mx-auto mt-10">
-                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Sostenibilidad" width={640} height={240} className="object-cover" />
+                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles reciclados" width={640} height={240} className="object-cover" />
                     </div>
                 </div>
             </section>

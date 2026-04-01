@@ -60,9 +60,30 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Sublink Company',
+    url: SUBLINK_URL,
+    logo: `${SUBLINK_URL}/logo-sublink.png`,
+    description: 'Servicios de sublimación textil, estampados, DTF, corte láser y telas ecológicas en Venezuela.',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      availableLanguage: 'Spanish',
+    },
+    sameAs: [
+      'https://www.instagram.com/sublink.ve',
+    ],
+  };
+
   return (
     <html lang="es">
       <body className={`${poppins.className} max-w-[1920px] mx-auto`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <Header />
         <MiniPop />
         {children}

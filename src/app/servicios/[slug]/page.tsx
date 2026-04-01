@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
           height: 630,
         },
       ],
-      locale: 'es_Es',
+      locale: 'es_ES',
       type: 'website',
     },
   }
@@ -61,7 +61,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
         </div>
         <div className="basis-10/12 flex items-center justify-center p-10">
           <div className={`${servicio?.title.length > 16 ? "w-80 h-80 md:w-[420px] md:h-[420px] 2xl:w-[520px] 2xl:h-[520px]" : "w-80 h-80 md:w-[420px] md:h-[420px] xl:w-[480px] xl:h-[480px] 2xl:w-[580px] 2xl:h-[480px]"} relative`}>
-            <Image src={servicio.equipment_image} alt={servicio.slug} width={800} height={800} className="absolute w-full h-full object-contain" />
+            <Image src={servicio.equipment_image} alt={servicio.title} width={800} height={800} className="absolute w-full h-full object-contain" />
           </div>
         </div>
       </div>

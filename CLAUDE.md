@@ -19,22 +19,30 @@ Sublink is a Next.js-based web application for fabric/textile services. The proj
 ```
 src/
 ├── app/              # Next.js app router pages
-│   ├── layout.tsx    # Root layout with metadata
+│   ├── layout.tsx    # Root layout with metadata, JSON-LD schema
 │   ├── page.tsx      # Home page
 │   ├── robots.ts     # Robots metadata
-│   ├── sitemap.ts    # XML sitemap generation
-│   ├── servicios/    # Services pages (dynamic routing)
-│   ├── telas/        # Fabrics/textiles pages (dynamic routing)
-│   └── sostenibilidad/ # Sustainability page
+│   ├── sitemap.ts    # XML sitemap generation (telas + servicios)
+│   ├── servicios/
+│   │   └── [slug]/   # Services pages (dynamic routing, metadata generation)
+│   ├── telas/
+│   │   └── [...slug]/ # Fabrics/textiles pages (dynamic routing, metadata generation)
+│   └── sostenibilidad/ # Sustainability page with eco-friendly content
 ├── components/       # React components
 │   ├── Header/
 │   ├── Counter/
 │   ├── Detalles/     # Detail view components
 │   ├── Estampacion/  # Stamping/printing section
+│   ├── Sostenibilidad/ # Sustainability page components (TextReveal, TreeReveal, SublinkLogo)
 │   ├── VideoReciclar/ # Video modal component for recycling content
+│   ├── UI/           # Common UI components (MiniPop, Footer)
 │   └── ...
 ├── lib/
-│   └── constant.ts   # Application constants (SUBLINK_URL)
+│   ├── constant.ts   # Application constants (SUBLINK_URL)
+│   ├── servicios.ts  # Services data
+│   └── telas.ts      # Fabrics/textiles data
+├── model/
+│   └── tela.ts       # ITela interface, Iconos enum, IconosAlt mapping
 └── ...other config files
 ```
 
@@ -53,6 +61,13 @@ Key configuration:
 - **Metadata**: SEO metadata (canonical, og:image, etc.) set in page components using `SUBLINK_URL`
 - **Component Structure**: Each component in dedicated folder with `.tsx` file
 - **Import Pattern**: `import { SUBLINK_URL } from "@/lib/constant"`
+- **Root Layout**: Includes global JSON-LD schema, Poppins font config, metadata base, viewport settings, and Suspense-wrapped Video modal
+- **Dynamic Route Metadata**:
+  - `generateMetadata()` async function pulls data from static arrays
+  - `generateStaticParams()` for ISR/pre-rendering of dynamic routes
+  - `dynamicParams = true` allows rendering unknown segments
+- **Sitemap Generation**: Dynamic sitemap includes root, sostenibilidad, all servicios with priority 0.8, and all telas with priority 0.6
+- **SEO Pattern**: Each dynamic page sets canonical URL, OpenGraph image/title/description, and locale (es_ES)
 <!-- END AUTO-MANAGED -->
 
 ## Deployment Configuration
@@ -82,19 +97,69 @@ Deploys to Vercel with Next.js framework detection and standard build/output dir
 - **Styling**: Tailwind CSS 3.3.0, PostCSS
 - **TypeScript**: 5.x
 
+## Data Models
+
+### ITela Interface (src/model/tela.ts)
+```typescript
+interface ITela {
+  id: string;
+  nombre: string;
+  categoria: 'Telas Importadas' | 'Telas Nacionales' | 'Telas Ecológicas';
+  categoria_slug: 'telas-importadas' | 'telas-nacionales' | 'telas-ecologicas';
+  slug: string;
+  caracteristicas: string;
+  descripcion: string;
+  composition: string;
+  ancho: number;           // width in cm
+  peso: number;            // weight in gr/m2
+  precio: number;
+  usos: string;
+  tejido: string;          // fabric weave type
+  rotacion: "Si" | "No";   // rotation/stamping capability
+  base_ecologica: "Si" | "No";
+  imagen_zoom: string;
+  imagenes: string[];
+  iconos: Iconos[];
+  colors: string[];
+}
+```
+
+### Iconos Enum (src/model/tela.ts)
+22 fabric characteristic icons with alt text mapping (IconosAlt):
+- FourWayStretch, Antifluido, FacilLavado, HomeDecor, Moda, Muralla, Outdoor
+- PesoLigero, PetFriendly, Polar, RapidaAbsorcion, Reciclado, Resistente, SecadoRapido
+- SoftTouch, SweaterResist, Textura, Transpirable, UPF50, Vintage, Lycra
+
 ## Component Details
 
 ### VideoReciclar Component
 - **Location**: `src/components/VideoReciclar/Video.tsx`
 - **Type**: Client component (`"use client"`)
 - **Purpose**: Modal video player for embedded YouTube content
-- **Features**:
-  - Uses `react-modal-video` library for modal functionality
-  - Controlled via URL search parameter: `?video=descubre-como-se-elaboran-nuestras-telas`
-  - YouTube video ID: `lMJXxhRFO2k`
-  - Closes and navigates back on modal close
-  - Depends on `useSearchParams` and `useRouter` from Next.js navigation
-  - Custom CSS styling via `modal-video.min.css`
+- **Implementation**:
+  - Named export: `export const Video = () => { ... }`
+  - ModalVideo props:
+    - `channel='youtube'`
+    - `videoId='lMJXxhRFO2k'`
+    - `isOpen={searchParams.get('video') === 'descubre-como-se-elaboran-nuestras-telas'}`
+    - `onClose={() => router.back()}`
+  - Hook dependencies: `useSearchParams` and `useRouter` from `next/navigation`
+  - Styling: Imported `./modal-video.min.css`
+
+### Sostenibilidad Page
+- **Location**: `src/app/sostenibilidad/page.tsx`
+- **Purpose**: Comprehensive sustainability and eco-friendly fabrics page
+- **Key Sections**:
+  - Hero with animated text and tree reveal components
+  - "¿Qué son las telas ecológicas?" - Definition and benefits of sustainable fabrics
+  - "Por qué usar telas recicladas PET" - Four focus areas: Reciclaje, Calidad, Impacto Social, Diferenciación
+  - Embedded YouTube video (iframe) - Production process documentation
+  - "Sostenibilidad" - Sublink's commitment and zero-waste policies
+  - "Nuestras Políticas" - Print-on-demand and zero-waste initiatives
+  - Partner logos (Sutex, Greentex, Lafayette)
+  - Branded footer with leaf vectors and Sublink logo
+- **Styling**: Uses Tailwind + custom bg class (sostenibilidad-bg), green accent color (#619b55)
+- **Components Used**: TextReveal, TreeReveal, SublinkLogo (animated reveal components)
 
 ## Notes
 
@@ -102,3 +167,5 @@ Deploys to Vercel with Next.js framework detection and standard build/output dir
 - SEO optimization through sitemaps, robots.txt, and metadata APIs
 - Turbo mode enabled for faster development builds
 - Modal video component supports URL-based video activation pattern
+- Sustainability page emphasizes Sublink's unique position as Venezuela's first PET fabric provider
+- Root layout wraps Video component in Suspense for lazy loading search params

@@ -3,7 +3,7 @@ import { Calculadora } from '@/components/Detalles/Calculadora';
 import { ImageGallery } from '@/components/Detalles/ImageGallery';
 import { telas } from '@/lib/telas';
 import Carousel from '@/components/Detalles/Carousel';
-import { ITela } from '@/model/tela';
+import { ITela, IconosAlt } from '@/model/tela';
 import { Metadata } from 'next';
 import { SUBLINK_URL } from '@/lib/constant';
 
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
           height: 630,
         },
       ],
-      locale: 'es_Es',
+      locale: 'es_ES',
       type: 'website',
     },
   }
@@ -116,12 +116,12 @@ export default function TelasPage({ params }: { params: { slug: string[] } }) {
           </table>
         </div>
         <div className="flex flex-col items-center lg:items-start lg:justify-start border-t-2 border-[#0082c9] basis-full">
-          <h1 className="text-2xl font-semibold my-3 text-[#363636] tracking-wide">Descripción de la tela</h1>
+          <h2 className="text-2xl font-semibold my-3 text-[#363636] tracking-wide">Descripción de la tela</h2>
           <p className="text-zinc-600 text-sm text-center lg:text-left mb-5">{tela?.descripcion}</p>
           <div className="flex flex-row border-t-2 border-b-2 border-[#0082c9] pt-7 pb-6 w-full items-center lg:items-start justify-center lg:justify-start gap-3">
             {
               tela?.iconos?.map((icono, index) => (
-                <Image key={index + icono} src={icono} width={150} height={150} alt="Icono de tela" className="w-12 sm:w-20 aspect-square" />
+                <Image key={index + icono} src={icono} width={150} height={150} alt={IconosAlt[icono] ?? "Icono de característica de tela"} className="w-12 sm:w-20 aspect-square" />
               ))
             }
           </div>

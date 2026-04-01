@@ -8,16 +8,16 @@ export default async function sitemap():Promise<MetadataRoute.Sitemap> {
 
     const telasEntries: MetadataRoute.Sitemap = telas?.map((tela: ITela) => ({ 
         url: `${SUBLINK_URL}/telas/${tela?.categoria_slug}/${tela?.slug}`,
-        changeFrequency: 'yearly',
+        changeFrequency: 'monthly',
         lastModified: new Date(),
-        priority: 0.6 
+        priority: 0.6
     }))
 
     const serviciosEntries: MetadataRoute.Sitemap = servicios?.map((servicio: IServicios) => ({ 
         url: `${SUBLINK_URL}/servicios/${servicio?.slug}`,
-        changeFrequency: 'yearly',
+        changeFrequency: 'monthly',
         lastModified: new Date(),
-        priority: 0.8 
+        priority: 0.8
     }))
 
     return [
