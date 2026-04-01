@@ -10,6 +10,9 @@ export interface IServicios {
     advantages: string[];
     sublink: string[];
     doit: string;
+    metaTitle?: string;
+    metaDescription?: string;
+    keywords?: string[];
 }
 
 export const servicios: IServicios[] = [
@@ -20,7 +23,10 @@ export const servicios: IServicios[] = [
         equipment_image:"/img/servicios/1.webp",
         results_image:"/img/servicios/tela-con-guia-de-pantone.webp",
         results_image_alt: "Tela con guía de Pantone",
-        description: "La sublimación es la transición de un sólido a un gas sin pasar por una etapa líquida. ¿La tinta no es líquida? Sí, pero el colorante (tinte), una vez seco, es un sólido transportado por un líquido.",
+        metaTitle: "Sublimación Textil en Venezuela | Sublink Company",
+        metaDescription: "Servicio de sublimación textil a gran formato en Venezuela. Imprimimos tus diseños en telas de poliéster con tecnología EPSON y calandras continuas de hasta 1,55 m de ancho. Capacidad de 10.000 m/mes.",
+        keywords: ["sublimacion venezuela", "sublimacion textil venezuela", "sublimacion textil", "sublimacion a gran formato", "estampado textil venezuela", "sublimacion continua venezuela"],
+        description: "En Venezuela, Sublink ofrece el servicio de sublimación textil a gran formato con tecnología de punta. La sublimación es la transición de un sólido a un gas sin pasar por una etapa líquida — el colorante, una vez seco, se funde directamente con el tejido de poliéster para un resultado permanente y vibrante.",
         details: [
             "La sublimación textil consiste en imprimir tus diseños sobre papel especial, utilizando impresoras con tintas de sublimación. Luego, con un equipo especializado llamado calandra, el papel impreso junto a la tela, se somete a un proceso de calentamiento a 200 °C y alta presión, logrando así transferir el diseño al tejido de poliéster.",
         ],
@@ -33,9 +39,9 @@ export const servicios: IServicios[] = [
             "No hay restricción de tamaños, más allá del ancho de la tela."
         ],
         sublink: [
-            "En Sublink disponemos de tecnología de impresión avanzada, como plotters de impresión marca EPSON y calandras para sublimación continua, con un área de trabajo de hasta 1,55 m de ancho y con una capacidad instalada de 10.000 metros mensuales.",
+            "En Sublink somos líderes en sublimación textil en Venezuela. Contamos con tecnología de impresión avanzada: plotters EPSON y calandras para sublimación continua con área de trabajo de hasta 1,55 m de ancho y capacidad instalada de 10.000 metros mensuales.",
         ],
-        doit: "¡Transforma tus ideas en diseños únicos con nuestra tecnología, equipos e insumos de alta calidad!"      
+        doit: "¡Transforma tus ideas en diseños únicos con nuestra tecnología, equipos e insumos de alta calidad!"
     },
     {
         slug: "dtf-para-marquillas-laser-toner",

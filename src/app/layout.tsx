@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: `Sublink | %s`,
   },
   description: "Personalizamos +40 tipos de telas que tenemos disponibles, a través de la tecnología de Sublimación Textil Continua, con máquinas que permiten estampar el ancho de las telas en su totalidad, desde un metro hasta un rollo completo!. También ofrecemos etiquetas, vinil textil, DTF, corte laser, accesorios e insumos.",
-  keywords: ["telas", "sublimacion", "estampados", "sublimacion textil", "sublimacion continua", "sublimacion digital", "sublimacion por rollo", "sublimacion por metro"],
+  keywords: ["telas", "sublimacion", "estampados", "sublimacion textil", "sublimacion continua", "sublimacion digital", "sublimacion por rollo", "sublimacion por metro", "sublimacion venezuela", "sublimacion textil venezuela", "estampados venezuela"],
   authors: [{ name: 'Sublink Company' }, { name: 'Visual' }],
   alternates: {
     canonical: SUBLINK_URL,
@@ -64,11 +64,21 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
     name: 'Sublink Company',
     url: SUBLINK_URL,
     logo: `${SUBLINK_URL}/logo-sublink.png`,
-    description: 'Servicios de sublimación textil, estampados, DTF, corte láser y telas ecológicas en Venezuela.',
+    image: `${SUBLINK_URL}/opengraph-image.jpg`,
+    description: 'Empresa líder en sublimación textil, estampados, DTF, corte láser y telas ecológicas en Venezuela.',
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'VE',
+      addressRegion: 'Venezuela',
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Venezuela',
+    },
     contactPoint: {
       '@type': 'ContactPoint',
       contactType: 'customer service',

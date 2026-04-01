@@ -6,19 +6,22 @@ import Image from 'next/image'
 export const dynamicParams = true;
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  
+
   const servicio: IServicios | undefined = servicios.find(serv => serv.slug === params.slug);
-  
+  const seoTitle = servicio?.metaTitle ?? servicio?.title ?? '';
+  const seoDescription = servicio?.metaDescription ?? servicio?.description ?? '';
+
   return {
-    title: servicio?.title ?? '',
-    description: servicio?.description ?? '',
+    title: seoTitle,
+    description: seoDescription,
+    keywords: servicio?.keywords,
     category: "Services",
     alternates: {
       canonical: SUBLINK_URL + "/servicios/" + servicio?.slug,
     },
     openGraph: {
-      title: servicio?.title ?? '',
-      description: servicio?.description ?? '',
+      title: seoTitle,
+      description: seoDescription,
       url: SUBLINK_URL + "/servicios/" + servicio?.slug,
       siteName: 'Sublink Company',
       images: [
