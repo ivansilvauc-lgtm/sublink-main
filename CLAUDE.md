@@ -31,9 +31,10 @@ src/
 │   ├── Counter/
 │   ├── Detalles/     # Detail view components
 │   ├── Estampacion/  # Stamping/printing section
+│   ├── VideoReciclar/ # Video modal component for recycling content
 │   └── ...
 ├── lib/
-│   └── constant.ts   # Application constants
+│   └── constant.ts   # Application constants (SUBLINK_URL)
 └── ...other config files
 ```
 
@@ -81,8 +82,23 @@ Deploys to Vercel with Next.js framework detection and standard build/output dir
 - **Styling**: Tailwind CSS 3.3.0, PostCSS
 - **TypeScript**: 5.x
 
+## Component Details
+
+### VideoReciclar Component
+- **Location**: `src/components/VideoReciclar/Video.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Modal video player for embedded YouTube content
+- **Features**:
+  - Uses `react-modal-video` library for modal functionality
+  - Controlled via URL search parameter: `?video=descubre-como-se-elaboran-nuestras-telas`
+  - YouTube video ID: `lMJXxhRFO2k`
+  - Closes and navigates back on modal close
+  - Depends on `useSearchParams` and `useRouter` from Next.js navigation
+  - Custom CSS styling via `modal-video.min.css`
+
 ## Notes
 
 - Project uses Next.js App Router with dynamic routing for services and fabric categories
 - SEO optimization through sitemaps, robots.txt, and metadata APIs
 - Turbo mode enabled for faster development builds
+- Modal video component supports URL-based video activation pattern
