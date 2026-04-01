@@ -117,52 +117,6 @@ export const servicios: IServicios[] = [
         doit: "Descubre cómo podemos ayudarte a transformar tu producción con precisión y eficiencia incomparables."      
     },
     {
-        slug: "impresion-3d-rigido",
-        title: "Impresión 3D Rígido",
-        subtitle: "",	
-        equipment_image:"/img/servicios/6.webp",
-        results_image:"/img/servicios/diferentes-elementos-coloridos-de-resina-y-plastico-realizados-con-una-impresora-3d.webp",
-        results_image_alt: "Diferentes elementos coloridos de resina y plástico realizados con una impresora 3D",
-        description: "La impresión 3D es una tecnología innovadora que permite crear objetos tridimensionales a partir de un diseño digital. Este proceso construye los objetos capa por capa, utilizando diversos materiales como plásticos y resinas.",
-        details: [
-            "Nuestra impresión 3D rígida se caracteriza por su alta precisión y durabilidad, permitiéndote materializar tus ideas con un nivel de detalle y calidad excepcionales.",
-            "Utilizamos materiales de alta resistencia que garantizan la longevidad y el desempeño de las piezas impresas, ya sea para aplicaciones industriales, comerciales o creativas.", 
-        ],
-        advantages: [
-            "Crea accesorios únicos y personalizados para tu marca.",
-            "Innovación y diferenciación con piezas únicas.", 
-            "Alta precisión y durabilidad.",
-            "Ideal para bajas - medias producciones.",     
-        ],
-        sublink: [
-            "En Sublink ofrecemos el servicio de impresión 3D rígido para realizar accesorios únicos personalizados para tu marca, así como también podemos ayudarte a desarrollar material POP, prototipos, herramentales, plantillas y mucho más.",
-        ], 
-        doit: "Explora las posibilidades infinitas que esta tecnología puede ofrecerte y lleva tus proyectos al siguiente nivel con nosotros."      
-    },
-    {
-        slug: "sublimacion-de-ribbons",
-        title: "Sublimación de Ribbons",
-        subtitle: "(Cintas y Elásticas)",	
-        equipment_image:"/img/servicios/7.webp",
-        results_image:"/img/servicios/dos-imagenes-mostrando-ribbon-sublimado-y-chica-posando-con-gafete-y-ribbon-sublimado.webp",
-        results_image_alt: "Dos imágenes mostrando ribbon sublimado y chica posando con gafete y ribbon sublimado",
-        description: "La sublimación de ribbons es un proceso especializado que permite personalizar cintas y elásticas. Utilizando el mismo proceso de sublimación de las telas, los diseños se adhieren permanentemente a las fibras del material, resultando en productos vibrantes y duraderos.",
-        details: [
-            "La sublimación de ribbons se realiza con una calandra especial de menor tamaño y una impresora EPSON con seis tintas. Este proceso permite personalizar estos materiales, que son perfectos para una amplia gama de aplicaciones, desde la moda y la decoración hasta el branding y los eventos especiales.",
-        ],
-        advantages: [
-            "Colores vibrantes y duraderos.",
-            "Alta precisión en los detalles del diseño.",
-            "Resistencia al lavado y usos.", 
-            "Excelentes tiempos de entrega.",
-            "Ideal para etiquetas de marca, cintas decorativas, elásticos personalizados y más.",    
-        ],
-        sublink: [
-            "Hiladillas, Reatas, Elásticas Crochet, Elásticas SemiRigidas, Cinta Raso, Cinta Gro, Sesgos rigidos y Elasticos, Cordon Plano, entre otros.",
-        ],
-        doit: "¡Personaliza tus ribbons con nosotros para agregar valor a tu producto final y aumentar la percepción de tu marca!"      
-    },
-    {
         slug: "etiquetas-nylon-y-silicon-monocromaticas",
         title: "Etiquetas Nylon y Silicon Monocromáticas",
         subtitle: "(Resina Negra)",	

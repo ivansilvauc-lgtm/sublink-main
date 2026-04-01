@@ -18,13 +18,15 @@ export const Footer = () => {
                     <li className="flex flex-row justify-center sm:justify-start items-start gap-2">
                         <Image src="/assets/localization.svg" width={45} height={45} alt="Icono de localizacion" className="w-8 xl:w-10" />
                         <div>
-                            <p>CARACAS</p>
+                            <p>VALENCIA</p>
                             <p>+58 416-4198745</p>
+                            <p>Valencia, Carabobo, Venezuela</p>
                         </div>
                     </li>
                 </ul>
-                <div className="flex">
+                <div className="flex flex-col items-center gap-3">
                 <h3 className="text-zinc-50 text-4xl text-center font-semibold">SUBLINK COMPANY</h3>
+                <span className="text-zinc-300 text-sm cursor-default">Quiénes Somos</span>
                 </div>
                 <div className="w-full lg:w-fit">
                 <ul className="text-zinc-50 text-sm lg:text-lg flex flex-col sm:flex-row lg:flex-col gap-2 lg:gap-5 items-center sm:items-start w-full justify-center sm:justify-between">

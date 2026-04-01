@@ -66,8 +66,8 @@ Key configuration:
 - **Root Layout** (`src/app/layout.tsx`):
   - Poppins font (weights: 200, 300, 400, 600, 700, 800, 900; styles: normal, italic)
   - Global metadata base with SUBLINK_URL
-  - Viewport constraints: device-width, initialScale 1, no user scaling
-  - JSON-LD schema (Organization type with contactPoint and sameAs)
+  - Viewport constraints: device-width, initialScale 1, maximumScale 1, no user scaling
+  - JSON-LD schema (LocalBusiness type with address, areaServed, contactPoint, sameAs)
   - Vercel Analytics + Google Analytics (GA ID: G-FQ4RY25W5X)
   - Suspense-wrapped Video component for lazy loading search params
   - Header > MiniPop > {children} > Video (lazy) > Footer structure
@@ -75,10 +75,11 @@ Key configuration:
 ### Metadata & SEO
 - **Base Metadata**:
   - Title template: `Sublink | %s` (dynamic pages)
-  - Default keywords: telas, sublimacion, estampados, etc.
+  - Default keywords: telas, sublimacion, estampados, sublimacion textil, sublimacion continua, sublimacion digital, sublimacion por rollo/metro, sublimacion venezuela, estampados venezuela
   - Canonical URLs based on SUBLINK_URL
   - OpenGraph: title, description, url, siteName, images (1200x630), locale (es_ES), type (website)
   - Robots: index, follow
+  - Default description: Services for personalizing 40+ fabric types via continuous textile sublimation, plus labels, vinyl, DTF, laser cutting, and supplies
 
 - **Dynamic Route Metadata Pattern**:
   - `generateMetadata()` async function pulls data from static arrays (servicios or telas)
@@ -195,9 +196,10 @@ interface ITela {
 
 ### Services Data (src/lib/servicios.ts)
 - `IServicios` interface defines service metadata
-- **Fields**: slug, title, subtitle, equipment_image, results_image, results_image_alt, description, details[], advantages[], sublink[], doit
+- **Fields**: slug, title, subtitle, equipment_image, results_image, results_image_alt, description, details[], advantages[], sublink[], doit, metaTitle?, metaDescription?, keywords?
+- **Services**: sublimacion-textil-a-gran-formato, dtf-para-marquillas-laser-toner, dtf-industrial-continuo, corte-laser-textil (with full SEO metadata and structured content)
 - **Dynamic Routing**: Services pages at `/servicios/[slug]`
-- **Metadata**: Dynamic metadata generation from servicios array
+- **Metadata**: Dynamic metadata generation with SEO fields (metaTitle fallback to title, metaDescription fallback to description)
 
 ### Fabrics Data (src/lib/telas.ts)
 - Large static array of ITela objects
@@ -209,6 +211,28 @@ interface ITela {
 ## Component Details
 
 <!-- AUTO-MANAGED: components -->
+### Counter Component
+- **Location**: `src/components/Counter/Counter.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Animated statistics display with intersection observer
+- **Implementation**:
+  - Uses `useInView` hook from framer-motion with `{ once: true }` option
+  - Displays three metrics: 15+ years experience, 60,000 mts fabrics/year, 25+ white fabrics
+  - CountUp animation (2.75s duration) triggered when element enters viewport
+  - Full-width primary-bg section with flex layout
+  - Responsive: flex-col (mobile) to flex-row (sm and up) with adaptive spacing
+
+### Footer Component
+- **Location**: `src/components/UI/Footer.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Page footer with contact info and company details
+- **Layout**: Three-column responsive layout (responsive stacking)
+  - Left: Location info (Valencia address, phone +58 424-4067274) with localization icon
+  - Center: "SUBLINK COMPANY" heading with "Quiénes Somos" subtext
+  - Right: Contact details (email: sublinkve@gmail.com, Instagram: sublink.ve, hours: MON-FRI 8:30am-4:30pm)
+- **Styling**: footer-bg class with responsive icon and text sizing (scales from 45px mobile to 10xl desktop)
+- **Assets**: Icons from `/assets/` directory (localization.svg, email.svg, instagram.svg, horario.svg)
+
 ### VideoReciclar Component
 - **Location**: `src/components/VideoReciclar/Video.tsx`
 - **Type**: Client component (`"use client"`)
@@ -226,25 +250,29 @@ interface ITela {
 ### Dynamic Service Pages
 - **Location**: `src/app/servicios/[slug]/page.tsx`
 - **Pattern**: Dynamic routing with service slug parameter
-- **Metadata**: `generateMetadata()` pulls from servicios array, setting title, description, canonical, og:image
+- **Metadata**: `generateMetadata()` pulls metaTitle, metaDescription, keywords from servicios array, setting canonical and og:image with 1200x630 dimensions
 - **Static Params**: `generateStaticParams()` generates all service routes at build time
+- **Title Sizing**: Conditional responsive sizing based on title length (text-4xl to 2xl:text-[84px])
 - **Layout**:
-  - Hero section with title, subtitle, and equipment image (responsive sizing)
-  - Result section with image and description (dark primary background)
-  - Details section with advantages list and sublink messaging
-- **Image Integration**: Uses `next/image` with responsive width/height pairs
+  - Hero section with title, subtitle, and equipment image (responsive sizing with conditional dimensions)
+  - Result section with image and description (dark primary background, 450px md:h-96)
+  - Details section with structured content (details[], advantages[], sublink messaging, doit call-to-action)
+- **Image Integration**: Uses `next/image` with responsive width/height pairs, absolute positioning for overlays
+- **Responsive**: Two-column layout (lg:flex-row) with gap-x-4, responsive padding (px-12 lg:px-24)
 
 ### Dynamic Fabric Pages
 - **Location**: `src/app/telas/[...slug]/page.tsx`
-- **Pattern**: Catch-all dynamic routing with [categoria_slug]/[slug]
-- **Metadata**: `generateMetadata()` pulls from telas array, setting title, description, canonical, og:image
-- **Static Params**: `generateStaticParams()` maps categoria_slug + slug for all fabrics
-- **Components Used**:
-  - `ImageGallery`: Displays imagen_zoom and imagenes array with eco/stamping indicators
-  - `Calculadora`: Price calculator component
-  - `Carousel`: Recommendations carousel for same-category fabrics
-- **Detail Table**: Displays composition, uses, weight, width, weave, colors, icons
-- **Responsive**: Flex layout switches from row (lg) to column (mobile)
+- **Pattern**: Catch-all dynamic routing with [categoria_slug]/[slug] - slug array lookup by params.slug[1]
+- **Metadata**: `generateMetadata()` pulls nombre, descripcion, imagen_zoom from telas array, setting canonical with categoria_slug and slug
+- **Static Params**: `generateStaticParams()` maps [categoria_slug, slug] array pairs for all fabrics
+- **Layout** (main grid with flex-col-reverse lg:flex-row):
+  - Left: ImageGallery with imagen_zoom, imagenes array, eco/stamping badges
+  - Right: Price ($), color swatches (colors array as square divs), Calculadora component
+- **Detail Section** (flex-col-reverse lg:flex-row):
+  - Table: Composition, uses, weight (gr/m2), width (cm), characteristics, weave, ecological base (border-4 border-primary)
+  - Description: Fabric details, icon indicators (responsive sizing w-12 sm:w-20)
+- **Recommendations**: Carousel displays same-category fabrics filtered by categoria_slug
+- **Responsive**: flex-col-reverse (mobile) to flex-row (lg), gaps 8px, max-width 6xl centered
 
 ### Sostenibilidad Page
 - **Location**: `src/app/sostenibilidad/page.tsx`

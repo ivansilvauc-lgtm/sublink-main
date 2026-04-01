@@ -64,35 +64,6 @@ export const telas: ITela[] = [
         id: "TE0022"
     },
     {
-        nombre: 'Chiffon Pesado',
-        categoria: 'Telas Ecológicas',
-        categoria_slug: 'telas-ecologicas',
-        slug: 'chiffon-pesado',
-        descripcion: 'El chiffon pesado se caracteriza por tener una mayor densidad y peso en comparación con el chiffon estándar. Aunque conserva la ligereza y la fluidez característica de este tipo de telas, el chiffon pesado ofrece una estructura más sólida, con mayor opacidad y una caída menos pronunciada. Es una opción versátil para la confección de prendas formales o semiformales, como vestidos de noche, faldas fluidas y blusas con un toque de volumen.',
-        composition: '100% Poliéster Reciclado',
-        ancho: 1.43,
-        peso: 115,
-        precio: 15,
-        usos: 'Moda, bufandas, pareos, blusas.',
-        tejido: 'Plano',
-        rotacion: 'No',
-        base_ecologica: 'Si',
-        imagenes: [
-            "/img/telas/telas-ecologicas/chiffon-pesado-1.webp",
-        ],
-        iconos: [
-            Iconos.PesoLigero,
-            Iconos.Moda,
-            Iconos.Reciclado,
-        ],
-        colors: [
-            '#e0e0e0',
-        ],
-        caracteristicas: "Chiffon",
-        imagen_zoom: "/img/telas/telas-ecologicas/chiffon-pesado-zoom.webp",
-        id: "TE003"
-    },
-    {
         nombre: 'Malla Chiffon Pesada',
         categoria: 'Telas Ecológicas',
         categoria_slug: 'telas-ecologicas',
@@ -211,34 +182,6 @@ export const telas: ITela[] = [
         id: "TE008"
     },
     //******************************TELAS IMPORTADAS****************************************** */
-    {
-        nombre: 'Dri-Fit Peruano',
-        categoria: 'Telas Importadas',
-        categoria_slug: 'telas-importadas',
-        slug: 'dri-fit-peruano',
-        descripcion: 'Este tejido está diseñado para prendas deportivas y de activewear, con un enfoque especial en la protección contra los rayos solares, ya que cuenta con protección solar UPF20. Este tejido peruano es transpirable, ligero y cómodo de llevar, proporcionando un alto rendimiento y comodidad para una amplia gama de actividades deportivas y al aire libre.',
-        composition: '100% Poliester',
-        ancho: 1.55,
-        peso: 145,
-        precio: 14,
-        usos: 'Franelas UPF 20',
-        tejido: 'Punto',
-        rotacion: 'No',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-importadas/dri-fit-peruano-1.webp",
-        ],
-        iconos: [
-            Iconos.PesoLigero,
-            Iconos.SecadoRapido,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        caracteristicas: "Drifit",
-        imagen_zoom: "/img/telas/telas-importadas/dri-fit-peruano-zoom.webp",
-        id: "TI001"
-    },
     {
         nombre: 'Loneta Soft',
         categoria: 'Telas Importadas',
@@ -405,10 +348,10 @@ export const telas: ITela[] = [
         id: "TI009"
     },
     {
-        nombre: 'Runner Importada',
+        nombre: 'Runner Africa',
         categoria: 'Telas Importadas',
         categoria_slug: 'telas-importadas',
-        slug: 'runner-importada',
+        slug: 'runner-africa',
         descripcion: 'Se considera un tejido diseñado específicamente para satisfacer las necesidades de los corredores y atletas en general, que ofrece propiedades como la transpirabilidad, el secado rápido y la resistencia al sudor. Además, es una tela ligera, perforada y fresca. Recomendada para piezas deportivas y de uso en exteriores.',
         composition: '-',
         ancho: 1.50,
@@ -434,35 +377,6 @@ export const telas: ITela[] = [
         caracteristicas: "Runner",
         imagen_zoom: "/img/telas/telas-importadas/runner-importada-zoom.webp",
         id: "TI011"
-    },
-    {
-        nombre: 'Toalla Afelpa',
-        categoria: 'Telas Importadas',
-        categoria_slug: 'telas-importadas',
-        slug: 'toalla-afelpa',
-        descripcion: 'La toalla afelpada está compuesta por bucles de hilo en una cara del tejido, lo que le confiere una textura esponjosa y agradable al tacto, muy similar a las toallas tradicionales. Una de sus principales características es su versatilidad, ya que aparte de ser suave y sedosa, se ajusta perfectamente para diversos usos, como son toallas, batas, fundas para camastro, toallas para bebé, toallas para estética y para tapete de baño.',
-        composition: '100% Poliester',
-        ancho: 1.55,
-        peso: 260,
-        precio: 14,
-        usos: 'Paños de playa, gimnasio, ponchos, regalos pop.',
-        tejido: 'PUNTO',
-        rotacion: 'Si',
-        base_ecologica: 'Si',
-        imagenes: [
-            "/img/telas/telas-importadas/toalla-afelpa-1.webp",
-            "/img/telas/telas-importadas/toalla-afelpa-2.webp",
-        ],
-        iconos: [
-            Iconos.SecadoRapido,
-            Iconos.RapidaAbsorcion,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        caracteristicas: "Toalla",
-        imagen_zoom: "/img/telas/telas-importadas/toalla-afelpa-zoom.webp",
-        id: "TI012"
     },
     //******************************TELAS NACIONALES****************************************** */
     {
@@ -745,34 +659,6 @@ export const telas: ITela[] = [
         caracteristicas: "Seda",
         imagen_zoom: "/img/telas/telas-nacionales/seda-nacional-betty-zoom.webp",
     },
-    {
-        nombre: 'Tafeta',
-        categoria: 'Telas Nacionales',
-        categoria_slug: 'telas-nacionales',
-        slug: 'tafeta',
-        descripcion: 'Fabricada con fibras de poliéster, esta tela ofrece una superficie suave y brillante, con un acabado traslúcido. Es una tela sintética de peso ligero, que es comúnmente utilizada en confecciones de mantelería, forros de diferentes productos como: morrales y blazer, y también como banderines publicitarios.',
-        composition: '100% Poliester',
-        ancho: 1.45,
-        peso: 75,
-        precio: 11,
-        usos: 'Banderines, banderas, forro.',
-        tejido: 'Plano',
-        rotacion: 'No',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-nacionales/tafeta-1.webp",
-            "/img/telas/telas-nacionales/tafeta-2.webp"
-        ],
-        iconos: [
-            Iconos.PesoLigero,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TN012",
-        caracteristicas: "Seda",
-        imagen_zoom: "/img/telas/telas-nacionales/tafeta-zoom.webp",
-    },
     //******************************TELAS ESPECIALES ---- AHORA VAN COMO IMPORTADAS ****************************************** */
     {
         nombre: 'Lycra Lafayette',
@@ -803,90 +689,6 @@ export const telas: ITela[] = [
         id: "TE0021",
         caracteristicas: "Lycra",
         imagen_zoom: "/img/telas/telas-especiales/lycra-lafayette-zoom.webp",
-    },
-    {
-        nombre: 'Moda Lurex',
-        categoria: 'Telas Importadas',
-        categoria_slug: 'telas-importadas',
-        slug: 'moda-lurex',
-        descripcion: 'Esta tela ofrece un contraste interesante entre una base mate, fluida y el brillo sutil proporcionado por los hilos brillantes y plateados de lurex, creando un aspecto elegante y sofisticado. Es perfecta para prendas que requieren un toque de glamour, como vestidos de noche, tops y accesorios, añadiendo un elemento de destello y brillo sin ser demasiado llamativa.',
-        composition: '99% Poliester / 1% Lurex',
-        ancho: 1.44,
-        peso: 111,
-        precio: 14,
-        usos: 'Moda, pareos, bandanas, blusas, prendas de noche.',
-        tejido: 'Plano',
-        rotacion: 'Si',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-especiales/moda-lurex-a.webp",
-        ],
-        iconos: [
-            Iconos.Moda,
-            Iconos.PesoLigero,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TE002",
-        caracteristicas: "Moda",
-        imagen_zoom: "/img/telas/telas-especiales/moda-lurex-zoom.webp",
-    },
-    {
-        nombre: 'Crepe Doble',
-        categoria: 'Telas Importadas',
-        categoria_slug: 'telas-importadas',
-        slug: 'crepe-doble',
-        descripcion: 'Es una variante que incorpora hilos elásticos en su composición, lo que le confiere una mayor flexibilidad y capacidad de estiramiento. Esta característica lo hace ideal para prendas ajustadas y ceñidas al cuerpo, como pantalones, vestidos ajustados y faldas lápiz, proporcionando comodidad y libertad de movimiento sin comprometer su elegancia y estructura. Es una tela mate con textura corrugada, ligera y fresca.',
-        composition: '94% Poliester / 6% Elastano',
-        ancho: 1.44,
-        peso: 169,
-        precio: 14,
-        usos: 'Vestidos, faldas, jumpers.',
-        tejido: 'Punto',
-        rotacion: 'Si',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-especiales/crepe-doble-a.webp",
-        ],
-        iconos: [
-            Iconos.Moda,
-            Iconos.Textura,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TE0013",
-        caracteristicas: "Moda",
-        imagen_zoom: "/img/telas/telas-especiales/crepe-doble-zoom.webp",
-    },
-    {
-        nombre: 'Ripstop',
-        categoria: 'Telas Importadas',
-        categoria_slug: 'telas-importadas',
-        slug: 'ripstop',
-        descripcion: 'Es un tipo de tejido plano, ligero y transpirable, resistente a la rotura, caracterizado por su diseño único que incluye hilos más gruesos intercalados en intervalos regulares para evitar que los desgarres se propaguen. Esta construcción especial hace que el tejido sea altamente duradero y resistente a la abrasión, lo que lo hace ideal para aplicaciones donde se requiere resistencia, como la confección de tiendas de campaña, morrales, ropa de exterior y accesorios para actividades al aire libre.',
-        composition: '100% Poliester',
-        ancho: 1.48,
-        peso: 132,
-        precio: 14,
-        usos: 'Chaquetas, pantalones outdoor.',
-        tejido: 'Plano',
-        rotacion: 'Si',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-especiales/ripstop-a.webp",
-        ],
-        iconos: [
-            Iconos.Outdoor,
-            Iconos.Resistente,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TE005",
-        caracteristicas: "Ripstop",
-        imagen_zoom: "/img/telas/telas-especiales/ripstop-zoom.webp",
     },
     {
         nombre: 'Pop Sublimable',
