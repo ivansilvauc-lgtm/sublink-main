@@ -1,0 +1,444 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  /* outline: orange solid 1px; */
+}
+
+
+@layer utilities {
+
+  .minipop-clip {
+    clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .icon {
+    cursor: pointer;
+    background: #157ec2;
+    border-radius: 50%;
+    /* Asegura que el div sea un círculo */
+    /* Ajusta al tamaño deseado */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Suaviza la transición */
+  }
+
+  .icon:hover {
+    transform: translateY(-10px);
+    /* Hace que el círculo "flote" hacia arriba */
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.2);
+    /* Añade un brillo sutil */
+  }
+
+  .icon::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    /* Posiciona la línea justo fuera del círculo, en la parte inferior */
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: bottom;
+    /* Cambia el origen de la transformación a la parte inferior */
+    width: 2px;
+    /* Ajusta el grosor de la línea */
+    height: 10px;
+    /* Ajusta la longitud de la línea */
+    background-color: white;
+    /* Color de la línea */
+    transition: transform 0.3s ease;
+  }
+
+  @media(max-width: 640px) {
+    .icon::before {
+      height: 20px;
+    }
+  }
+
+  .icon:hover::before {
+    transform: translateX(-50%) scaleY(1);
+    /* Hace que la línea "crezca" hacia arriba */
+  }
+
+  .item {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    /* Aplica perspectiva al elemento padre para un efecto 3D en los hijos */
+    perspective: 1000px;
+  }
+
+  .tooltip {
+    position: absolute;
+    z-index: -1;
+    width: 10em;
+    height: 5em;
+    background: #f5f5f5;
+    color: black;
+    line-height: 1.2em;
+    padding: 10px;
+    border-radius: 0px;
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    clip-path: polygon(0 0, 100% 0, 100% 65%, 50% 100%, 0 65%);
+    opacity: 0;
+    /* Modifica la transformación para incluir rotación en 3D */
+    transform: scale(0.5) rotateX(-90deg);
+    /* Asegúrate de que la transición incluya la rotación */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .item:hover .tooltip {
+    z-index: 1;
+    opacity: 1;
+    /* Escala el tooltip a su tamaño normal y rota a su posición original */
+    transform: scale(1) rotateX(0deg);
+  }
+
+  .cojin .tooltip {
+    left: calc(50% - 5em);
+    bottom: 48px;
+  }
+
+  .cojin .tooltip::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #f5f5f5;
+    bottom: -18px;
+    left: calc(50% - 10px);
+  }
+
+  .trapo .tooltip {
+    left: calc(50% - 5em);
+    bottom: 48px;
+  }
+
+  .trapo .tooltip::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #f5f5f5;
+    bottom: -18px;
+    left: calc(50% - 10px);
+  }
+
+  .curved {
+    border-bottom-left-radius: 50% 5%;
+    border-bottom-right-radius: 50% 5%;
+  }
+
+  .animate-slideInFromLeft {
+    animation: 0.6s ease-out 0s 1 slideInFromLeft;
+  }
+
+  .fadeInUp {
+    animation: fadeInUp 0.5s ease-out forwards;
+  }
+
+  .fadeInDown {
+    animation: fadeInDown 0.5s ease-out forwards;
+  }
+
+  @keyframes slideInFromLeft {
+    0% {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOutUp {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .linkPressed {
+    transform: scale(0.95);
+    /* Efecto de "presionado" reduciendo ligeramente el tamaño */
+    transition: transform 0.1s ease;
+    /* Transición suave para el efecto */
+  }
+
+
+  .circle {
+    position: absolute;
+    top: -250px;
+    border-radius: 50%;
+    background: white;
+    animation: ripple 15s infinite;
+    box-shadow: 0px 0px 1px 0px #508fb9;
+  }
+
+  .small {
+    width: 200px;
+    height: 200px;
+    left: -100px;
+    bottom: -100px;
+  }
+
+  .medium {
+    width: 400px;
+    height: 400px;
+    left: -200px;
+    bottom: -200px;
+  }
+
+  .large {
+    width: 600px;
+    height: 600px;
+    left: -300px;
+    bottom: -300px;
+  }
+
+  .xlarge {
+    width: 800px;
+    height: 800px;
+    left: -400px;
+    bottom: -400px;
+  }
+
+  .xxlarge {
+    width: 1000px;
+    height: 1000px;
+    left: -500px;
+    bottom: -500px;
+  }
+
+  .shade1 {
+    opacity: 0.2;
+  }
+
+  .shade2 {
+    opacity: 0.5;
+  }
+
+  .shade3 {
+    opacity: 0.7;
+  }
+
+  .shade4 {
+    opacity: 0.8;
+  }
+
+  .shade5 {
+    opacity: 0.9;
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+    }
+
+    50% {
+      transform: scale(1.2);
+    }
+
+    100% {
+      transform: scale(0.8);
+    }
+  }
+
+  .patterns {
+    height: 50%;
+    opacity: 0.1;
+  }
+
+  svg text {
+    letter-spacing: 0px;
+    font-weight: lighter;
+    stroke: #dadada;
+    font-size: 150px;
+    font-weight: 700;
+    stroke-width: 3;
+
+    animation: textAnimate 5s infinite alternate;
+
+  }
+
+  @keyframes textAnimate {
+    0% {
+      stroke-dasharray: 0 50%;
+      stroke-dashoffset: 20%;
+      fill: hsl(189, 68%, 75%)
+    }
+
+    100% {
+      stroke-dasharray: 50% 0;
+      stroke-dashoffstet: -20%;
+      fill: hsla(189, 68%, 75%, 0%)
+    }
+
+  }
+
+  .lupa::before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    width: 20px;
+    height: 20px;
+    bottom: 5px;
+    right: 5px;
+    background-image: url('/assets/lens.png');
+    background-size: contain;
+    background-position: center;
+    pointer-events: none;
+  }
+
+  .footer-bg {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1920' height='560' preserveAspectRatio='none' viewBox='0 0 1920 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1427%26quot%3b)' fill='none'%3e%3crect width='1920' height='560' x='0' y='0' fill='rgba(19%2c 19%2c 19%2c 1)'%3e%3c/rect%3e%3cpath d='M104.35297439171173 222.59293669722416L123.83217650667117 314.2353774758786 251.55623661717308 239.19535391411216z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1517.6079851896275-21.04780254181405L1640.5580979979186 111.05223042622598 1689.3066602058257-38.98041694201338z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1495.663475753081-3.7159540845786125L1632.8220422155857 107.56946172290282 1659.63320438156-44.48419483180996z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M888.5375229548018 332.08403657229155L992.0235596088136 443.27148115025943 1033.0547988671615 316.99031157494335z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1367.0709581502813 510.54798041792674L1380.9461413577833 609.2750389051196 1522.0991374848215 539.0987348502703z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M240.85546748641264 479.36263301302824L230.20038832690093 326.9879020140052 88.4807364873896 490.01771217254z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M559.2970020904722 140.7460349067632L542.6337574319505 34.88559099307058 468.81441830576534 92.55957961058402z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M1101.7485553439342 418.1313753864746L934.5023305408213 435.5485280632194 1018.8124200026741 555.955814276414z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M1561.306684979928 303.9975783612849L1595.031565787076 421.61021480494617 1678.9193214235893 270.27269755413676z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float3'%3e%3c/path%3e%3cpath d='M363.58324793948884 278.78797851277096L456.2855321872025 198.35809159305234 355.470214907539 161.66431694515174z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float2'%3e%3c/path%3e%3cpath d='M1054.1072147338484 216.3291648570369L1061.7511818942396 364.8936375826345 1172.0317834843886 295.9826695388271z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float1'%3e%3c/path%3e%3cpath d='M271.615194988904 355.75639466754376L168.09640884660143 288.39016034229104 160.56509182828205 396.0930114947711z' fill='rgba(67%2c 67%2c 67%2c 0.07)' class='triangle-float1'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1427'%3e%3crect width='1920' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cstyle%3e %40keyframes float1 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-10px%2c 0)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float1 %7b animation: float1 5s infinite%3b %7d %40keyframes float2 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(-5px%2c -5px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float2 %7b animation: float2 4s infinite%3b %7d %40keyframes float3 %7b 0%25%7btransform: translate(0%2c 0)%7d 50%25%7btransform: translate(0%2c -10px)%7d 100%25%7btransform: translate(0%2c 0)%7d %7d .triangle-float3 %7b animation: float3 6s infinite%3b %7d %3c/style%3e%3c/defs%3e%3c/svg%3e");
+  }
+
+  .progress-bar {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: #157ec2;
+    transform-origin: 0%;
+    z-index: 99999;
+  }
+
+  .contenedor-tarjetas {
+    perspective: 1200px;
+  }
+
+  /* Estilos para las tarjetas */
+  .tarjeta {
+    transition: all 0.5s ease;
+    transform-style: preserve-3d;
+    box-shadow: 0px 7px 10px -11px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Estilos para el hover: rotación ligera en los ejes X e Y */
+  .tarjeta:hover {
+    transform: rotateY(-1deg) rotateX(-5deg);
+    box-shadow: 0px -10px 20px -3px rgba(0, 0, 0, 0.1);
+  }
+
+  @keyframes fadeInOut {
+
+    0%,
+    100% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .embla {
+    max-width: 380px;
+    margin: auto;
+    --slide-height: 19rem;
+    --slide-spacing: 0.0rem;
+    --slide-size: calc(100% / 6);
+    --slide-spacing-sm: 1.5rem;
+    --slide-size-sm: calc(100% / 6);
+    --slide-spacing-lg: 2rem;
+    --slide-size-lg: calc(100% / 7);
+  }
+
+  .embla__viewport {
+    overflow: hidden;
+  }
+
+  .embla__container {
+    backface-visibility: hidden;
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+
+
+  .embla__slide {
+    min-width: 0;
+    flex: 0 0 calc(100% / 2);
+    padding-left: var(--slide-spacing);
+  }
+
+  @media (min-width: 750px) {
+    .embla {
+      max-width: 640px;
+  }
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-sm) * -1);
+  }
+    .embla__slide {
+      flex: 0 0 calc(100% / 4);
+      padding-left: var(--slide-spacing-sm);
+    }
+  }
+
+  @media(min-width: 980px) {
+    .embla {
+      max-width: 780px;
+  }
+  .embla__slide {
+    flex: 0 0 calc(100% / 5);
+    padding-left: var(--slide-spacing-sm);
+  }
+}
+
+  @media(min-width: 1280px) {
+    .embla {
+      max-width: 1080px;
+  }
+  .embla__container {
+    margin-left: calc(var(--slide-spacing-lg) * -1);
+  }
+  
+  .embla__slide {
+    flex: 0 0 calc(100% / 7);
+    padding-left: var(--slide-spacing-lg);
+  }
+
+  @media(min-width: 1534px) {
+    .embla {
+      max-width: 1480px;
+  }
+}
+
+}
+
+.sostenibilidad-bg{
+  background: rgb(255,255,255);
+  background: -moz-linear-gradient(274deg, rgba(255,255,255,0) 41%, rgba(77,141,1,0.24702380952380953) 100%);
+  background: -webkit-linear-gradient(274deg, rgba(255,255,255,0) 41%, rgba(77,141,1,0.24702380952380953) 100%);
+  background: linear-gradient(274deg, rgba(255,255,255,0) 41%, rgba(77,141,1,0.24702380952380953) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#4d8d01",GradientType=1);
+}
+
+}
