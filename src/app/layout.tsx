@@ -7,6 +7,8 @@ import { Footer } from "@/components/UI/Footer";
 import { Video } from "@/components/VideoReciclar/Video";
 import { Suspense } from "react";
 import { SUBLINK_URL } from "@/lib/constant";
+import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const poppins = Poppins({
   weight: ['200', '300', '400', '600', '700', '800', '900'],
@@ -91,7 +93,9 @@ export default function RootLayout({
           <Video />
         </Suspense>
         <Footer />
+        <Analytics />
       </body>
+      <GoogleAnalytics gaId="G-V1FJVRKMDR" />
     </html>
   );
 }

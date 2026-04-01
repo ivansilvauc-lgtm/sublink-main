@@ -61,7 +61,7 @@ Key configuration:
 - **Metadata**: SEO metadata (canonical, og:image, etc.) set in page components using `SUBLINK_URL`
 - **Component Structure**: Each component in dedicated folder with `.tsx` file
 - **Import Pattern**: `import { SUBLINK_URL } from "@/lib/constant"`
-- **Root Layout**: Includes global JSON-LD schema, Poppins font config, metadata base, viewport settings, and Suspense-wrapped Video modal
+- **Root Layout**: Includes global JSON-LD schema, Poppins font config, metadata base, viewport settings, Vercel Analytics, Google Analytics, and Suspense-wrapped Video modal
 - **Dynamic Route Metadata**:
   - `generateMetadata()` async function pulls data from static arrays
   - `generateStaticParams()` for ISR/pre-rendering of dynamic routes
@@ -89,6 +89,7 @@ Deploys to Vercel with Next.js framework detection and standard build/output dir
 ## Key Dependencies
 
 - **Framework**: Next.js 14.2.2, React 18.2.0
+- **Analytics**: Vercel Analytics 1.3.1, Google Analytics (via @next/third-parties 14.2.2)
 - **UI Components**: Flowbite React 0.7.3
 - **Animation**: Framer Motion 11.2.12
 - **Carousel**: Embla Carousel (auto-scroll & React)
@@ -148,18 +149,24 @@ interface ITela {
 
 ### Sostenibilidad Page
 - **Location**: `src/app/sostenibilidad/page.tsx`
+- **Type**: Server-side rendered page
 - **Purpose**: Comprehensive sustainability and eco-friendly fabrics page
+- **Metadata**: Custom title, description, and keywords set for SEO
 - **Key Sections**:
-  - Hero with animated text and tree reveal components
-  - "¿Qué son las telas ecológicas?" - Definition and benefits of sustainable fabrics
+  - Hero with animated text and tree reveal components (leaf vector overlay)
+  - "¿Qué son las telas ecológicas?" - Definition and benefits of sustainable fabrics with bottle count visualization
   - "Por qué usar telas recicladas PET" - Four focus areas: Reciclaje, Calidad, Impacto Social, Diferenciación
-  - Embedded YouTube video (iframe) - Production process documentation
+  - Embedded YouTube video (iframe, ID: 0lTb4e28IMU) - Production process documentation
   - "Sostenibilidad" - Sublink's commitment and zero-waste policies
-  - "Nuestras Políticas" - Print-on-demand and zero-waste initiatives
+  - "Nuestras Políticas" - Print-on-demand and zero-waste initiatives with subsections
   - Partner logos (Sutex, Greentex, Lafayette)
   - Branded footer with leaf vectors and Sublink logo
 - **Styling**: Uses Tailwind + custom bg class (sostenibilidad-bg), green accent color (#619b55)
 - **Components Used**: TextReveal, TreeReveal, SublinkLogo (animated reveal components)
+- **Images**:
+  - `/img/sostenibilidad/vector-hojas.webp` - Hero leaf vector
+  - `/img/sostenibilidad/botellas-conteo.webp` - Bottle count visualization
+  - `/img/sostenibilidad/logo-sutex.png`, `logo-greentex.png`, `logo-lafayette.png` - Partner logos
 
 ## Notes
 
