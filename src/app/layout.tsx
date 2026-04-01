@@ -94,8 +94,8 @@ export default function RootLayout({
         </Suspense>
         <Footer />
         <Analytics />
+        <GoogleAnalytics gaId="G-V1FJVRKMDR" />
       </body>
-      <GoogleAnalytics gaId="G-V1FJVRKMDR" />
     </html>
   );
 }
