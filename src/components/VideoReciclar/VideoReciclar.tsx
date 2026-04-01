@@ -55,7 +55,7 @@ export const VideoReciclar = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ duration: 1, delay: 0.9 }}
-                        className="text-zinc-50 text-2xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-semibold">Descubre cómo se elaboran nuestras telas de poliéster reciclado</motion.p>
+                        className="text-zinc-50 text-2xl drop-shadow-[0_15px_15px_rgba(0,0,0,0.6)] font-semibold">Descubre cómo se elaboran las telas de poliéster reciclado</motion.p>
                     <Link href={{
                         pathname: '/',
                         query: { video: 'descubre-como-se-elaboran-nuestras-telas' },

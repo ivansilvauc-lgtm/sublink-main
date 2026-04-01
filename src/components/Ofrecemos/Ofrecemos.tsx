@@ -44,8 +44,9 @@ export const Ofrecemos = () => {
                 <h2 className="text-primary text-5xl sm:text-7xl font-bold text-center mt-24 tracking-tighter">
                     ¿Qué ofrecemos?
                 </h2>
-                <h1 className="text-center text-zinc-900 text-lg sm:text-xl mt-10">Servicio de sublimación textil a gran formato.</h1>
-                <h2 className="text-center text-zinc-900 text-lg sm:text-xl mt-1 mb-10 md:mb-0">Convertimos telas blancas en telas exclusivas con el print de tu preferencia.</h2>
+                <h1 className="text-center text-zinc-900 text-lg sm:text-xl mt-10 font-bold uppercase">Servicio de sublimación textil a gran formato.</h1>
+                <h2 className="text-center text-zinc-900 text-lg sm:text-xl mt-1 font-bold uppercase">Convertimos telas blancas en telas exclusivas con el print de tu preferencia.</h2>
+                <p className="text-center text-zinc-500 text-sm sm:text-base mt-3 mb-10 md:mb-0">Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología EPSON.</p>
             </div>
             <div className="flex flex-col md:flex-row justify-center items-center md:space-x-4 lg:space-x-10">
                 <div className="flex flex-row justify-center items-center my-4 md:my-20">
