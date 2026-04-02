@@ -75,12 +75,14 @@ Key configuration:
 
 ### Metadata & SEO
 - **Base Metadata**:
+  - Default title: `Sublink Company | Servicios de Estampados y Sublimación Textil`
   - Title template: `Sublink | %s` (dynamic pages)
   - Default keywords: telas, sublimacion, estampados, sublimacion textil, sublimacion continua, sublimacion digital, sublimacion por rollo, sublimacion por metro, sublimacion venezuela, sublimacion textil venezuela, estampados venezuela
+  - Authors: [{ name: 'Sublink Company' }, { name: 'Visual' }], Creator: Sublink, Publisher: Sublink
   - Canonical URLs based on SUBLINK_URL
   - OpenGraph: title, description, url, siteName, images (1200x630), locale (es_ES), type (website)
   - Robots: index, follow
-  - Default description: Personalizamos +40 tipos de telas a través de sublimación textil continua desde 1 metro hasta rollo completo, más etiquetas, vinil textil, DTF, corte laser e insumos
+  - Default description: Personalizamos +40 tipos de telas que tenemos disponibles, a través de la tecnología de Sublimación Textil Continua, con máquinas que permiten estampar el ancho de las telas en su totalidad, desde un metro hasta un rollo completo!. También ofrecemos etiquetas, vinil textil, DTF, corte laser, accesorios e insumos.
 
 - **Dynamic Route Metadata Pattern**:
   - `generateMetadata()` async function pulls data from static arrays (servicios or telas)
@@ -137,6 +139,10 @@ Key configuration:
 ```
 
 Deploys to Vercel with Next.js framework detection and standard build/output directories.
+
+**Google Site Verification**:
+- Verification file: `/public/googlee93a4b315cbce2f9.html` (deployed for Google Search Console)
+- Used for domain ownership verification in Google Search Console
 <!-- END AUTO-MANAGED -->
 
 ## Key Dependencies
@@ -198,14 +204,23 @@ interface ITela {
 ### Services Data (src/lib/servicios.ts)
 - `IServicios` interface defines service metadata
 - **Fields**: slug, title, subtitle, equipment_image, results_image, results_image_alt, description, details[], advantages[], sublink[], doit, metaTitle?, metaDescription?, keywords?
-- **Services**: sublimacion-textil-a-gran-formato, dtf-para-marquillas-laser-toner, dtf-industrial-continuo, corte-laser-textil (with full SEO metadata and structured content)
+- **Services (6 total)**:
+  - `sublimacion-textil-a-gran-formato`: Textile sublimation with EPSON plotters and continuous calandras (1.55m width, 10,000 m/month capacity)
+  - `dtf-para-marquillas-laser-toner`: DTF labels LASER TONER (A4, tabloide format, 1-hour express delivery)
+  - `dtf-industrial-continuo`: Industrial continuous DTF (60cm print width, durable 50-100 washes)
+  - `corte-laser-textil`: Laser textile cutting (double pointer machine, 1.8m x 2.4m work area)
+  - `etiquetas-nylon-y-silicon-monocromaticas`: Nylon and silicon monochromatic labels (black resin)
+  - `vinil-textil`: Textile vinyl with variety of finishes (reflective, glow in the dark, metallic)
 - **Dynamic Routing**: Services pages at `/servicios/[slug]`
 - **Metadata**: Dynamic metadata generation with SEO fields (metaTitle fallback to title, metaDescription fallback to description)
 
 ### Fabrics Data (src/lib/telas.ts)
 - Large static array of ITela objects with full data structures
 - **Export**: `export const telas: ITela[]`
-- **Categories**: Telas Importadas, Telas Nacionales, Telas Ecológicas (with corresponding category_slug values)
+- **Categories** (3 total):
+  - `Telas Ecológicas` (categoria_slug: `telas-ecologicas`): Recycled PET-based fabrics (Chiffon Liviano Eco, Toalla Microfibra, Lycra Ecológica, etc.)
+  - `Telas Importadas` (categoria_slug: `telas-importadas`): Premium imported fabrics (Loneta Soft, Lycra Lafayette, etc.)
+  - `Telas Nacionales` (categoria_slug: `telas-nacionales`): Domestic fabrics (Microfibra Nacional, etc.)
 - **Data Structure Per Fabric**:
   - Required: id, nombre, categoria, categoria_slug, slug, caracteristicas, descripcion, composition, ancho, peso, precio, usos, tejido, rotacion, base_ecologica, imagen_zoom, imagenes array, iconos array, colors array
   - All fabric records include both rotacion ("Si"/"No") for stamping capability and base_ecologica ("Si"/"No") for ecology classification
