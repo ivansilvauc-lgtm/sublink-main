@@ -93,14 +93,17 @@ Key configuration:
 ### Routing
 - **Dynamic Services**: `/servicios/[slug]` with servicios.find() lookup
 - **Dynamic Fabrics**: `/telas/[...slug]` with catch-all route (categoria_slug + slug)
+- **Blog Pages**: `/blog` (index), `/blog/[slug]` (individual posts, dynamic routing)
 - **Static Pages**: `/sostenibilidad` (sustainability), `/page.tsx` (home)
 
 ### Sitemap Generation (`src/app/sitemap.ts`)
 - Root: priority 1.0, frequency: monthly
 - `/sostenibilidad`: priority 0.9, frequency: yearly
+- `/blog`: priority 0.8, frequency: weekly (index page)
+- Blog posts: priority 0.7, frequency: monthly (dynamic from blogPosts array)
 - Servicios: priority 0.8, frequency: monthly
 - Telas: priority 0.6, frequency: monthly
-- All entries: lastModified: new Date()
+- All entries: lastModified: new Date() (blog posts use post.fecha)
 
 ### Image Handling
 - **Next.js Image component** for optimization
@@ -214,6 +217,31 @@ interface ITela {
 - **Dynamic Routing**: Services pages at `/servicios/[slug]`
 - **Metadata**: Dynamic metadata generation with SEO fields (metaTitle fallback to title, metaDescription fallback to description)
 
+### Blog Data (src/lib/blog.ts)
+- **BlogPost Interface**:
+  - `slug`: string (URL identifier, kebab-case)
+  - `titulo`: string (article title in Spanish)
+  - `descripcion`: string (short description for preview)
+  - `fecha`: string (publication date, YYYY-MM-DD format)
+  - `autor`: string (author name, e.g., "Sublink Textil")
+  - `categoria`: string (category tag, e.g., "Guías de Telas", "Tendencias")
+  - `imagen`: string (featured image path, webp format)
+  - `tiempoLectura`: string (estimated read time, e.g., "5 min")
+  - `keywords`: string[] (SEO keywords array)
+- **Blog Posts Array** (blogPosts: BlogPost[]):
+  - "telas-para-trajes-de-bano": Swimsuit fabric guide (Lycra, Microfibra comparison)
+  - "print-on-demand-modelo-actual": POD business model guide (sublimation, startup steps)
+- **Helper Functions**:
+  - `getBlogPost(slug: string)`: Find post by slug
+  - `getAllSlugs()`: Get all post slugs for routing
+- **Dynamic Routing**: Blog posts at `/blog/[slug]` load content from imported React components
+- **Content Components**: Post content rendered from `.tsx` files in `/src/app/blog/posts/` directory
+- **Metadata**: Dynamic generation with canonical URLs, OpenGraph, keywords
+- **Usage**: Consumed by:
+  - `/app/blog/page.tsx` (index, sorted by fecha descending)
+  - `/app/blog/[slug]/page.tsx` (individual posts with generateStaticParams)
+  - `/app/sitemap.ts` for blog post sitemap entries
+
 ### Fabrics Data (src/lib/telas.ts)
 - Large static array of ITela objects with full data structures
 - **Export**: `export const telas: ITela[]`
@@ -275,15 +303,44 @@ interface ITela {
 ### Footer Component
 - **Location**: `src/components/UI/Footer.tsx`
 - **Type**: Client component (`"use client"`)
-- **Purpose**: Page footer with contact info and company details
+- **Purpose**: Page footer with contact info, blog link, and company details
 - **Layout**: Three-column responsive layout with flex-col lg:flex-row
   - Left: Location info with localization icon - Address: "Av. 137, CC IMPERIAL II 3-08, PISO 3 (frente al CC Galeria), Valencia, Carabobo, Venezuela" with phone "+58 424-4067274"
   - Center: "SUBLINK COMPANY" text-4xl bold heading with "Quiénes Somos" text-2xl subtext
+    - Added links: "📝 Blog Textil" (text-blue-300 hover:text-white, href="/blog")
+    - Added link: "♻️ Sostenibilidad" (text-lime-300 hover:text-white, href="/sostenibilidad")
   - Right: Three contact items - Email (sublinkve@gmail.com), Instagram link (sublink.ve), Hours ("We are open from: MON - FRI 8:30 am - 4:30 pm")
 - **Styling**: footer-bg class with responsive text sizes (text-base sm:text-xs md:text-sm xl:text-base on left, text-zinc-50)
 - **Icon Sizing**: localization icon w-8 xl:w-10; email/instagram/horario icons w-5 sm:w-6 xl:w-10
 - **Responsive**: flex-col lg:flex-row with items-center lg:items-start, gap-10 lg:gap-0
 - **Assets**: Icons from `/assets/` directory (localization.svg, email.svg, instagram.svg, horario.svg)
+
+### Blog Pages (Dynamic)
+- **Blog Index** (`src/app/blog/page.tsx`):
+  - Server component with metadata export (title, description, keywords, canonical, openGraph)
+  - Displays all blog posts sorted by fecha descending (newest first)
+  - Grid layout: grid-cols-1 md:grid-cols-2 with gap-8
+  - Each article card: Image (h-52), category badge, title, description (line-clamp-3), date, read article link
+  - CTA section: Blue background with WhatsApp contact button
+  - Helper: formatFecha() function for es-VE locale date formatting
+- **Blog Post Detail** (`src/app/blog/[slug]/page.tsx`):
+  - Dynamic routing with generateStaticParams() from blogPosts array
+  - Loads content from mapped React components (contentMap)
+  - Dynamic metadata generation: title, description, keywords, canonical, openGraph with image
+  - Layout: Breadcrumb navigation > Article header > Featured image > Article content (prose styling) > Related articles (2 max) > CTA WhatsApp section
+  - JSON-LD Article schema embedded (headline, description, image, datePublished, author)
+  - Prose styling: Custom typography classes (prose-h2, prose-h3, prose-a, prose-strong, prose-table)
+  - Related articles: Filtered to exclude current post, max 2 cards with image thumbnails
+  - Error handling: notFound() if slug or content component missing
+- **Blog Post Content** (`src/app/blog/posts/*.tsx`):
+  - "telas-para-trajes-de-bano.tsx": Swimwear fabric guide with product comparison table, care instructions
+  - "print-on-demand-modelo-actual.tsx": POD business model guide with startup steps, fabric compatibility box, success callouts
+  - Both use React component exports, markdown-style content with headings, lists, tables
+  - Custom styling: blockquotes (bg-blue-50 border-l-4 border-blue-600), info boxes (bg-gray-50 border border-gray-200), callouts (rounding, padding)
+  - Internal links: e.g., `/telas/telas-importadas/lycra-lafayette` for related fabric products
+- **Navbar Integration** (`src/components/Header/Navbar.tsx`):
+  - Added "BLOG" nav item to desktop menu (text-gray-700 hover:text-blue-500, href="/blog")
+  - Blog link appears in main navigation alongside TELAS, TELAS ECO, SERVICIOS, SOSTENIBILIDAD
 
 ### Video Component (Modal)
 - **Location**: `src/components/VideoReciclar/Video.tsx`
@@ -474,9 +531,10 @@ interface ITela {
 - **OpenGraph**: All pages include title, description, image, siteName, locale (es_ES) for social sharing
 
 ### Data Management
-- **Static Data Arrays**: Services and fabrics data stored in `src/lib/servicios.ts` and `src/lib/telas.ts`
-- **Type Safety**: TypeScript interfaces (ITela, IServicios) ensure data consistency
+- **Static Data Arrays**: Services, fabrics, and blog data stored in `src/lib/servicios.ts`, `src/lib/telas.ts`, and `src/lib/blog.ts`
+- **Type Safety**: TypeScript interfaces (ITela, IServicios, BlogPost) ensure data consistency
 - **Lookup Pattern**: Dynamic pages find relevant data using `.find()` on slug parameter
+- **Blog Content Pattern**: Blog post content loaded from React component files mapped by slug (contentMap)
 
 ### Video & Media
 - **Modal Video**: URL-based activation pattern via search param `?video=descubre-como-se-elaboran-nuestras-telas`
@@ -491,9 +549,14 @@ interface ITela {
 
 ### File Structure
 - **Constants**: Single source of truth at `src/lib/constant.ts` (SUBLINK_URL)
+- **Data Modules**:
+  - `src/lib/servicios.ts` - Services array and IServicios interface
+  - `src/lib/telas.ts` - Fabrics array and ITela interface
+  - `src/lib/blog.ts` - Blog posts array, BlogPost interface, helper functions (getBlogPost, getAllSlugs)
+- **Blog Content**: React component files in `src/app/blog/posts/` directory (telas-para-trajes-de-bano.tsx, print-on-demand-modelo-actual.tsx)
 - **Models**: Data interfaces in `src/model/tela.ts` with Iconos enum and IconosAlt mapping
 - **Components**: Organized by feature (Header, UI, Sostenibilidad, Detalles, VideoReciclar, etc.)
-- **Assets**: Images stored in `/public/img/` organized by feature directory
+- **Assets**: Images stored in `/public/img/` organized by feature directory, webp format preferred
 
 ### Analytics & Tracking
 - **Vercel Analytics**: Integrated for performance monitoring and Web Vitals
@@ -513,3 +576,4 @@ interface ITela {
 - **flowbite-react@0.7.3**: Pre-built UI components
 - **sharp@0.33.3**: Image processing for optimization
 <!-- END AUTO-MANAGED -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

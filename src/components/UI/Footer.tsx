@@ -1,5 +1,6 @@
 "use client"
 import Image from "next/image"
+import Link from "next/link"
 
 export const Footer = () => {
     return (
@@ -19,6 +20,12 @@ export const Footer = () => {
                 <div className="flex flex-col items-center gap-3">
                 <h3 className="text-zinc-50 text-4xl text-center font-semibold">SUBLINK COMPANY</h3>
                 <span className="text-zinc-300 text-2xl cursor-default">Quiénes Somos</span>
+                <Link href="/blog" className="text-blue-300 hover:text-white text-lg font-semibold transition-colors">
+                  📝 Blog Textil
+                </Link>
+                <Link href="/sostenibilidad" className="text-lime-300 hover:text-white text-sm transition-colors">
+                  ♻️ Sostenibilidad
+                </Link>
                 </div>
                 <div className="w-full lg:w-fit">
                 <ul className="text-zinc-50 text-sm lg:text-lg flex flex-col sm:flex-row lg:flex-col gap-2 lg:gap-5 items-center sm:items-start w-full justify-center sm:justify-between">
