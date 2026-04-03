@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export const PrintOnDemandSection = () => {
   return (
-    <section className="w-full bg-white py-20 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+    <section className="w-full bg-white py-14 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
         {/* Left: Text content */}
         <div>
@@ -14,10 +14,9 @@ export const PrintOnDemandSection = () => {
             Estampa tus diseños<br />en cualquier tela
           </h2>
 
-          <ul className="space-y-4 mb-10">
+          <ul className="space-y-3 mb-6">
             {[
               "Impresión desde 1 metro hasta rollo completo",
-              "Tecnología EPSON de alta definición y durabilidad",
               "Compatible con más de 25 telas",
               "Colores vibrantes que no se caen con los lavados ni se agrietan",
             ].map((item, i) => (
@@ -32,9 +31,27 @@ export const PrintOnDemandSection = () => {
             ))}
           </ul>
 
+          {/* Technology line + logos */}
+          <p className="text-sm text-gray-500 mb-3">
+            Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni.
+          </p>
+          <div className="flex items-center gap-4 mb-8">
+            {/* Epson logo chip */}
+            <div className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5">
+              <svg viewBox="0 0 80 22" className="h-5 w-auto" aria-label="Epson">
+                <text x="0" y="17" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="#003087" letterSpacing="1">EPSON</text>
+              </svg>
+            </div>
+            {/* Monti Antoni logo chip */}
+            <div className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5">
+              <svg viewBox="0 0 120 22" className="h-5 w-auto" aria-label="Monti Antoni">
+                <text x="0" y="17" fontFamily="Georgia, serif" fontWeight="bold" fontSize="14" fill="#1a1a1a" letterSpacing="0.5">MONTI ANTONIO</text>
+              </svg>
+            </div>
+          </div>
+
           {/* Buttons — ambos inactivos */}
           <div className="flex flex-col sm:flex-row gap-4">
-            {/* Print FREE — inactivo (próximamente) */}
             <button
               disabled
               title="Próximamente"
@@ -44,7 +61,6 @@ export const PrintOnDemandSection = () => {
               <span className="text-xs font-normal normal-case opacity-80">(próximamente)</span>
             </button>
 
-            {/* Sube tu Print — inactivo */}
             <button
               disabled
               title="Próximamente"

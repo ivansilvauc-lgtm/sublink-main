@@ -160,7 +160,34 @@ export const servicios: IServicios[] = [
         sublink: [
             "En Sublink tenemos una gran variedad de viniles textiles para aplicación térmica de texturas y colores especiales, reflectivos, glow in the dark, metalizados, entre otros.",
         ],
-        doit: "¡Utiliza esta poderosa y versátil técnica para la personalización de tus prendas y accesorios para realzar tus prendas!"      
+        doit: "¡Utiliza esta poderosa y versátil técnica para la personalización de tus prendas y accesorios para realzar tus prendas!"
+    },
+    {
+        slug: "servicio-de-costura",
+        title: "Servicio de Costura",
+        subtitle: "",
+        equipment_image: "/img/servicios/6.webp",
+        results_image: "/img/servicios/7.webp",
+        results_image_alt: "Prendas confeccionadas en Sublink",
+        metaTitle: "Servicio de Costura Textil en Venezuela | Sublink Company",
+        metaDescription: "Servicio de costura y confección textil en Venezuela. Confeccionamos tus prendas con las telas de tu elección, con acabados de calidad y entregas a tiempo.",
+        keywords: ["costura venezuela", "confeccion textil venezuela", "confeccion de prendas", "taller de costura valencia venezuela", "servicio costura sublink"],
+        description: "En Sublink ofrecemos un servicio integral de costura y confección textil. Damos vida a tus diseños transformando nuestras telas en prendas terminadas, con el nivel de detalle y calidad que tu marca merece.",
+        details: [
+            "Nuestro servicio de costura está orientado a marcas, emprendedores y talleres de confección que buscan un aliado confiable para la producción de sus prendas. Trabajamos con las telas de nuestro catálogo o con las tuyas, y confeccionamos desde pequeñas corridas hasta volúmenes medianos.",
+            "El proceso incluye la revisión del patrón o muestra de referencia, la selección del material, el corte y la confección con máquinas industriales, y la entrega de la prenda terminada con el acabado acordado.",
+        ],
+        advantages: [
+            "Producción desde pequeñas cantidades.",
+            "Trabajamos con telas propias o del cliente.",
+            "Acabados de calidad con máquinas industriales.",
+            "Posibilidad de sublimar, estampar o colocar marquillas en el mismo proceso.",
+            "Tiempos de entrega pactados desde el inicio.",
+        ],
+        sublink: [
+            "En Sublink integramos el servicio de costura con nuestro ecosistema textil: sublimación, corte láser y etiquetado, para que puedas recibir tu prenda 100% terminada en un solo lugar.",
+        ],
+        doit: "¡Convierte tu idea en una prenda real con nuestro servicio de costura profesional!"
     },
 
 ]

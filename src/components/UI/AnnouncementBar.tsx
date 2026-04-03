@@ -13,7 +13,7 @@ export const AnnouncementBar = () => {
   if (!ANNOUNCEMENT.active) return null;
 
   return (
-    <div className="w-full bg-[#157ec2] text-white text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2 flex-wrap">
+    <div className="w-full bg-zinc-900 text-white text-sm font-semibold py-2 px-4 text-center flex items-center justify-center gap-2 flex-wrap">
       <span>{ANNOUNCEMENT.text}</span>
       {ANNOUNCEMENT.link && (
         <Link

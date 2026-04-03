@@ -50,6 +50,7 @@ src/
 │   ├── FabricSelector/
 │   ├── DeadStock/
 │   ├── PrintOnDemand/
+│   ├── Logos/        # LogoCarousel component for client logos display
 │   └── ...
 ├── lib/
 │   ├── constant.ts   # Application constants (SUBLINK_URL)
@@ -200,19 +201,40 @@ Key configuration:
 - **Keyboard/Mouse Control**: Implement toggleAutoplay callback to manage play/stop state via API hooks
 - **Slide Generation**: Create slides array from data, map through with .map() for index-based rendering
 
-### Home Page (page.tsx)
+### LogoCarousel Component
+- **Location**: `src/components/Logos/LogoCarousel.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Displays scrolling carousel of client logos with automatic playback
+- **Dependencies**: embla-carousel-react, embla-carousel-auto-scroll, next/image
+- **Slide Data**: slides array generated from 25 pairs of logo indices [[1,2], [3,4], ..., [49,50]]
+- **Carousel Setup**: embla-carousel-react with loop: true, AutoScroll plugin (playOnInit: true, speed: 1)
+- **Auto-Play Logic**:
+  - toggleAutoplay callback manages play/stop state via autoScroll plugin API
+  - useEffect triggers toggleAutoplay() on component mount with empty dependency array
+  - eslint-disable-next-line react-hooks/exhaustive-deps comment allows intentional hook omission
+- **Layout**:
+  - Section: my-40 pointer-events-none with h2 title "Clientes que han confiado en nosotros" (text-primary text-5xl font-bold)
+  - Embla viewport/container structure: embla > embla__viewport > embla__container
+  - Slides mapped with index key, flex flex-col items-center justify-center gap-y-6
+  - Two-image layout per slide: w-36 h-36 containers with shadow-md bg-zinc-50
+  - Images: Next.js Image component (width/height: 80, aspect-[1/1]) loading SVGs from `/assets/logos-clientes/{number}.svg`
+
+### Home Page (src/app/page.tsx)
 - **Component Structure**: Composition pattern with sequential section imports and layout
 - **Section Order**: Slider > Ofrecemos > VideoReciclar > FabricSelector > PrintOnDemandSection > Estampacion > Counter > LogoCarousel > GoogleReviewsBadge (bottom)
+- **Imports**: Counter, Estampacion, LogoCarousel, Ofrecemos, Slider, VideoReciclar, PrintOnDemandSection, GoogleReviewsBadge, FabricSelector
 - **Main Container**: flex flex-col items-center justify-between for full-width responsive sections
-- **GoogleReviewsBadge**: Positioned at bottom in centered div (w-full flex justify-center py-10 bg-gray-50 border-t border-gray-100)
+- **GoogleReviewsBadge**: Positioned at bottom in centered div (w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100)
 
 ### FabricSelector Component
 - **Location**: `src/components/FabricSelector/FabricSelector.tsx`
 - **Type**: Client component (`"use client"`)
 - **Purpose**: Interactive fabric discovery tool with product-use category filtering and line art icons
-- **Icons**: 13 SVG line art icons for product categories (TrajesDeBano, Pareo, Short, Moda, Muebles, Chaqueta, Toalla, SalidaDeBano, ToteBag, Mantel, Delantal, Uniforme, Pijama)
-- **Category Type**: CategoryKey type with 13 keys: trajes, pareo, short, moda, muebles, chaqueta, toalla, salidabano, totebag, mantel, delantal, uniforme, pijama
-- **Categories**: 13 items with key, label (Spanish), Icon (React.FC with className prop)
+- **Icons**: 14 SVG line art icons for product categories (TrajesDeBano, Pareo, Short, Moda, Muebles, Chaqueta, Toalla, SalidaDeBano, ToteBag, Mantel, Delantal, Uniforme, Pijama, Camisa)
+- **Category Type**: CategoryKey type with 14 keys: trajes, pareo, short, moda, muebles, chaqueta, toalla, salidabano, totebag, mantel, delantal, uniforme, pijama, camisa
+- **Categories**: 14 items with key, label (Spanish), Icon (React.FC with className prop)
+  - All icons use SVG line art style with viewBox="0 0 48 48", stroke-based design (stroke="currentColor", strokeWidth="1.5"), strokeLinecap="round", strokeLinejoin="round"
+  - Camisa icon: dress shirt form with collar and button line detail
 - **State Management**: activeCategory tracks selected category (string, CategoryKey type)
 - **Fabric Data Structure**: fabricsByCategory Record<CategoryKey, FabricCard[]> with 5-6 fabrics per category
   - FabricCard interface: nombre, slug, categoria_slug, imagen, usos, tag? (optional badge)
@@ -255,19 +277,38 @@ Key configuration:
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
   - Type: Client component (`"use client"`)
   - ANNOUNCEMENT object with properties: text (emoji + offer text), link (href), linkText, active (boolean flag)
-  - Returns null if ANNOUNCEMENT.active === false
-  - Styling: w-full bg-[#157ec2] text-white text-sm font-semibold py-2 px-4
-  - Layout: flex items-center justify-center gap-2 flex-wrap for responsive wrapping
-  - Text spans announcement, Link component with underline-offset-2 hover:text-blue-100 for CTA
-  - Easy edit point: Change ANNOUNCEMENT properties to update monthly offers
+  - Current announcement: "10% de descuento en Lycra Lafayette al mayor" linking to `/telas/telas-importadas/lycra-lafayette`
+  - Returns null if ANNOUNCEMENT.active === false (set active: false to hide banner without removing component)
+  - Styling: w-full bg-zinc-900 text-white text-sm font-semibold py-2 px-4
+  - Layout: flex items-center justify-center gap-2 flex-wrap for responsive center alignment
+  - Link styling: underline underline-offset-2 hover:text-blue-100 transition-colors whitespace-nowrap
+  - Maintenance: Edit ANNOUNCEMENT object at top of file to change monthly promotions
+
+### UI Components - GoogleReviewsBadge
+- **GoogleReviewsBadge** (`src/components/UI/GoogleReviews.tsx`):
+  - Type: Functional component (Server-renderable, no hooks)
+  - Purpose: Display Google Reviews credibility badge with 4.8 rating
+  - Google Link: `https://g.co/kgs/sublink` (target="_blank", rel="noopener noreferrer")
+  - Accessibility: aria-label="Ver reseñas en Google"
+  - Badge Container: inline-flex items-center gap-3, bg-white border border-gray-200, rounded-xl px-5 py-3, shadow-sm with hover:shadow-md transition
+  - Google Logo: SVG with brand colors (G logo using #4285F4 blue, #34A853 green, #FBBC05 yellow, #EA4335 red from official Google brand palette)
+  - Rating Display: "4.8" text (text-sm font-bold text-gray-800) + 5-star icon set (w-3.5 h-3.5)
+    - Stars 1-4: text-yellow-400 (full stars)
+    - Star 5: text-yellow-300 (lighter shade for visual variation)
+  - Label: "Google Reviews" text (text-xs text-gray-500)
+  - Usage: Imported and rendered in home page (src/app/page.tsx) as social proof element at bottom
 
 ### Service Sections
 - **PrintOnDemandSection** (`src/components/PrintOnDemand/PrintOnDemand.tsx`):
   - Type: Server component (no `"use client"`)
-  - Layout: w-full bg-white py-20 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center
-  - Left column: Badge (inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] "Sublimación Digital"), h2 title (text-3xl md:text-4xl font-bold text-gray-900), feature list, button section
-  - Feature list: 4 items with checkmark icons (w-5 h-5 bg-[#157ec2] rounded-full), text-gray-600, mapped array with .map()
-  - Features: "Impresión desde 1 metro hasta rollo completo", "Tecnología EPSON de alta definición y durabilidad", "Compatible con más de 25 telas", "Colores vibrantes que no se caen con los lavados ni se agrietan"
+  - Layout: w-full bg-white py-14 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center
+  - Left column:
+    - Badge (inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] "Sublimación Digital")
+    - h2 title (text-3xl md:text-4xl font-bold text-gray-900) "Estampa tus diseños\nen cualquier tela"
+    - Feature list: 3 items with checkmark icons (w-5 h-5 bg-[#157ec2] rounded-full), text-gray-600, mapped from array
+    - Features: "Impresión desde 1 metro hasta rollo completo", "Compatible con más de 25 telas", "Colores vibrantes que no se caen con los lavados ni se agrietan"
+    - Technology note: "Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni."
+    - Logo chips: EPSON and MONTI ANTONIO SVG logos in border-gray-200 containers
   - Buttons: Both disabled (disabled attribute), inactive styling
     - "Print FREE" button (bg-[#157ec2]/50 text-white, title="Próximamente", cursor-not-allowed)
     - "🔒 Sube tu Print" button (border-2 border-gray-200 text-gray-400, title="Próximamente", cursor-not-allowed)
@@ -353,13 +394,14 @@ interface ITela {
 ### Services Data (src/lib/servicios.ts)
 - `IServicios` interface defines service metadata
 - **Fields**: slug, title, subtitle, equipment_image, results_image, results_image_alt, description, details[], advantages[], sublink[], doit, metaTitle?, metaDescription?, keywords?
-- **Services (6 total)**:
-  - `sublimacion-textil-a-gran-formato`: Textile sublimation with EPSON plotters and continuous calandras (1.55m width, 10,000 m/month capacity)
-  - `dtf-para-marquillas-laser-toner`: DTF labels LASER TONER (A4, tabloide format, 1-hour express delivery)
-  - `dtf-industrial-continuo`: Industrial continuous DTF (60cm print width, durable 50-100 washes)
-  - `corte-laser-textil`: Laser textile cutting (double pointer machine, 1.8m x 2.4m work area)
-  - `etiquetas-nylon-y-silicon-monocromaticas`: Nylon and silicon monochromatic labels (black resin)
-  - `vinil-textil`: Textile vinyl with variety of finishes (reflective, glow in the dark, metallic)
+- **Services (8 total)**:
+  - `sublimacion-textil-a-gran-formato`: Textile sublimation (EPSON & Monti Antoni calandras, 1.55m width, 10,000 m/month capacity, 200°C heat transfer process)
+  - `dtf-para-marquillas-laser-toner`: DTF labels LASER TONER (A4, tabloide format, 1-hour express delivery, 50+ wash durability)
+  - `dtf-industrial-continuo`: Industrial continuous DTF (60cm print width, 50-100 wash durability, full personalization)
+  - `corte-laser-textil`: Laser textile cutting (double pointer machine, 1.8m x 2.4m work area, edge sealing on synthetics)
+  - `etiquetas-nylon-y-silicon-monocromaticas`: Nylon and silicon monochromatic labels (black resin, water/heat resistant to 50°C)
+  - `vinil-textil`: Textile vinyl HTV (variety of finishes: reflective, glow in the dark, metallic, 50 wash durability)
+  - `servicio-de-costura`: Sewing and textile confection (small to medium volumes, integrated with sublimation/laser/labeling services, patterns, cutting, industrial machines, quality finishes)
 - **Dynamic Routing**: Services pages at `/servicios/[slug]`
 - **Metadata**: Dynamic metadata generation with SEO fields (metaTitle fallback to title, metaDescription fallback to description)
 
@@ -393,17 +435,19 @@ interface ITela {
 - Large static array of ITela objects with full data structures
 - **Export**: `export const telas: ITela[]`
 - **Categories** (3 total):
-  - `Telas Ecológicas` (categoria_slug: `telas-ecologicas`): Recycled PET-based fabrics (Chiffon Liviano Eco, Toalla Microfibra, Lycra Ecológica, etc.)
-  - `Telas Importadas` (categoria_slug: `telas-importadas`): Premium imported fabrics (Loneta Soft, Lycra Lafayette, etc.)
+  - `Telas Ecológicas` (categoria_slug: `telas-ecologicas`): Recycled PET-based fabrics (Chiffon Liviano Eco, Chiffon Textura de Lino, Malla Chiffon Pesada, Moda Colombiana, Lycra Ecológica, Toalla Microfibra)
+  - `Telas Importadas` (categoria_slug: `telas-importadas`): Premium imported fabrics (Loneta Soft, etc.)
   - `Telas Nacionales` (categoria_slug: `telas-nacionales`): Domestic fabrics (Microfibra Nacional, etc.)
 - **Data Structure Per Fabric**:
   - Required: id, nombre, categoria, categoria_slug, slug, caracteristicas, descripcion, composition, ancho, peso, precio, usos, tejido, rotacion, base_ecologica, imagen_zoom, imagenes array, iconos array, colors array
   - All fabric records include both rotacion ("Si"/"No") for stamping capability and base_ecologica ("Si"/"No") for ecology classification
+  - Fabric specifications include: ancho (width in m), peso (weight in gr/m²), composition (fiber content), tejido (weave type), usos (applications), with full image galleries
 - **Dynamic Routing**: Fabrics pages at `/telas/[categoria_slug]/[slug]` use slug and categoria_slug for lookups
 - **Metadata**: Dynamic metadata generation from telas array via generateMetadata in page.tsx
 - **Usage**: Consumed by:
   - `/app/telas/[...slug]/page.tsx` for dynamic page generation and recommendations
   - `/app/telas/[...slug]/page.tsx generateStaticParams()` for pre-rendering all fabric routes
+  - FabricSelector component for browsing by use-case category
   - InteractiveImage component for hotspot fabric links
   - Ofrecemos component for filtered fabric displays (eco vs non-eco)
 <!-- END AUTO-MANAGED -->

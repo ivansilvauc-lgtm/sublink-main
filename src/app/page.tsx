@@ -24,7 +24,7 @@ export default function Home() {
       <LogoCarousel />
 
       {/* Google Reviews — justo antes del footer */}
-      <div className="w-full flex justify-center py-10 bg-gray-50 border-t border-gray-100">
+      <div className="w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100">
         <GoogleReviewsBadge />
       </div>
     </main>

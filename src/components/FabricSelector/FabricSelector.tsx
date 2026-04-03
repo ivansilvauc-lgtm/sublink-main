@@ -45,18 +45,23 @@ const Icons: Record<string, React.FC<{ className?: string }>> = {
   ),
   Muebles: ({ className }) => (
     <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Armchair */}
-      <path d="M10 20 Q8 20 8 26 L8 36 L14 36" />
-      <path d="M38 20 Q40 20 40 26 L40 36 L34 36" />
-      <path d="M14 36 L34 36" />
-      <path d="M14 26 Q14 20 24 20 Q34 20 34 26" />
-      <path d="M8 26 L14 26" />
-      <path d="M40 26 L34 26" />
-      <path d="M14 26 L14 36" />
-      <path d="M34 26 L34 36" />
-      <path d="M10 16 Q10 12 24 12 Q38 12 38 16 L38 20 Q24 24 10 20 Z" />
-      <line x1="12" y1="36" x2="12" y2="42" />
-      <line x1="36" y1="36" x2="36" y2="42" />
+      {/* Sofa with cushions */}
+      <path d="M8 22 Q8 18 12 18 L36 18 Q40 18 40 22 L40 34 L8 34 Z" />
+      <path d="M8 28 L40 28" />
+      <path d="M18 18 L18 28" />
+      <path d="M30 18 L30 28" />
+      {/* Arm rests */}
+      <path d="M6 24 Q6 20 8 20 L8 34 L6 34 Q4 34 4 30 L4 26 Q4 24 6 24 Z" />
+      <path d="M42 24 Q42 20 40 20 L40 34 L42 34 Q44 34 44 30 L44 26 Q44 24 42 24 Z" />
+      {/* Legs */}
+      <line x1="10" y1="34" x2="10" y2="40" />
+      <line x1="38" y1="34" x2="38" y2="40" />
+      <line x1="20" y1="34" x2="20" y2="39" />
+      <line x1="28" y1="34" x2="28" y2="39" />
+      {/* Cushion details */}
+      <path d="M10 22 Q14 20 18 22" />
+      <path d="M22 22 Q26 20 30 22" />
+      <path d="M32 22 Q36 20 38 22" />
     </svg>
   ),
   Chaqueta: ({ className }) => (
@@ -134,6 +139,20 @@ const Icons: Record<string, React.FC<{ className?: string }>> = {
       <path d="M22 44 Q24 46 26 44" />
     </svg>
   ),
+  Camisa: ({ className }) => (
+    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Dress shirt / camisa */}
+      <path d="M18 4 L10 10 L6 20 L12 20 L12 44 L36 44 L36 20 L42 20 L38 10 L30 4" />
+      <path d="M18 4 Q20 8 24 8 Q28 8 30 4" />
+      {/* Collar */}
+      <path d="M18 4 L22 12 L24 10 L26 12 L30 4" />
+      {/* Button placket */}
+      <line x1="24" y1="10" x2="24" y2="36" />
+      <circle cx="24" cy="18" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="24" cy="24" r="0.8" fill="currentColor" stroke="none" />
+      <circle cx="24" cy="30" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  ),
 };
 
 // ── Category definitions ─────────────────────────────────────────────────────
@@ -151,7 +170,8 @@ type CategoryKey =
   | "mantel"
   | "delantal"
   | "uniforme"
-  | "pijama";
+  | "pijama"
+  | "camisa";
 
 interface Category {
   key: CategoryKey;
@@ -173,6 +193,7 @@ const categories: Category[] = [
   { key: "delantal",  label: "Delantales",       Icon: Icons.Delantal },
   { key: "uniforme",  label: "Uniformes",        Icon: Icons.Uniforme },
   { key: "pijama",    label: "Pijamas",          Icon: Icons.Pijama },
+  { key: "camisa",    label: "Camisas",          Icon: Icons.Camisa },
 ];
 
 // ── Fabric cards ─────────────────────────────────────────────────────────────
@@ -261,6 +282,13 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
     { nombre: "Crepe Nacional",   slug: "crepe-nacional",   categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/crepe-nacional-zoom.webp",       usos: "Pijamas, conjuntos" },
     { nombre: "Seda Nacional Betty", slug: "seda-nacional-betty", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/seda-nacional-betty-zoom.webp", usos: "Pijamas de seda", tag: "Premium" },
   ],
+  camisa: [
+    { nombre: "Lino Poliéster",      slug: "lino-poliester",      categoria_slug: "telas-importadas", imagen: "/img/telas/telas-especiales/lino-poliester-zoom.webp",       usos: "Camisas, guayaberas, blusas" },
+    { nombre: "Moda Colombiana",     slug: "moda-colombiana",     categoria_slug: "telas-ecologicas", imagen: "/img/telas/telas-ecologicas/moda-colombiana-zoom.webp",       usos: "Camisas casual, blusas" },
+    { nombre: "Seda Nacional Betty", slug: "seda-nacional-betty", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/seda-nacional-betty-zoom.webp",   usos: "Camisas de vestir", tag: "Premium" },
+    { nombre: "Crepe Nacional",      slug: "crepe-nacional",      categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/crepe-nacional-zoom.webp",        usos: "Camisas fluidas, blusas" },
+    { nombre: "Muselina",            slug: "muselina",            categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/muselina-zoom.webp",              usos: "Franelas, camisas básicas" },
+  ],
 };
 
 // ── Tag colors ───────────────────────────────────────────────────────────────
@@ -282,7 +310,7 @@ export const FabricSelector = () => {
   const selectedCat = categories.find((c) => c.key === selected);
 
   return (
-    <section className="w-full bg-[#f9f7f4] py-20 px-4">
+    <section className="w-full bg-[#f9f7f4] py-14 px-4">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}

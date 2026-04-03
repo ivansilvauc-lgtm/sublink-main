@@ -3,7 +3,11 @@ import { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll';
-const slides = Array.from({ length: 25 }, (_, i) => [2 * i + 1, 2 * i + 2]).slice(0, -1).concat([[49,50]]);
+const LOGOS = [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50];
+const slides = LOGOS.reduce<number[][]>((acc, logo, i) => {
+  if (i % 2 === 0) acc.push([logo, LOGOS[i + 1]].filter(Boolean) as number[]);
+  return acc;
+}, []);
 
 export const LogoCarousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [

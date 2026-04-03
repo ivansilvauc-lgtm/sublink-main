@@ -348,6 +348,36 @@ export const telas: ITela[] = [
         id: "TI009"
     },
     {
+        nombre: 'Microdurazno',
+        categoria: 'Telas Importadas',
+        categoria_slug: 'telas-importadas',
+        slug: 'microdurazno',
+        descripcion: 'El Microdurazno es un tejido técnico de microfibra con un acabado superficial suave y aterciopelado, similar al tacto de la piel de un durazno. Es transpirable, de secado rápido y con excelente caída. Su superficie suave lo hace ideal para prendas deportivas, franelas de alto rendimiento y ropa casual que requiere comodidad y estilo. Compatible con sublimación.',
+        composition: '100% Poliéster',
+        ancho: 1.55,
+        peso: 150,
+        precio: 12,
+        usos: 'Franelas, deporte, uniformes.',
+        tejido: 'Punto',
+        rotacion: 'Si',
+        base_ecologica: 'No',
+        imagenes: [
+            "/img/telas/telas-importadas/dri-fit-peruano-1.webp",
+        ],
+        iconos: [
+            Iconos.PesoLigero,
+            Iconos.SoftTouch,
+            Iconos.SecadoRapido,
+            Iconos.Transpirable,
+        ],
+        colors: [
+            '#f1f1f1'
+        ],
+        caracteristicas: "Microdurazno",
+        imagen_zoom: "/img/telas/telas-importadas/dri-fit-peruano-zoom.webp",
+        id: "TI012"
+    },
+    {
         nombre: 'Runner Africa',
         categoria: 'Telas Importadas',
         categoria_slug: 'telas-importadas',
