@@ -48,11 +48,11 @@ export const Footer = () => {
         {/* Col 1 — Logo + tagline */}
         <div className="flex flex-col gap-4">
           <Image
-            src="/logo-sublink.svg"
+            src="/assets/logo-sublink-marca-de-agua.png"
             width={160}
             height={40}
             alt="Logo Sublink"
-            className="brightness-200 w-36 h-auto"
+            className="w-36 h-auto"
           />
           <p className="text-sm text-zinc-400 leading-relaxed max-w-[200px]">
             Sublimación textil, telas y estampados de alta calidad en Valencia, Venezuela.
@@ -107,12 +107,6 @@ export const Footer = () => {
               </a>
             ))}
           </div>
-          <Link
-            href="/blog"
-            className="text-sm text-[#157ec2] hover:text-white transition-colors mt-2"
-          >
-            📝 Blog Textil
-          </Link>
         </div>
       </div>
 

@@ -18,8 +18,8 @@ export const PrintOnDemandSection = () => {
             {[
               "Impresión desde 1 metro hasta rollo completo",
               "Tecnología EPSON de alta definición y durabilidad",
-              "Compatible con más de 40 tipos de telas de poliéster",
-              "Colores vibrantes que no se descascaran ni se agrietan",
+              "Compatible con más de 25 telas",
+              "Colores vibrantes que no se caen con los lavados ni se agrietan",
             ].map((item, i) => (
               <li key={i} className="flex items-start gap-3 text-gray-600">
                 <span className="mt-1 w-5 h-5 rounded-full bg-[#157ec2] flex-shrink-0 flex items-center justify-center">
@@ -32,17 +32,19 @@ export const PrintOnDemandSection = () => {
             ))}
           </ul>
 
-          {/* Buttons */}
+          {/* Buttons — ambos inactivos */}
           <div className="flex flex-col sm:flex-row gap-4">
-            {/* Botón activo — ver catálogo de servicios */}
-            <a
-              href="/servicios/sublimacion-textil-a-gran-formato"
-              className="inline-flex items-center justify-center gap-2 bg-[#157ec2] text-white font-bold px-7 py-3.5 rounded-full hover:bg-[#1269a8] transition-colors text-sm uppercase tracking-wide"
+            {/* Print FREE — inactivo (próximamente) */}
+            <button
+              disabled
+              title="Próximamente"
+              className="inline-flex items-center justify-center gap-2 bg-[#157ec2]/50 text-white font-bold px-7 py-3.5 rounded-full cursor-not-allowed text-sm uppercase tracking-wide"
             >
-              Ver servicio de sublimación
-            </a>
+              Print FREE
+              <span className="text-xs font-normal normal-case opacity-80">(próximamente)</span>
+            </button>
 
-            {/* Botón inactivo — próximamente */}
+            {/* Sube tu Print — inactivo */}
             <button
               disabled
               title="Próximamente"

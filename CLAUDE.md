@@ -19,31 +19,41 @@ Sublink is a Next.js-based web application for fabric/textile services. The proj
 ```
 src/
 ├── app/              # Next.js app router pages
-│   ├── layout.tsx    # Root layout with metadata, JSON-LD schema
+│   ├── layout.tsx    # Root layout with metadata, JSON-LD schema, AnnouncementBar
 │   ├── page.tsx      # Home page
 │   ├── robots.ts     # Robots metadata
-│   ├── sitemap.ts    # XML sitemap generation (telas + servicios + blog)
+│   ├── sitemap.ts    # XML sitemap generation (telas + servicios + blog posts)
 │   ├── blog/
-│   │   ├── page.tsx  # Blog listing page (sorted by date, grid layout)
-│   │   ├── [slug]/   # Blog post pages (dynamic routing, metadata generation, related posts)
+│   │   ├── page.tsx  # Blog listing page (sorted by date descending, grid layout, metadata)
+│   │   ├── [slug]/   # Blog post pages (dynamic routing, metadata generation, related posts, contentMap)
 │   │   └── posts/    # Blog post content components (.tsx files)
+│   │       ├── telas-para-trajes-de-bano.tsx
+│   │       ├── print-on-demand-modelo-actual.tsx
+│   │       └── tipos-de-fibras-y-telas.tsx
 │   ├── servicios/
 │   │   └── [slug]/   # Services pages (dynamic routing, metadata generation)
 │   ├── telas/
 │   │   └── [...slug]/ # Fabrics/textiles pages (dynamic routing, metadata generation)
 │   └── sostenibilidad/ # Sustainability page with eco-friendly content
 ├── components/       # React components
-│   ├── Header/
+│   ├── Header/       # Navbar, Header components with menu state
 │   ├── Counter/
 │   ├── Detalles/     # Detail view components
 │   ├── Estampacion/  # Stamping/printing section
 │   ├── Sostenibilidad/ # Sustainability page components (TextReveal, TreeReveal, SublinkLogo)
 │   ├── VideoReciclar/ # Video modal component for recycling content
-│   ├── UI/           # Common UI components (MiniPop, Footer)
+│   ├── UI/           # Common UI components
+│   │   ├── MiniPop
+│   │   ├── Footer    # Footer with social links (WhatsApp, Facebook, Instagram)
+│   │   ├── AnnouncementBar  # Announcement banner in root layout
+│   │   └── ...
+│   ├── FabricSelector/
+│   ├── DeadStock/
+│   ├── PrintOnDemand/
 │   └── ...
 ├── lib/
 │   ├── constant.ts   # Application constants (SUBLINK_URL)
-│   ├── blog.ts       # Blog data, BlogPost interface, helper functions
+│   ├── blog.ts       # BlogPost interface, blogPosts array, getBlogPost() and getAllSlugs() helpers
 │   ├── servicios.ts  # Services data
 │   └── telas.ts      # Fabrics/textiles data
 ├── model/
@@ -75,8 +85,23 @@ Key configuration:
   - JSON-LD schema (LocalBusiness type with name, url, logo, description, address, areaServed, contactPoint, sameAs Instagram)
   - Vercel Analytics (@vercel/analytics/react) + Google Analytics (GA ID: G-FQ4RY25W5X via @next/third-parties)
   - Suspense-wrapped Video component for lazy loading search params
-  - Layout structure: Header > MiniPop > {children} > Video (lazy) > Footer
+  - Layout structure: AnnouncementBar > Header > MiniPop > {children} > Video (lazy) > Footer
   - Max-width container: max-w-[1920px] mx-auto with Poppins className
+
+### Header Components
+- **Navbar** (`src/components/Header/Navbar.tsx`):
+  - Type: Client component (`"use client"`)
+  - Props: { telas: ITela[], servicios: IServicios[] }
+  - Menu state: toggleMenu (boolean), menuState object with toggleTelas, toggleTelasEco, toggleServicios (booleans)
+  - NAV_ITEM_KEYS constant: ['toggleTelas', 'toggleTelasEco', 'toggleServicios'] (readonly tuple)
+  - navItems array with 3 items: { key, toggleState: MenuStateKey, label: "TELAS"|"TELAS ECO"|"SERVICIOS" }
+  - Menu logic: handleMenuItems(itemToggle) resets all other menus, toggles selected one (only one menu open at a time)
+  - useCallback for handleNavItemClick to optimize toggle dispatch
+  - useEffect monitors menuState to update someMenuOpen flag
+  - Layout: nav with bg-white shadow-xl relative z-50, flex with logo (left), menu items (center), mobile menu (right)
+  - Includes ProgressBar component and MobileNav component for responsive navigation
+  - Logo positioned in flex container with navigation items
+  - Navigation items: TELAS, TELAS ECO, SERVICIOS (dropdown toggles)
 
 ### Metadata & SEO
 - **Base Metadata**:
@@ -106,15 +131,17 @@ Key configuration:
 - **Static Pages**: `/sostenibilidad` (sustainability), `/page.tsx` (home)
 
 ### Sitemap Generation (`src/app/sitemap.ts`)
-- Root: priority 1.0, frequency: monthly
-- `/sostenibilidad`: priority 0.9, frequency: yearly
-- `/blog`: priority 0.8, frequency: weekly (index page, includes metadata sorting)
-- Blog posts (`/blog/[slug]`): priority 0.7, frequency: monthly (dynamic from blogPosts array)
-  - lastModified uses post.fecha (YYYY-MM-DD format)
-  - Includes all posts from blogPosts array via getAllSlugs()
-- Servicios: priority 0.8, frequency: monthly
-- Telas: priority 0.6, frequency: monthly
-- All entries: lastModified: new Date()
+- Imports: SUBLINK_URL from `@/lib/constant`, servicios from `@/lib/servicios`, telas from `@/lib/telas`, blogPosts from `@/lib/blog`, ITela and IServicios types
+- Returns MetadataRoute.Sitemap (Promise-based async function)
+- Entry order: Root > Sostenibilidad > Blog index > Servicios > Telas > Blog posts
+- Root: url: SUBLINK_URL, lastModified: new Date(), priority 1.0, frequency: monthly
+- `/sostenibilidad`: priority 0.9, frequency: yearly, lastModified: new Date()
+- `/blog`: priority 0.8, frequency: weekly, lastModified: new Date()
+- Servicios entries: Maps servicios array to `/servicios/[slug]`, priority 0.8, frequency: monthly
+- Telas entries: Maps telas array to `/telas/[categoria_slug]/[slug]`, priority 0.6, frequency: monthly
+- Blog post entries: Maps blogPosts array to `/blog/[slug]`, priority 0.7, frequency: monthly
+  - lastModified: new Date(post.fecha) using post.fecha (YYYY-MM-DD format from BlogPost interface)
+- All entries spread into single return array
 
 ### Image Handling
 - **Next.js Image component** for optimization
@@ -139,19 +166,33 @@ Key configuration:
 - YouTube iframe embeds for sustainability page content
 
 ### Blog Content Pattern
-- **Data Source**: `src/lib/blog.ts` contains BlogPost interface and blogPosts array
-- **Content Mapping**: Post content components imported in `/blog/[slug]/page.tsx` via contentMap (slug -> React.ComponentType); component must exist to render post
-- **Post Structure**: Each post includes slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords[]
-- **Content Components**: `.tsx` files in `/src/app/blog/posts/` directory, return JSX article content, rendered via prose classes with Tailwind typography
-  - Example: `tipos-de-fibras-y-telas.tsx` exports TiposDeFibras component with sectioned fiber guide (4 fiber types: natural/synthetic/artificial/sustainable; yarn titration systems with table; 3 weave types: knit/woven/tricot; finish categories: basic and technical; quick reference table for garment-to-fabric associations)
-- **Metadata Generation**: Dynamic metadata from blogPosts array (title, description, keywords, canonical URL, OpenGraph with post.imagen)
-- **SEO Features**:
-  - Breadcrumb navigation: Inicio > Blog > {post.titulo}
-  - JSON-LD Article schema (headline, description, image, datePublished, author.name, articleBody)
-  - Formatted date display: formatFecha() converts YYYY-MM-DD to localized Spanish format (es-VE)
-- **Related Posts**: Filter blogPosts excluding current post, display up to 2 in 2-column grid with hover animations
-- **Styling**: prose-blue prose-lg with custom heading/link/table styles via Tailwind prose classes; responsive tables with overflow-x-auto
-- **CTA**: WhatsApp contact button in both blog listing and individual post pages (same message format as other pages)
+- **Data Source**: `src/lib/blog.ts`
+  - Exports BlogPost interface: slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords[]
+  - Exports blogPosts array with 3 posts: telas-para-trajes-de-bano, print-on-demand-modelo-actual, tipos-de-fibras-y-telas
+  - Exports helper functions: getBlogPost(slug) -> BlogPost | undefined, getAllSlugs() -> string[]
+- **Blog Listing** (`/blog/page.tsx`):
+  - Metadata: title "Blog | Sublink Textil Venezuela", keywords for blog content, locale es_VE, OpenGraph
+  - Function: formatFecha() converts YYYY-MM-DD to Spanish localized date (es-VE)
+  - Sorts posts descending by fecha: [...blogPosts].sort((a,b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
+  - Layout: max-w-5xl mx-auto, centered header with "Blog" badge, post grid (grid-cols-1 md:grid-cols-2 gap-8)
+  - Each post card: image (h-52), titulo, descripcion, date (formatted), author, reading time, link to `/blog/[slug]`
+  - Card styling: bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md
+- **Blog Post Detail** (`/blog/[slug]/page.tsx`):
+  - generateStaticParams() from blogPosts array for pre-rendering
+  - generateMetadata() pulls data from getBlogPost(slug) to generate title, description, keywords, canonical URL, OpenGraph with image
+  - contentMap: Record<string, React.ComponentType> maps slug to content component
+    - "telas-para-trajes-de-bano" -> TelasTrajes
+    - "print-on-demand-modelo-actual" -> PrintOnDemand
+    - "tipos-de-fibras-y-telas" -> TiposDeFibras
+  - Returns notFound() if post or content component missing
+  - Layout: max-w-4xl mx-auto with breadcrumb (Inicio > Blog > {titulo})
+  - Header: categoria badge, reading time, titulo, descripcion, autor, fecha
+  - Featured image: h-72 md:h-96 rounded-2xl with priority loading
+  - Renders ContentComponent from contentMap using prose-blue prose-lg styling
+  - Related posts: Filter blogPosts excluding current, display 2 in 2-column grid with links
+- **Post Content Components**: `.tsx` files in `/src/app/blog/posts/` directory export default React component returning JSX article
+  - Examples: TelasTrajes (types), PrintOnDemand (POD model), TiposDeFibras (fiber guide with tables)
+- **Styling**: prose-blue prose-lg with Tailwind typography classes, custom prose variants for headings/links
 
 ### Carousel Components
 - **Embla Carousel Pattern**: Use `embla-carousel-react` with optional plugins (AutoScroll, etc.)
@@ -161,23 +202,26 @@ Key configuration:
 
 ### Home Page (page.tsx)
 - **Component Structure**: Composition pattern with sequential section imports and layout
-- **Section Order**: Slider > Ofrecemos > GoogleReviewsBadge > VideoReciclar > FabricSelector > PrintOnDemandSection > Estampacion > DeadStock > Counter > LogoCarousel
+- **Section Order**: Slider > Ofrecemos > VideoReciclar > FabricSelector > PrintOnDemandSection > Estampacion > Counter > LogoCarousel > GoogleReviewsBadge (bottom)
 - **Main Container**: flex flex-col items-center justify-between for full-width responsive sections
+- **GoogleReviewsBadge**: Positioned at bottom in centered div (w-full flex justify-center py-10 bg-gray-50 border-t border-gray-100)
 
 ### FabricSelector Component
 - **Location**: `src/components/FabricSelector/FabricSelector.tsx`
 - **Type**: Client component (`"use client"`)
-- **Purpose**: Interactive fabric discovery tool with category-based filtering
-- **Implementation**:
-  - State: activeCategory tracks selected tab (default: "playa")
-  - Six clothing use categories: Playa & Baño, Deportivo, Moda, Uniformes, Hogar & Decor, Accesorios
-  - Category structure: key (CategoryKey type), label, emoji, description
-  - Data: fabricsByCategory mapping fabrics by use case with nombre, slug, categoria_slug, imagen, usos, optional tag
-  - Responsive layout: flex-col lg:flex-row with tabs on left (vertical stack, lg:flex-col), fabrics on right (grid-cols-2 lg:grid-cols-3)
-  - Tab styling: border-b md:border-r border-gray-200, cursor-pointer, font-semibold (active: text-blue-600, inactive: text-gray-600)
-  - Fabric cards: Image container (h-40 relative overflow-hidden rounded-lg), fabric name (font-semibold text-gray-900), uses description (text-sm text-gray-600), optional tag badge (text-xs bg-orange-100 text-orange-700)
-  - Cards are clickable Links to `/telas/{categoria_slug}/{slug}` product pages
-  - Section container: max-w-6xl mx-auto with padding and background (bg-gray-50)
+- **Purpose**: Interactive fabric discovery tool with product-use category filtering and line art icons
+- **Icons**: 13 SVG line art icons for product categories (TrajesDeBano, Pareo, Short, Moda, Muebles, Chaqueta, Toalla, SalidaDeBano, ToteBag, Mantel, Delantal, Uniforme, Pijama)
+- **Category Type**: CategoryKey type with 13 keys: trajes, pareo, short, moda, muebles, chaqueta, toalla, salidabano, totebag, mantel, delantal, uniforme, pijama
+- **Categories**: 13 items with key, label (Spanish), Icon (React.FC with className prop)
+- **State Management**: activeCategory tracks selected category (string, CategoryKey type)
+- **Fabric Data Structure**: fabricsByCategory Record<CategoryKey, FabricCard[]> with 5-6 fabrics per category
+  - FabricCard interface: nombre, slug, categoria_slug, imagen, usos, tag? (optional badge)
+  - Tag examples: "Más vendida", "UPF 50", "Eco", "Premium", "Importada", "Resistente", "Pet Friendly", "Antifluido"
+- **Responsive Layout**: flex-col lg:flex-row with category tabs on left, fabric grid on right
+  - Tab styling: flex items-center gap-2, border-b lg:border-r border-gray-200, cursor-pointer
+  - Fabric cards: Link to `/telas/{categoria_slug}/{slug}`, image (h-40), name, uses, optional tag badge
+  - Grid: grid-cols-2 lg:grid-cols-3 gap-6 responsive layout
+- **Section Container**: max-w-6xl mx-auto with padding and background (bg-white or gray-50)
 
 ### DeadStock Component
 - **Location**: `src/components/DeadStock/DeadStock.tsx`
@@ -194,10 +238,40 @@ Key configuration:
   - Each card: displays nombre, descripcion, metros, descuento, color circle (colored background), colorNombre label
   - Updates: Modify deadstockItems array with available: true/false to control display
 
+### UI Components - Footer
+- **Footer** (`src/components/UI/Footer.tsx`):
+  - Type: Client component (`"use client"`)
+  - socialLinks array: WhatsApp (wa.me/584162698802 with parameterized text), Facebook (facebook.com/sublink.ve), Instagram (instagram.com/sublink.ve) with inline SVG icons (w-5 h-5)
+  - navLinks array: Telas (href: "/"), Servicios (href: "/"), Sostenibilidad (href: "/sostenibilidad"), Blog (href: "/blog")
+  - Main footer grid: bg-zinc-900 text-zinc-300 w-full, max-w-6xl mx-auto px-6 py-14
+    - Grid structure: grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 responsive
+  - Column 1 (Logo & Tagline): Image logo (w-36 h-auto) + description (text-sm text-zinc-400 max-w-[200px])
+  - Column 2 (Contacto): h4 header (text-white text-xs font-bold uppercase tracking-widest), address, phone href, email href, hours (text-xs text-zinc-500)
+  - Column 3 (Navegación): h4 header, Link components for each nav item (text-sm text-zinc-400 hover:text-white transition-colors)
+  - Column 4 (Síguenos): h4 header, social icon links (w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#157ec2] flex items-center justify-center text-zinc-300 hover:text-white transition-all)
+  - Bottom bar: border-t border-zinc-800 py-5 px-6, copyright text (text-xs text-zinc-500), sublink.company link
+
+### UI Components - AnnouncementBar
+- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
+  - Type: Client component (`"use client"`)
+  - ANNOUNCEMENT object with properties: text (emoji + offer text), link (href), linkText, active (boolean flag)
+  - Returns null if ANNOUNCEMENT.active === false
+  - Styling: w-full bg-[#157ec2] text-white text-sm font-semibold py-2 px-4
+  - Layout: flex items-center justify-center gap-2 flex-wrap for responsive wrapping
+  - Text spans announcement, Link component with underline-offset-2 hover:text-blue-100 for CTA
+  - Easy edit point: Change ANNOUNCEMENT properties to update monthly offers
+
 ### Service Sections
-- **PrintOnDemand Section**: Two-column grid (lg:grid-cols-2) with text and visual
-- **Text Content**: Feature list (4 items max) with checkmark icons, dual CTA buttons (active/disabled states)
-- **Image Side**: Responsive h-80 lg:h-[420px] with overlay gradient (black/40 opacity) and positioned text label
+- **PrintOnDemandSection** (`src/components/PrintOnDemand/PrintOnDemand.tsx`):
+  - Type: Server component (no `"use client"`)
+  - Layout: w-full bg-white py-20 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center
+  - Left column: Badge (inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] "Sublimación Digital"), h2 title (text-3xl md:text-4xl font-bold text-gray-900), feature list, button section
+  - Feature list: 4 items with checkmark icons (w-5 h-5 bg-[#157ec2] rounded-full), text-gray-600, mapped array with .map()
+  - Features: "Impresión desde 1 metro hasta rollo completo", "Tecnología EPSON de alta definición y durabilidad", "Compatible con más de 25 telas", "Colores vibrantes que no se caen con los lavados ni se agrietan"
+  - Buttons: Both disabled (disabled attribute), inactive styling
+    - "Print FREE" button (bg-[#157ec2]/50 text-white, title="Próximamente", cursor-not-allowed)
+    - "🔒 Sube tu Print" button (border-2 border-gray-200 text-gray-400, title="Próximamente", cursor-not-allowed)
+  - Right column: Image container (relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl), Image fill with objectCover, overlay gradient (from-black/40 to-transparent), bottom label "Print on Demand" + "Desde 1 metro · Sin inventario" (text-white)
 <!-- END AUTO-MANAGED -->
 
 ## Deployment Configuration
@@ -422,26 +496,26 @@ interface ITela {
 - **Location**: `src/components/PrintOnDemand/PrintOnDemand.tsx`
 - **Type**: Server component (no `"use client"`)
 - **Purpose**: Showcase digital sublimation service (Print on Demand) with CTA
-- **Layout Structure**: Two-column grid (lg:grid-cols-2) with gap-14 items-center, max-w-6xl mx-auto
+- **Layout Structure**: Two-column grid (w-full bg-white py-20 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center)
 - **Left Section (Text Content)**:
   - Badge: inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-4 "Sublimación Digital"
-  - Heading: text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6 "Estampa tus diseños" + line break + "en cualquier tela"
-  - Feature list: 4 items with checkmark icons (blue circles with white checkmarks)
+  - Heading: h2 text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6 with line break: "Estampa tus diseños" + br + "en cualquier tela"
+  - Feature list: space-y-4 mapped array with 4 items, checkmark icons (w-5 h-5 rounded-full bg-[#157ec2] flex-shrink-0 flex items-center justify-center)
     1. "Impresión desde 1 metro hasta rollo completo"
     2. "Tecnología EPSON de alta definición y durabilidad"
-    3. "Compatible con más de 40 tipos de telas de poliéster"
-    4. "Colores vibrantes que no se descascaran ni se agrietan"
-  - Feature styling: flex items-start gap-3, checkmark span (mt-1 w-5 h-5 rounded-full bg-[#157ec2] flex items-center justify-center), SVG checkmark (w-3 h-3 text-white)
+    3. "Compatible con más de 25 telas"
+    4. "Colores vibrantes que no se caen con los lavados ni se agrietan"
+  - Feature styling: flex items-start gap-3, SVG checkmark (w-3 h-3 text-white, fill="none", viewBox="0 0 24 24", stroke="currentColor", strokeWidth={3}, strokeLinecap="round", strokeLinejoin="round")
 - **CTA Buttons** (flex flex-col sm:flex-row gap-4):
-  - Active: `/servicios/sublimacion-textil-a-gran-formato` link, bg-[#157ec2] text-white, hover:bg-[#1269a8], "Ver servicio de sublimación"
-  - Disabled: Placeholder button with border-2 border-gray-200 text-gray-400 cursor-not-allowed, "🔒 Sube tu Print (próximamente)"
+  - Primary button (disabled): bg-[#157ec2]/50 text-white px-7 py-3.5 rounded-full cursor-not-allowed, title="Próximamente", "Print FREE" + span "(próximamente)"
+  - Secondary button (disabled): border-2 border-gray-200 text-gray-400 px-7 py-3.5 rounded-full cursor-not-allowed, title="Próximamente", "🔒 Sube tu Print" + span "(próximamente)"
 - **Right Section (Visual)**:
   - Image container: relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl
-  - Image: `/img/telas/telas-importadas/lycra-peruana-zoom.webp` (object-cover, responsive sizes)
+  - Image: next/image fill, src="/img/telas/telas-importadas/lycra-peruana-zoom.webp", alt="Sublimación textil en telas Sublink", className="object-cover", sizes="(max-width: 1024px) 100vw, 50vw"
   - Overlay gradient: absolute inset-0 bg-gradient-to-t from-black/40 to-transparent
-  - Positioned label (bottom-6 left-6 text-white):
-    - Title: "Print on Demand" (text-lg font-bold)
-    - Subtitle: "Desde 1 metro · Sin inventario" (text-sm text-white/80)
+  - Positioned label (absolute bottom-6 left-6 text-white):
+    - Title: p "Print on Demand" (text-lg font-bold)
+    - Subtitle: p "Desde 1 metro · Sin inventario" (text-sm text-white/80)
 
 ### Blog Pages (Dynamic)
 - **Blog Index** (`src/app/blog/page.tsx`):
