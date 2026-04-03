@@ -168,7 +168,7 @@ export default function TiposDeFibras() {
       <h3>Acabados básicos (estética)</h3>
       <ul>
         <li><strong>Perchado:</strong> crea una superficie suave y velluda (como el polar).</li>
-        <li><strong>Esmerilado:</strong> acabado tipo "durazno" — muy suave al tacto. Ver Microdurazno.</li>
+        <li><strong>Esmerilado:</strong> acabado tipo &ldquo;durazno&rdquo; — muy suave al tacto. Ver Microdurazno.</li>
         <li><strong>Tundido:</strong> corta el pelo del tejido para un acabado uniforme y liso.</li>
         <li><strong>Bondeado:</strong> une dos telas para crear una sola con mayor cuerpo.</li>
       </ul>

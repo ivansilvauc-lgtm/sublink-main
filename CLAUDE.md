@@ -143,7 +143,7 @@ Key configuration:
 - **Content Mapping**: Post content components imported in `/blog/[slug]/page.tsx` via contentMap (slug -> React.ComponentType); component must exist to render post
 - **Post Structure**: Each post includes slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords[]
 - **Content Components**: `.tsx` files in `/src/app/blog/posts/` directory, return JSX article content, rendered via prose classes with Tailwind typography
-  - Example: `tipos-de-fibras-y-telas.tsx` exports TiposDeFibras component with sectioned fiber guide (4 fiber types, yarn titration table, 3 weave types, finish categories, association table)
+  - Example: `tipos-de-fibras-y-telas.tsx` exports TiposDeFibras component with sectioned fiber guide (4 fiber types: natural/synthetic/artificial/sustainable; yarn titration systems with table; 3 weave types: knit/woven/tricot; finish categories: basic and technical; quick reference table for garment-to-fabric associations)
 - **Metadata Generation**: Dynamic metadata from blogPosts array (title, description, keywords, canonical URL, OpenGraph with post.imagen)
 - **SEO Features**:
   - Breadcrumb navigation: Inicio > Blog > {post.titulo}
@@ -152,6 +152,22 @@ Key configuration:
 - **Related Posts**: Filter blogPosts excluding current post, display up to 2 in 2-column grid with hover animations
 - **Styling**: prose-blue prose-lg with custom heading/link/table styles via Tailwind prose classes; responsive tables with overflow-x-auto
 - **CTA**: WhatsApp contact button in both blog listing and individual post pages (same message format as other pages)
+
+### Carousel Components
+- **Embla Carousel Pattern**: Use `embla-carousel-react` with optional plugins (AutoScroll, etc.)
+- **Auto-Play Configuration**: AutoScroll plugin with playOnInit: true enables automatic playback
+- **Keyboard/Mouse Control**: Implement toggleAutoplay callback to manage play/stop state via API hooks
+- **Slide Generation**: Create slides array from data, map through with .map() for index-based rendering
+
+### Home Page (page.tsx)
+- **Component Structure**: Composition pattern with sequential section imports and layout
+- **Section Order**: Slider > Ofrecemos > GoogleReviewsBadge > VideoReciclar > PrintOnDemandSection > Estampacion > Counter > LogoCarousel
+- **Main Container**: flex flex-col items-center justify-between for full-width responsive sections
+
+### Service Sections
+- **PrintOnDemand Section**: Two-column grid (lg:grid-cols-2) with text and visual
+- **Text Content**: Feature list (4 items max) with checkmark icons, dual CTA buttons (active/disabled states)
+- **Image Side**: Responsive h-80 lg:h-[420px] with overlay gradient (black/40 opacity) and positioned text label
 <!-- END AUTO-MANAGED -->
 
 ## Deployment Configuration
@@ -315,6 +331,25 @@ interface ITela {
   - Button styling: bg-[#0082c9] text-white py-1 px-10 rounded-lg font-semibold
 - **Responsive**: text-xs sm:text-[10px] lg:text-xs for field labels
 
+### LogoCarousel Component
+- **Location**: `src/components/Logos/LogoCarousel.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Auto-scrolling carousel displaying client logos in grid layout
+- **Dependencies**: embla-carousel-react (with AutoScroll plugin for automatic playback)
+- **Implementation**:
+  - Embla carousel with loop: true, AutoScroll plugin (playOnInit: true, speed: 1)
+  - toggleAutoplay callback manages play/stop state via emblaApi.plugins().autoScroll
+  - useEffect initializes auto-scroll on mount
+  - Slides array: 25 items (pairs of logo indices 1-50, excluding last empty pair)
+  - Each slide displays 2x2 grid of logos with flex flex-col items-center justify-center gap-y-6
+- **Layout Structure**:
+  - Section: my-40 pointer-events-none (prevents interaction while scrolling)
+  - Heading: text-primary text-5xl font-bold text-center tracking-tighter px-4 mb-20 "Clientes que han confiado en nosotros"
+  - Carousel viewport: embla class with embla__viewport and embla__container
+  - Logo items: w-36 h-36 shadow-md bg-zinc-50 with Image component (aspect-[1/1], w-full h-auto p-7)
+- **Assets**: SVG logos from `/assets/logos-clientes/{number}.svg` (1-50 pattern)
+- **Styling**: Tailwind grid with p-2 padding per slide, shadow effects
+
 ### Counter Component
 - **Location**: `src/components/Counter/Counter.tsx`
 - **Type**: Client component (`"use client"`)
@@ -341,6 +376,31 @@ interface ITela {
 - **Icon Sizing**: localization icon w-8 xl:w-10; email/instagram/horario icons w-5 sm:w-6 xl:w-10
 - **Responsive**: flex-col lg:flex-row with items-center lg:items-start, gap-10 lg:gap-0
 - **Assets**: Icons from `/assets/` directory (localization.svg, email.svg, instagram.svg, horario.svg)
+
+### PrintOnDemand Section Component
+- **Location**: `src/components/PrintOnDemand/PrintOnDemand.tsx`
+- **Type**: Server component (no `"use client"`)
+- **Purpose**: Showcase digital sublimation service (Print on Demand) with CTA
+- **Layout Structure**: Two-column grid (lg:grid-cols-2) with gap-14 items-center, max-w-6xl mx-auto
+- **Left Section (Text Content)**:
+  - Badge: inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-4 "Sublimación Digital"
+  - Heading: text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6 "Estampa tus diseños" + line break + "en cualquier tela"
+  - Feature list: 4 items with checkmark icons (blue circles with white checkmarks)
+    1. "Impresión desde 1 metro hasta rollo completo"
+    2. "Tecnología EPSON de alta definición y durabilidad"
+    3. "Compatible con más de 40 tipos de telas de poliéster"
+    4. "Colores vibrantes que no se descascaran ni se agrietan"
+  - Feature styling: flex items-start gap-3, checkmark span (mt-1 w-5 h-5 rounded-full bg-[#157ec2] flex items-center justify-center), SVG checkmark (w-3 h-3 text-white)
+- **CTA Buttons** (flex flex-col sm:flex-row gap-4):
+  - Active: `/servicios/sublimacion-textil-a-gran-formato` link, bg-[#157ec2] text-white, hover:bg-[#1269a8], "Ver servicio de sublimación"
+  - Disabled: Placeholder button with border-2 border-gray-200 text-gray-400 cursor-not-allowed, "🔒 Sube tu Print (próximamente)"
+- **Right Section (Visual)**:
+  - Image container: relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl
+  - Image: `/img/telas/telas-importadas/lycra-peruana-zoom.webp` (object-cover, responsive sizes)
+  - Overlay gradient: absolute inset-0 bg-gradient-to-t from-black/40 to-transparent
+  - Positioned label (bottom-6 left-6 text-white):
+    - Title: "Print on Demand" (text-lg font-bold)
+    - Subtitle: "Desde 1 metro · Sin inventario" (text-sm text-white/80)
 
 ### Blog Pages (Dynamic)
 - **Blog Index** (`src/app/blog/page.tsx`):

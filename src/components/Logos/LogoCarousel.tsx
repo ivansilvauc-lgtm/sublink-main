@@ -12,6 +12,7 @@ export const LogoCarousel = () => {
 
     useEffect(() => {
         toggleAutoplay();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const toggleAutoplay = useCallback(() => {

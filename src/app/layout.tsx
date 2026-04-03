@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Poppins } from 'next/font/google'
 import { Header } from "@/components/Header/Header";
+import { AnnouncementBar } from "@/components/UI/AnnouncementBar";
 import { MiniPop } from "@/components/UI/MiniPop";
 import { Footer } from "@/components/UI/Footer";
 import { Video } from "@/components/VideoReciclar/Video";
@@ -96,6 +97,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <AnnouncementBar />
         <Header />
         <MiniPop />
         {children}
