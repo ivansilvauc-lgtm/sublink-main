@@ -7,6 +7,7 @@ import { blogPosts, getBlogPost } from "@/lib/blog";
 // Importar contenido de artículos
 import TelasTrajes from "../posts/telas-para-trajes-de-bano";
 import PrintOnDemand from "../posts/print-on-demand-modelo-actual";
+import TiposDeFibras from "../posts/tipos-de-fibras-y-telas";
 
 interface Props {
   params: { slug: string };
@@ -15,6 +16,7 @@ interface Props {
 const contentMap: Record<string, React.ComponentType> = {
   "telas-para-trajes-de-bano": TelasTrajes,
   "print-on-demand-modelo-actual": PrintOnDemand,
+  "tipos-de-fibras-y-telas": TiposDeFibras,
 };
 
 export async function generateStaticParams() {

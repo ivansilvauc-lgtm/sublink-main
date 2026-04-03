@@ -140,16 +140,17 @@ Key configuration:
 
 ### Blog Content Pattern
 - **Data Source**: `src/lib/blog.ts` contains BlogPost interface and blogPosts array
-- **Content Mapping**: Post content components imported in `/blog/[slug]/page.tsx` via contentMap (slug -> React.ComponentType)
+- **Content Mapping**: Post content components imported in `/blog/[slug]/page.tsx` via contentMap (slug -> React.ComponentType); component must exist to render post
 - **Post Structure**: Each post includes slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords[]
-- **Content Components**: `.tsx` files in `/src/app/blog/posts/` directory, rendered via prose classes with Tailwind typography
+- **Content Components**: `.tsx` files in `/src/app/blog/posts/` directory, return JSX article content, rendered via prose classes with Tailwind typography
+  - Example: `tipos-de-fibras-y-telas.tsx` exports TiposDeFibras component with sectioned fiber guide (4 fiber types, yarn titration table, 3 weave types, finish categories, association table)
 - **Metadata Generation**: Dynamic metadata from blogPosts array (title, description, keywords, canonical URL, OpenGraph with post.imagen)
 - **SEO Features**:
   - Breadcrumb navigation: Inicio > Blog > {post.titulo}
-  - JSON-LD Article schema (headline, description, image, datePublished, author.name)
+  - JSON-LD Article schema (headline, description, image, datePublished, author.name, articleBody)
   - Formatted date display: formatFecha() converts YYYY-MM-DD to localized Spanish format (es-VE)
 - **Related Posts**: Filter blogPosts excluding current post, display up to 2 in 2-column grid with hover animations
-- **Styling**: prose-blue prose-lg with custom heading/link/table styles via Tailwind prose classes
+- **Styling**: prose-blue prose-lg with custom heading/link/table styles via Tailwind prose classes; responsive tables with overflow-x-auto
 - **CTA**: WhatsApp contact button in both blog listing and individual post pages (same message format as other pages)
 <!-- END AUTO-MANAGED -->
 
@@ -251,20 +252,21 @@ interface ITela {
   - `autor`: string (author name, e.g., "Sublink Textil")
   - `categoria`: string (category tag, e.g., "Guías de Telas", "Tendencias")
   - `imagen`: string (featured image path, webp format)
-  - `tiempoLectura`: string (estimated read time, e.g., "5 min")
+  - `tiempoLectura`: string (estimated read time, e.g., "5 min", "8 min")
   - `keywords`: string[] (SEO keywords array)
 - **Blog Posts Array** (blogPosts: BlogPost[]):
   - "telas-para-trajes-de-bano": Swimsuit fabric guide (Lycra, Microfibra comparison)
   - "print-on-demand-modelo-actual": POD business model guide (sublimation, startup steps)
+  - "tipos-de-fibras-y-telas": Comprehensive textile fibers guide (natural, synthetic, artificial, sustainable fiber types; yarn titration systems; weave types; technical finishes; 8 min read)
 - **Helper Functions**:
   - `getBlogPost(slug: string)`: Find post by slug
   - `getAllSlugs()`: Get all post slugs for routing
 - **Dynamic Routing**: Blog posts at `/blog/[slug]` load content from imported React components
-- **Content Components**: Post content rendered from `.tsx` files in `/src/app/blog/posts/` directory
-- **Metadata**: Dynamic generation with canonical URLs, OpenGraph, keywords
+- **Content Components**: Post content rendered from `.tsx` files in `/src/app/blog/posts/` directory; dynamic import via contentMap (slug -> React.ComponentType)
+- **Metadata**: Dynamic generation with canonical URLs, OpenGraph, keywords; JSON-LD Article schema support
 - **Usage**: Consumed by:
   - `/app/blog/page.tsx` (index, sorted by fecha descending)
-  - `/app/blog/[slug]/page.tsx` (individual posts with generateStaticParams)
+  - `/app/blog/[slug]/page.tsx` (individual posts with generateStaticParams and contentMap)
   - `/app/sitemap.ts` for blog post sitemap entries
 
 ### Fabrics Data (src/lib/telas.ts)

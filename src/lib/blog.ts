@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
     fecha: "2026-03-15",
     autor: "Sublink Textil",
     categoria: "Guías de Telas",
-    imagen: "/img/telas/telas-importadas/lycra-lafayette-zoom.webp",
+    imagen: "/img/telas/telas-importadas/lycra-peruana-zoom.webp",
     tiempoLectura: "5 min",
     keywords: [
       "telas para trajes de baño",
@@ -37,7 +37,7 @@ export const blogPosts: BlogPost[] = [
     fecha: "2026-03-28",
     autor: "Sublink Textil",
     categoria: "Tendencias",
-    imagen: "/public/assets/iconos-textiles/estampar.webp",
+    imagen: "/assets/iconos-textiles/estampar.webp",
     tiempoLectura: "6 min",
     keywords: [
       "print on demand",
@@ -45,6 +45,26 @@ export const blogPosts: BlogPost[] = [
       "negocio de ropa sin inventario",
       "impresión bajo demanda Venezuela",
       "emprender textil",
+    ],
+  },
+  {
+    slug: "tipos-de-fibras-y-telas",
+    titulo: "Tipos de fibras textiles: naturales, sintéticas, artificiales y sostenibles",
+    descripcion:
+      "Guía completa sobre fibras textiles: naturales (algodón, seda, lino), sintéticas (poliéster, elastano), artificiales (viscosa, modal) y sostenibles (bambú, lyocell). Incluye tipos de tejidos y acabados técnicos.",
+    fecha: "2026-04-02",
+    autor: "Sublink Textil",
+    categoria: "Guías de Telas",
+    imagen: "/img/telas/telas-importadas/lycra-peruana-zoom.webp",
+    tiempoLectura: "8 min",
+    keywords: [
+      "tipos de telas Venezuela",
+      "fibras textiles",
+      "telas para ropa deportiva",
+      "telas para uniformes",
+      "telas para moda",
+      "telas para playa",
+      "guía de telas",
     ],
   },
 ];
