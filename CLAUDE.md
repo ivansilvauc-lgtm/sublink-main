@@ -22,7 +22,11 @@ src/
 │   ├── layout.tsx    # Root layout with metadata, JSON-LD schema
 │   ├── page.tsx      # Home page
 │   ├── robots.ts     # Robots metadata
-│   ├── sitemap.ts    # XML sitemap generation (telas + servicios)
+│   ├── sitemap.ts    # XML sitemap generation (telas + servicios + blog)
+│   ├── blog/
+│   │   ├── page.tsx  # Blog listing page (sorted by date, grid layout)
+│   │   ├── [slug]/   # Blog post pages (dynamic routing, metadata generation, related posts)
+│   │   └── posts/    # Blog post content components (.tsx files)
 │   ├── servicios/
 │   │   └── [slug]/   # Services pages (dynamic routing, metadata generation)
 │   ├── telas/
@@ -39,6 +43,7 @@ src/
 │   └── ...
 ├── lib/
 │   ├── constant.ts   # Application constants (SUBLINK_URL)
+│   ├── blog.ts       # Blog data, BlogPost interface, helper functions
 │   ├── servicios.ts  # Services data
 │   └── telas.ts      # Fabrics/textiles data
 ├── model/
@@ -93,17 +98,23 @@ Key configuration:
 ### Routing
 - **Dynamic Services**: `/servicios/[slug]` with servicios.find() lookup
 - **Dynamic Fabrics**: `/telas/[...slug]` with catch-all route (categoria_slug + slug)
-- **Blog Pages**: `/blog` (index), `/blog/[slug]` (individual posts, dynamic routing)
+- **Blog Pages**:
+  - `/blog` (index): Lists all posts sorted by date (descending), displays in 2-column grid
+  - `/blog/[slug]` (individual posts): Dynamic routing with generateStaticParams from blogPosts array, imports content components from `/blog/posts/`
+  - Post content mapped via contentMap (slug -> React component)
+  - Related posts: Shows 2 other posts from blogPosts array filtered by slug
 - **Static Pages**: `/sostenibilidad` (sustainability), `/page.tsx` (home)
 
 ### Sitemap Generation (`src/app/sitemap.ts`)
 - Root: priority 1.0, frequency: monthly
 - `/sostenibilidad`: priority 0.9, frequency: yearly
-- `/blog`: priority 0.8, frequency: weekly (index page)
-- Blog posts: priority 0.7, frequency: monthly (dynamic from blogPosts array)
+- `/blog`: priority 0.8, frequency: weekly (index page, includes metadata sorting)
+- Blog posts (`/blog/[slug]`): priority 0.7, frequency: monthly (dynamic from blogPosts array)
+  - lastModified uses post.fecha (YYYY-MM-DD format)
+  - Includes all posts from blogPosts array via getAllSlugs()
 - Servicios: priority 0.8, frequency: monthly
 - Telas: priority 0.6, frequency: monthly
-- All entries: lastModified: new Date() (blog posts use post.fecha)
+- All entries: lastModified: new Date()
 
 ### Image Handling
 - **Next.js Image component** for optimization
@@ -126,6 +137,20 @@ Key configuration:
 - URL-based activation: `?video=descubre-como-se-elaboran-nuestras-telas`
 - Router back() on close
 - YouTube iframe embeds for sustainability page content
+
+### Blog Content Pattern
+- **Data Source**: `src/lib/blog.ts` contains BlogPost interface and blogPosts array
+- **Content Mapping**: Post content components imported in `/blog/[slug]/page.tsx` via contentMap (slug -> React.ComponentType)
+- **Post Structure**: Each post includes slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords[]
+- **Content Components**: `.tsx` files in `/src/app/blog/posts/` directory, rendered via prose classes with Tailwind typography
+- **Metadata Generation**: Dynamic metadata from blogPosts array (title, description, keywords, canonical URL, OpenGraph with post.imagen)
+- **SEO Features**:
+  - Breadcrumb navigation: Inicio > Blog > {post.titulo}
+  - JSON-LD Article schema (headline, description, image, datePublished, author.name)
+  - Formatted date display: formatFecha() converts YYYY-MM-DD to localized Spanish format (es-VE)
+- **Related Posts**: Filter blogPosts excluding current post, display up to 2 in 2-column grid with hover animations
+- **Styling**: prose-blue prose-lg with custom heading/link/table styles via Tailwind prose classes
+- **CTA**: WhatsApp contact button in both blog listing and individual post pages (same message format as other pages)
 <!-- END AUTO-MANAGED -->
 
 ## Deployment Configuration
