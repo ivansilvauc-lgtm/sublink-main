@@ -106,8 +106,14 @@ Key configuration:
 - **Content Mapping**: `src/app/blog/[slug]/page.tsx` uses `contentMap` to route slug to component
   - Maps: `"slug-name": ComponentName`
   - Components are imported from `../posts/` directory
-- **Blog Listing**: `/blog` page sorts posts by date (newest first)
+- **Blog Listing**: `/blog` page sorts posts by date (newest first) with metadata (categoria, reading time, formatted date)
+  - Features: Grid layout (1 col mobile, 2 col desktop), featured images with hover zoom, description line-clamp-3, read link
+  - CTA section at bottom: "¿Tienes preguntas sobre telas o sublimación?" with WhatsApp link
 - **Date Formatting**: `formatFecha()` function converts YYYY-MM-DD to localized "es-VE" format
+- **Current Posts**:
+  - "telas-para-trajes-de-bano" (2026-03-15) - Swimwear fabrics guide
+  - "print-on-demand-modelo-actual" (2026-03-28) - Print on demand business model
+  - "tipos-de-fibras-y-telas" (2026-04-02) - Textile fibers comprehensive guide
 
 ### Layout & Viewport
 - **Root Layout** (`src/app/layout.tsx`):
@@ -142,9 +148,11 @@ Key configuration:
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
   - Client component with social links array (WhatsApp, Facebook, Instagram)
-  - Links column with navigation items (Telas, Servicios, Sostenibilidad, Blog)
-  - Contact info: address, phone, email, hours
+  - Links column with navigation items via `navLinks` array (Telas, Servicios, Sostenibilidad, Blog)
+  - Contact info: address (Av. 137, CC Imperial II 3-08, Valencia), phone (+58 424-4067274), email (sublinkve@gmail.com), hours (Lun-Vie 8:30am-4:30pm)
   - Grid layout: 1 col mobile, 2 cols tablet, 4 cols desktop
+  - Social icons with hover effect (bg-zinc-800 → bg-[#157ec2])
+  - Bottom bar with copyright year and sublink.company link
 
 ### Sitemap Generation
 - **sitemap.ts** generates MetadataRoute.Sitemap with:
@@ -209,13 +217,14 @@ Key configuration:
 ## Git Insights
 
 <!-- AUTO-MANAGED: git-insights -->
-Recent changes focused on blog system implementation and component refinement:
-- Blog system: Added comprehensive blog post structure with dynamic routing via contentMap
-- Blog Posts: Three initial posts (telas-para-trajes-de-bano, print-on-demand-modelo-actual, tipos-de-fibras-y-telas)
-- Sitemap: Updated to include blog entries with proper priority and modification dates
-- Layout: Enhanced with proper analytics integration and announcement bar
-- Components: Navbar refined with menu state management, Footer improved with better social links
-- AnnouncementBar: Extracted to dedicated component with configurable text and links
+Recent changes focused on blog system expansion and component refinement:
+- Blog System: Fully implemented with dynamic routing, metadata generation, and content mapping
+- Blog Posts: Three posts published covering fabrics, print-on-demand, and textile fibers (dates: 2026-03-15, 2026-03-28, 2026-04-02)
+- Blog Listing Page: Enhanced with grid layout, featured images, CTA section with WhatsApp integration
+- Sitemap: Includes blog entries with proper priority levels and modification dates from post dates
+- Footer: Improved with structured navigation links, contact details, and social media icons with hover effects
+- Components: Navbar menu state management, Footer responsive grid, AnnouncementBar for promotional messaging
+- Analytics: Vercel Analytics and Google Analytics (G-FQ4RY25W5X) integrated across layout
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes
