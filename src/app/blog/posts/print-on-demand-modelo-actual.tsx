@@ -89,7 +89,7 @@ export default function PrintOnDemand() {
 
       <h3>Paso 1: Define tu nicho</h3>
       <p>
-        El error más común es querer vender "de todo". Elige un nicho específico:
+        El error más común es querer vender &ldquo;de todo&rdquo;. Elige un nicho específico:
         uniformes deportivos, ropa de playa personalizada, estampados para
         empresas, o moda urbana con diseños locales. La especialización genera
         confianza y facilita el marketing.
