@@ -12,15 +12,15 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between">
       <Slider />
-      <Ofrecemos />
-      <VideoReciclar />
+      <Counter />
 
       {/* Interactive fabric selector */}
       <FabricSelector />
 
       <PrintOnDemandSection />
       <Estampacion />
-      <Counter />
+      <Ofrecemos />
+      <VideoReciclar />
       <LogoCarousel />
 
       {/* Google Reviews — justo antes del footer */}

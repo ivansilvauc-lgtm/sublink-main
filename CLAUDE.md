@@ -436,7 +436,7 @@ interface ITela {
 - **Export**: `export const telas: ITela[]`
 - **Categories** (3 total):
   - `Telas Ecológicas` (categoria_slug: `telas-ecologicas`): Recycled PET-based fabrics (Chiffon Liviano Eco, Chiffon Textura de Lino, Malla Chiffon Pesada, Moda Colombiana, Lycra Ecológica, Toalla Microfibra)
-  - `Telas Importadas` (categoria_slug: `telas-importadas`): Premium imported fabrics (Loneta Soft, etc.)
+  - `Telas Importadas` (categoria_slug: `telas-importadas`): Premium imported fabrics (Loneta Soft, Lycra Lafayette, Lycra Legging, Microdurazno, Runner Africa, etc.)
   - `Telas Nacionales` (categoria_slug: `telas-nacionales`): Domestic fabrics (Microfibra Nacional, etc.)
 - **Data Structure Per Fabric**:
   - Required: id, nombre, categoria, categoria_slug, slug, caracteristicas, descripcion, composition, ancho, peso, precio, usos, tejido, rotacion, base_ecologica, imagen_zoom, imagenes array, iconos array, colors array
@@ -463,7 +463,7 @@ interface ITela {
   - ANNOUNCEMENT object with: text (promotional message), link (URL to product/page), linkText (CTA label), active (boolean toggle)
   - Current offer: "10% de descuento en Lycra Lafayette al mayor" linking to `/telas/telas-importadas/lycra-lafayette`
   - Returns null if active: false for easy hide/show without code removal
-  - Styling: w-full bg-[#157ec2] text-white text-sm font-semibold py-2 px-4
+  - Styling: w-full bg-zinc-900 text-white text-sm font-semibold py-2 px-4
   - Layout: flex items-center justify-center gap-2 flex-wrap for responsive center alignment
   - Link styling: underline underline-offset-2 hover:text-blue-100 transition-colors whitespace-nowrap
 - **Maintenance**: Edit ANNOUNCEMENT object at top of file to change monthly promotions
@@ -540,16 +540,17 @@ interface ITela {
 - **Location**: `src/components/PrintOnDemand/PrintOnDemand.tsx`
 - **Type**: Server component (no `"use client"`)
 - **Purpose**: Showcase digital sublimation service (Print on Demand) with CTA
-- **Layout Structure**: Two-column grid (w-full bg-white py-20 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-14 items-center)
+- **Layout Structure**: Two-column grid (w-full bg-white py-14 px-4, max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center)
 - **Left Section (Text Content)**:
   - Badge: inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-4 "Sublimación Digital"
   - Heading: h2 text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6 with line break: "Estampa tus diseños" + br + "en cualquier tela"
-  - Feature list: space-y-4 mapped array with 4 items, checkmark icons (w-5 h-5 rounded-full bg-[#157ec2] flex-shrink-0 flex items-center justify-center)
+  - Feature list: space-y-3 mapped array with 3 items, checkmark icons (w-5 h-5 rounded-full bg-[#157ec2] flex-shrink-0 flex items-center justify-center)
     1. "Impresión desde 1 metro hasta rollo completo"
-    2. "Tecnología EPSON de alta definición y durabilidad"
-    3. "Compatible con más de 25 telas"
-    4. "Colores vibrantes que no se caen con los lavados ni se agrietan"
+    2. "Compatible con más de 25 telas"
+    3. "Colores vibrantes que no se caen con los lavados ni se agrietan"
   - Feature styling: flex items-start gap-3, SVG checkmark (w-3 h-3 text-white, fill="none", viewBox="0 0 24 24", stroke="currentColor", strokeWidth={3}, strokeLinecap="round", strokeLinejoin="round")
+  - Technology note: "Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni." (text-sm text-gray-500)
+  - Logo chips: EPSON and MONTI ANTONIO SVG logos in border-gray-200 containers
 - **CTA Buttons** (flex flex-col sm:flex-row gap-4):
   - Primary button (disabled): bg-[#157ec2]/50 text-white px-7 py-3.5 rounded-full cursor-not-allowed, title="Próximamente", "Print FREE" + span "(próximamente)"
   - Secondary button (disabled): border-2 border-gray-200 text-gray-400 px-7 py-3.5 rounded-full cursor-not-allowed, title="Próximamente", "🔒 Sube tu Print" + span "(próximamente)"

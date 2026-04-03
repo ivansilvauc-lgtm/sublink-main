@@ -1,6 +1,33 @@
+"use client"
+
 import Image from "next/image";
+import { useState, useEffect } from "react";
+
+const PRINTS = [
+  {
+    src: "/img/estampacion/after-sublink.webp",
+    alt: "Tela sublimada con diseño a todo color",
+  },
+  {
+    src: "/img/telas/telas-importadas/punto-scuba-zoom.webp",
+    alt: "Tela scuba con estampado digital",
+  },
+  {
+    src: "/img/telas/telas-importadas/runner-importada-zoom.webp",
+    alt: "Runner importada con print sublimado",
+  },
+];
 
 export const PrintOnDemandSection = () => {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % PRINTS.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section className="w-full bg-white py-14 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -36,17 +63,13 @@ export const PrintOnDemandSection = () => {
             Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni.
           </p>
           <div className="flex items-center gap-4 mb-8">
-            {/* Epson logo chip */}
-            <div className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5">
-              <svg viewBox="0 0 80 22" className="h-5 w-auto" aria-label="Epson">
-                <text x="0" y="17" fontFamily="Arial, sans-serif" fontWeight="bold" fontSize="18" fill="#003087" letterSpacing="1">EPSON</text>
-              </svg>
+            {/* Epson chip */}
+            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5">
+              <span className="font-bold text-[#003087] text-sm tracking-wider" style={{ fontFamily: 'Arial, sans-serif' }}>EPSON</span>
             </div>
-            {/* Monti Antoni logo chip */}
-            <div className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-1.5">
-              <svg viewBox="0 0 120 22" className="h-5 w-auto" aria-label="Monti Antoni">
-                <text x="0" y="17" fontFamily="Georgia, serif" fontWeight="bold" fontSize="14" fill="#1a1a1a" letterSpacing="0.5">MONTI ANTONIO</text>
-              </svg>
+            {/* Monti Antoni chip */}
+            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5">
+              <span className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.5px' }}>MONTI ANTONIO</span>
             </div>
           </div>
 
@@ -72,21 +95,40 @@ export const PrintOnDemandSection = () => {
           </div>
         </div>
 
-        {/* Right: Visual */}
+        {/* Right: Dynamic print carousel */}
         <div className="relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl">
-          <Image
-            src="/img/telas/telas-importadas/lycra-peruana-zoom.webp"
-            alt="Sublimación textil en telas Sublink"
-            fill
-            className="object-cover"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-          <div className="absolute bottom-6 left-6 text-white">
-            <p className="text-lg font-bold">Print on Demand</p>
-            <p className="text-sm text-white/80">Desde 1 metro · Sin inventario</p>
+          {PRINTS.map((print, i) => (
+            <div
+              key={i}
+              className="absolute inset-0 transition-opacity duration-700"
+              style={{ opacity: active === i ? 1 : 0 }}
+            >
+              <Image
+                src={print.src}
+                alt={print.alt}
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                priority={i === 0}
+              />
+            </div>
+          ))}
+
+          {/* Dot indicators */}
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {PRINTS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setActive(i)}
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  active === i ? "bg-white w-6" : "bg-white/50"
+                }`}
+                aria-label={`Print ${i + 1}`}
+              />
+            ))}
           </div>
         </div>
+
       </div>
     </section>
   );
