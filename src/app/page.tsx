@@ -14,7 +14,7 @@ export default function Home() {
       <Slider />
       <Counter />
 
-      {/* Interactive fabric selector */}
+      {/* ¿Qué vas a confeccionar? */}
       <FabricSelector />
 
       <PrintOnDemandSection />

@@ -129,27 +129,41 @@ Key configuration:
 - **Navbar** (`src/components/Header/Navbar.tsx`):
   - Type: Client component (`"use client"`)
   - Props: `{ telas: ITela[], servicios: IServicios[] }`
-  - State: `toggleMenu` (boolean), `menuState` with keys: `toggleTelas`, `toggleTelasEco`, `toggleServicios`
+  - State Management:
+    - `toggleMenu`: Boolean for mobile menu visibility
+    - `menuState`: Object with keys: `toggleTelas`, `toggleTelasEco`, `toggleServicios`
+    - `someMenuOpen`: Derived state tracking if any dropdown is open (via useEffect)
   - NAV_ITEM_KEYS constant: `['toggleTelas', 'toggleTelasEco', 'toggleServicios']` (readonly tuple)
-  - Menu Logic: Only one menu open at a time via `handleMenuItems()` which resets all and toggles selected
-  - Uses `useCallback` for optimal performance in click handlers
-  - Includes: NavItemLink, Hamburger, MobileNav, ProgressBar sub-components
+  - Menu Logic:
+    - `handleMenuItems()`: Resets all menu states then toggles the selected one (one menu open at a time)
+    - `resetMenuState()`: Used to close all menus and mobile drawer
+    - `handleNavItemClick()`: useCallback wrapper for performance optimization
+  - Desktop Layout: Hidden on mobile, flex display on lg+ screens
+  - Mobile Layout: Hamburger menu button with MobileNav drawer component
+  - Sub-components: NavItemLink, Hamburger, MobileNav, ProgressBar
+  - Additional Links: Sostenibilidad (lime styling), Blog (gray styling)
   - Uses flowbite-react Button component
 
 ### Announcement Bar
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
   - ANNOUNCEMENT object with properties:
-    - `text`: Banner message text
-    - `link`: Destination URL
-    - `linkText`: Link label
-    - `active`: Boolean to show/hide banner
+    - `text`: Banner message text (currently: "🎉 OFERTA DEL MES: 10% de descuento en Lycra Lafayette al mayor")
+    - `link`: Destination URL (currently: `/telas/telas-importadas/lycra-lafayette`)
+    - `linkText`: Link label (currently: `"Ver tela →"`)
+    - `active`: Boolean to show/hide banner (currently: `true`)
   - Styling: bg-zinc-900, white text, sm font, centered flex layout
+  - **Editing Instructions**: Update ANNOUNCEMENT object directly in the component file (marked with comment: ✏️ EDITAR AQUÍ)
 
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
   - Client component with social links array (WhatsApp, Facebook, Instagram)
-  - Links column with navigation items via `navLinks` array (Telas, Servicios, Sostenibilidad, Blog)
-  - Contact info: address (Av. 137, CC Imperial II 3-08, Valencia), phone (+58 424-4067274), email (sublinkve@gmail.com), hours (Lun-Vie 8:30am-4:30pm)
+  - **Social Links**: WhatsApp (+58 416-2698802), Facebook (facebook.com/sublink.ve), Instagram (instagram.com/sublink.ve)
+  - **Navigation Links**: Telas, Servicios, Sostenibilidad, Blog
+  - **Contact Info**:
+    - Address: Av. 137, CC Imperial II 3-08, Piso 3 (frente CC Galería), Valencia, Carabobo, Venezuela
+    - Phone: +58 424-4067274
+    - Email: sublinkve@gmail.com
+    - Hours: Lun-Vie 8:30am-4:30pm
   - Grid layout: 1 col mobile, 2 cols tablet, 4 cols desktop
   - Social icons with hover effect (bg-zinc-800 → bg-[#157ec2])
   - Bottom bar with copyright year and sublink.company link
@@ -217,13 +231,17 @@ Key configuration:
 ## Git Insights
 
 <!-- AUTO-MANAGED: git-insights -->
-Recent changes focused on blog system expansion and component refinement:
+Recent changes focused on blog system expansion and component refinement (as of 2026-04-03):
 - Blog System: Fully implemented with dynamic routing, metadata generation, and content mapping
 - Blog Posts: Three posts published covering fabrics, print-on-demand, and textile fibers (dates: 2026-03-15, 2026-03-28, 2026-04-02)
+  - Latest post: "tipos-de-fibras-y-telas" (2026-04-02) - Comprehensive textile fibers guide with 8 min reading time
 - Blog Listing Page: Enhanced with grid layout, featured images, CTA section with WhatsApp integration
-- Sitemap: Includes blog entries with proper priority levels and modification dates from post dates
-- Footer: Improved with structured navigation links, contact details, and social media icons with hover effects
-- Components: Navbar menu state management, Footer responsive grid, AnnouncementBar for promotional messaging
+- Sitemap: Generates dynamic entries for telas (0.6 priority), servicios (0.8 priority), blog posts (0.7 priority)
+  - Root pages: home (1.0), sostenibilidad (0.9), blog listing (0.8)
+  - Blog entries use post.fecha for lastModified timestamp
+- AnnouncementBar: Configured with monthly offer mechanism (current: Lycra Lafayette discount)
+- Footer: Contact info with phone (+58 424-4067274), email, hours, and address with landmark (Piso 3 frente CC Galería)
+- Navbar: Menu state management ensures single-menu-open pattern with responsive layouts
 - Analytics: Vercel Analytics and Google Analytics (G-FQ4RY25W5X) integrated across layout
 <!-- END AUTO-MANAGED -->
 
@@ -236,3 +254,4 @@ Recent changes focused on blog system expansion and component refinement:
 - Business location: Valencia, Carabobo, Venezuela
 - Monthly offer mechanism in AnnouncementBar for promotions
 <!-- END MANUAL -->
+ 
