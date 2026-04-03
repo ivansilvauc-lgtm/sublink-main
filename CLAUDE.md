@@ -161,8 +161,38 @@ Key configuration:
 
 ### Home Page (page.tsx)
 - **Component Structure**: Composition pattern with sequential section imports and layout
-- **Section Order**: Slider > Ofrecemos > GoogleReviewsBadge > VideoReciclar > PrintOnDemandSection > Estampacion > Counter > LogoCarousel
+- **Section Order**: Slider > Ofrecemos > GoogleReviewsBadge > VideoReciclar > FabricSelector > PrintOnDemandSection > Estampacion > DeadStock > Counter > LogoCarousel
 - **Main Container**: flex flex-col items-center justify-between for full-width responsive sections
+
+### FabricSelector Component
+- **Location**: `src/components/FabricSelector/FabricSelector.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Interactive fabric discovery tool with category-based filtering
+- **Implementation**:
+  - State: activeCategory tracks selected tab (default: "playa")
+  - Six clothing use categories: Playa & Baño, Deportivo, Moda, Uniformes, Hogar & Decor, Accesorios
+  - Category structure: key (CategoryKey type), label, emoji, description
+  - Data: fabricsByCategory mapping fabrics by use case with nombre, slug, categoria_slug, imagen, usos, optional tag
+  - Responsive layout: flex-col lg:flex-row with tabs on left (vertical stack, lg:flex-col), fabrics on right (grid-cols-2 lg:grid-cols-3)
+  - Tab styling: border-b md:border-r border-gray-200, cursor-pointer, font-semibold (active: text-blue-600, inactive: text-gray-600)
+  - Fabric cards: Image container (h-40 relative overflow-hidden rounded-lg), fabric name (font-semibold text-gray-900), uses description (text-sm text-gray-600), optional tag badge (text-xs bg-orange-100 text-orange-700)
+  - Cards are clickable Links to `/telas/{categoria_slug}/{slug}` product pages
+  - Section container: max-w-6xl mx-auto with padding and background (bg-gray-50)
+
+### DeadStock Component
+- **Location**: `src/components/DeadStock/DeadStock.tsx`
+- **Type**: Server component (no `"use client"`)
+- **Purpose**: Limited inventory flash sale section for surplus fabric rolls
+- **Implementation**:
+  - deadstockItems array with nombre, descripcion, metros (available), descuento (%), color (hex), colorNombre, slug, categoria_slug, available (boolean)
+  - activeItems = deadstockItems.filter(i => i.available) for conditional rendering
+  - Returns null if no items available
+  - Section: w-full bg-zinc-900 py-16, max-w-6xl mx-auto
+  - Header: "Stock Limitado" badge (yellow-400) + "Dead Stock" h2 (text-white) + description (zinc-400)
+  - WhatsApp CTA button: Links to wa.me/584162698802 with parameterized message about Dead Stock inquiry
+  - Card grid: grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5
+  - Each card: displays nombre, descripcion, metros, descuento, color circle (colored background), colorNombre label
+  - Updates: Modify deadstockItems array with available: true/false to control display
 
 ### Service Sections
 - **PrintOnDemand Section**: Two-column grid (lg:grid-cols-2) with text and visual
@@ -307,6 +337,19 @@ interface ITela {
 ## Component Details
 
 <!-- AUTO-MANAGED: components -->
+### AnnouncementBar Component
+- **Location**: `src/components/UI/AnnouncementBar.tsx`
+- **Type**: Client component (`"use client"`)
+- **Purpose**: Sticky promotional banner at top of page with monthly offer messaging
+- **Implementation**:
+  - ANNOUNCEMENT object with: text (promotional message), link (URL to product/page), linkText (CTA label), active (boolean toggle)
+  - Current offer: "10% de descuento en Lycra Lafayette al mayor" linking to `/telas/telas-importadas/lycra-lafayette`
+  - Returns null if active: false for easy hide/show without code removal
+  - Styling: w-full bg-[#157ec2] text-white text-sm font-semibold py-2 px-4
+  - Layout: flex items-center justify-center gap-2 flex-wrap for responsive center alignment
+  - Link styling: underline underline-offset-2 hover:text-blue-100 transition-colors whitespace-nowrap
+- **Maintenance**: Edit ANNOUNCEMENT object at top of file to change monthly promotions
+
 ### Calculadora Component
 - **Location**: `src/components/Detalles/Calculadora.tsx`
 - **Type**: Client component (`"use client"`)
@@ -365,17 +408,15 @@ interface ITela {
 ### Footer Component
 - **Location**: `src/components/UI/Footer.tsx`
 - **Type**: Client component (`"use client"`)
-- **Purpose**: Page footer with contact info, blog link, and company details
-- **Layout**: Three-column responsive layout with flex-col lg:flex-row
-  - Left: Location info with localization icon - Address: "Av. 137, CC IMPERIAL II 3-08, PISO 3 (frente al CC Galeria), Valencia, Carabobo, Venezuela" with phone "+58 424-4067274"
-  - Center: "SUBLINK COMPANY" text-4xl bold heading with "Quiénes Somos" text-2xl subtext
-    - Added links: "📝 Blog Textil" (text-blue-300 hover:text-white, href="/blog")
-    - Added link: "♻️ Sostenibilidad" (text-lime-300 hover:text-white, href="/sostenibilidad")
-  - Right: Three contact items - Email (sublinkve@gmail.com), Instagram link (sublink.ve), Hours ("We are open from: MON - FRI 8:30 am - 4:30 pm")
-- **Styling**: footer-bg class with responsive text sizes (text-base sm:text-xs md:text-sm xl:text-base on left, text-zinc-50)
-- **Icon Sizing**: localization icon w-8 xl:w-10; email/instagram/horario icons w-5 sm:w-6 xl:w-10
-- **Responsive**: flex-col lg:flex-row with items-center lg:items-start, gap-10 lg:gap-0
-- **Assets**: Icons from `/assets/` directory (localization.svg, email.svg, instagram.svg, horario.svg)
+- **Purpose**: Page footer with contact info, navigation links, and social media
+- **Layout**: Four-column responsive grid (grid-cols-1 sm:grid-cols-2 lg:grid-cols-4, gap-10)
+  - Col 1 (Logo & Tagline): Sublink logo (brightness-200, w-36 h-auto) + company description (text-sm text-zinc-400)
+  - Col 2 (Contacto): Address, phone (+58 424-4067274), email (sublinkve@gmail.com), hours (Lun-Vie 8:30am-4:30pm)
+  - Col 3 (Navegación): Links to Telas (/), Servicios (/), Sostenibilidad (/sostenibilidad), Blog (/blog)
+  - Col 4 (Síguenos): Social icons (WhatsApp, Facebook, Instagram) as SVG with hover transitions
+- **Styling**: bg-zinc-900 text-zinc-300, white headings (text-white text-xs font-bold uppercase tracking-widest)
+- **Background**: max-w-6xl mx-auto px-6 py-14 container
+- **Responsive**: Adapts from single column (mobile) to 4-column layout (lg), with proper spacing and link hover states
 
 ### PrintOnDemand Section Component
 - **Location**: `src/components/PrintOnDemand/PrintOnDemand.tsx`
@@ -426,8 +467,12 @@ interface ITela {
   - Custom styling: blockquotes (bg-blue-50 border-l-4 border-blue-600), info boxes (bg-gray-50 border border-gray-200), callouts (rounding, padding)
   - Internal links: e.g., `/telas/telas-importadas/lycra-lafayette` for related fabric products
 - **Navbar Integration** (`src/components/Header/Navbar.tsx`):
-  - Added "BLOG" nav item to desktop menu (text-gray-700 hover:text-blue-500, href="/blog")
-  - Blog link appears in main navigation alongside TELAS, TELAS ECO, SERVICIOS, SOSTENIBILIDAD
+  - Desktop menu items: TELAS (dropdown), TELAS ECO (dropdown), SERVICIOS (dropdown), SOSTENIBILIDAD, BLOG
+  - BLOG link styling: text-gray-700 hover:text-blue-500 font-semibold, href="/blog"
+  - SOSTENIBILIDAD link styling: text-lime-500 hover:text-lime-400 antialiased, href="/sostenibilidad"
+  - Mobile navigation: Uses MobileNav component for responsive menu
+  - Menu state: toggleTelas, toggleTelasEco, toggleServicios managed via handleMenuItems callback
+  - NAV_ITEM_KEYS constant defines available toggles (no toggleBlog/toggleSostenibilidad as they don't have dropdowns)
 
 ### Video Component (Modal)
 - **Location**: `src/components/VideoReciclar/Video.tsx`

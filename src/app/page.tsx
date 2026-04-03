@@ -6,6 +6,8 @@ import { Slider } from "@/components/Slider/Slider";
 import { VideoReciclar } from "@/components/VideoReciclar/VideoReciclar";
 import { PrintOnDemandSection } from "@/components/PrintOnDemand/PrintOnDemand";
 import { GoogleReviewsBadge } from "@/components/UI/GoogleReviews";
+import { FabricSelector } from "@/components/FabricSelector/FabricSelector";
+import { DeadStock } from "@/components/DeadStock/DeadStock";
 
 export default function Home() {
   return (
@@ -19,8 +21,16 @@ export default function Home() {
       </div>
 
       <VideoReciclar />
+
+      {/* Interactive fabric selector */}
+      <FabricSelector />
+
       <PrintOnDemandSection />
       <Estampacion />
+
+      {/* Dead Stock — limited rolls at discount */}
+      <DeadStock />
+
       <Counter />
       <LogoCarousel />
     </main>
