@@ -24,13 +24,13 @@ src/
 │   ├── robots.ts           # Robots metadata
 │   ├── sitemap.ts          # XML sitemap generation (telas + servicios + blog posts)
 │   ├── blog/
-│   │   ├── page.tsx        # Blog listing page (sorted by date descending, grid layout, metadata)
-│   │   ├── [slug]/         # Blog post pages (dynamic routing, metadata generation, related posts, contentMap)
-│   │   │   └── page.tsx    # Individual blog post with contentMap routing to TSX components
-│   │   └── posts/          # Blog post content components (.tsx files)
-│   │       ├── telas-para-trajes-de-bano.tsx
-│   │       ├── print-on-demand-modelo-actual.tsx
-│   │       └── tipos-de-fibras-y-telas.tsx
+│   │   ├── page.tsx        # Blog listing page (sorted by date descending, grid layout, metadata, related posts CTA)
+│   │   ├── [slug]/         # Dynamic blog post route with generateStaticParams, generateMetadata
+│   │   │   └── page.tsx    # Uses contentMap to route slug to component, includes breadcrumb, related posts (2), prose styling
+│   │   └── posts/          # Blog post content components (TSX, rendered as children in prose container)
+│   │       ├── telas-para-trajes-de-bano.tsx      # Swimwear fabrics guide
+│   │       ├── print-on-demand-modelo-actual.tsx  # Print-on-demand business model
+│   │       └── tipos-de-fibras-y-telas.tsx        # Textile fibers comprehensive guide
 │   ├── servicios/
 │   │   └── [slug]/         # Services pages (dynamic routing, metadata generation)
 │   ├── telas/
@@ -232,17 +232,33 @@ Key configuration:
 
 <!-- AUTO-MANAGED: git-insights -->
 Recent changes focused on blog system expansion and component refinement (as of 2026-04-03):
-- Blog System: Fully implemented with dynamic routing, metadata generation, and content mapping
-- Blog Posts: Three posts published covering fabrics, print-on-demand, and textile fibers (dates: 2026-03-15, 2026-03-28, 2026-04-02)
-  - Latest post: "tipos-de-fibras-y-telas" (2026-04-02) - Comprehensive textile fibers guide with 8 min reading time
-- Blog Listing Page: Enhanced with grid layout, featured images, CTA section with WhatsApp integration
-- Sitemap: Generates dynamic entries for telas (0.6 priority), servicios (0.8 priority), blog posts (0.7 priority)
-  - Root pages: home (1.0), sostenibilidad (0.9), blog listing (0.8)
-  - Blog entries use post.fecha for lastModified timestamp
-- AnnouncementBar: Configured with monthly offer mechanism (current: Lycra Lafayette discount)
-- Footer: Contact info with phone (+58 424-4067274), email, hours, and address with landmark (Piso 3 frente CC Galería)
-- Navbar: Menu state management ensures single-menu-open pattern with responsive layouts
-- Analytics: Vercel Analytics and Google Analytics (G-FQ4RY25W5X) integrated across layout
+- **Blog System**: Fully implemented with dynamic routing, metadata generation, and content mapping via contentMap
+- **Blog Posts**: Three published posts with metadata, date formatting, SEO optimization (dates: 2026-03-15, 2026-03-28, 2026-04-02)
+  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide (lycra, microfibra, chlorine resistance)
+  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - Print on demand business model, sublimación digital
+  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive textile fibers (naturales, sintéticas, artificiales, sostenibles)
+- **Blog Listing Page** (/blog): Grid layout (1 col mobile, 2 col desktop), sorted by date descending, featured images, metadata display, CTA with WhatsApp
+- **Dynamic Blog Routes**: [slug]/page.tsx with generateStaticParams, generateMetadata, contentMap routing, related posts section (2 related), breadcrumb navigation
+  - contentMap imports components: TelasTrajes, PrintOnDemand, TiposDeFibras from ../posts/
+  - formatFecha() converts YYYY-MM-DD to es-VE locale (e.g., "2 de abril de 2026")
+- **Blog Interface** (src/lib/blog.ts): slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords array
+  - getBlogPost(slug) helper to fetch single post
+  - getAllSlugs() helper returns array of all post slugs
+- **Sitemap Generation**: sitemap.ts generates MetadataRoute.Sitemap with entries for:
+  - Telas (priority 0.6, monthly)
+  - Servicios (priority 0.8, monthly)
+  - Blog posts (priority 0.7, monthly, lastModified from post.fecha)
+  - Root: home (1.0), blog (0.8, weekly), sostenibilidad (0.9, yearly)
+- **AnnouncementBar**: Monthly offer mechanism (editable ANNOUNCEMENT object), active flag, link to product page, styling with emojis
+  - ANNOUNCEMENT = { text, link, linkText, active } - edit in component file
+- **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
+- **Navbar**: Client component with menu state management (toggleTelas, toggleTelasEco, toggleServicios), single-menu-open pattern, mobile drawer with hamburger, responsive layouts
+  - NAV_ITEM_KEYS constant enforces menu state keys
+  - handleMenuItems() resets all menus then toggles selected one
+- **Layout**: Poppins font (200-900 weights), JSON-LD LocalBusiness schema, viewport constraints (no zoom), AnnouncementBar at top, suspense-wrapped Video component, Vercel & Google Analytics
+  - Root layout imports: Header, AnnouncementBar, MiniPop, Footer, Video, Analytics, GoogleAnalytics
+- **Analytics**: Vercel Analytics integrated, Google Analytics (ID: G-FQ4RY25W5X) via @next/third-parties
+- **Home Page**: Section layout with Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, GoogleReviewsBadge
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes
