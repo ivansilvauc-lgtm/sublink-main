@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 80" role="img" aria-label="Monti Antonio logo">
+  <!-- Red angular shape on the left -->
+  <polygon points="8,72 8,20 28,8 42,8 42,72" fill="#c00000"/>
+  <polygon points="28,8 52,8 36,28 28,28" fill="#c00000"/>
+  <!-- Company name -->
+  <text x="58" y="42" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold" fill="#1a1a1a" letter-spacing="1">MONTI</text>
+  <text x="58" y="66" font-family="Georgia, 'Times New Roman', serif" font-size="22" font-weight="bold" fill="#1a1a1a" letter-spacing="1">ANTONIO</text>
+</svg>

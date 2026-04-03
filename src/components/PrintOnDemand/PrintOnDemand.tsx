@@ -63,13 +63,13 @@ export const PrintOnDemandSection = () => {
             Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni.
           </p>
           <div className="flex items-center gap-4 mb-8">
-            {/* Epson chip */}
-            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5">
-              <span className="font-bold text-[#003087] text-sm tracking-wider" style={{ fontFamily: 'Arial, sans-serif' }}>EPSON</span>
+            {/* Epson logo */}
+            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5 bg-white">
+              <Image src="/assets/epson-logo.svg" alt="Epson" width={90} height={36} className="h-8 w-auto" />
             </div>
-            {/* Monti Antoni chip */}
-            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5">
-              <span className="font-bold text-gray-800 text-sm" style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.5px' }}>MONTI ANTONIO</span>
+            {/* Monti Antonio logo */}
+            <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5 bg-white">
+              <Image src="/assets/monti-antonio-logo.svg" alt="Monti Antonio" width={110} height={36} className="h-8 w-auto" />
             </div>
           </div>
 

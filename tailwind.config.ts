@@ -31,6 +31,7 @@ const config: Config = {
   },
   plugins: [
     require('flowbite/plugin'),
+    require('@tailwindcss/typography'),
   ],
   
 };
