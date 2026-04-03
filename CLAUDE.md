@@ -6,7 +6,7 @@ Sublink is a Next.js 14.2.2 web application for textile and fabric services in V
 
 ## Build Commands
 
-<!-- AUTO-MANAGED: build-commands -->
+<!-- AUTO-MANAGED: build-commands-->
 - `npm run dev` - Start development server with Turbo mode
 - `npm run build` - Build for production
 - `npm start` - Start production server
