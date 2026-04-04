@@ -217,7 +217,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                 <Link href={`/servicios/vinil-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Vinil Textil</Link>
               </li>
               <li >
-                <Link href={`/servicios/servicio-de-costura`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Servicio de Costura</Link>
+                <span className="text-gray-400 cursor-default">Servicio de Costura</span>
               </li>
             </ul>
             <div className="absolute bottom-5 right-5">

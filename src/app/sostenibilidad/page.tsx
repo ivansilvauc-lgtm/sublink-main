@@ -93,12 +93,12 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
             <section className="py-20 px-20">
-                <div className="flex flex-row items-center justify-center max-w-2xl mx-auto gap-10 flex-wrap">
+                <div className="flex flex-row items-center justify-center max-w-2xl mx-auto gap-12 flex-wrap">
                     <div className="w-52 h-auto">
-                        <Image src="/img/sostenibilidad/logo-sutex.png" alt="Logo Sutex - proveedor de telas sostenibles" width={490} height={143} className="object-contain" />
+                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="object-contain" />
                     </div>
-                    <div className="w-52 h-auto">
-                        <Image src="/img/sostenibilidad/LOGO TEXTILIA.png" alt="Logo Textilia - proveedor de telas sostenibles" width={490} height={143} className="object-contain" />
+                    <div className="w-44 h-auto flex items-center justify-center">
+                        <span className="text-black font-bold text-3xl tracking-widest uppercase">Textilia</span>
                     </div>
                     <div className="w-52 h-auto">
                         <Image src="/img/sostenibilidad/LOGO PROTELA.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="object-contain" />

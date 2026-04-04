@@ -39,8 +39,6 @@ export const Estampacion = () => {
             <h2 className="text-primary text-3xl font-semibold text-center tracking-tighter px-2">
                 Las mejores soluciones de estampación
             </h2>
-            <p className="text-center text-zinc-900 text-xl mt-5 max-w-3xl px-2">Usamos tintas y materiales de primera calidad para lograr
-                estampados nítidos y de alta durabilidad.</p>
             <motion.div 
             ref={ref}
             initial={{ opacity: 0, y: 20, rotateZ: 10 }}

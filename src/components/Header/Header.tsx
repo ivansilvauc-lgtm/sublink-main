@@ -6,7 +6,7 @@ import { servicios } from "@/lib/servicios";
 export const Header = () => {
 
   return (
-    <header className="fixed top-0 z-50 max-w-[1920px] w-full">
+    <header className="fixed top-9 z-50 max-w-[1920px] w-full">
       <Top text={""}/>
       <Navbar telas={telas} servicios={servicios}/>
     </header>
