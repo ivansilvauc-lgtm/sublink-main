@@ -249,7 +249,7 @@ Key configuration:
 ## Git Insights
 
 <!-- AUTO-MANAGED: git-insights -->
-Recent changes focused on blog system expansion and component refinement (as of 2026-04-03):
+Recent changes focused on blog system expansion, component refinement, and styling enhancements (as of 2026-04-04):
 - **Blog System**: Fully implemented with dynamic routing, metadata generation, and content mapping via contentMap
 - **Blog Posts**: Three published posts with metadata, date formatting, SEO optimization (dates: 2026-03-15, 2026-03-28, 2026-04-02)
   - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Lafayette (4-way stretch, chlorine-resistant, €26.50/m), Lycra Peruana (€24/m), Microfibra Nacional (2-way, €7/m). Covers durability, chlorine exposure, UV protection, fabric comparison table
@@ -277,13 +277,17 @@ Recent changes focused on blog system expansion and component refinement (as of 
   - ANNOUNCEMENT = { text, link, linkText, active } - edit in component file
 - **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
 - **Navbar**: Client component with menu state management (toggleTelas, toggleTelasEco, toggleServicios), single-menu-open pattern, mobile drawer with hamburger, responsive layouts
-  - NAV_ITEM_KEYS constant enforces menu state keys
+  - NAV_ITEM_KEYS constant enforces menu state keys (as const tuple)
   - handleMenuItems() resets all menus then toggles selected one
+  - Uses TypeScript type safety with MenuStateKey and NavItem types
 - **Layout**: Poppins font (200-900 weights), JSON-LD LocalBusiness schema, viewport constraints (no zoom), AnnouncementBar at top, suspense-wrapped Video component, Vercel & Google Analytics
   - Root layout imports: Header, AnnouncementBar, MiniPop, Footer, Video, Analytics, GoogleAnalytics
+  - Metadata includes openGraph with locale es_ES, creator/publisher/authors
 - **Analytics**: Vercel Analytics integrated, Google Analytics (ID: G-FQ4RY25W5X) via @next/third-parties
 - **Home Page** (src/app/page.tsx): Section layout with Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, GoogleReviewsBadge
 - **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for logo carousel and partner displays
+- **Tailwind Config**: Extended colors with primary #157ec2, secondary #f9f9f9, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
+- **Ofrecemos Component**: Two-column section showing "TELAS" and "SERVICIOS TEXTILES" cards with image backgrounds, modal triggers via ModalComponent for fabric/service selection
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes
