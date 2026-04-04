@@ -10,7 +10,7 @@ import AutoScroll from 'embla-carousel-auto-scroll';
 // To remove SUTEX and greentex: delete their numbers from the numbered list below
 // (Ivan: open the folder logos-clientes, check which .svg files match those logos)
 const NUMBERED_LOGOS = [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,48,49,50];
-const NAMED_LOGOS = ["protela", "ram"]; // named SVGs added to logos-clientes folder
+const NAMED_LOGOS = ["protela"]; // named SVGs added to logos-clientes folder
 
 type LogoEntry = { type: "numbered"; n: number } | { type: "named"; name: string };
 
@@ -62,12 +62,12 @@ export const LogoCarousel = () => {
                         {slides.map((slide, index) => (
                             <div className="embla__slide" key={index}>
                                 <div className="flex flex-col items-center justify-center gap-y-6 p-2">
-                                    <div className="w-36 h-36 shadow-md bg-zinc-50 flex items-center justify-center p-2">
-                                        <Image src={logoSrc(slide[0])} alt="Logo cliente" width={80} height={80} className="w-full aspect-[1/1] h-auto p-7" />
+                                    <div className="w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4">
+                                        <Image src={logoSrc(slide[0])} alt="Logo cliente" width={100} height={100} className="w-full h-full object-contain p-3" />
                                     </div>
                                     {slide[1] && (
-                                        <div className="w-36 h-36 shadow-md bg-zinc-50 flex items-center justify-center">
-                                            <Image src={logoSrc(slide[1])} alt="Logo cliente" width={80} height={80} className="w-full aspect-[1/1] h-auto p-7" />
+                                        <div className="w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4">
+                                            <Image src={logoSrc(slide[1])} alt="Logo cliente" width={100} height={100} className="w-full h-full object-contain p-3" />
                                         </div>
                                     )}
                                 </div>

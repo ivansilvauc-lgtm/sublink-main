@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 
 const PRINTS = [
   {
-    src: "/img/prints/geometric-blue.jpg",
-    alt: "Estampado geométrico azul y blanco sublimado en tela",
-  },
-  {
-    src: "/img/prints/zebra-print.jpg",
+    src: "/img/prints/AP001 - CEBRA 1.png",
     alt: "Estampado cebra en blanco y negro sublimado en tela",
   },
   {
-    src: "/img/prints/cherry-blossom.jpg",
-    alt: "Estampado floral cerezos sobre fondo azul marino sublimado en tela",
+    src: "/img/prints/FL002 - APRICOT.jpg",
+    alt: "Estampado floral apricot sublimado en tela",
+  },
+  {
+    src: "/img/prints/MO008 - ITALIANO TILES.jpg",
+    alt: "Estampado geométrico italiano tiles sublimado en tela",
   },
 ];
 
