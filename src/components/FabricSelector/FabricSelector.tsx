@@ -241,12 +241,12 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
     { nombre: "Loneta IMP 600D", slug: "loneta-imp-600d", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-imp-600d-zoom.webp",  usos: "Tapicería, toldos, muebles", tag: "Resistente" },
     { nombre: "Loneta Soft",     slug: "loneta-soft",     categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-soft-zoom.webp",      usos: "Tapicería, morralería",      tag: "Pet Friendly" },
     { nombre: "Gabardina",       slug: "gabardina",       categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/gabardina-zoom.webp",        usos: "Decoración, cortinas" },
+    { nombre: "Minimat",         slug: "minimat",         categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/minimat-zoom.webp",          usos: "Manteles, tapetes, muebles" },
   ],
   chaqueta: [
     { nombre: "Microfibra Antifluido", slug: "microfibra-antifluido", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/microfibra-antifluido-zoom.webp", usos: "Chaquetas, uniformes", tag: "Antifluido" },
     { nombre: "Microfibra Quik",       slug: "microfibra-quik",       categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/microfibra-quik-zoom.webp",       usos: "Chaquetas, rompevientos" },
     { nombre: "Microfibra Nacional",   slug: "microfibra-nacional",   categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/microfibra-nacional-zoom.webp",   usos: "Chaquetas deportivas" },
-    { nombre: "Runner Africa",         slug: "runner-africa",         categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/runner-importada-zoom.webp",      usos: "Chaquetas UPF 30" },
   ],
   toalla: [
     { nombre: "Toalla Microfibra", slug: "toalla-microfibra", categoria_slug: "telas-ecologicas", imagen: "/img/telas/telas-ecologicas/toalla-microfibra-zoom.webp", usos: "Toallas, paños de playa, ponchos", tag: "Eco" },
@@ -259,9 +259,10 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
     { nombre: "Chiffon Textura de Lino",slug: "chiffon-textura-de-lino",categoria_slug: "telas-ecologicas", imagen: "/img/telas/telas-ecologicas/chiffon-textura-lino-zoom.webp",    usos: "Salidas de baño, pareos",     tag: "Eco" },
   ],
   totebag: [
-    { nombre: "Pop Sublimable",  slug: "pop-sublimable",  categoria_slug: "telas-importadas", imagen: "/img/telas/telas-especiales/pop-sublimable-zoom.webp",      usos: "Tote bags, tulas, bolsos" },
-    { nombre: "Loneta Soft",     slug: "loneta-soft",     categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-soft-zoom.webp",         usos: "Morrales, cartucheras",   tag: "Pet Friendly" },
-    { nombre: "Loneta IMP 600D", slug: "loneta-imp-600d", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-imp-600d-zoom.webp",     usos: "Morrales, delantales",    tag: "Resistente" },
+    { nombre: "Pop Sublimable",      slug: "pop-sublimable",      categoria_slug: "telas-importadas", imagen: "/img/telas/telas-especiales/pop-sublimable-zoom.webp",      usos: "Tote bags, tulas, bolsos" },
+    { nombre: "Loneta Soft",         slug: "loneta-soft",         categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-soft-zoom.webp",         usos: "Morrales, cartucheras",   tag: "Pet Friendly" },
+    { nombre: "Loneta IMP 600D",     slug: "loneta-imp-600d",     categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-imp-600d-zoom.webp",     usos: "Morrales, delantales",    tag: "Resistente" },
+    { nombre: "Microfibra Nacional", slug: "microfibra-nacional", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/microfibra-nacional-zoom.webp", usos: "Bolsos, tote bags livianos" },
   ],
   mantel: [
     { nombre: "Minimat",      slug: "minimat",      categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/minimat-zoom.webp",     usos: "Manteles, servilletas" },

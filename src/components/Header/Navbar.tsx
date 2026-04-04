@@ -44,7 +44,18 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
 
   useEffect(() => {
     setSomeMenuOpen(Object.values(menuState).some((value) => value));
-  }, [menuState])
+  }, [menuState]);
+
+  // Close menu when user scrolls
+  useEffect(() => {
+    const handleScroll = () => {
+      if (Object.values(menuState).some((v) => v)) {
+        resetMenuState();
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [menuState]);
 
   const resetMenuState = () => {
     setToggleMenu(false);
@@ -200,16 +211,13 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                 <Link href={`/servicios/corte-laser-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Corte Láser Textil</Link>
               </li>
               <li >
-                <Link href={`/servicios/impresion-3d-rigido`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Impresión 3D Rígido</Link>
-              </li>
-              <li >
-                <Link href={`/servicios/sublimacion-de-ribbons`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Sublimación de Ribbons (Cintas y Elásticas)</Link>
-              </li>
-              <li >
                 <Link href={`/servicios/etiquetas-nylon-y-silicon-monocromaticas`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Etiquetas Nylon y Silicon Monocromáticas (Resina Negra)</Link>
               </li>
               <li >
                 <Link href={`/servicios/vinil-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Vinil Textil</Link>
+              </li>
+              <li >
+                <Link href={`/servicios/servicio-de-costura`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Servicio de Costura</Link>
               </li>
             </ul>
             <div className="absolute bottom-5 right-5">
@@ -220,7 +228,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
       }
       {
         someMenuOpen && (
-          <div className="relative hidden lg:block top-0 left-0 w-full h-screen bg-primary z-0 cursor-pointer" onClick={() => resetMenuState()}>
+          <div className="fixed hidden lg:block inset-0 w-full h-full bg-primary/80 z-10 cursor-pointer" style={{top: '0'}} onClick={() => resetMenuState()}>
             <div className='ripple-background'>
               <div className='circle xxlarge shade1'></div>
               <div className='circle xlarge shade2'></div>

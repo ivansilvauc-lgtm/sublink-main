@@ -13,7 +13,7 @@ export const IconBar = () => {
     const isInView = useInView(ref, { once: true });
 
     return (
-        <section className="w-full">
+        <section className="w-full mb-16">
             <motion.div
                 ref={ref}
                 variants={containerVariants}

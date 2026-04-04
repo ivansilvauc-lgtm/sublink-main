@@ -5,16 +5,16 @@ import { useState, useEffect } from "react";
 
 const PRINTS = [
   {
-    src: "/img/estampacion/after-sublink.webp",
-    alt: "Tela sublimada con diseño a todo color",
+    src: "/img/prints/geometric-blue.jpg",
+    alt: "Estampado geométrico azul y blanco sublimado en tela",
   },
   {
-    src: "/img/telas/telas-importadas/punto-scuba-zoom.webp",
-    alt: "Tela scuba con estampado digital",
+    src: "/img/prints/zebra-print.jpg",
+    alt: "Estampado cebra en blanco y negro sublimado en tela",
   },
   {
-    src: "/img/telas/telas-importadas/runner-importada-zoom.webp",
-    alt: "Runner importada con print sublimado",
+    src: "/img/prints/cherry-blossom.jpg",
+    alt: "Estampado floral cerezos sobre fondo azul marino sublimado en tela",
   },
 ];
 
