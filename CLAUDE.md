@@ -76,7 +76,9 @@ Key configuration:
 - **URL Base**: `https://www.sublink.company` (SUBLINK_URL constant)
 - **Module Path Alias**: `@/*` maps to `./src/*`
 - **Next.js Version**: 14.2.2
-- **Remote Image Patterns**: via.placeholder.com, lh3.googleusercontent.com (Google review profile photos)
+- **Remote Image Patterns** (`next.config.mjs`):
+  - `via.placeholder.com` (https) - Placeholder images
+  - `lh3.googleusercontent.com` (https) - Google review profile photos
 - **Analytics**: Vercel Analytics + Google Analytics (GA ID: G-FQ4RY25W5X)
 - **Google Places API**: Used for fetching reviews via /api/reviews endpoint
 - **Vercel Deployment**: Framework: nextjs, buildCommand: `npm run build`, outputDirectory: `.next`
@@ -169,12 +171,14 @@ Key configuration:
 
 ### Announcement Bar
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
+  - Type: Client component (`"use client"`)
   - ANNOUNCEMENT object with properties:
-    - `text`: Banner message text (currently: "🎉 OFERTA DEL MES: 10% de descuento en Lycra Lafayette al mayor")
-    - `link`: Destination URL (currently: `/telas/telas-importadas/lycra-lafayette`)
-    - `linkText`: Link label (currently: `"Ver tela →"`)
+    - `text`: Banner message text (currently: "Oferta del Mes")
+    - `link`: Destination URL (currently: empty)
+    - `linkText`: Link label (currently: empty)
     - `active`: Boolean to show/hide banner (currently: `true`)
-  - Styling: bg-zinc-900, white text, sm font, centered flex layout
+  - Styling: fixed top-0, bg-zinc-900, white text, sm font, centered flex layout, z-[60]
+  - Renders Link component conditionally if link is provided
   - **Editing Instructions**: Update ANNOUNCEMENT object directly in the component file (marked with comment: ✏️ EDITAR AQUÍ)
 
 ### Google Reviews
@@ -329,8 +333,10 @@ Recent changes focused on blog system completion and detailed content implementa
   - Current items: Lycra Colombiana (45m, 30% off), Microfibra Antifluido (28m, 25% off), Runner Africa (33m, 20% off)
   - Section styling: bg-zinc-900 with yellow "Stock Limitado" badge, yellow CTA button to WhatsApp, 3-column grid layout
   - Filters by available: true, returns null if no items
-- **AnnouncementBar**: Monthly offer mechanism (editable ANNOUNCEMENT object), active flag, link to product page, styling with emojis
-  - ANNOUNCEMENT = { text, link, linkText, active } - edit in component file
+- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`): Fixed position announcement bar with editable ANNOUNCEMENT object
+  - ANNOUNCEMENT = { text, link, linkText, active } - supports empty values for link/linkText
+  - Styling: fixed top-0, bg-zinc-900, z-[60], conditionally renders Link if link provided
+  - Current state: text="Oferta del Mes", link="", active=true
 - **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
 - **Navbar**: Client component with menu state management (toggleTelas, toggleTelasEco, toggleServicios), single-menu-open pattern, mobile drawer with hamburger, responsive layouts
   - NAV_ITEM_KEYS constant enforces menu state keys (as const tuple)
@@ -341,8 +347,16 @@ Recent changes focused on blog system completion and detailed content implementa
   - Metadata includes openGraph with locale es_ES, creator/publisher/authors
 - **Analytics**: Vercel Analytics integrated, Google Analytics (ID: G-FQ4RY25W5X) via @next/third-parties
 - **Home Page** (src/app/page.tsx): Section layout with Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, GoogleReviewsBadge
-- **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for logo carousel and partner displays
-- **Tailwind Config**: Extended colors with primary #157ec2, secondary #f9f9f9, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
+- **Logo Carousel** (`src/components/Logos/LogoCarousel.tsx`):
+  - Type: Client component (`"use client"`)
+  - Uses Embla Carousel with AutoScroll plugin (speed: 1)
+  - Logo system: NUMBERED_LOGOS array (1-50, excluding certain numbers) and NAMED_LOGOS array ("ARENA CRISTAL")
+  - File structure: `/assets/logos-clientes/[n].svg` for numbered logos, `/assets/logos-clientes/[name].[ext]` for named logos
+  - NAMED_LOGO_EXT mapping for file extensions (default: svg, override per logo)
+  - Generates 2-logo slides via reduce, carousel loops infinitely with autoplay
+  - Features: toggleAutoplay callback, useEffect hook management
+- **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for branding displays
+- **Tailwind Config** (`tailwind.config.ts`): Extended colors with primary #157ec2, secondary #f9f9f9, tertiary #f2f2f2, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
 - **Ofrecemos Component**: Two-column section showing "TELAS" and "SERVICIOS TEXTILES" cards with image backgrounds, modal triggers via ModalComponent for fabric/service selection
 - **Google Reviews Integration** (as of 2026-04-04):
   - **API Route** (`src/app/api/reviews/route.ts`): GET endpoint fetching Google Places API with Place ID "ChIJd4jZgbDIwiiaHkV_m3_p7Q" (Sublink Sublimación Textil business)
