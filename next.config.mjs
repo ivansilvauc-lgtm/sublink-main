@@ -8,6 +8,13 @@ const nextConfig = {
             port: '',
             pathname: '/**',
           },
+          {
+            // Fotos de perfil de reseñas de Google
+            protocol: 'https',
+            hostname: 'lh3.googleusercontent.com',
+            port: '',
+            pathname: '/**',
+          },
         ],
       },
 

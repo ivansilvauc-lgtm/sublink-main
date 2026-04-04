@@ -19,6 +19,9 @@ Sublink is a Next.js 14.2.2 web application for textile and fabric services in V
 ```
 src/
 ├── app/                    # Next.js app router pages
+│   ├── api/                # API routes for backend functionality
+│   │   └── reviews/        # Google Places reviews endpoint
+│   │       └── route.ts    # Fetches business reviews from Google Places API (revalidates hourly)
 │   ├── layout.tsx          # Root layout with metadata, JSON-LD schema, AnnouncementBar
 │   ├── page.tsx            # Home page
 │   ├── robots.ts           # Robots metadata
@@ -52,7 +55,7 @@ src/
 │   │   ├── MiniPop.tsx     # Popup component
 │   │   ├── Footer.tsx      # Footer with social links (WhatsApp, Facebook, Instagram)
 │   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
-│   │   ├── GoogleReviews.tsx # Google reviews widget
+│   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
 │   │   └── ...
 │   ├── FabricSelector/     # Fabric selection component
 │   ├── DeadStock/          # Deadstock fabric section
@@ -73,8 +76,18 @@ Key configuration:
 - **URL Base**: `https://www.sublink.company` (SUBLINK_URL constant)
 - **Module Path Alias**: `@/*` maps to `./src/*`
 - **Next.js Version**: 14.2.2
-- **Remote Image Patterns**: via.placeholder.com
+- **Remote Image Patterns**: via.placeholder.com, lh3.googleusercontent.com (Google review profile photos)
 - **Analytics**: Vercel Analytics + Google Analytics (GA ID: G-FQ4RY25W5X)
+- **Google Places API**: Used for fetching reviews via /api/reviews endpoint
+- **Vercel Deployment**: Framework: nextjs, buildCommand: `npm run build`, outputDirectory: `.next`
+
+### Sitemap Generation
+- **sitemap.ts** generates MetadataRoute.Sitemap with:
+  - Blog entries (priority 0.7, monthly changeFreq, lastModified from post.fecha)
+  - Servicios entries (priority 0.8, monthly changeFreq)
+  - Telas entries (priority 0.6, monthly changeFreq) - mapped via `categoria_slug/slug` pattern
+  - Root pages: home (1.0, monthly), blog (0.8, weekly), sostenibilidad (0.9, yearly)
+  - All entries use SUBLINK_URL constant for canonical URLs
 <!-- END AUTO-MANAGED -->
 
 ## Conventions
@@ -118,10 +131,10 @@ Key configuration:
   - Features: Grid layout (1 col mobile, 2 col desktop), featured images with hover zoom, description line-clamp-3, read link
   - CTA section at bottom: "¿Tienes preguntas sobre telas o sublimación?" with WhatsApp link
 - **Date Formatting**: `formatFecha()` function converts YYYY-MM-DD to localized "es-VE" format
-- **Current Posts** (as of 2026-04-02):
-  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Laurent, Microfibra Nacional
-  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - Print on demand business model: sublimación digital, zero inventory
-  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Textile fibers comprehensive guide: natural, synthetic, artificial, sustainable fibers
+- **Current Posts** (as of 2026-04-04):
+  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Lafayette (€26.50/m, 4-way stretch, chlorine-resistant), Lycra Peruana (€24/m), Microfibra Nacional (€7/m, 2-way). Covers durability, chlorine exposure, UV protection, care instructions
+  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - POD business model: zero inventory, customer-driven production, sublimación digital (65%+ polyester compatible), niche selection, channel setup (Instagram, WhatsApp), margin targets (40-50%)
+  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive fiber types: natural (algodón, lana, lino, seda), synthetic (poliéster, nylon, acrílico, elastano), artificial (viscosa, rayón, modal, acetato), sustainable (bambú, cáñamo, Eco Fibra, Lyocell). Yarn count systems (Ne, Nm, Denier). Weave types (Jersey, Piqué, Interlock, Rib, Fleece, French Terry, Jacquard for knits; Tafeta, Popelina, Twill, Rib-Stop, Denim, Drill, Oxford, Gabardina for wovens). Finishing techniques
 
 ### Layout & Viewport
 - **Root Layout** (`src/app/layout.tsx`):
@@ -164,6 +177,24 @@ Key configuration:
   - Styling: bg-zinc-900, white text, sm font, centered flex layout
   - **Editing Instructions**: Update ANNOUNCEMENT object directly in the component file (marked with comment: ✏️ EDITAR AQUÍ)
 
+### Google Reviews
+- **GoogleReviews** (`src/components/UI/GoogleReviews.tsx`):
+  - Type: Client component (`"use client"`) with server-side data fetching from `/api/reviews`
+  - **GoogleReviewsBadge** (compact badge component):
+    - Props: `{ rating?: number (default 4.8), total?: number }`
+    - Displays: Google G logo, star rating (5-star visual), review count, clickable link to Google Business profile
+    - Styling: White background, border, rounded-xl, hover shadow transition
+    - Link: `https://g.co/kgs/sublink` (direct to business reviews)
+  - **Stars** (reusable star rating component):
+    - Props: `{ rating: number, size?: "sm" | "md" }`
+    - Renders: 5 stars, yellow (#fbbf24) for filled, gray for empty based on rating value
+  - **GoogleReviewsSection** (full section component):
+    - Type: Client component with useEffect + useState
+    - Fetches: GET `/api/reviews` (endpoint returns: name, rating, total, reviews array)
+    - State: `data: ReviewsData | null`, `loading: boolean`, `error: boolean`
+    - ReviewsData interface: `{ name: string, rating: number, total: number, reviews: Review[] }`
+    - Review interface: `{ author_name, profile_photo_url, rating, relative_time_description, text }`
+
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
   - Type: Client component (`"use client"`)
@@ -186,12 +217,15 @@ Key configuration:
   - **Bottom Bar**: Copyright year (dynamic via new Date().getFullYear()), link to sublink.company
   - **Styling**: bg-zinc-900 text, hover:text-white transitions, border-t border-zinc-800
 
-### Sitemap Generation
-- **sitemap.ts** generates MetadataRoute.Sitemap with:
-  - Blog entries: priority 0.7, monthly changeFreq, lastModified from post.fecha
-  - Servicios entries: priority 0.8, monthly changeFreq
-  - Telas entries: priority 0.6, monthly changeFreq
-  - Root pages: home (1.0), blog (0.8), sostenibilidad (0.9)
+
+### API Routes
+- **GET /api/reviews**:
+  - Purpose: Fetch Google Places business reviews and ratings
+  - Revalidation: 3600 seconds (1 hour)
+  - Environment Variable: `GOOGLE_PLACES_API_KEY`
+  - Returns: JSON with `{ name, rating, total (user_ratings_total), reviews[] }`
+  - Reviews Array: Contains up to 5 newest reviews, each with `author_name, profile_photo_url, rating, relative_time_description, text`
+  - Error Handling: Returns 500 if API key not configured or Google Places API fails
 
 <!-- END AUTO-MANAGED -->
 
@@ -227,6 +261,11 @@ Key configuration:
 ### Development
 - TypeScript, ESLint, Tailwind CSS, PostCSS, Autoprefixer
 - Type definitions for React, React DOM, React Modal Video
+- @tailwindcss/typography - Prose styling for blog content
+
+### External Services
+- **Google Places API** - Business reviews and ratings (requires GOOGLE_PLACES_API_KEY env var)
+- **Google Analytics** - Tracking ID G-FQ4RY25W5X
 
 <!-- END AUTO-MANAGED -->
 
@@ -249,12 +288,29 @@ Key configuration:
 ## Git Insights
 
 <!-- AUTO-MANAGED: git-insights -->
-Recent changes focused on blog system expansion, component refinement, and styling enhancements (as of 2026-04-04):
+Recent changes focused on blog system completion and detailed content implementation (as of 2026-04-04):
 - **Blog System**: Fully implemented with dynamic routing, metadata generation, and content mapping via contentMap
-- **Blog Posts**: Three published posts with metadata, date formatting, SEO optimization (dates: 2026-03-15, 2026-03-28, 2026-04-02)
-  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Lafayette (4-way stretch, chlorine-resistant, €26.50/m), Lycra Peruana (€24/m), Microfibra Nacional (2-way, €7/m). Covers durability, chlorine exposure, UV protection, fabric comparison table
-  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - POD business model: zero inventory, design-to-customer workflow, sublimación digital (compatible 65%+ polyester), niche selection, design tools (Canva), fabric compatibility table
-  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive fiber types: natural (algodón, lana, lino, seda), synthetic (poliéster, nylon, acrílico, elastano), artificial (viscosa, rayón, modal, acetato), sustainable (bambú, cáñamo, Eco Fibra, Lyocell). Yarn count systems (Ne, Nm, Dtex). Weave and finish technical details
+- **Blog Posts**: Three published posts with comprehensive content, metadata, SEO optimization (dates: 2026-03-15, 2026-03-28, 2026-04-02)
+  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics detailed guide
+    - Lycra Lafayette: 4-way stretch, 18-22% elastano, €26.50/m, high chlorine resistance, ideal for competition/sports
+    - Lycra Peruana: 4-way stretch, medium-high chlorine resistance, €24/m, ideal for fashion/beach
+    - Microfibra Nacional: 2-way stretch, medium chlorine resistance, €7/m, very lightweight, ideal for casual/cover-ups
+    - Care instructions: hand wash/cold, air dry only, rinse after chlorine exposure
+    - Comparison table: elasticity, chlorine resistance, price, ideal use
+  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - POD business model comprehensive guide
+    - Definition: produce only on customer order, zero inventory model
+    - Growth drivers: mass customization, social media channels, low entry barrier, catalog flexibility
+    - Sublimación digital: full-color without extra cost, durable transfers, 1-unit minimum, 65%+ polyester compatible
+    - Fabric compatibility: Microfibra (ideal), Lycra blends (good), dri-fit (excellent), pure algodón (NOT compatible)
+    - 5-step startup process: niche selection, design sourcing (Canva, freelance), supplier selection, sales channel (Instagram/WhatsApp), margin strategy (40-50% minimum)
+    - Cost: designs ($0-100), samples, digital marketing (initially $0)
+    - Fabric compatibility table: polyester %, recommendations
+  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive textile fiber and weave technical guide
+    - Fiber categories: Natural (algodón-casual, lana-thermal, lino-summer, seda-luxury), Synthetic (poliéster-sportswear/sublimation, nylon-durability, acrílico-wool alternative, elastano-stretch), Artificial (viscosa-soft/elegant, rayón-drape, modal-absorbent/intimate, acetato-silk imitation), Sustainable (bambú-eco, cáñamo-durability, Eco Fibra-recycled PET, Lyocell-closed-loop)
+    - Yarn count systems: Ne (cotton 840y/lb), Nm (wool 20m/1g), Denier (polyester 1g/9000m). Inverse relationship for Ne/Nm, direct for Denier
+    - Knit weaves: Jersey, Piqué, Interlock, Rib, Fleece, French Terry, Jacquard with specific end-use recommendations
+    - Woven weaves: Tafeta, Popelina, Twill, Rib-Stop, Denim/Bull Denim, Drill, Oxford, Gabardina with application details
+    - Technical note: Point/Knit is elastic/soft; Woven is structured/rigid
 - **Blog Listing Page** (/blog): Grid layout (1 col mobile, 2 col desktop), sorted by date descending, featured images, metadata display (categoria, tiempoLectura), hover zoom effect, CTA section "¿Tienes preguntas sobre telas o sublimación?" with WhatsApp link
 - **Dynamic Blog Routes**: [slug]/page.tsx with generateStaticParams, generateMetadata, contentMap routing, related posts section (2 related), breadcrumb navigation
   - contentMap: {"telas-para-trajes-de-bano": TelasTrajes, "print-on-demand-modelo-actual": PrintOnDemand, "tipos-de-fibras-y-telas": TiposDeFibras}
@@ -288,6 +344,16 @@ Recent changes focused on blog system expansion, component refinement, and styli
 - **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for logo carousel and partner displays
 - **Tailwind Config**: Extended colors with primary #157ec2, secondary #f9f9f9, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
 - **Ofrecemos Component**: Two-column section showing "TELAS" and "SERVICIOS TEXTILES" cards with image backgrounds, modal triggers via ModalComponent for fabric/service selection
+- **Google Reviews Integration** (as of 2026-04-04):
+  - **API Route** (`src/app/api/reviews/route.ts`): GET endpoint fetching Google Places API with Place ID "ChIJd4jZgbDIwiiaHkV_m3_p7Q" (Sublink Sublimación Textil business)
+    - Returns: business name, rating (4.8+), total ratings count, newest 5 reviews with author name, profile photo, rating, date, text
+    - Cache: 1-hour revalidation (revalidate: 3600)
+    - Requires environment: GOOGLE_PLACES_API_KEY
+  - **GoogleReviews Component Refactor**: Client-side with useEffect hook, fetches from /api/reviews, displays GoogleReviewsBadge and GoogleReviewsSection
+    - GoogleReviewsBadge: Compact badge showing rating (props configurable), star count, review count, clickable Google profile link
+    - GoogleReviewsSection: Full section component with loading/error states, renders review cards with author photo, stars, date, text
+    - Stars component: Reusable 5-star visual, size variants (sm, md)
+  - **next.config.mjs Update**: Added remotePatterns for `lh3.googleusercontent.com` (Google profile photo CDN)
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes
