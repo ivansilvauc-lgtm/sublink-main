@@ -234,21 +234,27 @@ Key configuration:
 Recent changes focused on blog system expansion and component refinement (as of 2026-04-03):
 - **Blog System**: Fully implemented with dynamic routing, metadata generation, and content mapping via contentMap
 - **Blog Posts**: Three published posts with metadata, date formatting, SEO optimization (dates: 2026-03-15, 2026-03-28, 2026-04-02)
-  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide (lycra, microfibra, chlorine resistance)
-  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - Print on demand business model, sublimación digital
-  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive textile fibers (naturales, sintéticas, artificiales, sostenibles)
-- **Blog Listing Page** (/blog): Grid layout (1 col mobile, 2 col desktop), sorted by date descending, featured images, metadata display, CTA with WhatsApp
+  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Lafayette (4-way stretch, chlorine-resistant, €26.50/m), Lycra Peruana (€24/m), Microfibra Nacional (2-way, €7/m). Covers durability, chlorine exposure, UV protection, fabric comparison table
+  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - POD business model: zero inventory, design-to-customer workflow, sublimación digital (compatible 65%+ polyester), niche selection, design tools (Canva), fabric compatibility table
+  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive fiber types: natural (algodón, lana, lino, seda), synthetic (poliéster, nylon, acrílico, elastano), artificial (viscosa, rayón, modal, acetato), sustainable (bambú, cáñamo, Eco Fibra, Lyocell). Yarn count systems (Ne, Nm, Dtex). Weave and finish technical details
+- **Blog Listing Page** (/blog): Grid layout (1 col mobile, 2 col desktop), sorted by date descending, featured images, metadata display (categoria, tiempoLectura), hover zoom effect, CTA section "¿Tienes preguntas sobre telas o sublimación?" with WhatsApp link
 - **Dynamic Blog Routes**: [slug]/page.tsx with generateStaticParams, generateMetadata, contentMap routing, related posts section (2 related), breadcrumb navigation
-  - contentMap imports components: TelasTrajes, PrintOnDemand, TiposDeFibras from ../posts/
+  - contentMap: {"telas-para-trajes-de-bano": TelasTrajes, "print-on-demand-modelo-actual": PrintOnDemand, "tipos-de-fibras-y-telas": TiposDeFibras}
   - formatFecha() converts YYYY-MM-DD to es-VE locale (e.g., "2 de abril de 2026")
+  - Blog post components use `<article className="prose prose-lg max-w-none">` for consistent styling
 - **Blog Interface** (src/lib/blog.ts): slug, titulo, descripcion, fecha (YYYY-MM-DD), autor, categoria, imagen, tiempoLectura, keywords array
   - getBlogPost(slug) helper to fetch single post
   - getAllSlugs() helper returns array of all post slugs
 - **Sitemap Generation**: sitemap.ts generates MetadataRoute.Sitemap with entries for:
-  - Telas (priority 0.6, monthly)
+  - Blog posts (priority 0.7, monthly changeFrequency, lastModified from post.fecha)
   - Servicios (priority 0.8, monthly)
-  - Blog posts (priority 0.7, monthly, lastModified from post.fecha)
-  - Root: home (1.0), blog (0.8, weekly), sostenibilidad (0.9, yearly)
+  - Telas (priority 0.6, monthly)
+  - Root pages: home (1.0, monthly), blog (0.8, weekly), sostenibilidad (0.9, yearly)
+- **DeadStock Component** (`src/components/DeadStock/DeadStock.tsx`): Limited inventory promotion section
+  - deadstockItems array with: nombre, descripcion, metros, descuento%, color (hex), colorNombre, slug, categoria_slug, available flag
+  - Current items: Lycra Colombiana (45m, 30% off), Microfibra Antifluido (28m, 25% off), Runner Africa (33m, 20% off)
+  - Section styling: bg-zinc-900 with yellow "Stock Limitado" badge, yellow CTA button to WhatsApp, 3-column grid layout
+  - Filters by available: true, returns null if no items
 - **AnnouncementBar**: Monthly offer mechanism (editable ANNOUNCEMENT object), active flag, link to product page, styling with emojis
   - ANNOUNCEMENT = { text, link, linkText, active } - edit in component file
 - **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
@@ -258,7 +264,8 @@ Recent changes focused on blog system expansion and component refinement (as of 
 - **Layout**: Poppins font (200-900 weights), JSON-LD LocalBusiness schema, viewport constraints (no zoom), AnnouncementBar at top, suspense-wrapped Video component, Vercel & Google Analytics
   - Root layout imports: Header, AnnouncementBar, MiniPop, Footer, Video, Analytics, GoogleAnalytics
 - **Analytics**: Vercel Analytics integrated, Google Analytics (ID: G-FQ4RY25W5X) via @next/third-parties
-- **Home Page**: Section layout with Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, GoogleReviewsBadge
+- **Home Page** (src/app/page.tsx): Section layout with Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, GoogleReviewsBadge
+- **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for logo carousel and partner displays
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes

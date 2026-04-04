@@ -24,7 +24,7 @@ export const PrintOnDemandSection = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setActive((prev) => (prev + 1) % PRINTS.length);
-    }, 3000);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -100,14 +100,21 @@ export const PrintOnDemandSection = () => {
           {PRINTS.map((print, i) => (
             <div
               key={i}
-              className="absolute inset-0 transition-opacity duration-700"
-              style={{ opacity: active === i ? 1 : 0 }}
+              className="absolute inset-0"
+              style={{
+                opacity: active === i ? 1 : 0,
+                transition: 'opacity 500ms ease-in-out',
+              }}
             >
               <Image
                 src={print.src}
                 alt={print.alt}
                 fill
                 className="object-cover"
+                style={{
+                  transform: active === i ? 'scale(1.05)' : 'scale(1)',
+                  transition: 'transform 2000ms ease-out, opacity 500ms ease-in-out',
+                }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority={i === 0}
               />

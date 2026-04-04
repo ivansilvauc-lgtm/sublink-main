@@ -3,157 +3,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-// ── SVG icons — line art style ───────────────────────────────────────────────
+// ── Category icon paths ───────────────────────────────────────────────────────
+// Save your icon images to /public/assets/iconos-categorias/ with these names:
+//   trajes.png  pareo.png  short.png  moda.png  muebles.png  chaqueta.png
+//   toalla.png  salidabano.png  totebag.png  mantel.png  delantal.png
+//   uniforme.png  pijama.png  camisa.png
 
-const Icons: Record<string, React.FC<{ className?: string }>> = {
-  TrajesDeBano: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 8 C14 8 12 18 12 24" />
-      <path d="M34 8 C34 8 36 18 36 24" />
-      <path d="M14 8 Q24 14 34 8" />
-      <path d="M12 24 Q24 28 36 24" />
-      <path d="M12 24 L10 38 Q24 42 38 38 L36 24" />
-      <path d="M10 38 Q12 44 16 44" />
-      <path d="M38 38 Q36 44 32 44" />
-    </svg>
-  ),
-  Pareo: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 8 L38 8 L38 10 Q24 16 10 10 Z" />
-      <path d="M10 10 Q12 28 16 40 Q24 44 32 40 Q36 28 38 10" />
-      <path d="M16 40 Q24 38 32 40" />
-      <path d="M10 8 Q24 12 38 8" />
-    </svg>
-  ),
-  Short: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M10 10 L38 10 L38 12 Q24 14 10 12 Z" />
-      <path d="M10 12 L8 36 Q16 40 22 38 L24 28 L26 38 Q32 40 40 36 L38 12" />
-      <path d="M22 38 Q24 40 26 38" />
-    </svg>
-  ),
-  Moda: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Dress form / mannequin */}
-      <ellipse cx="24" cy="10" rx="5" ry="6" />
-      <path d="M19 16 Q14 20 15 28 Q16 34 20 36 L28 36 Q32 34 33 28 Q34 20 29 16" />
-      <path d="M20 36 L20 42 L28 42 L28 36" />
-      <path d="M18 42 L30 42" />
-      <line x1="24" y1="4" x2="24" y2="2" />
-      <path d="M12 22 L36 22" />
-    </svg>
-  ),
-  Muebles: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Sofa with cushions */}
-      <path d="M8 22 Q8 18 12 18 L36 18 Q40 18 40 22 L40 34 L8 34 Z" />
-      <path d="M8 28 L40 28" />
-      <path d="M18 18 L18 28" />
-      <path d="M30 18 L30 28" />
-      {/* Arm rests */}
-      <path d="M6 24 Q6 20 8 20 L8 34 L6 34 Q4 34 4 30 L4 26 Q4 24 6 24 Z" />
-      <path d="M42 24 Q42 20 40 20 L40 34 L42 34 Q44 34 44 30 L44 26 Q44 24 42 24 Z" />
-      {/* Legs */}
-      <line x1="10" y1="34" x2="10" y2="40" />
-      <line x1="38" y1="34" x2="38" y2="40" />
-      <line x1="20" y1="34" x2="20" y2="39" />
-      <line x1="28" y1="34" x2="28" y2="39" />
-      {/* Cushion details */}
-      <path d="M10 22 Q14 20 18 22" />
-      <path d="M22 22 Q26 20 30 22" />
-      <path d="M32 22 Q36 20 38 22" />
-    </svg>
-  ),
-  Chaqueta: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 6 L10 12 L6 24 L12 24 L12 42 L36 42 L36 24 L42 24 L38 12 L30 6" />
-      <path d="M18 6 Q24 10 30 6" />
-      <path d="M18 6 L20 18 L24 20 L28 18 L30 6" />
-      <path d="M6 24 L12 24" />
-      <path d="M42 24 L36 24" />
-    </svg>
-  ),
-  Toalla: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="10" y="14" width="28" height="24" rx="2" />
-      <path d="M10 22 L38 22" />
-      <path d="M14 8 Q24 6 34 8 L34 14 L14 14 Z" />
-      <path d="M18 22 L18 38" />
-      <path d="M24 22 L24 38" />
-      <path d="M30 22 L30 38" />
-    </svg>
-  ),
-  SalidaDeBano: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Bathrobe */}
-      <path d="M20 6 L14 14 L10 42 L22 42 L24 28 L26 42 L38 42 L34 14 L28 6" />
-      <path d="M20 6 Q24 10 28 6" />
-      <path d="M20 6 L22 18 L24 22 L26 18 L28 6" />
-      <path d="M10 20 L14 20" />
-      <path d="M34 20 L38 20" />
-      <ellipse cx="24" cy="4" rx="4" ry="3" />
-    </svg>
-  ),
-  ToteBag: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="10" y="18" width="28" height="24" rx="2" />
-      <path d="M17 18 Q17 10 24 10 Q31 10 31 18" />
-      <path d="M10 26 L38 26" />
-    </svg>
-  ),
-  Mantel: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Table with tablecloth */}
-      <rect x="8" y="18" width="32" height="4" rx="1" />
-      <path d="M8 22 L6 36 Q8 38 10 36 L12 22" />
-      <path d="M40 22 L42 36 Q40 38 38 36 L36 22" />
-      <path d="M6 18 Q8 12 24 12 Q40 12 42 18" />
-      <path d="M6 36 Q8 44 24 44 Q40 44 42 36" />
-    </svg>
-  ),
-  Delantal: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M18 8 Q24 6 30 8 L30 14 L18 14 Z" />
-      <path d="M16 14 Q10 18 10 26 Q10 40 24 42 Q38 40 38 26 Q38 18 32 14 Z" />
-      <path d="M18 14 L16 14" />
-      <path d="M30 14 L32 14" />
-      <path d="M18 8 L16 6 Q12 4 10 8" />
-      <path d="M30 8 L32 6 Q36 4 38 8" />
-      <path d="M14 26 L34 26" />
-    </svg>
-  ),
-  Uniforme: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* T-shirt / polo */}
-      <path d="M18 6 L6 14 L10 20 L14 16 L14 42 L34 42 L34 16 L38 20 L42 14 L30 6" />
-      <path d="M18 6 Q24 10 30 6" />
-    </svg>
-  ),
-  Pijama: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Pajama top */}
-      <path d="M18 6 L10 12 L12 18 L16 14 L16 28 L32 28 L32 14 L36 18 L38 12 L30 6" />
-      <path d="M18 6 Q24 9 30 6" />
-      {/* Pajama pants */}
-      <path d="M16 28 L14 44 L22 44 L24 36 L26 44 L34 44 L32 28 Z" />
-      <path d="M22 44 Q24 46 26 44" />
-    </svg>
-  ),
-  Camisa: ({ className }) => (
-    <svg className={className} viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Dress shirt / camisa */}
-      <path d="M18 4 L10 10 L6 20 L12 20 L12 44 L36 44 L36 20 L42 20 L38 10 L30 4" />
-      <path d="M18 4 Q20 8 24 8 Q28 8 30 4" />
-      {/* Collar */}
-      <path d="M18 4 L22 12 L24 10 L26 12 L30 4" />
-      {/* Button placket */}
-      <line x1="24" y1="10" x2="24" y2="36" />
-      <circle cx="24" cy="18" r="0.8" fill="currentColor" stroke="none" />
-      <circle cx="24" cy="24" r="0.8" fill="currentColor" stroke="none" />
-      <circle cx="24" cy="30" r="0.8" fill="currentColor" stroke="none" />
-    </svg>
-  ),
-};
+// ── (old SVG icon removed — using image files now) ────────────────────────────
 
 // ── Category definitions ─────────────────────────────────────────────────────
 
@@ -176,24 +32,26 @@ type CategoryKey =
 interface Category {
   key: CategoryKey;
   label: string;
-  Icon: React.FC<{ className?: string }>;
+  iconSrc: string;
 }
 
+// Icon files: save your images to /public/assets/iconos-categorias/
+// using the filenames listed in iconSrc below.
 const categories: Category[] = [
-  { key: "trajes",    label: "Trajes de baño",  Icon: Icons.TrajesDeBano },
-  { key: "pareo",     label: "Pareo",            Icon: Icons.Pareo },
-  { key: "short",     label: "Short",            Icon: Icons.Short },
-  { key: "moda",      label: "Moda",             Icon: Icons.Moda },
-  { key: "muebles",   label: "Muebles",          Icon: Icons.Muebles },
-  { key: "chaqueta",  label: "Chaqueta",         Icon: Icons.Chaqueta },
-  { key: "toalla",    label: "Toalla",           Icon: Icons.Toalla },
-  { key: "salidabano",label: "Salida de baño",   Icon: Icons.SalidaDeBano },
-  { key: "totebag",   label: "Tote Bag",         Icon: Icons.ToteBag },
-  { key: "mantel",    label: "Manteles",         Icon: Icons.Mantel },
-  { key: "delantal",  label: "Delantales",       Icon: Icons.Delantal },
-  { key: "uniforme",  label: "Uniformes",        Icon: Icons.Uniforme },
-  { key: "pijama",    label: "Pijamas",          Icon: Icons.Pijama },
-  { key: "camisa",    label: "Camisas",          Icon: Icons.Camisa },
+  { key: "trajes",     label: "Trajes de baño", iconSrc: "/assets/iconos-categorias/trajes.png" },
+  { key: "pareo",      label: "Pareo",           iconSrc: "/assets/iconos-categorias/pareo.png" },
+  { key: "short",      label: "Short",           iconSrc: "/assets/iconos-categorias/short.png" },
+  { key: "moda",       label: "Moda",            iconSrc: "/assets/iconos-categorias/moda.png" },
+  { key: "muebles",    label: "Muebles",         iconSrc: "/assets/iconos-categorias/muebles.png" },
+  { key: "chaqueta",   label: "Chaqueta",        iconSrc: "/assets/iconos-categorias/chaqueta.png" },
+  { key: "toalla",     label: "Toalla",          iconSrc: "/assets/iconos-categorias/toalla.png" },
+  { key: "salidabano", label: "Salida de baño",  iconSrc: "/assets/iconos-categorias/salidabano.png" },
+  { key: "totebag",    label: "Tote Bag",        iconSrc: "/assets/iconos-categorias/totebag.png" },
+  { key: "mantel",     label: "Manteles",        iconSrc: "/assets/iconos-categorias/mantel.png" },
+  { key: "delantal",   label: "Delantales",      iconSrc: "/assets/iconos-categorias/delantal.png" },
+  { key: "uniforme",   label: "Uniformes",       iconSrc: "/assets/iconos-categorias/uniforme.png" },
+  { key: "pijama",     label: "Pijamas",         iconSrc: "/assets/iconos-categorias/pijama.png" },
+  { key: "camisa",     label: "Camisas",         iconSrc: "/assets/iconos-categorias/camisa.png" },
 ];
 
 // ── Fabric cards ─────────────────────────────────────────────────────────────
@@ -284,7 +142,7 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
   ],
   pijama: [
     { nombre: "Moda Colombiana",     slug: "moda-colombiana",     categoria_slug: "telas-ecologicas", imagen: "/img/telas/telas-ecologicas/moda-colombiana-zoom.webp",        usos: "Pijamas, ropa de descanso" },
-    { nombre: "Microdurazno",        slug: "microdurazno",        categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/microdurazno-zoom.webp",            usos: "Pijamas, conjuntos suaves" },
+    { nombre: "Microdurazno",        slug: "microdurazno",        categoria_slug: "telas-importadas", imagen: "/img/telas/telas-nacionales/dri-fit-nacional-zoom.webp",         usos: "Pijamas, conjuntos suaves" },
     { nombre: "Seda Nacional Betty", slug: "seda-nacional-betty", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/seda-nacional-betty-zoom.webp",    usos: "Pijamas de seda", tag: "Premium" },
   ],
   camisa: [
@@ -347,9 +205,13 @@ export const FabricSelector = () => {
                   }
                 `}
               >
-                <cat.Icon
-                  className={`w-10 h-10 transition-colors ${
-                    isSelected ? "text-[#157ec2]" : "text-gray-500 group-hover:text-[#157ec2]"
+                <Image
+                  src={cat.iconSrc}
+                  alt={cat.label}
+                  width={40}
+                  height={40}
+                  className={`w-10 h-10 object-contain transition-opacity ${
+                    isSelected ? "opacity-100" : "opacity-60 group-hover:opacity-100"
                   }`}
                 />
                 <span className={`text-[10px] font-semibold text-center leading-tight ${
@@ -366,7 +228,7 @@ export const FabricSelector = () => {
         {selected && selectedCat && (
           <div>
             <div className="flex items-center gap-3 mb-6">
-              <selectedCat.Icon className="w-6 h-6 text-[#157ec2]" />
+              <Image src={selectedCat.iconSrc} alt={selectedCat.label} width={24} height={24} className="w-6 h-6 object-contain" />
               <div>
                 <h3 className="font-bold text-gray-900 text-lg">Telas para {selectedCat.label}</h3>
                 <p className="text-sm text-gray-400">{fabrics.length} tela{fabrics.length !== 1 ? "s" : ""} disponible{fabrics.length !== 1 ? "s" : ""}</p>
