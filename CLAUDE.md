@@ -106,14 +106,22 @@ Key configuration:
 - **Content Mapping**: `src/app/blog/[slug]/page.tsx` uses `contentMap` to route slug to component
   - Maps: `"slug-name": ComponentName`
   - Components are imported from `../posts/` directory
+  - contentMap exports: `{"telas-para-trajes-de-bano": TelasTrajes, "print-on-demand-modelo-actual": PrintOnDemand, "tipos-de-fibras-y-telas": TiposDeFibras}`
+- **Dynamic Post Route** (`[slug]/page.tsx`):
+  - `generateStaticParams()`: Returns all blog post slugs for static generation
+  - `generateMetadata()`: Creates SEO metadata with title, description, keywords, canonical URL, Open Graph (og:title, og:description, og:url, og:image, og:type: article, publishedTime)
+  - `formatFecha()`: Converts YYYY-MM-DD to "es-VE" locale format (e.g. "2 de abril de 2026")
+  - Layout: Breadcrumb > Header (categoria badge, title, description, author, date) > Featured image > Prose-styled content > Related posts (2) > WhatsApp CTA
+  - Content styling: `prose prose-blue prose-lg` with custom heading/link/table styling
+  - JSON-LD Article schema embedded in page
 - **Blog Listing**: `/blog` page sorts posts by date (newest first) with metadata (categoria, reading time, formatted date)
   - Features: Grid layout (1 col mobile, 2 col desktop), featured images with hover zoom, description line-clamp-3, read link
   - CTA section at bottom: "¿Tienes preguntas sobre telas o sublimación?" with WhatsApp link
 - **Date Formatting**: `formatFecha()` function converts YYYY-MM-DD to localized "es-VE" format
-- **Current Posts**:
-  - "telas-para-trajes-de-bano" (2026-03-15) - Swimwear fabrics guide
-  - "print-on-demand-modelo-actual" (2026-03-28) - Print on demand business model
-  - "tipos-de-fibras-y-telas" (2026-04-02) - Textile fibers comprehensive guide
+- **Current Posts** (as of 2026-04-02):
+  - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Laurent, Microfibra Nacional
+  - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - Print on demand business model: sublimación digital, zero inventory
+  - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Textile fibers comprehensive guide: natural, synthetic, artificial, sustainable fibers
 
 ### Layout & Viewport
 - **Root Layout** (`src/app/layout.tsx`):
@@ -133,16 +141,18 @@ Key configuration:
     - `toggleMenu`: Boolean for mobile menu visibility
     - `menuState`: Object with keys: `toggleTelas`, `toggleTelasEco`, `toggleServicios`
     - `someMenuOpen`: Derived state tracking if any dropdown is open (via useEffect)
-  - NAV_ITEM_KEYS constant: `['toggleTelas', 'toggleTelasEco', 'toggleServicios']` (readonly tuple)
+  - NAV_ITEM_KEYS constant: `['toggleTelas', 'toggleTelasEco', 'toggleServicios']` (readonly tuple, enforces type safety)
   - Menu Logic:
-    - `handleMenuItems()`: Resets all menu states then toggles the selected one (one menu open at a time)
-    - `resetMenuState()`: Used to close all menus and mobile drawer
-    - `handleNavItemClick()`: useCallback wrapper for performance optimization
-  - Desktop Layout: Hidden on mobile, flex display on lg+ screens
-  - Mobile Layout: Hamburger menu button with MobileNav drawer component
+    - `handleMenuItems(itemToggle: MenuStateKey)`: Resets all menu states then toggles selected one (exclusive one-menu-open pattern)
+    - `resetMenuState()`: Closes all menus and mobile drawer (called on scroll events)
+    - `handleNavItemClick(toggleState)`: useCallback wrapper for performance optimization, returns click handler
+  - Desktop Layout: Hidden on mobile (<lg), flex display on lg+ screens with nav items and additional links
+  - Mobile Layout: Hamburger menu button (sm) toggling MobileNav drawer component
   - Sub-components: NavItemLink, Hamburger, MobileNav, ProgressBar
-  - Additional Links: Sostenibilidad (lime styling), Blog (gray styling)
-  - Uses flowbite-react Button component
+  - Additional Links: Sostenibilidad (/sostenibilidad, lime-500 hover:lime-400), Blog (/blog, gray-700)
+  - Dependencies: flowbite-react Button, NavItemLink with dynamic onClick handlers
+  - Dropdowns: Expands nav items for "Telas Nacionales" filtered by categoria_slug (two-column layout, h-[550px] desktop / h-72 2xl)
+  - Scroll Behavior: Menu auto-closes on scroll (passive scroll listener)
 
 ### Announcement Bar
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
@@ -156,17 +166,25 @@ Key configuration:
 
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
-  - Client component with social links array (WhatsApp, Facebook, Instagram)
-  - **Social Links**: WhatsApp (+58 416-2698802), Facebook (facebook.com/sublink.ve), Instagram (instagram.com/sublink.ve)
-  - **Navigation Links**: Telas, Servicios, Sostenibilidad, Blog
-  - **Contact Info**:
+  - Type: Client component (`"use client"`)
+  - **Structure**: Main grid (max-w-6xl, 4 columns with responsive layout) + bottom bar
+  - **Column 1 - Logo + Tagline**:
+    - Image: `/assets/logo-sublink-marca-de-agua.png` (w-36)
+    - Text: "Sublimación textil, telas y estampados de alta calidad en Valencia, Venezuela."
+  - **Column 2 - Contact Info**:
     - Address: Av. 137, CC Imperial II 3-08, Piso 3 (frente CC Galería), Valencia, Carabobo, Venezuela
-    - Phone: +58 424-4067274
-    - Email: sublinkve@gmail.com
-    - Hours: Lun-Vie 8:30am-4:30pm
-  - Grid layout: 1 col mobile, 2 cols tablet, 4 cols desktop
-  - Social icons with hover effect (bg-zinc-800 → bg-[#157ec2])
-  - Bottom bar with copyright year and sublink.company link
+    - Phone: +58 424-4067274 (tel: link)
+    - Email: sublinkve@gmail.com (mailto: link)
+    - Hours: Lun – Vie · 8:30 am – 4:30 pm
+  - **Column 3 - Navigation Links**: Telas (/), Servicios (/), Sostenibilidad (/sostenibilidad), Blog (/blog)
+  - **Column 4 - Social Links**:
+    - WhatsApp: wa.me/584162698802?text=Vengo%20de%20la%20Web
+    - Facebook: facebook.com/sublink.ve
+    - Instagram: instagram.com/sublink.ve
+    - Icons with hover: bg-zinc-800 → bg-[#157ec2] transition
+  - **Responsive Layout**: 1 col mobile (sm:grid-cols-2) > 2 cols tablet > lg:grid-cols-4 desktop
+  - **Bottom Bar**: Copyright year (dynamic via new Date().getFullYear()), link to sublink.company
+  - **Styling**: bg-zinc-900 text, hover:text-white transitions, border-t border-zinc-800
 
 ### Sitemap Generation
 - **sitemap.ts** generates MetadataRoute.Sitemap with:

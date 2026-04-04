@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 80" fill="none">
+  <!-- Thread/helix icon -->
+  <g transform="translate(10, 10)">
+    <path d="M8 60 C8 60 2 50 8 40 C14 30 20 30 20 20 C20 10 14 10 8 0" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M15 60 C15 60 9 50 15 40 C21 30 27 30 27 20 C27 10 21 10 15 0" stroke="#111" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <line x1="8" y1="0" x2="27" y2="0" stroke="#111" stroke-width="1.2"/>
+    <line x1="8" y1="60" x2="27" y2="60" stroke="#111" stroke-width="1.2"/>
+  </g>
+  <!-- PROTELA text -->
+  <text x="50" y="48" font-family="Georgia, 'Times New Roman', serif" font-size="28" font-weight="700" letter-spacing="2" fill="#111111">PROTELA</text>
+</svg>
