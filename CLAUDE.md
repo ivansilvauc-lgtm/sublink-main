@@ -178,7 +178,14 @@ Key configuration:
     - `link`: Destination URL (currently: empty)
     - `linkText`: Link label (currently: empty)
     - `active`: Boolean to show/hide banner (currently: `true`)
+  - WhatsApp Integration Constants:
+    - `WA_NUMBER`: "584244067274" (WhatsApp number for support)
+    - `WA_MESSAGE`: encodeURIComponent("Hola Sublink, vengo de la página web 👋") (encoded message)
   - Styling: fixed top-0, bg-zinc-900, white text, sm font, centered flex layout, z-[60]
+  - Layout: Left spacer (w-28 sm:w-36) > Center text with optional Link > Right WhatsApp button
+  - WhatsApp Button: href `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`, bg-[#25D366] green, shrink-0 flex, aria-label accessibility
+  - WhatsApp Icon: SVG (24x24 viewBox), white fill, w-3.5 h-3.5
+  - Button Text: "Escríbenos" (hidden on mobile with hidden sm:inline)
   - Renders Link component conditionally if link is provided
   - **Editing Instructions**: Update ANNOUNCEMENT object directly in the component file (marked with comment: ✏️ EDITAR AQUÍ)
 
@@ -334,10 +341,14 @@ Recent changes focused on blog system completion and detailed content implementa
   - Current items: Lycra Colombiana (45m, 30% off), Microfibra Antifluido (28m, 25% off), Runner Africa (33m, 20% off)
   - Section styling: bg-zinc-900 with yellow "Stock Limitado" badge, yellow CTA button to WhatsApp, 3-column grid layout
   - Filters by available: true, returns null if no items
-- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`): Fixed position announcement bar with editable ANNOUNCEMENT object
+- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`): Fixed position announcement bar with editable ANNOUNCEMENT object and WhatsApp integration
   - ANNOUNCEMENT = { text, link, linkText, active } - supports empty values for link/linkText
-  - Styling: fixed top-0, bg-zinc-900, z-[60], conditionally renders Link if link provided
   - Current state: text="Oferta del Mes", link="", active=true
+  - WhatsApp Integration: WA_NUMBER ("584244067274"), WA_MESSAGE (encoded "Hola Sublink, vengo de la página web 👋")
+  - Layout: Fixed top-0 with z-[60], flex items-center justify-between, bg-zinc-900, white text
+  - Components: Left spacer (w-28 sm:w-36) > Center text with optional Link > Right WhatsApp button (#25D366 green)
+  - Styling: fixed top-0, bg-zinc-900, z-[60], conditionally renders Link if link provided
+  - WhatsApp Button: Green button with WhatsApp icon, "Escríbenos" text (hidden sm:inline), opens wa.me link
 - **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
 - **Navbar**: Client component with menu state management (toggleTelas, toggleTelasEco, toggleServicios), single-menu-open pattern, mobile drawer with hamburger, responsive layouts
   - NAV_ITEM_KEYS constant enforces menu state keys (as const tuple)
@@ -358,7 +369,25 @@ Recent changes focused on blog system completion and detailed content implementa
   - Features: toggleAutoplay callback, useEffect hook management
 - **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for branding displays
 - **Tailwind Config** (`tailwind.config.ts`): Extended colors with primary #157ec2, secondary #f9f9f9, tertiary #f2f2f2, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
-- **Ofrecemos Component**: Two-column section showing "TELAS" and "SERVICIOS TEXTILES" cards with image backgrounds, modal triggers via ModalComponent for fabric/service selection
+- **Ofrecemos Component** (`src/components/Ofrecemos/Ofrecemos.tsx`): Main service offering section with three modal-triggered cards
+  - Layout: flex row (centered, md:flex-row, lg:space-x-10) with responsive spacing
+  - Cards: "TELAS" (regular), "SERVICIOS TEXTILES", "TELAS ECO" (filtered by categoria_slug === "telas-ecologicas")
+  - Card Structure: aspect-[40/50] rounded-3xl with background image, overlay text with primary-color accent line
+  - Features: Image backgrounds (sublimacion-textil.webp, servicios-textiles.webp, productos-complementarios.webp), ModalComponent triggers for each category
+  - Filtering: Uses telas.filter() to separate eco fabrics (categoria_slug === "telas-ecologicas") vs regular fabrics
+  - Data imports: telas array from @/lib/telas, servicios array from @/lib/servicios
+  - Type: Client component ("use client")
+- **PrintOnDemandSection Component** (`src/components/PrintOnDemand/PrintOnDemand.tsx`): Comprehensive POD service presentation
+  - Layout: Grid 2-column (lg:grid-cols-2) with left text content and right carousel
+  - Left Content: Heading "Sublimación Digital" (span with blue #157ec2), main title, feature list (3 items with checkmark icons), technology description, logo displays (Epson, Monti Antoni), disabled buttons (marked próximamente)
+  - Features Listed: "Impresión desde 1 metro hasta rollo completo", "Compatible con más de 25 telas", "Colores vibrantes que no se caen con los lavados ni se agrietan"
+  - Right Carousel: Dynamic print rotation with PRINTS array (3 items: AP001 CEBRA, FL002 APRICOT, MO008 ITALIAN TILES)
+    - Rotation: 980ms interval via useEffect setInterval
+    - Animation: opacity transitions (245ms), scale transform (1 → 1.065, 980ms ease-out)
+    - Dot indicators: clickable navigation, active state styling (white w-6 vs white/50)
+  - Data: PRINTS array with src (image path), alt (description)
+  - State: active (index tracking current print via useState)
+  - Type: Client component ("use client")
 - **Google Reviews Integration** (as of 2026-04-04):
   - **API Route** (`src/app/api/reviews/route.ts`): GET endpoint fetching Google Places API with Place ID "ChIJd4jZgbDIwiiaHkV_m3_p7Q" (Sublink Sublimación Textil business)
     - Returns: business name, rating (4.8+), total ratings count, newest 5 reviews with author name, profile photo, rating, date, text
