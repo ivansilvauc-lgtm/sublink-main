@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 const socialLinks = [
   {
@@ -39,13 +40,86 @@ const navLinks = [
   { label: "Blog", href: "/blog" },
 ];
 
+const FAQ_ITEMS = [
+  {
+    q: "¿Cuál es el pedido mínimo?",
+    a: "Desde 1 metro lineal de tela. No hay cantidad mínima para estampación si el diseño ya está preparado.",
+  },
+  {
+    q: "¿Cuánto tiempo tarda la producción?",
+    a: "Entre 24 y 72 horas hábiles según la cantidad y complejidad. Pedidos urgentes consultar disponibilidad.",
+  },
+  {
+    q: "¿Los colores se lavan sin desteñirse?",
+    a: "Sí. La sublimación fija el tinte en la fibra. Se recomienda lavar a 30°C al revés y sin blanqueador.",
+  },
+  {
+    q: "¿Puedo subir mi propio diseño?",
+    a: "Claro. Aceptamos PDF, PNG, AI y PSD a 300 DPI mínimo en perfil de color RGB.",
+  },
+  {
+    q: "¿Qué telas admiten sublimación?",
+    a: "Telas con mínimo 65% poliéster. En blanco o colores muy claros para máxima fidelidad de color.",
+  },
+];
+
+const GUIA_ITEMS = [
+  {
+    q: "Resolución y formato del archivo",
+    a: "Mínimo 150 DPI para telas grandes, 300 DPI para prendas. Formatos: PDF, PNG, AI, PSD. Enviar en perfil RGB.",
+  },
+  {
+    q: "Perfil de color: RGB vs CMYK",
+    a: "Diseña siempre en RGB. Nosotros hacemos la conversión al perfil de impresión Epson para garantizar fidelidad de color en la tela.",
+  },
+  {
+    q: "Márgenes y sangría",
+    a: "Agrega 5 mm de sangría en todos los bordes. Para prendas tipo camiseta, respeta 1.5 cm de margen desde las costuras.",
+  },
+  {
+    q: "Colores: Pantone y referencias",
+    a: "Si tienes un Pantone específico, indícanos el código. Referencia por guía Pantone Solid Coated para máxima precisión.",
+  },
+  {
+    q: "Prueba de color (muestra)",
+    a: "Recomendamos solicitar una muestra de 0.5 m antes de producir grandes cantidades. Costo de muestra aplica.",
+  },
+];
+
+function Accordion({ items }: { items: { q: string; a: string }[] }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div className="flex flex-col gap-1">
+      {items.map((item, i) => (
+        <div key={i} className="border-b border-zinc-800 last:border-0">
+          <button
+            onClick={() => setOpen(open === i ? null : i)}
+            className="w-full flex items-center justify-between gap-2 py-2.5 text-left text-sm text-zinc-300 hover:text-white transition-colors"
+          >
+            <span className="font-medium leading-snug">{item.q}</span>
+            <svg
+              className={`w-4 h-4 flex-shrink-0 text-zinc-500 transition-transform duration-200 ${open === i ? "rotate-180" : ""}`}
+              fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          {open === i && (
+            <p className="pb-3 text-xs text-zinc-400 leading-relaxed pr-4">{item.a}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export const Footer = () => {
   return (
     <footer className="bg-zinc-900 text-zinc-300 w-full">
       {/* Main footer grid */}
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
-        {/* Col 1 — Logo + tagline */}
+        {/* Col 1 — Logo + tagline + redes */}
         <div className="flex flex-col gap-4">
           <Image
             src="/assets/logo-sublink-marca-de-agua.png"
@@ -57,6 +131,20 @@ export const Footer = () => {
           <p className="text-sm text-zinc-400 leading-relaxed max-w-[200px]">
             Sublimación textil, telas y estampados de alta calidad en Valencia, Venezuela.
           </p>
+          <div className="flex gap-3 mt-1">
+            {socialLinks.map((social) => (
+              <a
+                key={social.name}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.name}
+                className="w-9 h-9 rounded-lg bg-zinc-800 hover:bg-[#157ec2] flex items-center justify-center text-zinc-300 hover:text-white transition-all duration-200"
+              >
+                {social.icon}
+              </a>
+            ))}
+          </div>
         </div>
 
         {/* Col 2 — Contacto */}
@@ -74,39 +162,32 @@ export const Footer = () => {
             sublinkve@gmail.com
           </a>
           <p className="text-xs text-zinc-500 mt-1">Lun – Vie · 8:30 am – 4:30 pm</p>
-        </div>
 
-        {/* Col 3 — Navegación */}
-        <div className="flex flex-col gap-3">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Navegación</h4>
-          {navLinks.map((link) => (
-            <Link
-              key={link.label}
-              href={link.href}
-              className="text-sm text-zinc-400 hover:text-white transition-colors"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        {/* Col 4 — Redes sociales */}
-        <div className="flex flex-col gap-4">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Síguenos</h4>
-          <div className="flex gap-3">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className="w-10 h-10 rounded-lg bg-zinc-800 hover:bg-[#157ec2] flex items-center justify-center text-zinc-300 hover:text-white transition-all duration-200"
+          {/* Navegación rápida */}
+          <div className="mt-3 flex flex-col gap-2">
+            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Navegación</h4>
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-sm text-zinc-400 hover:text-white transition-colors"
               >
-                {social.icon}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </div>
+        </div>
+
+        {/* Col 3 — Preguntas Frecuentes */}
+        <div className="flex flex-col gap-3">
+          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Preguntas Frecuentes</h4>
+          <Accordion items={FAQ_ITEMS} />
+        </div>
+
+        {/* Col 4 — Guía de Impresión */}
+        <div className="flex flex-col gap-3">
+          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Guía de Impresión</h4>
+          <Accordion items={GUIA_ITEMS} />
         </div>
       </div>
 

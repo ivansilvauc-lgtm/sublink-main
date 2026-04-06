@@ -5,6 +5,7 @@ import { Header } from "@/components/Header/Header";
 import { AnnouncementBar } from "@/components/UI/AnnouncementBar";
 import { MiniPop } from "@/components/UI/MiniPop";
 import { Footer } from "@/components/UI/Footer";
+import { PreFooter } from "@/components/UI/PreFooter";
 import { Video } from "@/components/VideoReciclar/Video";
 import { Suspense } from "react";
 import { SUBLINK_URL } from "@/lib/constant";
@@ -104,6 +105,7 @@ export default function RootLayout({
         <Suspense>
           <Video />
         </Suspense>
+        <PreFooter />
         <Footer />
         <Analytics />
         <GoogleAnalytics gaId="G-FQ4RY25W5X" />
