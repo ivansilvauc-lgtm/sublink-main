@@ -149,7 +149,7 @@ export const ReviewsCarousel = () => {
                   <Estrellas n={r.estrellas} />
 
                   {/* Texto */}
-                  <p className="text-sm text-gray-600 leading-relaxed flex-1">"{r.texto}"</p>
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{r.texto}&rdquo;</p>
                 </div>
               </div>
             ))}
