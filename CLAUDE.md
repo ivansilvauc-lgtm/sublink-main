@@ -53,7 +53,8 @@ src/
 │   ├── VideoReciclar/      # Video modal component for recycling content
 │   ├── UI/                 # Common UI components
 │   │   ├── MiniPop.tsx     # Popup component
-│   │   ├── Footer.tsx      # Footer with social links (WhatsApp, Facebook, Instagram)
+│   │   ├── PreFooter.tsx   # Pre-footer CTA section with trust indicators (500+ clients, 5.0 Google rating, quick response badge) and action buttons (WhatsApp quote: 584244067274, schedule call via Cal.com)
+│   │   ├── Footer.tsx      # Footer with 4-column layout: (1) logo + socials (WhatsApp, Facebook, Instagram), (2) contact info (Av. 137 CC Imperial II, Valencia, +58 424-4067274, sublinkve@gmail.com) + quick nav, (3) FAQ accordion (5 items: min order, production time, color durability, design upload, polyester requirement), (4) printing guide accordion (5 items: file specs, RGB/CMYK, margins, Pantone colors, proofs)
 │   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
 │   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
 │   │   ├── GoogleReviewsServer.tsx # Server component for live Google Places reviews with ISR (revalidates hourly)
@@ -150,7 +151,7 @@ Key configuration:
   - Viewport constraints: device-width, initialScale 1, maximumScale 1, userScalable false
   - JSON-LD schema (LocalBusiness type with name, url, logo, description, address, areaServed, contactPoint, sameAs Instagram)
   - Vercel Analytics + Google Analytics integration
-  - Layout structure: AnnouncementBar > Header > MiniPop > {children} > Video (lazy) > Footer
+  - Layout structure: AnnouncementBar > Header > MiniPop > {children} > Video (lazy) > PreFooter > Footer
   - Max-width container: max-w-[1920px] mx-auto with Poppins className
 
 ### Header/Navigation Components
@@ -256,6 +257,45 @@ Key configuration:
   - **Autoplay**: toggleAutoplay() useCallback controls emblaApi autoScroll plugin play/stop
   - **Dependencies**: embla-carousel-react, embla-carousel-auto-scroll plugins
 
+### PreFooter
+- **PreFooter** (`src/components/UI/PreFooter.tsx`):
+  - Type: Client component (`"use client"`)
+  - **Purpose**: Call-to-action section before footer with trust indicators and action buttons
+  - **Structure**: Single `<section>` with responsive grid layout (max-w-6xl mx-auto, flex flex-col md:flex-row items-center justify-between)
+  - **Configuration** (marked with ✏️ EDITAR AQUÍ comments):
+    - CAL_LINK constant: `https://cal.com/ivan-silva-qa8jpy/15min` (configured for 15-minute call scheduling)
+    - Setup instructions: (1) Create free account at cal.com, (2) Create event "Llamada Sublink 15 min", (3) Replace link with `https://cal.com/TU_USUARIO/llamada-sublink`
+  - **Layout**:
+    - Container: bg-zinc-900, w-full, max-w-6xl mx-auto, px-6 py-14, flex flex-col md:flex-row items-center justify-between, gap-10
+    - Grid items: Left column (flex-1, max-w-xl) and Right column (w-full md:w-auto, min-w-[260px])
+  - **Left Column - Message + Trust Indicators**:
+    - Label: "Valencia, Venezuela · Desde 2018" (text-xs font-bold uppercase tracking-widest, text-[#157ec2])
+    - Heading: "¿Listo para estampar tu próximo proyecto?" (text-3xl md:text-4xl font-bold text-white leading-tight, with line break on mobile)
+    - Description: "Más de 500 clientes confían en Sublink para sublimación textil de alta calidad. Entregas rápidas, desde 1 metro." (text-zinc-400 text-sm leading-relaxed)
+    - **Trust Badges** (flex flex-wrap gap-4 mt-1):
+      1. Google Rating: "★★★★★" (text-yellow-400 text-sm) + "5.0 Google" (text-white text-xs font-bold) in bg-zinc-800 rounded-full badge
+      2. WhatsApp Badge: WhatsApp SVG icon (w-4 h-4 text-[#25D366]) + "Respuesta rápida" (text-white text-xs font-bold) in bg-zinc-800 rounded-full badge
+      3. Order Size Badge: Checkmark SVG icon (w-4 h-4 text-[#157ec2]) + "Desde 1 metro" (text-white text-xs font-bold) in bg-zinc-800 rounded-full badge
+  - **Right Column - Action Buttons** (flex flex-col gap-3):
+    1. **WhatsApp Quote Button**:
+       - Element: `<a>` with href `https://wa.me/584244067274?text=Hola%20Sublink%2C%20quiero%20cotizar%20un%20proyecto%20👋`
+       - Style: flex items-center justify-center gap-3, bg-[#25D366] hover:bg-[#1ebe5d], text-white font-bold, rounded-xl px-6 py-4, transition-all duration-200, shadow-lg shadow-green-900/30
+       - Icon: WhatsApp SVG (w-5 h-5, currentColor fill)
+       - Text: "Cotizar por WhatsApp"
+    2. **Schedule Call Button**:
+       - Element: `<a>` with href={CAL_LINK}
+       - Style: flex items-center justify-center gap-3, bg-zinc-700 hover:bg-[#157ec2], text-white font-bold, rounded-xl px-6 py-4, transition-all duration-200, border border-zinc-600 hover:border-[#157ec2]
+       - Icon: Calendar SVG (w-5 h-5, stroke-currentColor)
+       - Text: "Agendar llamada" with "· gratis" in smaller gray text (text-xs font-normal text-zinc-300 ml-1)
+    3. **Hours Info**: "Lun – Vie · 8:30 am – 4:30 pm" (text-xs text-zinc-500 text-center)
+  - **Styling Details**:
+    - Dark zinc-900 background for contrast with white and blue accents
+    - Responsive grid changes from vertical (mobile) to horizontal (md+)
+    - Trust badges use compact rounded-full pill style with icon + text pairs
+    - Buttons use transition-all duration-200 for smooth hover effects
+    - Icons rendered as inline SVGs with appropriate colors (green #25D366 for WhatsApp, blue #157ec2 for call)
+  - **Dependencies**: Link from next/link (imported but not used - all links are `<a>` tags with target="_blank" rel="noopener noreferrer")
+
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
   - Type: Client component (`"use client"`)
@@ -268,8 +308,28 @@ Key configuration:
     - Phone: +58 424-4067274 (tel: link)
     - Email: sublinkve@gmail.com (mailto: link)
     - Hours: Lun – Vie · 8:30 am – 4:30 pm
-  - **Column 3 - Navigation Links**: Telas (/), Servicios (/), Sostenibilidad (/sostenibilidad), Blog (/blog)
-  - **Column 4 - Social Links**:
+    - **Quick Navigation Subsection**: Telas (/), Servicios (/), Sostenibilidad (/sostenibilidad), Blog (/blog)
+  - **Column 3 - FAQ Accordion** (Accordion component with useState):
+    - Header: "Preguntas Frecuentes" (text-white text-xs uppercase)
+    - FAQ_ITEMS array (5 items):
+      1. "¿Cuál es el pedido mínimo?" → "Desde 1 metro lineal de tela. No hay cantidad mínima para estampación si el diseño ya está preparado."
+      2. "¿Cuánto tiempo tarda la producción?" → "Entre 24 y 72 horas hábiles según la cantidad y complejidad. Pedidos urgentes consultar disponibilidad."
+      3. "¿Los colores se lavan sin desteñirse?" → "Sí. La sublimación fija el tinte en la fibra. Se recomienda lavar a 30°C al revés y sin blanqueador."
+      4. "¿Puedo subir mi propio diseño?" → "Claro. Aceptamos PDF, PNG, AI y PSD a 300 DPI mínimo en perfil de color RGB."
+      5. "¿Qué telas admiten sublimación?" → "Telas con mínimo 65% poliéster. En blanco o colores muy claros para máxima fidelidad de color."
+  - **Column 4 - Printing Guide Accordion** (Accordion component with useState):
+    - Header: "Guía de Impresión" (text-white text-xs uppercase)
+    - GUIA_ITEMS array (5 items):
+      1. "Resolución y formato del archivo" → "Mínimo 150 DPI para telas grandes, 300 DPI para prendas. Formatos: PDF, PNG, AI, PSD. Enviar en perfil RGB."
+      2. "Perfil de color: RGB vs CMYK" → "Diseña siempre en RGB. Nosotros hacemos la conversión al perfil de impresión Epson para garantizar fidelidad de color en la tela."
+      3. "Márgenes y sangría" → "Agrega 5 mm de sangría en todos los bordes. Para prendas tipo camiseta, respeta 1.5 cm de margen desde las costuras."
+      4. "Colores: Pantone y referencias" → "Si tienes un Pantone específico, indícanos el código. Referencia por guía Pantone Solid Coated para máxima precisión."
+      5. "Prueba de color (muestra)" → "Recomendamos solicitar una muestra de 0.5 m antes de producir grandes cantidades. Costo de muestra aplica."
+  - **Accordion Component** (Accordion utility):
+    - Props: `items: { q: string; a: string }[]`
+    - State: `open: number | null` (tracks which accordion item is expanded)
+    - Styling: border-b border-zinc-800, text-sm text-zinc-300 hover:text-white, rotation animation for chevron icon
+  - **Column 1 - Social Links** (right-side visible on desktop):
     - WhatsApp: wa.me/584162698802?text=Vengo%20de%20la%20Web
     - Facebook: facebook.com/sublink.ve
     - Instagram: instagram.com/sublink.ve
@@ -277,6 +337,7 @@ Key configuration:
   - **Responsive Layout**: 1 col mobile (sm:grid-cols-2) > 2 cols tablet > lg:grid-cols-4 desktop
   - **Bottom Bar**: Copyright year (dynamic via new Date().getFullYear()), link to sublink.company
   - **Styling**: bg-zinc-900 text, hover:text-white transitions, border-t border-zinc-800
+  - **Dependencies**: Image, Link from next (next/image, next/link), useState from react
 
 
 ### API Routes
