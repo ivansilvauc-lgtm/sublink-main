@@ -23,7 +23,7 @@ src/
 │   │   └── reviews/        # Google Places reviews endpoint
 │   │       └── route.ts    # Fetches business reviews from Google Places API (revalidates hourly)
 │   ├── layout.tsx          # Root layout with metadata, JSON-LD schema, AnnouncementBar
-│   ├── page.tsx            # Home page
+│   ├── page.tsx            # Home page (imports GoogleReviewsBadgeAuto for live reviews with ISR fallback)
 │   ├── robots.ts           # Robots metadata
 │   ├── sitemap.ts          # XML sitemap generation (telas + servicios + blog posts)
 │   ├── blog/
@@ -56,6 +56,7 @@ src/
 │   │   ├── Footer.tsx      # Footer with social links (WhatsApp, Facebook, Instagram)
 │   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
 │   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
+│   │   ├── GoogleReviewsServer.tsx # Server component for live Google Places reviews with ISR (revalidates hourly)
 │   │   └── ...
 │   ├── FabricSelector/     # Fabric selection component
 │   ├── DeadStock/          # Deadstock fabric section
@@ -173,39 +174,65 @@ Key configuration:
 ### Announcement Bar
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
   - Type: Client component (`"use client"`)
-  - ANNOUNCEMENT object with properties:
-    - `text`: Banner message text (currently: "Oferta del Mes")
-    - `link`: Destination URL (currently: empty)
-    - `linkText`: Link label (currently: empty)
-    - `active`: Boolean to show/hide banner (currently: `true`)
-  - WhatsApp Integration Constants:
-    - `WA_NUMBER`: "584244067274" (WhatsApp number for support)
-    - `WA_MESSAGE`: encodeURIComponent("Hola Sublink, vengo de la página web 👋") (encoded message)
-  - Styling: fixed top-0, bg-zinc-900, white text, sm font, centered flex layout, z-[60]
-  - Layout: Left spacer (w-28 sm:w-36) > Center text with optional Link > Right WhatsApp button
-  - WhatsApp Button: href `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`, bg-[#25D366] green, shrink-0 flex, aria-label accessibility
-  - WhatsApp Icon: SVG (24x24 viewBox), white fill, w-3.5 h-3.5
-  - Button Text: "Escríbenos" (hidden on mobile with hidden sm:inline)
-  - Renders Link component conditionally if link is provided
-  - **Editing Instructions**: Update ANNOUNCEMENT object directly in the component file (marked with comment: ✏️ EDITAR AQUÍ)
+  - **Configuration** (marked with ✏️ EDITAR AQUÍ comments):
+    - ANNOUNCEMENT object properties:
+      - `text`: Banner message text (default: "Oferta del Mes")
+      - `link`: Destination URL (default: empty string)
+      - `linkText`: Link label (default: empty string)
+      - `active`: Boolean to show/hide banner (default: `true`, set to false to hide)
+    - WA_NUMBER: "584244067274" (WhatsApp contact number)
+    - WA_MESSAGE: encodeURIComponent("Hola Sublink, vengo de la página web 👋") (pre-filled message)
+  - **Layout Structure**: fixed top-0 left-0 w-full bg-zinc-900 text-white z-[60], flex items-center justify-between
+    - Left Spacer: w-28 sm:w-36 shrink-0 (padding for layout balance)
+    - Center: font-semibold text-center flex-1 with optional Link (ml-2 underline underline-offset-2 hover:text-blue-100)
+    - Right WhatsApp Button: shrink-0 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5a] transition-colors text-xs font-bold px-3 py-1 rounded-full
+  - **WhatsApp Icon**: Inline SVG (24x24 viewBox), white fill, w-3.5 h-3.5
+  - **Button Text**: "Escríbenos" (hidden sm:inline on mobile)
+  - **Conditional Rendering**: Link only renders if ANNOUNCEMENT.link is provided
 
 ### Google Reviews
+- **GoogleReviewsServer** (`src/components/UI/GoogleReviewsServer.tsx`):
+  - Type: Server component (no `"use client"`) with ISR (Incremental Static Regeneration)
+  - **Revalidation**: `next: { revalidate: 3600 }` - Updates every 1 hour without redeploy
+  - **fetchLiveReviews()** async function:
+    - Queries Google Places API for PLACE_ID: `ChIJd4jZgbDIwigRmh5Ff5t_6e0` (Sublink Valencia, Venezuela)
+    - Fields requested: `rating`, `user_ratings_total`
+    - Returns: `{ rating: number, total: number }` or `null` if API unavailable
+    - Handles: Missing API key, network errors, invalid API responses gracefully (silent failure, uses fallback)
+  - **GoogleReviewsBadgeAuto** export:
+    - Async server component that fetches live reviews and passes to GoogleReviewsBadge with optional rating/total props
+    - Falls back to static defaults (from GoogleReviewsBadge component) if API unavailable
+    - Comment: Places API may have limited coverage in Venezuela, fallback ensures graceful degradation
+  - **Integration**: Used in `src/app/page.tsx` line 35 - renders in centered div with gray background (w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100)
+
 - **GoogleReviews** (`src/components/UI/GoogleReviews.tsx`):
   - Type: Client component (`"use client"`) with server-side data fetching from `/api/reviews`
+  - **Configuration** (marked with ✏️ EDITAR AQUÍ comments):
+    - `GOOGLE_RATING = 5.0` - Actual Google Business Profile rating
+    - `GOOGLE_TOTAL_REVIEWS = 1` - Total reviews count visible in profile
+    - `GOOGLE_REVIEWS_URL = "https://search.google.com/local/reviews?placeid=ChIJd4jZgbDIwigRmh5Ff5t_6e0"` - Direct link to reviews
   - **GoogleReviewsBadge** (compact badge component):
-    - Props: `{ rating?: number (default 4.8), total?: number }`
-    - Displays: Google G logo, star rating (5-star visual), review count, clickable link to Google Business profile
-    - Styling: White background, border, rounded-xl, hover shadow transition
-    - Link: `https://g.co/kgs/sublink` (direct to business reviews)
+    - Props: `{ rating?: number (defaults to GOOGLE_RATING), total?: number (defaults to GOOGLE_TOTAL_REVIEWS) }`
+    - Displays: Google G logo (inline SVG), star rating (5-star visual), review count, clickable link to Google Business profile
+    - Styling: White background, border-gray-200, rounded-xl, px-5 py-3, hover shadow transition
+    - Link: Uses GOOGLE_REVIEWS_URL constant for direct business reviews access
   - **Stars** (reusable star rating component):
     - Props: `{ rating: number, size?: "sm" | "md" }`
-    - Renders: 5 stars, yellow (#fbbf24) for filled, gray for empty based on rating value
+    - Renders: 5 stars, yellow-400 for filled, gray-300 for empty based on rating value
   - **GoogleReviewsSection** (full section component):
-    - Type: Client component with useEffect + useState
+    - Type: Client component with useEffect + useState for data fetching
     - Fetches: GET `/api/reviews` (endpoint returns: name, rating, total, reviews array)
     - State: `data: ReviewsData | null`, `loading: boolean`, `error: boolean`
     - ReviewsData interface: `{ name: string, rating: number, total: number, reviews: Review[] }`
     - Review interface: `{ author_name, profile_photo_url, rating, relative_time_description, text }`
+    - Loading state: Renders ReviewsSkeleton component (3-card skeleton grid)
+    - Error state: Returns null if error or no data
+    - Display: Section with "Lo que dicen nuestros clientes" header, rating/stars/total count display, 3-column grid of ReviewCards (responsive: 1 col mobile, 2 col sm, 3 col lg)
+  - **ReviewCard** component:
+    - Displays: Author photo/initial circle, author name, date (relative_time_description), star rating, review text (line-clamp-4)
+    - Styling: White background, rounded-xl, shadow-sm, border-gray-100
+  - **ReviewsSkeleton** component:
+    - Renders: 3 animated loading cards with pulse animation matching ReviewCard structure
 
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
@@ -231,13 +258,19 @@ Key configuration:
 
 
 ### API Routes
-- **GET /api/reviews**:
-  - Purpose: Fetch Google Places business reviews and ratings
-  - Revalidation: 3600 seconds (1 hour)
-  - Environment Variable: `GOOGLE_PLACES_API_KEY`
-  - Returns: JSON with `{ name, rating, total (user_ratings_total), reviews[] }`
-  - Reviews Array: Contains up to 5 newest reviews, each with `author_name, profile_photo_url, rating, relative_time_description, text`
-  - Error Handling: Returns 500 if API key not configured or Google Places API fails
+- **GET /api/reviews** (`src/app/api/reviews/route.ts`):
+  - Purpose: Fetch Google Places business reviews and ratings via API route
+  - Revalidation: `export const revalidate = 3600` (1 hour, ISR)
+  - PLACE_ID: `ChIJd4jZgbDIwigRmh5Ff5t_6e0` (Sublink Valencia, Venezuela) - hardcoded constant
+  - Environment Variable: `GOOGLE_PLACES_API_KEY` (required, returns 500 if missing)
+  - Query Fields: `name, rating, user_ratings_total, reviews`
+  - Returns: JSON with `{ name, rating, total (user_ratings_total), reviews[] }` where fields are normalized from Google Places API response
+  - Reviews Array: Contains up to 5 reviews (sliced with `.slice(0, 5)`), each with `author_name, profile_photo_url, rating, relative_time_description, text`
+  - Error Handling:
+    - 500 if `GOOGLE_PLACES_API_KEY` not configured (status 500, error message)
+    - 500 if Google Places API returns non-OK status (status 500, includes detail: error_message from API)
+    - 500 on catch with detail: String(err) for network/parsing errors
+  - Used by: GoogleReviewsSection (client component in UI/GoogleReviews.tsx) and GoogleReviewsServer (server component, fallback)
 
 <!-- END AUTO-MANAGED -->
 
@@ -370,34 +403,68 @@ Recent changes focused on blog system completion and detailed content implementa
 - **SVG Assets**: epson-logo.svg, monti-antonio-logo.svg added to public/assets/ for branding displays
 - **Tailwind Config** (`tailwind.config.ts`): Extended colors with primary #157ec2, secondary #f9f9f9, tertiary #f2f2f2, custom gray scale (100-900), plugins: flowbite, @tailwindcss/typography
 - **Ofrecemos Component** (`src/components/Ofrecemos/Ofrecemos.tsx`): Main service offering section with three modal-triggered cards
-  - Layout: flex row (centered, md:flex-row, lg:space-x-10) with responsive spacing
-  - Cards: "TELAS" (regular), "SERVICIOS TEXTILES", "TELAS ECO" (filtered by categoria_slug === "telas-ecologicas")
-  - Card Structure: aspect-[40/50] rounded-3xl with background image, overlay text with primary-color accent line
-  - Features: Image backgrounds (sublimacion-textil.webp, servicios-textiles.webp, productos-complementarios.webp), ModalComponent triggers for each category
-  - Filtering: Uses telas.filter() to separate eco fabrics (categoria_slug === "telas-ecologicas") vs regular fabrics
+  - Type: Client component (`"use client"`)
+  - Layout: flex flex-col md:flex-row with centered items, responsive spacing (md:space-x-4 lg:space-x-10)
+  - Section Header: H2 "¿Qué ofrecemos?" (text-primary, text-5xl sm:text-7xl, font-bold, tracking-tighter), service description paragraphs (text-zinc-900, text-lg sm:text-xl, uppercase)
+  - Cards: Three card sections with aspect-[40/50] rounded-3xl images
+    - "TELAS": Filters non-eco fabrics (categoria_slug !== "telas-ecologicas")
+    - "SERVICIOS TEXTILES": Full servicios array
+    - "TELAS ECO": Filters eco fabrics (categoria_slug === "telas-ecologicas")
+  - Card Structure: Relative positioned containers with Image backgrounds (sublimacion-textil.webp, servicios-textiles.webp, productos-complementarios.webp), overlay text with primary-color vertical accent line, ModalComponent triggers
   - Data imports: telas array from @/lib/telas, servicios array from @/lib/servicios
-  - Type: Client component ("use client")
+  - Styling: w-full px-6 section wrapper, responsive card sizes (w-80 md:w-60 lg:w-72 xl:w-96), my-4 md:my-20 spacing
 - **PrintOnDemandSection Component** (`src/components/PrintOnDemand/PrintOnDemand.tsx`): Comprehensive POD service presentation
-  - Layout: Grid 2-column (lg:grid-cols-2) with left text content and right carousel
-  - Left Content: Heading "Sublimación Digital" (span with blue #157ec2), main title, feature list (3 items with checkmark icons), technology description, logo displays (Epson, Monti Antoni), disabled buttons (marked próximamente)
-  - Features Listed: "Impresión desde 1 metro hasta rollo completo", "Compatible con más de 25 telas", "Colores vibrantes que no se caen con los lavados ni se agrietan"
+  - Type: Client component (`"use client"`)
+  - Layout: w-full bg-white py-14 px-4, max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-12 items-center
+  - Left Content:
+    - Heading: "Sublimación Digital" (span xs font-bold uppercase tracking-widest text-[#157ec2]), "Estampa tus diseños en cualquier tela" (h2 text-3xl md:text-4xl font-bold text-gray-900)
+    - Features: 3-item list with checkmark icons (rounded-full bg-[#157ec2] flex items-center justify-center, svg w-3 h-3 text-white)
+      - "Impresión desde 1 metro hasta rollo completo"
+      - "Compatible con más de 25 telas"
+      - "Colores vibrantes que no se caen con los lavados ni se agrietan"
+    - Technology: Text "Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni."
+    - Logo Displays: Two bordered boxes (border border-gray-200 rounded-lg px-3 py-1.5 bg-white) with Epson and Monti Antonio SVG logos
+    - Buttons: Two disabled buttons (both disabled title="Próximamente")
+      - "Print FREE" (bg-[#157ec2]/50 text-white font-bold px-7 py-3.5 rounded-full cursor-not-allowed)
+      - "Sube tu Print" (border-2 border-gray-200 text-gray-400 font-bold px-7 py-3.5 rounded-full cursor-not-allowed with lock emoji)
   - Right Carousel: Dynamic print rotation with PRINTS array (3 items: AP001 CEBRA, FL002 APRICOT, MO008 ITALIAN TILES)
     - Rotation: 980ms interval via useEffect setInterval
-    - Animation: opacity transitions (245ms), scale transform (1 → 1.065, 980ms ease-out)
-    - Dot indicators: clickable navigation, active state styling (white w-6 vs white/50)
-  - Data: PRINTS array with src (image path), alt (description)
-  - State: active (index tracking current print via useState)
-  - Type: Client component ("use client")
-- **Google Reviews Integration** (as of 2026-04-04):
-  - **API Route** (`src/app/api/reviews/route.ts`): GET endpoint fetching Google Places API with Place ID "ChIJd4jZgbDIwiiaHkV_m3_p7Q" (Sublink Sublimación Textil business)
-    - Returns: business name, rating (4.8+), total ratings count, newest 5 reviews with author name, profile photo, rating, date, text
+    - Animation: opacity transitions (245ms ease-in-out), image scale transform (1 → 1.065, 980ms ease-out)
+    - Image Container: relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl with absolute inset-0 positioning
+    - Dot Indicators: absolute bottom-4 left-1/2 -translate-x-1/2, clickable buttons with active state (bg-white w-6 vs bg-white/50 w-2)
+  - State: active (useState tracking current print index)
+  - Data: PRINTS array with src, alt properties
+- **Google Reviews Integration** (as of 2026-04-06):
+  - **Component Configuration**: GoogleReviews.tsx with editable constants (marked with ✏️ EDITAR AQUÍ):
+    - `GOOGLE_RATING = 5.0` - Real Google Business Profile rating
+    - `GOOGLE_TOTAL_REVIEWS = 1` - Total reviews count visible in profile
+    - `GOOGLE_REVIEWS_URL = "https://search.google.com/local/reviews?placeid=ChIJd4jZgbDIwigRmh5Ff5t_6e0"` - Direct reviews link
+  - **API Route** (`src/app/api/reviews/route.ts`): GET endpoint fetching Google Places API
+    - Returns: business name, rating, total ratings count, newest 5 reviews with author name, profile photo, rating, date, text
     - Cache: 1-hour revalidation (revalidate: 3600)
     - Requires environment: GOOGLE_PLACES_API_KEY
-  - **GoogleReviews Component Refactor**: Client-side with useEffect hook, fetches from /api/reviews, displays GoogleReviewsBadge and GoogleReviewsSection
-    - GoogleReviewsBadge: Compact badge showing rating (props configurable), star count, review count, clickable Google profile link
-    - GoogleReviewsSection: Full section component with loading/error states, renders review cards with author photo, stars, date, text
-    - Stars component: Reusable 5-star visual, size variants (sm, md)
+  - **GoogleReviewsBadge Component**: Compact badge with configurable props (rating, total defaults from constants)
+    - Displays: Google G logo (inline SVG), star rating visual, review count text, clickable link
+    - Link uses GOOGLE_REVIEWS_URL for direct business profile access
+  - **GoogleReviewsSection Component**: Full section with loading/error/data states
+    - Fetches from /api/reviews endpoint
+    - Header: "Lo que dicen nuestros clientes" with rating display and "Ver todas en Google" link
+    - ReviewCard subcomponent: Author photo/initial, name, date, stars, review text (line-clamp-4)
+    - ReviewsSkeleton: 3-card animated loading state
+  - **Stars Component**: Reusable 5-star visual with size variants (sm, md), yellow-400 filled / gray-300 empty
+  - **Home Page Integration**: GoogleReviewsBadge displayed in centered container with bg-gray-50 border-t on home page
   - **next.config.mjs Update**: Added remotePatterns for `lh3.googleusercontent.com` (Google profile photo CDN)
+- **Component Updates** (as of 2026-04-06):
+  - **Ofrecemos Component**: Enhanced layout documentation with detailed section structure, card styling, and filtering logic
+  - **PrintOnDemandSection Component**: Comprehensive documentation added covering grid layout, carousel mechanics (980ms rotation, opacity/scale animations), disabled button states (próximamente), and dot indicator navigation
+  - **AnnouncementBar Component**: Configuration documentation updated with clear ✏️ EDITAR AQUÍ markers, WA_NUMBER/WA_MESSAGE constants, and conditional Link rendering
+- **Sublink Calculadora Project** (`/sublink-calculadora/index.html`):
+  - Standalone HTML pricing calculator with Spanish interface (es locale)
+  - Design Tokens: Navy (#0D2E5A), Blue (#0086C9), Sky (#00AAEB), Off-white (#F0F5FB), Light (#E0EEF9), Gray (#64748B)
+  - Typography: Montserrat (headings, weights 700-900) and Open Sans (body, weights 300-500)
+  - Visual Effects: Diagonal fabric texture (repeating-linear-gradient -45deg), radial accent gradient (bottom-right)
+  - Page Structure: Header (logo, badge with blink animation, subtitle), calc-wrapper grid (2 columns on desktop, 1 mobile)
+  - Components: Card-based layout with card-header (blue background, icon circles, titles), card-body sections, form fields with validation styling
 <!-- END AUTO-MANAGED -->
 
 ## Local Notes
