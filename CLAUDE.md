@@ -7,10 +7,10 @@ Sublink is a Next.js 14.2.2 web application for textile and fabric services in V
 ## Build Commands
 
 <!-- AUTO-MANAGED: build-commands-->
-- `npm run dev` - Start development server with Turbo mode
-- `npm run build` - Build for production
-- `npm start` - Start production server
-- `npm run lint` - Run ESLint checks
+- `npm run dev` - Start development server with Turbo mode (`next dev --turbo`)
+- `npm run build` - Build for production (`next build`)
+- `npm start` - Start production server (`next start`)
+- `npm run lint` - Run ESLint checks (`next lint`)
 <!-- END AUTO-MANAGED -->
 
 ## Architecture
@@ -23,7 +23,7 @@ src/
 │   │   └── reviews/        # Google Places reviews endpoint
 │   │       └── route.ts    # Fetches business reviews from Google Places API (revalidates hourly)
 │   ├── layout.tsx          # Root layout with metadata, JSON-LD schema, AnnouncementBar
-│   ├── page.tsx            # Home page (imports GoogleReviewsBadgeAuto for live reviews with ISR fallback)
+│   ├── page.tsx            # Home page (imports components: Slider, IconBar, FabricSelector, PrintOnDemandSection, Estampacion, Ofrecemos, VideoReciclar, Counter, LogoCarousel, ReviewsCarousel)
 │   ├── robots.ts           # Robots metadata
 │   ├── sitemap.ts          # XML sitemap generation (telas + servicios + blog posts)
 │   ├── blog/
@@ -57,6 +57,7 @@ src/
 │   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
 │   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
 │   │   ├── GoogleReviewsServer.tsx # Server component for live Google Places reviews with ISR (revalidates hourly)
+│   │   ├── ReviewsCarousel.tsx # Client carousel displaying customer testimonials (embla-carousel with auto-scroll, 6 reviews with avatars and 5-star ratings)
 │   │   └── ...
 │   ├── FabricSelector/     # Fabric selection component
 │   ├── DeadStock/          # Deadstock fabric section
@@ -77,11 +78,13 @@ Key configuration:
 - **URL Base**: `https://www.sublink.company` (SUBLINK_URL constant)
 - **Module Path Alias**: `@/*` maps to `./src/*`
 - **Next.js Version**: 14.2.2
+- **Environment Variables** (`.env.local`):
+  - `GOOGLE_PLACES_API_KEY` - API key for Google Places reviews (fetches real-time business ratings and review count)
 - **Remote Image Patterns** (`next.config.mjs`):
   - `via.placeholder.com` (https) - Placeholder images
   - `lh3.googleusercontent.com` (https) - Google review profile photos
 - **Analytics**: Vercel Analytics + Google Analytics (GA ID: G-FQ4RY25W5X)
-- **Google Places API**: Used for fetching reviews via /api/reviews endpoint
+- **Google Places API**: Used for fetching reviews via /api/reviews endpoint (requires GOOGLE_PLACES_API_KEY)
 - **Vercel Deployment**: Framework: nextjs, buildCommand: `npm run build`, outputDirectory: `.next`
 
 ### Sitemap Generation
@@ -234,6 +237,25 @@ Key configuration:
   - **ReviewsSkeleton** component:
     - Renders: 3 animated loading cards with pulse animation matching ReviewCard structure
 
+- **ReviewsCarousel** (`src/components/UI/ReviewsCarousel.tsx`):
+  - Type: Client component (`"use client"`) displaying hard-coded customer testimonials in an auto-scrolling carousel
+  - **Carousel Data** (RESENAS array, 6 reviews):
+    - Alfredo Silva: "Increíble calidad en la sublimación..." (5★, avatar: A, #1789C4)
+    - Valentina Rojas: "Mandé mis diseños un lunes..." (5★, avatar: V, #EA028C)
+    - Carlos Medina: "Hicimos los uniformes de nuestro equipo..." (5★, avatar: C, #F6931F)
+    - Luisa Fernández: "Pedí telas personalizadas..." (5★, avatar: L, #8AC640)
+    - Roberto Díaz: "Excelente servicio. Trabajamos con Sublink..." (5★, avatar: R, #EC1F25)
+    - Gabriela Torres: "La mejor empresa de sublimación en Valencia..." (5★, avatar: G, #6B46C1)
+  - **Library**: embla-carousel-react with AutoScroll plugin (speed: 0.8, playOnInit: true, loop enabled)
+  - **Layout Section**:
+    - Container: py-20 bg-gray-50 border-t border-gray-100
+    - Header: Google Reviews badge with 5.0 rating, 5 stars (yellow-400), text "Lo que dicen nuestros clientes"
+    - Cards: 320px width with 16px margin, white bg, rounded-2xl, shadow-sm, border-gray-100, h-full flex layout
+  - **Card Structure**: Avatar circle (colored background, initials) + Name/date metadata → Stars (Estrellas component) → Quote text (line-clamp pending)
+  - **Estrellas Sub-component**: Renders 5-star rating display (filled yellow-400 vs gray-200 based on rating)
+  - **Autoplay**: toggleAutoplay() useCallback controls emblaApi autoScroll plugin play/stop
+  - **Dependencies**: embla-carousel-react, embla-carousel-auto-scroll plugins
+
 ### Footer
 - **Footer** (`src/components/UI/Footer.tsx`):
   - Type: Client component (`"use client"`)
@@ -299,18 +321,26 @@ Key configuration:
 - `flowbite-react@0.7.3` - UI component library
 - `react-countup@6.5.3` - Counter animation
 - `react-modal-video@2.0.1` - Video modal
-- `sharp@0.33.3` - Image processing
+- `sharp@0.33.3` - Image processing for Next.js image optimization
 - `@vercel/analytics@1.3.1` - Analytics tracking
 - `@next/third-parties@14.2.2` - Google Analytics integration
 
 ### Development
-- TypeScript, ESLint, Tailwind CSS, PostCSS, Autoprefixer
-- Type definitions for React, React DOM, React Modal Video
-- @tailwindcss/typography - Prose styling for blog content
+- `typescript@5` - Type safety
+- `eslint@8`, `eslint-config-next@14.2.2` - Code linting
+- `tailwindcss@3.3.0`, `postcss@8`, `autoprefixer@10.0.1` - CSS framework and processing
+- `@tailwindcss/typography@0.5.13` - Prose styling for blog content
+- `@types/node@20`, `@types/react@18`, `@types/react-dom@18`, `@types/react-modal-video@1.2.3`, `@types/react-slick@0.23.13` - Type definitions
 
 ### External Services
-- **Google Places API** - Business reviews and ratings (requires GOOGLE_PLACES_API_KEY env var)
+- **Google Places API** - Business reviews and ratings (requires GOOGLE_PLACES_API_KEY env var in .env.local)
 - **Google Analytics** - Tracking ID G-FQ4RY25W5X
+
+### Configuration Files
+- **`.env.local`**: Environment variables
+  - `GOOGLE_PLACES_API_KEY` - API key for Google Places reviews (fetches real-time business ratings and review count)
+- **`next.config.mjs`**: Next.js configuration
+  - Image remotePatterns: `via.placeholder.com` (placeholder images), `lh3.googleusercontent.com` (Google review profile photos)
 
 <!-- END AUTO-MANAGED -->
 
