@@ -137,6 +137,7 @@ Key configuration:
   - "telas-para-trajes-de-bano" (2026-03-15, 5 min) - Swimwear fabrics guide: Lycra Lafayette (€26.50/m, 4-way stretch, chlorine-resistant), Lycra Peruana (€24/m), Microfibra Nacional (€7/m, 2-way). Covers durability, chlorine exposure, UV protection, care instructions
   - "print-on-demand-modelo-actual" (2026-03-28, 6 min) - POD business model: zero inventory, customer-driven production, sublimación digital (65%+ polyester compatible), niche selection, channel setup (Instagram, WhatsApp), margin targets (40-50%)
   - "tipos-de-fibras-y-telas" (2026-04-02, 8 min) - Comprehensive fiber types: natural (algodón, lana, lino, seda), synthetic (poliéster, nylon, acrílico, elastano), artificial (viscosa, rayón, modal, acetato), sustainable (bambú, cáñamo, Eco Fibra, Lyocell). Yarn count systems (Ne, Nm, Denier). Weave types (Jersey, Piqué, Interlock, Rib, Fleece, French Terry, Jacquard for knits; Tafeta, Popelina, Twill, Rib-Stop, Denim, Drill, Oxford, Gabardina for wovens). Finishing techniques
+- **Blog Listing Page** (/blog): Grid layout (1 col mobile, 2 col desktop), sorted by date descending, featured images with hover zoom, metadata display (categoria badge, tiempoLectura), description line-clamp-3, white rounded cards with border and shadow transitions, CTA section with WhatsApp link, page metadata with canonical URL and OpenGraph
 
 ### Layout & Viewport
 - **Root Layout** (`src/app/layout.tsx`):
