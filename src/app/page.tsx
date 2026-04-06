@@ -6,7 +6,7 @@ import { IconBar } from "@/components/Ofrecemos/IconBar";
 import { Slider } from "@/components/Slider/Slider";
 import { VideoReciclar } from "@/components/VideoReciclar/VideoReciclar";
 import { PrintOnDemandSection } from "@/components/PrintOnDemand/PrintOnDemand";
-import { GoogleReviewsBadgeAuto } from "@/components/UI/GoogleReviewsServer";
+import { ReviewsCarousel } from "@/components/UI/ReviewsCarousel";
 import { FabricSelector } from "@/components/FabricSelector/FabricSelector";
 
 export default function Home() {
@@ -30,10 +30,8 @@ export default function Home() {
 
       <LogoCarousel />
 
-      {/* Google Reviews — se actualiza automáticamente cada hora */}
-      <div className="w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100">
-        <GoogleReviewsBadgeAuto />
-      </div>
+      {/* Google Reviews carousel — actualiza RESENAS en ReviewsCarousel.tsx */}
+      <ReviewsCarousel />
     </main>
   );
 }
