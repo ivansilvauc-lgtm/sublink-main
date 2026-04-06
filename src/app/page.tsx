@@ -30,10 +30,10 @@ export default function Home() {
 
       <LogoCarousel />
 
-      {/* Google Reviews — activar cuando tengas reseñas reales */}
-      {/* <div className="w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100">
+      {/* Google Reviews */}
+      <div className="w-full flex justify-center py-8 bg-gray-50 border-t border-gray-100">
         <GoogleReviewsBadge />
-      </div> */}
+      </div>
     </main>
   );
 }
