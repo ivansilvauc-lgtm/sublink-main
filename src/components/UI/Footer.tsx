@@ -128,7 +128,7 @@ export const Footer = () => {
             alt="Logo Sublink"
             className="w-36 h-auto"
           />
-          <p className="text-sm text-zinc-400 leading-relaxed max-w-[200px]">
+          <p className="text-sm text-zinc-400 leading-relaxed max-w-[200px] text-center">
             Sublimación textil, telas y estampados de alta calidad en Valencia, Venezuela.
           </p>
           <div className="flex gap-3 mt-1">
