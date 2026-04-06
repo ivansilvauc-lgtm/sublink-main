@@ -6,7 +6,7 @@ import Link from "next/link";
 // 1. Crea cuenta gratis en cal.com
 // 2. Crea un evento "Llamada Sublink 15 min"
 // 3. Reemplaza el link abajo con: https://cal.com/TU_USUARIO/llamada-sublink
-const CAL_LINK = "https://cal.com/sublink/llamada";
+const CAL_LINK = "https://cal.com/ivan-silva-qa8jpy/15min";
 
 export const PreFooter = () => {
   return (
