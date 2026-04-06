@@ -26,8 +26,7 @@ export const Ofrecemos = () => {
                         <div className="flex mt-8 ml-6 md:ml-4 xl:ml-10 space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-2" />
                             <div>
-                                <h2 className="font-semibold text-zinc-50 text-4xl md:text-3xl xl:text-4xl tracking-tighter">TELAS</h2>
-                                {/* <h3 className="font-light text-zinc-50 text-3xl md:text-2xl xl:text-4xl tracking-tighter leading-5">TEXTIL</h3> */}
+                                <h2 className="font-semibold text-zinc-900 text-4xl md:text-3xl xl:text-4xl tracking-tighter">TELAS</h2>
                             </div>
                         </div>
                         <ModalComponent list={telas.filter((tela) => tela.categoria_slug !== "telas-ecologicas")} label={"Telas"} />
@@ -44,8 +43,8 @@ export const Ofrecemos = () => {
                         <div className="flex mt-8 ml-6 md:ml-4 xl:ml-10 space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-2" />
                             <div>
-                                <h2 className="font-semibold text-zinc-50 text-4xl md:text-3xl xl:text-4xl tracking-tighter">SERVICIOS</h2>
-                                <h3 className="font-light text-zinc-50 text-3xl md:text-2xl xl:text-4xl tracking-tighter leading-5">TEXTILES</h3>
+                                <h2 className="font-semibold text-zinc-900 text-4xl md:text-3xl xl:text-4xl tracking-tighter">SERVICIOS</h2>
+                                <h3 className="font-light text-zinc-900 text-3xl md:text-2xl xl:text-4xl tracking-tighter leading-5">TEXTILES</h3>
                             </div>
                         </div>
 
@@ -63,7 +62,7 @@ export const Ofrecemos = () => {
                         <div className="flex mt-8 ml-6 md:ml-4 xl:ml-10 space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-2" />
                             <div>
-                                <h2 className="font-semibold text-zinc-50 text-4xl md:text-3xl xl:text-4xl tracking-tighter">TELAS ECO</h2>
+                                <h2 className="font-semibold text-zinc-900 text-4xl md:text-3xl xl:text-4xl tracking-tighter">TELAS ECO</h2>
                             </div>
                         </div>
                     </div>

@@ -110,24 +110,6 @@ export default function BlogPage() {
         ))}
       </div>
 
-      {/* CTA al final */}
-      <div className="mt-16 text-center bg-blue-600 rounded-2xl p-10 text-white">
-        <h2 className="text-2xl font-bold mb-3">
-          ¿Tienes preguntas sobre telas o sublimación?
-        </h2>
-        <p className="text-blue-100 mb-6 max-w-xl mx-auto">
-          Nuestro equipo está listo para asesorarte. Escríbenos por WhatsApp y
-          te respondemos de inmediato.
-        </p>
-        <a
-          href="https://wa.me/584162698802?text=Vengo%20de%20la%20Web"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-block bg-white text-blue-600 font-bold px-8 py-3 rounded-full hover:bg-blue-50 transition-colors"
-        >
-          Contactar por WhatsApp
-        </a>
-      </div>
     </main>
   );
 }
