@@ -25,10 +25,7 @@ export async function GET() {
       return NextResponse.json({ error: data.status, detail: data.error_message }, { status: 500 });
     }
 
-    // DEBUG temporal: ver todos los campos que devuelve Google
     return NextResponse.json({
-      _debug_fields_returned: Object.keys(data.result ?? {}),
-      _debug_status: data.status,
       name: data.result.name,
       rating: data.result.rating ?? null,
       total: data.result.user_ratings_total ?? null,
