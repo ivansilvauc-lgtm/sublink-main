@@ -59,7 +59,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "¿Qué telas admiten sublimación?",
-    a: "Telas con mínimo 65% poliéster. En blanco o colores muy claros para máxima fidelidad de color.",
+    a: "100% poliéster o mezcla poliéster+elastano. En blanco o colores muy claros para máxima fidelidad de color.",
   },
 ];
 
@@ -120,7 +120,7 @@ export const Footer = () => {
       <div className="max-w-6xl mx-auto px-6 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
         {/* Col 1 — Logo + tagline + redes */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col items-center gap-4">
           <Image
             src="/assets/logo-sublink-marca-de-agua.png"
             width={160}
