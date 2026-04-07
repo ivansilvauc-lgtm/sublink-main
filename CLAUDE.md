@@ -6,7 +6,7 @@ Sublink is a Next.js 14.2.2 web application for textile and fabric services in V
 
 ## Build Commands
 
-<!-- AUTO-MANAGED: build-commands-->
+<!-- AUTO-MANAGED: build-commands -->
 - `npm run dev` - Start development server with Turbo mode (`next dev --turbo`)
 - `npm run build` - Build for production (`next build`)
 - `npm start` - Start production server (`next start`)
@@ -60,8 +60,8 @@ src/
 │   ├── VideoReciclar/      # Video modal component for recycling content
 │   ├── UI/                 # Common UI components
 │   │   ├── MiniPop.tsx     # Popup component
-│   │   ├── PreFooter.tsx   # Pre-footer CTA section: left side with trust messaging + badges (Google 5.0 rating, Epson technology, Monti Antonio), right side with 3 action buttons (WhatsApp 584244067274 green, Cal.com fabric expert blue, design expert disabled), responsive md layout, CAL_LINK constant points to 15-min expert call with UTM tracking
-│   │   ├── Footer.tsx      # Footer with 4-column responsive grid layout: (1) logo + tagline + social links (WhatsApp, Facebook, Instagram with hover effects), (2) contact (Av. 137 CC Imperial II, Valencia, +58 424-4067274, sublinkve@gmail.com, hours Lun-Vie 8:30-4:30pm) + quick nav links, (3) FAQ accordion (5 Q&A items: min order, production time, color durability, design upload, polyester requirement), (4) printing guide accordion (5 Q&A items: file resolution, RGB vs CMYK, margins/bleed, Pantone colors, color proofs). Uses reusable Accordion component with state management. bg-zinc-900 text-zinc-300, max-w-6xl container
+│   │   ├── PreFooter.tsx   # Pre-footer CTA section: left side with trust messaging + badges (Google 5.0 rating, Epson technology, Monti Antonio), right side with 3 action buttons (WhatsApp contact green, Cal.com fabric expert blue, design expert), responsive md layout, CAL_LINK constant points to 15-min expert call with UTM tracking
+│   │   ├── Footer.tsx      # Footer with 4-column responsive grid layout: (1) logo + tagline + social links (WhatsApp href: wa.me/584162698802, Facebook, Instagram with hover effects), (2) contact (Av. 137 CC Imperial II, Valencia, +58 424-4067274, sublinkve@gmail.com, hours Lun-Vie 8:30-4:30pm) + quick nav links, (3) FAQ accordion (5 Q&A items: min order, production time, color durability, design upload, polyester requirement), (4) printing guide accordion (5 Q&A items: file resolution, RGB vs CMYK, margins/bleed, Pantone colors, color proofs). Uses reusable Accordion component with state management. bg-zinc-900 text-zinc-300, max-w-6xl container
 │   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
 │   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
 │   │   ├── GoogleReviewsServer.tsx # Server component for live Google Places reviews with ISR (revalidates hourly)
@@ -303,8 +303,8 @@ Key configuration:
       - `link`: Destination URL (default: empty string)
       - `linkText`: Link label (default: empty string)
       - `active`: Boolean to show/hide banner (default: `true`, set to false to hide)
-    - WA_NUMBER: "584244067274" (WhatsApp contact number)
-    - WA_MESSAGE: encodeURIComponent("Hola Sublink, vengo de la página web 👋") (pre-filled message)
+    - WA_NUMBER: "584162698802" (Updated WhatsApp contact number)
+    - WA_MESSAGE: encodeURIComponent("Vengo de la Web") (pre-filled message)
   - **Layout Structure**: fixed top-0 left-0 w-full bg-zinc-900 text-white z-[60], flex items-center justify-between
     - Left Spacer: w-28 sm:w-36 shrink-0 (padding for layout balance)
     - Center: font-semibold text-center flex-1 with optional Link (ml-2 underline underline-offset-2 hover:text-blue-100)
