@@ -101,6 +101,9 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                   <NavItemLink key={item.key} onClick={handleNavItemClick(item.toggleState)} label={item.label} state={menuState[item.toggleState]} classNames={item.classNames} />
                 ))}
                 <li>
+                  <Link className={`antialiased hover:text-blue-500 cursor-pointer text-gray-700 font-semibold`} href={"/portafolio"}>PORTAFOLIO</Link>
+                </li>
+                <li>
                   <Link className={`antialiased hover:text-lime-400 cursor-pointer text-lime-500`} href={"/sostenibilidad"}>SOSTENIBILIDAD</Link>
                 </li>
                 <li>
