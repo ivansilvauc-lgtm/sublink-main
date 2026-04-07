@@ -13,8 +13,8 @@ const PRINTS = [
     alt: "Estampado floral apricot sublimado en tela",
   },
   {
-    src: "/img/prints/MO008 - ITALIANO TILES.jpg",
-    alt: "Estampado geométrico italiano tiles sublimado en tela",
+    src: "/img/prints/FL226- JIRASO MONARCHS.jpg",
+    alt: "Estampado floral jiraso monarchs sublimado en tela",
   },
 ];
 
