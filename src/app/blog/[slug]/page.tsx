@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/lib/blog";
+import { SUBLINK_URL } from "@/lib/constant";
 
 // Importar contenido de artículos
 import TelasTrajes from "../posts/telas-para-trajes-de-bano";
@@ -32,12 +33,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.descripcion,
     keywords: post.keywords,
     alternates: {
-      canonical: `https://www.sublink.company/blog/${post.slug}`,
+      canonical: `${SUBLINK_URL}/blog/${post.slug}`,
     },
     openGraph: {
       title: post.titulo,
       description: post.descripcion,
-      url: `https://www.sublink.company/blog/${post.slug}`,
+      url: `${SUBLINK_URL}/blog/${post.slug}`,
       siteName: "Sublink Textil",
       images: [{ url: post.imagen, width: 1200, height: 630 }],
       locale: "es_VE",
@@ -197,7 +198,7 @@ export default function BlogPostPage({ params }: Props) {
             "@type": "Article",
             headline: post.titulo,
             description: post.descripcion,
-            image: `https://www.sublink.company${post.imagen}`,
+            image: `${SUBLINK_URL}${post.imagen}`,
             datePublished: post.fecha,
             author: {
               "@type": "Organization",
@@ -206,9 +207,9 @@ export default function BlogPostPage({ params }: Props) {
             publisher: {
               "@type": "Organization",
               name: "Sublink Textil",
-              url: "https://www.sublink.company",
+              url: SUBLINK_URL,
             },
-            url: `https://www.sublink.company/blog/${post.slug}`,
+            url: `${SUBLINK_URL}/blog/${post.slug}`,
             keywords: post.keywords.join(", "),
           }),
         }}
@@ -221,9 +222,9 @@ export default function BlogPostPage({ params }: Props) {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [
-              { "@type": "ListItem", position: 1, name: "Inicio", item: "https://www.sublink.company" },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.sublink.company/blog" },
-              { "@type": "ListItem", position: 3, name: post.titulo, item: `https://www.sublink.company/blog/${post.slug}` },
+              { "@type": "ListItem", position: 1, name: "Inicio", item: SUBLINK_URL },
+              { "@type": "ListItem", position: 2, name: "Blog", item: "${SUBLINK_URL}/blog" },
+              { "@type": "ListItem", position: 3, name: post.titulo, item: `${SUBLINK_URL}/blog/${post.slug}` },
             ],
           }),
         }}

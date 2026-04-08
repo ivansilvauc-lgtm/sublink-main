@@ -29,7 +29,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SUBLINK_URL),
   title: {
-    default: 'Sublink Company | Servicios de Estampados y Sublimación Textil',
+    default: 'Sublink | Estampados y Sublimación Textil Venezuela',
     template: `Sublink | %s`,
   },
   description: "Sublimación textil continua en Venezuela. +40 tipos de telas desde 1 metro. Estampados, DTF, corte láser, vinil textil y etiquetas. Valencia, Carabobo.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   creator: 'Sublink',
   publisher: 'Sublink',
   openGraph: {
-    title: 'Sublink Company | Servicios de Estampados y Sublimación Textil',
+    title: 'Sublink | Estampados y Sublimación Textil Venezuela',
     description: 'Personalizamos +40 tipos de telas que tenemos disponibles, a través de la tecnología de Sublimación Textil Continua, con máquinas que permiten estampar el ancho de las telas en su totalidad, desde un metro hasta un rollo completo!.',
     url: SUBLINK_URL,
     siteName: 'Sublink Company',

@@ -81,7 +81,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
       </div>
       <div className="flex flex-col md:flex-row bg-primary h-[450px] md:h-96 items-center">
         <div className="w-full h-full relative">
-          <Image src={servicio.results_image} alt={servicio.results_image_alt || servicio.slug} width={800} height={800} className="absolute w-full h-full object-cover" />
+          <Image src={servicio.results_image} alt={servicio.results_image_alt || `Resultado del servicio de ${servicio.title} en Sublink`} width={800} height={800} className="absolute w-full h-full object-cover" />
         </div>
         <div className="basis-1/2 md:basis-full p-8 lg:p-16">
           <p className="text-zinc-50 text-justify md:text-xl lg:text-2xl ">{servicio.description}</p>

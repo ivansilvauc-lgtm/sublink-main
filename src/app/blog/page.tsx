@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blog";
+import { SUBLINK_URL } from "@/lib/constant";
 
 export const metadata: Metadata = {
   title: "Blog | Sublink Textil Venezuela",
@@ -15,13 +16,13 @@ export const metadata: Metadata = {
     "telas para confección",
   ],
   alternates: {
-    canonical: "https://www.sublink.company/blog",
+    canonical: `${SUBLINK_URL}/blog`,
   },
   openGraph: {
     title: "Blog | Sublink Textil Venezuela",
     description:
       "Guías y tendencias sobre telas y sublimación en Venezuela.",
-    url: "https://www.sublink.company/blog",
+    url: `${SUBLINK_URL}/blog`,
     siteName: "Sublink Textil",
     locale: "es_VE",
     type: "website",

@@ -50,6 +50,9 @@ export const servicios: IServicios[] = [
         equipment_image:"/img/servicios/4.webp",
         results_image:"/img/servicios/tela-de-color-amarillo-con-marquillas.webp",
         results_image_alt: "Tela de color amarillo con marquillas",
+        metaTitle: "DTF para Marquillas Textiles en Venezuela | Sublink Company",
+        metaDescription: "Impresión DTF Laser Toner para marquillas y etiquetas de prendas en Venezuela. Formato A4 y tabloide, entrega express en 1 hora. Valencia, Carabobo.",
+        keywords: ["dtf marquillas venezuela", "marquillas textiles venezuela", "dtf laser toner", "etiquetas prendas venezuela", "marquillas sublink"],
         description: "El DTF es una técnica innovadora de impresión que ha venido a revolucionar la identificación de prendas, ya que, a diferencia de otras técnicas, permite una mayor flexibilidad en los tipos de telas y colores que se pueden usar.",
         details: [
             "El DTF, o “Direct to Film,” se refiere a la impresión directa sobre una lámina especial, con tintas especiales a full color, que permite estampar diseños complejos y detallados, para finalmente aplicar en la prenda con la misma técnica que un vinil textil o transfer.",
@@ -74,6 +77,9 @@ export const servicios: IServicios[] = [
         equipment_image:"/img/servicios/5.webp",
         results_image:"/img/servicios/impresion-de-diseno-a-todo-color-con-film-especial.webp",
         results_image_alt: "Impresión de diseño a todo color con film especial",
+        metaTitle: "DTF Industrial Continuo para Prendas en Venezuela | Sublink",
+        metaDescription: "Servicio DTF industrial continuo en Venezuela. Imprimimos diseños a todo color sobre cualquier tela o prenda, 60 cm de ancho. Alta durabilidad hasta 100 lavadas.",
+        keywords: ["dtf industrial venezuela", "dtf continuo venezuela", "estampado dtf venezuela", "dtf prendas venezuela", "dtf sublink"],
         description: "El DTF INDUSTRIAL consiste en imprimir diseños a todo color sobre un film especial. Luego, se aplica un polvo adhesivo y se cura con calor. Finalmente, el diseño se transfiere a la prenda como cualquier transfer o vinil, ofreciendo resultados vibrantes y duraderos.",
         details: [
             "La impresión DTF es, por tanto, un método digital en donde se usa una impresora, que inyecta una base de tinta color blanco sobre la impresión de color CMYK. Este respaldo de tinta blanca es la que soporta el polvo de poliamida y es la que le proporciona elasticidad y colores vivos, sobre cualquier color de prenda.",
@@ -100,6 +106,9 @@ export const servicios: IServicios[] = [
         equipment_image:"/img/servicios/3.webp",
         results_image:"/img/servicios/proceso-de-corte-laser-sobre-textil.webp",
         results_image_alt: "Proceso de corte láser sobre textil",
+        metaTitle: "Corte Láser Textil en Venezuela | Sublink Company",
+        metaDescription: "Servicio de corte láser para telas en Venezuela. Cortes precisos en poliéster, telas sublimadas y más. Área de trabajo 1,8m x 2,4m. Valencia, Carabobo.",
+        keywords: ["corte laser textil venezuela", "corte laser telas venezuela", "corte laser confeccion", "corte laser sublink", "corte laser valencia venezuela"],
         description: "El servicio de corte láser textil es una innovadora solución que viene a revolucionar la industria de la confección y la fabricación textil. Esta tecnología permite seccionar tejidos de manera precisa y eficiente, realizando cortes precisos y limpios.",
         details: [
             "La máquina Cortadora Láser cuenta con un láser diseñado para concentrar un haz de luz en un punto específico y cortar así distintos materiales. En el caso de los tejidos sintéticos como el poliéster, el calor del láser sella los bordes y evita que se deshilachen.",
@@ -119,10 +128,13 @@ export const servicios: IServicios[] = [
     {
         slug: "etiquetas-nylon-y-silicon-monocromaticas",
         title: "Etiquetas Nylon y Silicon Monocromáticas",
-        subtitle: "(Resina Negra)",	
+        subtitle: "(Resina Negra)",
         equipment_image:"/img/servicios/8.webp",
         results_image:"/img/servicios/multiples-etiquetas-de-silicon-para-ropa.webp",
         results_image_alt: "Múltiples etiquetas de silicon para ropa",
+        metaTitle: "Etiquetas de Nylon y Silicon para Ropa Venezuela | Sublink",
+        metaDescription: "Etiquetas de nylon y silicon monocromáticas para prendas en Venezuela. Resistentes al lavado, ideales para marquillas de ropa. Valencia, Carabobo.",
+        keywords: ["etiquetas nylon ropa venezuela", "etiquetas silicon prendas", "marquillas nylon venezuela", "etiquetas textiles venezuela", "etiquetas sublink"],
         description: "Seguramente conoces muy bien este tipo de etiquetas, ya que toda tu ropa generalmente lleva una con instrucciones de lavado, de planchado, con la talla, con la descripción o simplemente con la marca de quien la elaboró.",
         details: [
             "Las etiquetas de Nylon tienen una gran resistencia, por lo cual soportan varias lavadas sin deteriorarse. Generalmente son usadas para la ropa o productos elaborados con tela que requieren ser lavados constantemente.",
@@ -142,10 +154,13 @@ export const servicios: IServicios[] = [
     {
         slug: "vinil-textil",
         title: "Vinil Textil",
-        subtitle: "",	
+        subtitle: "",
         equipment_image:"/img/servicios/2.webp",
         results_image:"/img/servicios/colocacion-de-texto-en-vinil-textil-de-diferentes-colores-sobre-tela-negra.webp",
         results_image_alt: "Colocación de texto en vinil textil de diferentes colores sobre tela negra",
+        metaTitle: "Vinil Textil para Personalización de Prendas Venezuela | Sublink",
+        metaDescription: "Servicio de vinil textil termoadhesivo en Venezuela. Colores especiales, reflectivos, metalizados y glow in the dark para personalizar prendas. Valencia.",
+        keywords: ["vinil textil venezuela", "htv venezuela", "vinil transfer textil", "personalizar prendas vinil venezuela", "vinil textil sublink"],
         description: "El vinil textil de corte es una lámina termoadhesiva, perfecta para aplicar diseños personalizados sobre diferentes tejidos. Está disponible en una amplia variedad de colores, acabados y texturas, lo que permite una amplia gama de aplicaciones creativas y comerciales.",
         details: [
             "Esta técnica es muy usada para personalizar prendas ya confeccionadas, y además es sumamente versátil, ya que provee colores y texturas que no pueden lograrse con las tintas convencionales de DTF y Sublimación.",

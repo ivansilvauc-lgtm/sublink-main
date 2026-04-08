@@ -12,8 +12,10 @@ import { FabricSelector } from "@/components/FabricSelector/FabricSelector";
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-between">
-      {/* H1 semántico para SEO — visualmente oculto */}
-      <h1 className="sr-only">Sublimación Textil y Telas en Venezuela — Sublink Company, Valencia</h1>
+      {/* H1 semántico para SEO — texto visible pero integrado al diseño */}
+      <h1 className="w-full text-center text-sm font-medium text-zinc-500 px-4 pt-[72px] pb-1 tracking-wide">
+        Sublimación Textil y Telas en Venezuela — Sublink Company, Valencia
+      </h1>
       <Slider />
 
       {/* Barra de íconos: Desde 1m, Producción rápida, Diferentes telas, Tela ecológica */}
