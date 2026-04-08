@@ -98,6 +98,21 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           }
         </div>
         <p className="text-zinc-800 text-xl font-bold text-center">{servicio.doit}</p>
+
+        {params.slug === "sublimacion-textil-a-gran-formato" && (
+          <div className="mt-16 flex flex-col items-center gap-6">
+            <h2 className="text-zinc-600 text-xl font-semibold text-center">Nuestra Calandra Monti Antonio T02</h2>
+            <div className="relative w-full max-w-2xl mx-auto">
+              <Image
+                src="/img/servicios/calandra-monti-antonio-t02.webp"
+                alt="Calandra de sublimación continua Monti Antonio T02"
+                width={900}
+                height={600}
+                className="w-full h-auto object-contain rounded-xl shadow-lg"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </main>
   )

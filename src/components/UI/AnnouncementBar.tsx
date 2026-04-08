@@ -3,7 +3,7 @@ import Link from "next/link";
 
 // ✏️ EDITAR AQUÍ el texto de la oferta del mes
 const ANNOUNCEMENT = {
-  text: "Oferta del Mes",
+  text: "Crepe Doble Importado 10€ !!!",
   link: "",
   linkText: "",
   active: true, // ← cambiar a false para ocultar la barra
@@ -17,12 +17,22 @@ export const AnnouncementBar = () => {
   if (!ANNOUNCEMENT.active) return null;
 
   return (
+    <>
+      <style>{`
+        @keyframes blink-announcement {
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        .announcement-blink {
+          animation: blink-announcement 1.1s step-start infinite;
+        }
+      `}</style>
     <div className="fixed top-0 left-0 w-full bg-zinc-900 text-white text-sm py-2 px-4 flex items-center justify-between z-[60]">
       {/* Spacer izquierdo para centrar el texto */}
       <div className="w-28 sm:w-36 shrink-0" />
 
       {/* Centro — texto de la oferta */}
-      <span className="font-semibold text-center flex-1">
+      <span className="font-semibold text-center flex-1 announcement-blink">
         {ANNOUNCEMENT.text}
         {ANNOUNCEMENT.link && (
           <Link
@@ -49,5 +59,6 @@ export const AnnouncementBar = () => {
         <span className="hidden sm:inline">Escríbenos</span>
       </a>
     </div>
+    </>
   );
 };
