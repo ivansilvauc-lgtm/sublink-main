@@ -31,7 +31,7 @@ export default function SostenibilidadPage() {
             <section className="py-0 sm:py-20 px-2 sm:px-20">
                 <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
                     <span>¿QUÉ SON</span>
-                    <h1>LAS TELAS ECOLÓGICAS?</h1>
+                    <h2>LAS TELAS ECOLÓGICAS?</h2>
                 </div>
                 <div className="text-lg sm:text-xl [&>p]:mb-4 mt-8 text-[#535353]">
                     <p>Un tejido sostenible es aquel que se preocupa por minimizar las emisiones y generar el mínimo impacto posible en el medio ambiente a la hora de ser fabricado. En la lista de tejidos sostenibles podríamos incluir algunos tejidos reciclados, orgánicos, ecológicos, veganos, o incluso biodegradables.</p>
@@ -45,8 +45,8 @@ export default function SostenibilidadPage() {
             <section className="py-16 sm:py-20 px-2 sm:px-20">
                 <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
                     <span>PORQUE USAR</span>
-                    <h1>TELAS RECICLADAS</h1>
-                    <h1>PET</h1>
+                    <h2>TELAS RECICLADAS</h2>
+                    <h2>PET</h2>
                 </div>
                 <div className="text-lg sm:text-xl [&>p]:mb-4 mt-8 text-[#535353]">
                     <h2 className="inline text-[#619b55] font-semibold">RECICLAJE: </h2><p className="inline">Un tejido sostenible es aquel que se preocupa por minimizar las emisiones y generar el mínimo impacto posible en el medio ambiente a la hora de ser fabricado. En la lista de tejidos sostenibles podríamos incluir algunos tejidos reciclados, orgánicos, ecológicos, veganos, o incluso biodegradables.</p>
@@ -66,6 +66,7 @@ export default function SostenibilidadPage() {
                         src="https://www.youtube.com/embed/0lTb4e28IMU"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
+                        loading="lazy"
                         title="Proceso de fabricación de telas ecológicas recicladas - Sublink"
                     ></iframe>
                 </div>

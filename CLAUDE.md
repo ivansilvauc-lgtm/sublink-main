@@ -11,6 +11,7 @@ Sublink is a Next.js 14.2.2 web application for textile and fabric services in V
 - `npm run build` - Build for production (`next build`)
 - `npm start` - Start production server (`next start`)
 - `npm run lint` - Run ESLint checks (`next lint`)
+- **Analytics**: Vercel Insights integrated via `/_vercel/insights/script.js` for production performance monitoring
 <!-- END AUTO-MANAGED -->
 
 ## Architecture
@@ -35,7 +36,7 @@ src/
 │   │       ├── print-on-demand-modelo-actual.tsx  # Print-on-demand business model
 │   │       └── tipos-de-fibras-y-telas.tsx        # Textile fibers comprehensive guide
 │   ├── servicios/
-│   │   └── [slug]/         # Services pages (dynamic routing, metadata generation)
+│   │   └── [slug]/page.tsx # Services pages with dynamic routing: generateStaticParams() for static generation, generateMetadata() for SEO (title, description, keywords, canonical URL, OpenGraph with og:image). Layout: responsive flex column/row with equipment_image and results_image display (2xl:max-w-[1920px]). Displays service title, subtitle, equipment image, results image with description
 │   ├── telas/
 │   │   └── [...slug]/      # Fabrics/textiles pages (dynamic routing, metadata generation)
 │   ├── portafolio/         # Portfolio page showcasing completed textile projects
@@ -44,7 +45,7 @@ src/
 │   │   └── page.tsx        # Comprehensive sustainability messaging: PET recycled fabrics, zero waste policy, print-on-demand model, partner logos (Lafayette, Textilia, Protela). Uses Image optimization, custom components (TextReveal, TreeReveal, SublinkLogo), animated hero sections with vector graphics. Metadata includes canonical URL, keywords (sostenibilidad, telas ecológicas, telas recicladas, telas pet)
 ├── components/             # React components
 │   ├── Header/             # Navbar, Header components with menu state
-│   │   ├── Navbar.tsx      # Client component ("use client"): Main navigation with three dropdown menus (TELAS, TELAS ECO, SERVICIOS). Features: toggleMenu state, menuState (toggleTelas/toggleTelasEco/toggleServicios booleans), scroll event listener closes menus, useCallback for menu item click handlers. Imports: NavItemLink, Hamburger, MobileNav, Button from flowbite-react, ProgressBar
+│   │   ├── Navbar.tsx      # Client component ("use client"): Main navigation with three dropdown menus (TELAS, TELAS ECO, SERVICIOS). Features: Type-safe menu state with MenuStateKey and NavItem types, NAV_ITEM_KEYS readonly tuple, exclusive single-menu-open pattern via handleMenuItems(), useCallback optimization for menu item clicks, passive scroll listener auto-closes menus. Dropdown layouts: 2-column for telas (h-[550px] desktop / h-72 2xl). Imports: NavItemLink, Hamburger, MobileNav, Button from flowbite-react, ProgressBar
 │   │   ├── NavItemLink.tsx # Client component navigation item with state management
 │   │   ├── Hamburger.tsx   # Mobile hamburger menu toggle
 │   │   ├── MobileNav.tsx   # Client component mobile navigation drawer with state
@@ -62,7 +63,7 @@ src/
 │   │   ├── MiniPop.tsx     # Popup component
 │   │   ├── PreFooter.tsx   # Pre-footer CTA section: left side with trust messaging + badges (Google 5.0 rating, Epson technology, Monti Antonio), right side with 3 action buttons (WhatsApp contact green, Cal.com fabric expert blue, design expert), responsive md layout, CAL_LINK constant points to 15-min expert call with UTM tracking
 │   │   ├── Footer.tsx      # Footer with 4-column responsive grid layout: (1) logo + tagline + social links (WhatsApp href: wa.me/584162698802, Facebook, Instagram with hover effects), (2) contact (Av. 137 CC Imperial II, Valencia, +58 424-4067274, sublinkve@gmail.com, hours Lun-Vie 8:30-4:30pm) + quick nav links, (3) FAQ accordion (5 Q&A items: min order, production time, color durability, design upload, polyester requirement), (4) printing guide accordion (5 Q&A items: file resolution, RGB vs CMYK, margins/bleed, Pantone colors, color proofs). Uses reusable Accordion component with state management. bg-zinc-900 text-zinc-300, max-w-6xl container
-│   │   ├── AnnouncementBar.tsx # Announcement banner (ANNOUNCEMENT object with text, link, active flag)
+│   │   ├── AnnouncementBar.tsx # Announcement banner (client component, "use client"). ANNOUNCEMENT object: text, link, linkText, active flag (set active: false to hide). Features: blink animation (3s step-start, white #ffffff / red #ef4444), WhatsApp CTA button (#25D366 green, hover #1ebe5a), responsive fixed top-0 layout (z-[60]). Layout: left spacer (w-28 sm:w-36) > center animated text with optional Link > right WhatsApp button. Constants: WA_NUMBER (584244067274), WA_MESSAGE (encoded "Hola Sublink, vengo de la página web 👋"). Styling: inline @keyframes blink-announcement, whitespace-nowrap button text, aria-label for accessibility
 │   │   ├── GoogleReviews.tsx # Google reviews badge and section components (client-side, fetches from /api/reviews)
 │   │   ├── GoogleReviewsServer.tsx # Server component for live Google Places reviews with ISR (revalidates hourly)
 │   │   ├── ReviewsCarousel.tsx # Client carousel displaying customer testimonials (embla-carousel with auto-scroll, 6 reviews with avatars and 5-star ratings)
@@ -277,41 +278,49 @@ Key configuration:
 - **Navbar** (`src/components/Header/Navbar.tsx`):
   - Type: Client component (`"use client"`)
   - Props: `{ telas: ITela[], servicios: IServicios[] }`
+  - **Type Safety**:
+    - `NAV_ITEM_KEYS` constant: `['toggleTelas', 'toggleTelasEco', 'toggleServicios']` (readonly tuple, enforces type safety)
+    - `MenuStateKey` type: `typeof NAV_ITEM_KEYS[number]` (derived union type)
+    - `NavItem` interface: `{ key: string; toggleState: MenuStateKey; label: string; classNames?: string }`
+    - `MenuState` interface: Object with boolean flags for each menu toggle + generic `[key: string]: boolean`
   - State Management:
     - `toggleMenu`: Boolean for mobile menu visibility
-    - `menuState`: Object with keys: `toggleTelas`, `toggleTelasEco`, `toggleServicios`
+    - `menuState`: MenuState object with keys: `toggleTelas`, `toggleTelasEco`, `toggleServicios`
     - `someMenuOpen`: Derived state tracking if any dropdown is open (via useEffect)
-  - NAV_ITEM_KEYS constant: `['toggleTelas', 'toggleTelasEco', 'toggleServicios']` (readonly tuple, enforces type safety)
   - Menu Logic:
-    - `handleMenuItems(itemToggle: MenuStateKey)`: Resets all menu states then toggles selected one (exclusive one-menu-open pattern)
+    - `handleMenuItems(itemToggle: MenuStateKey)`: Resets all menu states to false, then toggles selected one (exclusive one-menu-open pattern)
     - `resetMenuState()`: Closes all menus and mobile drawer (called on scroll events)
     - `handleNavItemClick(toggleState)`: useCallback wrapper for performance optimization, returns click handler
+  - **Scroll Behavior**: Passive scroll listener with `{ passive: true }` auto-closes menus on scroll
   - Desktop Layout: Hidden on mobile (<lg), flex display on lg+ screens with nav items and additional links
   - Mobile Layout: Hamburger menu button (sm) toggling MobileNav drawer component
   - Sub-components: NavItemLink, Hamburger, MobileNav, ProgressBar
   - Additional Links: Portafolio (/portafolio, text-gray-700), Sostenibilidad (/sostenibilidad, lime-500 hover:lime-400), Blog (/blog, gray-700)
   - Dependencies: flowbite-react Button, NavItemLink with dynamic onClick handlers
-  - Dropdowns: Expands nav items for "Telas Nacionales" filtered by categoria_slug (two-column layout, h-[550px] desktop / h-72 2xl)
-  - Scroll Behavior: Menu auto-closes on scroll (passive scroll listener)
+  - Dropdowns: Two-column layout for telas filtering (h-[550px] desktop / h-72 2xl)
 
 ### Announcement Bar
 - **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`):
   - Type: Client component (`"use client"`)
   - **Configuration** (marked with ✏️ EDITAR AQUÍ comments):
     - ANNOUNCEMENT object properties:
-      - `text`: Banner message text (default: "Oferta del Mes")
+      - `text`: Banner message text (current: "Crepe Doble Importado 10€ !!!")
       - `link`: Destination URL (default: empty string)
       - `linkText`: Link label (default: empty string)
       - `active`: Boolean to show/hide banner (default: `true`, set to false to hide)
-    - WA_NUMBER: "584162698802" (Updated WhatsApp contact number)
-    - WA_MESSAGE: encodeURIComponent("Vengo de la Web") (pre-filled message)
-  - **Layout Structure**: fixed top-0 left-0 w-full bg-zinc-900 text-white z-[60], flex items-center justify-between
+    - WA_NUMBER: "584244067274" (WhatsApp contact number)
+    - WA_MESSAGE: encodeURIComponent("Hola Sublink, vengo de la página web 👋") (pre-filled message)
+  - **Layout Structure**: fixed top-0 left-0 w-full bg-zinc-900 text-white z-[60], flex items-center justify-between, py-2 px-4
     - Left Spacer: w-28 sm:w-36 shrink-0 (padding for layout balance)
-    - Center: font-semibold text-center flex-1 with optional Link (ml-2 underline underline-offset-2 hover:text-blue-100)
-    - Right WhatsApp Button: shrink-0 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5a] transition-colors text-xs font-bold px-3 py-1 rounded-full
-  - **WhatsApp Icon**: Inline SVG (24x24 viewBox), white fill, w-3.5 h-3.5
+    - Center: font-semibold text-center flex-1 with announcement-blink animation class, optional Link (ml-2 underline underline-offset-2 hover:text-blue-100 transition-colors whitespace-nowrap)
+    - Right WhatsApp Button: shrink-0 flex items-center gap-1.5 bg-[#25D366] hover:bg-[#1ebe5a] transition-colors text-white text-xs font-bold px-3 py-1 rounded-full whitespace-nowrap ml-2
+  - **Animation**: Inline `@keyframes blink-announcement` with color alternation:
+    - 0%, 49%: color #ffffff (white)
+    - 50%, 100%: color #ef4444 (red)
+    - Timing: 3s step-start infinite (discrete color change every ~1.5 second step)
+  - **WhatsApp Icon**: Inline SVG (24x24 viewBox), fill="currentColor", w-3.5 h-3.5 shrink-0
   - **Button Text**: "Escríbenos" (hidden sm:inline on mobile)
-  - **Conditional Rendering**: Link only renders if ANNOUNCEMENT.link is provided
+  - **Conditional Rendering**: Link and text animation only render if respective props provided
 
 ### Google Reviews
 - **GoogleReviewsServer** (`src/components/UI/GoogleReviewsServer.tsx`):
@@ -651,14 +660,16 @@ Recent changes focused on multi-repository synchronization and component enhance
   - Current items: Lycra Colombiana (45m, 30% off), Microfibra Antifluido (28m, 25% off), Runner Africa (33m, 20% off)
   - Section styling: bg-zinc-900 with yellow "Stock Limitado" badge, yellow CTA button to WhatsApp, 3-column grid layout
   - Filters by available: true, returns null if no items
-- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`): Fixed position announcement bar with editable ANNOUNCEMENT object and WhatsApp integration
-  - ANNOUNCEMENT = { text, link, linkText, active } - supports empty values for link/linkText
-  - Current state: text="Oferta del Mes", link="", active=true
+- **AnnouncementBar** (`src/components/UI/AnnouncementBar.tsx`): Client component fixed position announcement bar with editable ANNOUNCEMENT object and WhatsApp integration
+  - Type: Client component (`"use client"`)
+  - ANNOUNCEMENT = { text, link, linkText, active } - supports empty values for link/linkText (current: text="Crepe Doble Importado 10€ !!!", link="", active=true)
+  - Controlled visibility: Set active: false to hide banner entirely
   - WhatsApp Integration: WA_NUMBER ("584244067274"), WA_MESSAGE (encoded "Hola Sublink, vengo de la página web 👋")
-  - Layout: Fixed top-0 with z-[60], flex items-center justify-between, bg-zinc-900, white text
-  - Components: Left spacer (w-28 sm:w-36) > Center text with optional Link > Right WhatsApp button (#25D366 green)
-  - Styling: fixed top-0, bg-zinc-900, z-[60], conditionally renders Link if link provided
-  - WhatsApp Button: Green button with WhatsApp icon, "Escríbenos" text (hidden sm:inline), opens wa.me link
+  - Animation: Inline @keyframes blink-announcement (3s step-start, alternates white #ffffff / red #ef4444)
+  - Layout: Fixed top-0 with z-[60], flex items-center justify-between, bg-zinc-900, white text, py-2 px-4
+  - Structure: Left spacer (w-28 sm:w-36) > Center animated text with optional Link > Right WhatsApp button
+  - WhatsApp Button: Green (#25D366) hover:green (#1ebe5a), flexbox with gap-1.5, whitespace-nowrap, aria-label accessibility
+  - Link Styling: ml-2 underline underline-offset-2 hover:text-blue-100 transition-colors (optional, renders if ANNOUNCEMENT.link provided)
 - **Footer**: Contact info (phone: +58 424-4067274, email: sublinkve@gmail.com, address: Valencia, Carabobo), social links (WhatsApp, Facebook, Instagram), grid layout responsive
 - **Navbar**: Client component with menu state management (toggleTelas, toggleTelasEco, toggleServicios), single-menu-open pattern, mobile drawer with hamburger, responsive layouts
   - NAV_ITEM_KEYS constant enforces menu state keys (as const tuple)
@@ -731,10 +742,12 @@ Recent changes focused on multi-repository synchronization and component enhance
   - **Stars Component**: Reusable 5-star visual with size variants (sm, md), yellow-400 filled / gray-300 empty
   - **Home Page Integration**: GoogleReviewsBadge displayed in centered container with bg-gray-50 border-t on home page
   - **next.config.mjs Update**: Added remotePatterns for `lh3.googleusercontent.com` (Google profile photo CDN)
-- **Component Updates** (as of 2026-04-06):
+- **Component Updates** (as of 2026-04-07):
+  - **AnnouncementBar Component**: Updated promotional text to "Crepe Doble Importado 10€ !!!" with blink animation (3s step-start alternating white / red). WhatsApp CTA button with #25D366 green color, hover #1ebe5a, flexbox layout with icon + text. WhatsApp number: 584244067274, message: "Hola Sublink, vengo de la página web 👋". Added aria-label for accessibility
+  - **Navbar Component**: Enhanced type safety with MenuStateKey derived union type, NavItem interface, and readonly NAV_ITEM_KEYS tuple. Implemented exclusive single-menu-open pattern via handleMenuItems(). Added passive scroll listener with `{ passive: true }`. Dropdown layouts: 2-column for telas filtering (h-[550px] desktop / h-72 2xl). useCallback optimization for menu item click handlers
+  - **Services Page** (`src/app/servicios/[slug]/page.tsx`): Implemented full dynamic routing with generateStaticParams() for static generation and generateMetadata() for SEO (title, description, keywords, canonical URL, OpenGraph with og:image). Responsive layout: flex column/row with 2xl:max-w-[1920px] container. Displays equipment_image and results_image fields from service data
   - **Ofrecemos Component**: Enhanced layout documentation with detailed section structure, card styling, and filtering logic
   - **PrintOnDemandSection Component**: Comprehensive documentation added covering grid layout, carousel mechanics (980ms rotation, opacity/scale animations), disabled button states (próximamente), and dot indicator navigation
-  - **AnnouncementBar Component**: Configuration documentation updated with clear ✏️ EDITAR AQUÍ markers, WA_NUMBER/WA_MESSAGE constants, and conditional Link rendering
 - **Sublink Calculadora Project** (`/sublink-calculadora/index.html`):
   - Standalone HTML pricing calculator with Spanish interface (es locale)
   - Design Tokens: Navy (#0D2E5A), Blue (#0086C9), Sky (#00AAEB), Off-white (#F0F5FB), Light (#E0EEF9), Gray (#64748B)
