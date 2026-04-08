@@ -20,11 +20,11 @@ export const AnnouncementBar = () => {
     <>
       <style>{`
         @keyframes blink-announcement {
-          0%, 49% { opacity: 1; }
-          50%, 100% { opacity: 0; }
+          0%, 49% { color: #ffffff; }
+          50%, 100% { color: #ef4444; }
         }
         .announcement-blink {
-          animation: blink-announcement 1.1s step-start infinite;
+          animation: blink-announcement 3s step-start infinite;
         }
       `}</style>
     <div className="fixed top-0 left-0 w-full bg-zinc-900 text-white text-sm py-2 px-4 flex items-center justify-between z-[60]">
