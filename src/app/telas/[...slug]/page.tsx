@@ -13,15 +13,16 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
   
   const tela: ITela | undefined = telas.find(tela => tela.slug === params.slug[1]);
   
+  const seoTitle = tela ? `${tela.nombre} — Tela para Sublimación Venezuela` : '';
   return {
-    title: tela?.nombre ?? '',
+    title: seoTitle,
     description: tela?.descripcion ?? '',
     category: "Tela",
     alternates: {
       canonical: SUBLINK_URL + "/telas/" + tela?.categoria_slug + "/" + tela?.slug,
     },
     openGraph: {
-      title: tela?.nombre ?? '',
+      title: seoTitle,
       description: tela?.descripcion ?? '',
       url: SUBLINK_URL + "/telas/" + tela?.categoria_slug + "/" + tela?.slug,
       siteName: 'Sublink Company',
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
           height: 630,
         },
       ],
-      locale: 'es_ES',
+      locale: 'es_VE',
       type: 'website',
     },
   }
@@ -57,8 +58,37 @@ export default function TelasPage({ params }: { params: { slug: string[] } }) {
       </main>
     )
   }
+  const productJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: tela.nombre,
+    description: tela.descripcion,
+    image: tela.imagen_zoom,
+    url: `${SUBLINK_URL}/telas/${tela.categoria_slug}/${tela.slug}`,
+    brand: { '@type': 'Brand', name: 'Sublink Company' },
+    offers: {
+      '@type': 'Offer',
+      price: tela.precio,
+      priceCurrency: 'EUR',
+      availability: 'https://schema.org/InStock',
+      seller: { '@type': 'Organization', name: 'Sublink Company' },
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SUBLINK_URL },
+      { '@type': 'ListItem', position: 2, name: 'Telas', item: `${SUBLINK_URL}/telas` },
+      { '@type': 'ListItem', position: 3, name: tela.nombre, item: `${SUBLINK_URL}/telas/${tela.categoria_slug}/${tela.slug}` },
+    ],
+  };
+
   return (
     <main className="h-full mt-32 sm:mt-44 max-w-6xl mx-auto mb-20 px-2 lg:px-1">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="flex flex-col-reverse lg:flex-row gap-8 justify-center lg:justify-start items-center lg:items-start">
         <div className="basis-full">
           <ImageGallery imagen_zoom={tela?.imagen_zoom} images={tela?.imagenes} isEco={tela?.base_ecologica || 'No'} isEstampar={tela?.rotacion || 'No'} />

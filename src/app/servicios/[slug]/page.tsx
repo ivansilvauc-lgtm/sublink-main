@@ -55,8 +55,19 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
       </main>
     )
   }
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Inicio', item: SUBLINK_URL },
+      { '@type': 'ListItem', position: 2, name: 'Servicios', item: `${SUBLINK_URL}/servicios` },
+      { '@type': 'ListItem', position: 3, name: servicio.title, item: `${SUBLINK_URL}/servicios/${servicio.slug}` },
+    ],
+  };
+
   return (
     <main className="min-h-screen mt-40 mx-auto mb-20">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
       <div className="flex flex-col lg:flex-row w-full 2xl:max-w-[1920px] mx-auto items-center justify-center px-12 lg:px-24 mb-0 gap-x-4 2xl:gap-x-0">
         <div className="basis-full flex flex-col justify-center items-center lg:items-center text-center lg:text-left">
           <h1 className={`${servicio?.title.length > 16 ? "text-4xl sm:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl" : "text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[84px]"} text-primary font-bold drop-shadow-sm leading-none tracking-tight `}>{servicio.title}</h1>

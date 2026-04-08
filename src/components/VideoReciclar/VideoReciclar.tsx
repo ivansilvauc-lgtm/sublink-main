@@ -47,7 +47,7 @@ export const VideoReciclar = () => {
                     className="w-full p-6 basis-1/2"
                     >
                         
-                    <Image src="/img/reciclaje/botella.webp" alt="Imagen de reciclaje" width={800} height={428} className="w-full" />
+                    <Image src="/img/reciclaje/botella.webp" alt="Botellas PET recicladas para fabricación de telas de poliéster ecológicas" width={800} height={428} className="w-full" />
                 </motion.div>
 
                 <div className="flex flex-col items-start justify-center pt-10 lg:pt-0">
@@ -73,7 +73,7 @@ export const VideoReciclar = () => {
                     className="w-full p-6 absolute -left-1/2 -bottom-[580px] pointer-events-none hidden xl:block"
                     >
                         
-                    <Image src="/img/reciclaje/cloud-a.png" alt="Imagen de reciclaje" width={400} height={200} className="w-full" />
+                    <Image src="/img/reciclaje/cloud-a.png" alt="Nube decorativa" width={400} height={200} className="w-full" />
                 </motion.div>
                 <motion.div
                     initial={{ x: "100%" }}
@@ -82,7 +82,7 @@ export const VideoReciclar = () => {
                     className="w-full p-6 absolute -left-1/2 -bottom-32 sm:-bottom-96 lg:-bottom-32 xl:-bottom-20 2xl:-bottom-10 pointer-events-none opacity-80"
                     >
                         
-                    <Image src="/img/reciclaje/cloud-a.png" alt="Imagen de reciclaje" width={400} height={200} className="w-full" />
+                    <Image src="/img/reciclaje/cloud-a.png" alt="Nube decorativa" width={400} height={200} className="w-full" />
                 </motion.div>
             </motion.div>
         </motion.section>
