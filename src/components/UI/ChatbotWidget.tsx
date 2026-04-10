@@ -1,21 +1,71 @@
 "use client"
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // URL del chatbot desplegado en Vercel
 const CHATBOT_URL = "https://chatbotgamma.sublink.company";
 
+// Segundos de inactividad antes de abrir el popup automáticamente
+const AUTO_OPEN_DELAY_MS = 8000;
+// Scroll mínimo (px) para activar el popup por scroll
+const SCROLL_TRIGGER_PX = 300;
+
 export const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showBadge, setShowBadge] = useState(false);
+  const hasAutoOpened = useRef(false);
+
+  useEffect(() => {
+    const triggerAutoOpen = () => {
+      if (hasAutoOpened.current || isOpen) return;
+      hasAutoOpened.current = true;
+      setIsOpen(true);
+      setShowBadge(false);
+    };
+
+    // Timer: abrir después de AUTO_OPEN_DELAY_MS milisegundos
+    const timer = setTimeout(triggerAutoOpen, AUTO_OPEN_DELAY_MS);
+
+    // Scroll: abrir si el usuario baja más de SCROLL_TRIGGER_PX px
+    const handleScroll = () => {
+      if (window.scrollY > SCROLL_TRIGGER_PX) {
+        triggerAutoOpen();
+      }
+    };
+
+    // Mostrar badge de notificación a los 4 segundos (antes del auto-open)
+    const badgeTimer = setTimeout(() => {
+      if (!hasAutoOpened.current) setShowBadge(true);
+    }, 4000);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(badgeTimer);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleToggle = () => {
+    setIsOpen((prev) => !prev);
+    setShowBadge(false);
+    if (!hasAutoOpened.current) hasAutoOpened.current = true;
+  };
 
   return (
     <>
       {/* Botón flotante */}
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={handleToggle}
         aria-label={isOpen ? "Cerrar chat" : "Abrir chat con IA"}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors duration-200 hover:scale-110 active:scale-95"
         style={{ transition: 'transform 0.15s ease, background-color 0.2s ease' }}
       >
+        {/* Badge de notificación */}
+        {showBadge && !isOpen && (
+          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
+        )}
         {isOpen ? (
           // X cerrar
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,12 +79,15 @@ export const ChatbotWidget = () => {
         )}
       </button>
 
-      {/* Panel del chatbot */}
+      {/* Panel del chatbot — se posiciona sobre el botón con altura máxima adaptable */}
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[370px] h-[580px] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white transition-all duration-300 ${
+        className={`fixed bottom-24 right-6 z-50 w-[min(370px,calc(100vw-24px))] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white transition-all duration-300 ${
           isOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
         }`}
-        style={{ transformOrigin: 'bottom right' }}
+        style={{
+          transformOrigin: 'bottom right',
+          height: 'min(580px, calc(100vh - 120px))',
+        }}
       >
         {/* Header */}
         <div className="bg-primary px-4 py-3 flex items-center gap-3">
