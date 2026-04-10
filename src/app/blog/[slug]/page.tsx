@@ -96,7 +96,7 @@ export default function BlogPostPage({ params }: Props) {
           {post.titulo}
         </h1>
 
-        <p className="text-lg text-gray-500 mb-6">{post.descripcion}</p>
+        <p className="text-lg text-gray-500 mb-6 leading-relaxed font-[family-name:var(--font-inter)]">{post.descripcion}</p>
 
         <div className="flex items-center gap-4 text-sm text-gray-400 border-t border-gray-100 pt-4">
           <span>✍️ {post.autor}</span>
@@ -117,16 +117,18 @@ export default function BlogPostPage({ params }: Props) {
       </div>
 
       {/* Contenido del artículo */}
-      <div className="prose prose-blue prose-lg max-w-none
-        prose-headings:font-bold prose-headings:text-gray-900
-        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-        prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
-        prose-p:text-gray-700 prose-p:leading-relaxed
-        prose-li:text-gray-700
+      <div className="prose prose-blue prose-lg max-w-none font-[family-name:var(--font-inter)]
+        prose-headings:font-bold prose-headings:text-gray-900 prose-headings:font-[family-name:var(--font-poppins)]
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:leading-snug
+        prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:leading-snug
+        prose-p:text-[17px] prose-p:text-gray-600 prose-p:leading-[1.85] prose-p:mb-6
+        prose-li:text-[16px] prose-li:text-gray-600 prose-li:leading-[1.75]
+        prose-ul:my-5 prose-ol:my-5
         prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline
-        prose-strong:text-gray-900
+        prose-strong:text-gray-800 prose-strong:font-semibold
         prose-table:text-sm
-        prose-th:bg-blue-600 prose-th:text-white">
+        prose-th:bg-blue-600 prose-th:text-white prose-th:font-semibold
+        prose-td:align-top">
         <ContentComponent />
       </div>
 

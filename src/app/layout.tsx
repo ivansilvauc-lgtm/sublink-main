@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
-import { Poppins } from 'next/font/google'
+import { Poppins, Inter } from 'next/font/google'
 import { Header } from "@/components/Header/Header";
 import { AnnouncementBar } from "@/components/UI/AnnouncementBar";
 import { MiniPop } from "@/components/UI/MiniPop";
@@ -17,6 +17,14 @@ const poppins = Poppins({
   style: ['normal', 'italic'],
   subsets: ['latin'],
   display: 'swap',
+  variable: '--font-poppins',
+})
+
+// Inter: fuente secundaria para lectura editorial (blog)
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
 })
 
 export const viewport: Viewport = {
@@ -128,7 +136,7 @@ export default function RootLayout({
 
   return (
     <html lang="es-VE">
-      <body className={`${poppins.className} max-w-[1920px] mx-auto`}>
+      <body className={`${poppins.className} ${poppins.variable} ${inter.variable} max-w-[1920px] mx-auto`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

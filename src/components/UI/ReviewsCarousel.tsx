@@ -110,7 +110,7 @@ export const ReviewsCarousel = () => {
             ))}
           </div>
         </div>
-        <p className="text-sm text-gray-500 mt-1">Lo que dicen nuestros clientes</p>
+        <p className="text-sm text-gray-500 mt-1">Basado en 4 reseñas verificadas</p>
       </div>
 
       {/* Carousel de tarjetas */}
