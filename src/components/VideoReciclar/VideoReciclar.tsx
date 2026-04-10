@@ -21,7 +21,7 @@ export const VideoReciclar = () => {
         <motion.section
             ref={ref}
             id="reciclar"
-            className="relative w-full aspect-[1/1] lg:aspect-[4/1] my-20 overflow-hidden h-auto"
+            className="relative w-full aspect-[1/1] lg:aspect-[4/1] mb-20 overflow-hidden h-auto"
             animate={controls}
             initial={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
         >

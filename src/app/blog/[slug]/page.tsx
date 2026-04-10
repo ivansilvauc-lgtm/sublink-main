@@ -121,7 +121,7 @@ export default function BlogPostPage({ params }: Props) {
         prose-headings:font-bold prose-headings:text-gray-900 prose-headings:font-[family-name:var(--font-poppins)]
         prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:leading-snug
         prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:leading-snug
-        prose-p:text-[17px] prose-p:text-gray-600 prose-p:leading-[1.85] prose-p:mb-6
+        prose-p:text-[17px] prose-p:text-gray-600 prose-p:leading-[1.85] prose-p:mb-6 prose-p:text-justify
         prose-li:text-[16px] prose-li:text-gray-600 prose-li:leading-[1.75]
         prose-ul:my-5 prose-ol:my-5
         prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline

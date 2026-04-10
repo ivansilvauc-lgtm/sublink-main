@@ -9,7 +9,7 @@ export const Ofrecemos = () => {
     return (
         <section className="w-full">
             <div className="px-6">
-                <h2 className="text-primary text-5xl sm:text-7xl font-bold text-center mt-12 tracking-tighter">
+                <h2 className="text-primary text-5xl sm:text-7xl font-bold text-center mt-6 tracking-tighter">
                     ¿Qué ofrecemos?
                 </h2>
                 <p className="text-center text-zinc-900 text-lg sm:text-xl mt-10 font-bold uppercase">Servicio de sublimación textil a gran formato.</p>

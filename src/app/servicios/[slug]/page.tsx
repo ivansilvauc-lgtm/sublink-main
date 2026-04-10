@@ -87,7 +87,7 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
           <p className="text-zinc-50 text-justify md:text-xl lg:text-2xl ">{servicio.description}</p>
         </div>
       </div>
-      <div className="2xl:max-w-7xl mx-auto mt-24 mb-48 px-2 md:px-8 2xl:px-0">
+      <div className="2xl:max-w-7xl mx-auto mt-24 mb-24 px-2 md:px-8 2xl:px-0">
         <div className="mb-12 flex flex-col gap-y-6">
           {
             servicio.details.map((detail, index) => (<p key={`${"detail-" + index}`} className="text-zinc-600 text-xl font-semibold text-justify">{detail}</p>))
