@@ -40,10 +40,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.descripcion,
       url: `${SUBLINK_URL}/blog/${post.slug}`,
       siteName: "Sublink Textil",
-      images: [{ url: post.imagen, width: 1200, height: 630 }],
+      images: [{ url: `${SUBLINK_URL}${post.imagen}`, width: 1200, height: 630 }],
       locale: "es_VE",
       type: "article",
       publishedTime: post.fecha,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.titulo,
+      description: post.descripcion,
+      images: [`${SUBLINK_URL}${post.imagen}`],
     },
   };
 }
@@ -225,7 +231,7 @@ export default function BlogPostPage({ params }: Props) {
             "@type": "BreadcrumbList",
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Inicio", item: SUBLINK_URL },
-              { "@type": "ListItem", position: 2, name: "Blog", item: "${SUBLINK_URL}/blog" },
+              { "@type": "ListItem", position: 2, name: "Blog", item: `${SUBLINK_URL}/blog` },
               { "@type": "ListItem", position: 3, name: post.titulo, item: `${SUBLINK_URL}/blog/${post.slug}` },
             ],
           }),

@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
       siteName: 'Sublink Company',
       images: [
         {
-          url: tela?.imagen_zoom ?? '',
+          url: tela?.imagen_zoom ? `${SUBLINK_URL}${tela.imagen_zoom}` : '',
           width: 1200,
           height: 630,
         },

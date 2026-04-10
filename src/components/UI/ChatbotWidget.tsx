@@ -5,24 +5,28 @@ import { useState, useEffect, useRef } from 'react';
 const CHATBOT_URL = "https://chatbotgamma.sublink.company";
 
 // Segundos de inactividad antes de abrir el popup automáticamente
-const AUTO_OPEN_DELAY_MS = 12000;
+const AUTO_OPEN_DELAY_MS = 15000;
 // Scroll mínimo (px) para activar el popup por scroll
 const SCROLL_TRIGGER_PX = 300;
+// Inactividad de teclado (ms): si el usuario tecleó algo y deja de teclear por 5s, abre
+const KEYBOARD_IDLE_MS = 5000;
 
 export const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
   const hasAutoOpened = useRef(false);
+  // Flag: el usuario cerró manualmente con X — nunca volver a auto-abrir
+  const userClosed = useRef(false);
 
   useEffect(() => {
     const triggerAutoOpen = () => {
-      if (hasAutoOpened.current || isOpen) return;
+      if (hasAutoOpened.current || userClosed.current || isOpen) return;
       hasAutoOpened.current = true;
       setIsOpen(true);
       setShowBadge(false);
     };
 
-    // Timer: abrir después de AUTO_OPEN_DELAY_MS milisegundos
+    // Timer principal: abrir después de AUTO_OPEN_DELAY_MS (15s)
     const timer = setTimeout(triggerAutoOpen, AUTO_OPEN_DELAY_MS);
 
     // Scroll: abrir si el usuario baja más de SCROLL_TRIGGER_PX px
@@ -32,17 +36,29 @@ export const ChatbotWidget = () => {
       }
     };
 
-    // Mostrar badge de notificación a los 8 segundos (antes del auto-open a los 12s)
+    // Inactividad de teclado: si tecleó algo y lleva 5s sin teclear → abrir
+    let keyboardIdleTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleKeydown = () => {
+      if (hasAutoOpened.current || userClosed.current) return;
+      // Reiniciar el temporizador de inactividad de teclado
+      if (keyboardIdleTimer) clearTimeout(keyboardIdleTimer);
+      keyboardIdleTimer = setTimeout(triggerAutoOpen, KEYBOARD_IDLE_MS);
+    };
+
+    // Mostrar badge de notificación a los 11 segundos (antes del auto-open a los 15s)
     const badgeTimer = setTimeout(() => {
-      if (!hasAutoOpened.current) setShowBadge(true);
-    }, 8000);
+      if (!hasAutoOpened.current && !userClosed.current) setShowBadge(true);
+    }, 11000);
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('keydown', handleKeydown, { passive: true });
 
     return () => {
       clearTimeout(timer);
       clearTimeout(badgeTimer);
+      if (keyboardIdleTimer) clearTimeout(keyboardIdleTimer);
       window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeydown);
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -51,6 +67,14 @@ export const ChatbotWidget = () => {
     setIsOpen((prev) => !prev);
     setShowBadge(false);
     if (!hasAutoOpened.current) hasAutoOpened.current = true;
+  };
+
+  // Cierre manual con X: marcar que el usuario no quiere el bot abierto
+  const handleClose = () => {
+    setIsOpen(false);
+    userClosed.current = true;
+    hasAutoOpened.current = true; // Bloquear futuros auto-opens
+    setShowBadge(false);
   };
 
   return (
@@ -97,7 +121,7 @@ export const ChatbotWidget = () => {
             <p className="text-blue-200 text-xs">Responde al instante</p>
           </div>
           <button
-            onClick={() => setIsOpen(false)}
+            onClick={handleClose}
             className="ml-auto text-white/70 hover:text-white transition-colors"
             aria-label="Cerrar chat"
           >

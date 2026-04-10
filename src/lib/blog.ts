@@ -55,7 +55,7 @@ export const blogPosts: BlogPost[] = [
     fecha: "2026-04-02",
     autor: "Sublink Textil",
     categoria: "Guías de Telas",
-    imagen: "/img/telas/telas-importadas/lycra-peruana-zoom.webp",
+    imagen: "/img/telas/telas-ecologicas/chiffon-liviano-1.webp",
     tiempoLectura: "8 min",
     keywords: [
       "tipos de telas Venezuela",

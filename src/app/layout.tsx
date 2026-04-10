@@ -66,6 +66,12 @@ export const metadata: Metadata = {
     locale: 'es_ES',
     type: 'website',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sublink | Estampados y Sublimación Textil Venezuela',
+    description: 'Personalizamos +40 tipos de telas con tecnología de Sublimación Textil Continua. Desde 1 metro. Valencia, Venezuela.',
+    images: [`${SUBLINK_URL}/opengraph-image.jpg`],
+  },
 };
 
 export default function RootLayout({

@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       siteName: 'Sublink Company',
       images: [
         {
-          url: servicio?.equipment_image ?? '',
+          url: servicio?.equipment_image ? `${SUBLINK_URL}${servicio.equipment_image}` : '',
           width: 1200,
           height: 630,
         },
