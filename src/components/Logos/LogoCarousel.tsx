@@ -57,8 +57,8 @@ export const LogoCarousel = () => {
 
 
     return (
-        <section className="my-40 pointer-events-none">
-            <h2 className="text-primary text-5xl font-bold text-center tracking-tighter px-4 mb-20">
+        <section className="mt-20 mb-0 pointer-events-none">
+            <h2 className="text-primary text-5xl font-bold text-center tracking-tighter px-4 mb-10">
                 Clientes que han confiado en nosotros
             </h2>
             <div className="embla">

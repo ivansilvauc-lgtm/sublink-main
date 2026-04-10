@@ -68,7 +68,7 @@ export const ReviewsCarousel = () => {
   const [data, setData] = useState<ReviewsData | null>(null);
   const [emblaRef] = useEmblaCarousel(
     { loop: true, align: 'start', dragFree: true },
-    [AutoScroll({ playOnInit: true, speed: 1, stopOnInteraction: false })]
+    [AutoScroll({ playOnInit: true, speed: 2, stopOnInteraction: false })]
   );
 
   // Cargar reseñas reales desde Google Places API
@@ -98,10 +98,13 @@ export const ReviewsCarousel = () => {
   const rating = data?.rating ?? 5.0;
   const total  = data?.total  ?? null;
 
+  // Duplicar reseñas para loop continuo visible
+  const resenasDuplicadas = [...resenas, ...resenas, ...resenas];
+
   return (
-    <section className="w-full py-20 bg-gray-50 border-t border-gray-100">
+    <section className="w-full pt-10 pb-16 bg-gray-50">
       {/* Header */}
-      <div className="flex flex-col items-center mb-12 px-4">
+      <div className="flex flex-col items-center mb-8 px-4">
         <div className="flex items-center gap-2 mb-2">
           <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none">
             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
@@ -127,16 +130,15 @@ export const ReviewsCarousel = () => {
       </div>
 
       {/* Carousel */}
-      <div className="embla pointer-events-none">
-        <div className="embla__viewport" ref={emblaRef}>
-          <div className="embla__container">
-            {resenas.map((r, i) => {
+      <div className="pointer-events-none overflow-hidden w-full">
+        <div ref={emblaRef} style={{ overflow: 'hidden' }}>
+          <div style={{ display: 'flex', backfaceVisibility: 'hidden', touchAction: 'pan-y pinch-zoom' }}>
+            {resenasDuplicadas.map((r, i) => {
               const inicial = (r.nombre?.[0] ?? "S").toUpperCase();
               return (
                 <div
                   key={i}
-                  className="embla__slide"
-                  style={{ flex: '0 0 320px', marginRight: '16px' }}
+                  style={{ flex: '0 0 300px', minWidth: 0, paddingLeft: '16px' }}
                 >
                   <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
                     {/* Avatar + nombre */}
@@ -163,5 +165,6 @@ export const ReviewsCarousel = () => {
         </div>
       </div>
     </section>
+
   );
 };
