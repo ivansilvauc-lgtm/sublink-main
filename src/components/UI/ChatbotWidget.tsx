@@ -1,30 +1,14 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // URL del chatbot desplegado en Vercel
 const CHATBOT_URL = "https://chatbotgamma.sublink.company";
 
-// Segundos antes de mostrar el badge de notificación (no abre automáticamente)
-const BADGE_DELAY_MS = 10000;
-
 export const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [showBadge, setShowBadge] = useState(false);
-
-  // Mostrar el badge rojo de notificación después de BADGE_DELAY_MS
-  // El chat NO se abre automáticamente — solo al hacer click
-  useEffect(() => {
-    const badgeTimer = setTimeout(() => {
-      if (!isOpen) setShowBadge(true);
-    }, BADGE_DELAY_MS);
-
-    return () => clearTimeout(badgeTimer);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleOpen = () => {
     setIsOpen(true);
-    setShowBadge(false);
   };
 
   const handleClose = () => {
@@ -41,10 +25,6 @@ export const ChatbotWidget = () => {
           className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 active:scale-95"
           style={{ transition: 'transform 0.15s ease, background-color 0.2s ease' }}
         >
-          {/* Badge de notificación */}
-          {showBadge && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
-          )}
           {/* Ícono de burbuja de chat */}
           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>

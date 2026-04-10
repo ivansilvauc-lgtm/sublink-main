@@ -2,6 +2,7 @@ import { SUBLINK_URL } from "@/lib/constant";
 import { type IServicios, servicios } from "@/lib/servicios"
 import { Metadata } from "next";
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 
 export const dynamicParams = true;
 
@@ -39,21 +40,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export async function generateStaticParams() {
 
-  return servicios.map((servicio) => ({
-    slug: servicio.slug
-  }))
+  return servicios
+    .filter((servicio) => servicio.visible !== false)
+    .map((servicio) => ({
+      slug: servicio.slug
+    }))
 }
 
 export default function ServicioPage({ params }: { params: { slug: string } }) {
 
   const servicio: IServicios | undefined = servicios.find(servicio => servicio.slug === params.slug);
 
-  if (!servicio) {
-    return (
-      <main className="min-h-screen mt-56 max-w-5xl mx-auto mb-20 px-2 lg:px-0">
-        <h1>Not found</h1>
-      </main>
-    )
+  if (!servicio || servicio.visible === false) {
+    notFound();
   }
   const breadcrumbJsonLd = {
     '@context': 'https://schema.org',

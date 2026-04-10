@@ -41,7 +41,7 @@ export const InteractiveImage = () => {
                 </div>
             </div>
             <div className="relative max-w-full h-full top-0 block md:hidden">
-                <Image src="/img/imagen-interactiva-final-mobile.webp" width={950} height={980} alt="Imagen de sala con objectos flotantes" />
+                <Image src="/img/imagen-interactiva-final-mobile.webp" width={950} height={980} alt="Imagen de sala con objectos flotantes" priority />
                 <div className="item cojin z-40" style={{ top: '54%', left: '48%' }}>
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
                         <div className="icon w-8 h-8 rounded-full opacity-70 border-2 border-zinc-50" />

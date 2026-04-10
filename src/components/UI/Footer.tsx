@@ -153,8 +153,12 @@ export const Footer = () => {
               <span className="text-[22px] font-black tracking-tight text-[#157ec2] leading-none">P</span>
               <span className="text-[22px] font-black tracking-tight text-white leading-none">I</span>
             </div>
-            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-500 leading-tight text-center whitespace-nowrap">
-              diseña · imprime · plancha
+            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] leading-tight text-center whitespace-nowrap">
+              <span className="text-zinc-400">diseña</span>
+              <span className="text-[#1789C4]"> · </span>
+              <span className="text-zinc-400">imprime</span>
+              <span className="text-[#157ec2]"> · </span>
+              <span className="text-zinc-400">plancha</span>
             </p>
           </div>
         </div>

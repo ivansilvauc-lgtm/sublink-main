@@ -51,7 +51,7 @@ export const Ofrecemos = () => {
                             </div>
                         </div>
                     </div>
-                    <ModalComponent list={servicios} label={"servicios"} />
+                    <ModalComponent list={servicios.filter((s) => s.visible !== false)} label={"servicios"} />
                 </div>
 
                 {/* Card 3: Telas Eco */}

@@ -5,9 +5,9 @@ import { InteractiveImage } from "../InteractiveImage/InteractiveImage";
 export const Slider = () => {
     return (
         
-        <Carousel pauseOnHover slideInterval={5000} 
-        className='[&>*:first-child]:rounded-none h-full w-full mt-14'
-        indicators={true}      
+        <Carousel pauseOnHover slideInterval={5000}
+        className='[&>*:first-child]:rounded-none h-auto w-full mt-14 [&>div]:!static [&>div]:!h-auto'
+        indicators={true}
         >
             <InteractiveImage />
         </Carousel>

@@ -13,6 +13,7 @@ export interface IServicios {
     metaTitle?: string;
     metaDescription?: string;
     keywords?: string[];
+    visible?: boolean;
 }
 
 export const servicios: IServicios[] = [
@@ -179,6 +180,7 @@ export const servicios: IServicios[] = [
     },
     {
         slug: "servicio-de-costura",
+        visible: false,
         title: "Servicio de Costura",
         subtitle: "",
         equipment_image: "/img/servicios/6.webp",
