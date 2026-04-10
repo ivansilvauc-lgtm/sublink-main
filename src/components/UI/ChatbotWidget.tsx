@@ -79,14 +79,16 @@ export const ChatbotWidget = () => {
         )}
       </button>
 
-      {/* Panel del chatbot — se posiciona sobre el botón con altura máxima adaptable */}
+      {/* Panel del chatbot — respeta el header (top: 110px) y el botón flotante */}
       <div
-        className={`fixed bottom-24 right-6 z-50 w-[min(370px,calc(100vw-24px))] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white transition-all duration-300 ${
+        className={`fixed right-6 z-40 w-[min(370px,calc(100vw-24px))] rounded-2xl shadow-2xl overflow-hidden border border-gray-200 bg-white transition-all duration-300 ${
           isOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
         }`}
         style={{
           transformOrigin: 'bottom right',
-          height: 'min(580px, calc(100vh - 120px))',
+          bottom: '88px',
+          top: '110px',
+          maxHeight: 'calc(100vh - 210px)',
         }}
       >
         {/* Header */}
