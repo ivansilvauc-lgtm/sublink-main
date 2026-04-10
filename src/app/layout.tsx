@@ -11,6 +11,7 @@ import { Suspense } from "react";
 import { SUBLINK_URL } from "@/lib/constant";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { ChatbotWidget } from "@/components/UI/ChatbotWidget";
 
 const poppins = Poppins({
   weight: ['200', '300', '400', '600', '700', '800', '900'],
@@ -154,6 +155,7 @@ export default function RootLayout({
         </Suspense>
         <PreFooter />
         <Footer />
+        <ChatbotWidget />
         <Analytics />
         <GoogleAnalytics gaId="G-FQ4RY25W5X" />
       </body>
