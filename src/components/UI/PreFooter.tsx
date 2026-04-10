@@ -16,7 +16,7 @@ export const PreFooter = () => {
         {/* Izquierda — mensaje + trust indicators */}
         <div className="flex flex-col gap-5 max-w-xl">
           <p className="text-xs font-bold uppercase tracking-widest text-[#157ec2]">
-            Valencia, Venezuela · Desde 2018
+            Valencia, Venezuela · Desde 2011
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
             ¿Listo para estampar<br className="hidden md:block" /> tu próximo proyecto?
