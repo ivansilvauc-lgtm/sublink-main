@@ -29,15 +29,15 @@ export const PrintOnDemandSection = () => {
   }, []);
 
   return (
-    <section className="w-full bg-white py-14 px-4">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="w-full bg-white py-10 md:py-14 px-4">
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
 
         {/* Left: Text content */}
         <div>
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-4">
             Sublimación Digital
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-6">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
             Estampa tus diseños<br />en cualquier tela
           </h2>
 
@@ -62,7 +62,7 @@ export const PrintOnDemandSection = () => {
           <p className="text-sm text-gray-500 mb-3">
             Usamos tintas y materiales de primera calidad para lograr estampados nítidos y de alta durabilidad. Tecnología Epson y Monti Antoni.
           </p>
-          <div className="flex items-center gap-4 mb-8">
+          <div className="flex items-center gap-4 mb-5 md:mb-8">
             {/* Epson logo */}
             <div className="flex items-center border border-gray-200 rounded-lg px-3 py-1.5 bg-white">
               <Image src="/assets/epson-logo.svg" alt="Epson" width={90} height={36} className="h-8 w-auto" />
@@ -96,7 +96,7 @@ export const PrintOnDemandSection = () => {
         </div>
 
         {/* Right: Dynamic print carousel */}
-        <div className="relative w-full h-80 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl">
+        <div className="relative w-full h-56 sm:h-72 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl">
           {PRINTS.map((print, i) => (
             <div
               key={i}

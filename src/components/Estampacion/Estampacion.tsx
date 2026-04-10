@@ -35,8 +35,8 @@ export const Estampacion = () => {
         setIsDragging(false);
     }
     return (
-        <div className="overflow-hidden">
-            <h2 className="text-primary text-3xl font-semibold text-center tracking-tighter px-2">
+        <div className="overflow-hidden py-4">
+            <h2 className="text-primary text-xl sm:text-3xl font-semibold text-center tracking-tighter px-4">
                 Las mejores soluciones de estampación
             </h2>
             <motion.div 

@@ -145,6 +145,18 @@ export const Footer = () => {
               </a>
             ))}
           </div>
+
+          {/* Badge DPI — slogan de marca */}
+          <div className="mt-3 flex flex-col items-center gap-1 border border-zinc-700 rounded-xl px-4 py-3 w-full max-w-[180px]">
+            <div className="flex items-baseline gap-[3px]">
+              <span className="text-[22px] font-black tracking-tight text-white leading-none">D</span>
+              <span className="text-[22px] font-black tracking-tight text-[#157ec2] leading-none">P</span>
+              <span className="text-[22px] font-black tracking-tight text-white leading-none">I</span>
+            </div>
+            <p className="text-[9px] font-semibold uppercase tracking-[0.18em] text-zinc-500 leading-tight text-center whitespace-nowrap">
+              diseña · imprime · plancha
+            </p>
+          </div>
         </div>
 
         {/* Col 2 — Contacto */}

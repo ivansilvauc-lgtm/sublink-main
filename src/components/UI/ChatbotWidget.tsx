@@ -1,80 +1,34 @@
 "use client"
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 // URL del chatbot desplegado en Vercel
 const CHATBOT_URL = "https://chatbotgamma.sublink.company";
 
-// Segundos de inactividad antes de abrir el popup automáticamente
-const AUTO_OPEN_DELAY_MS = 15000;
-// Scroll mínimo (px) para activar el popup por scroll
-const SCROLL_TRIGGER_PX = 300;
-// Inactividad de teclado (ms): si el usuario tecleó algo y deja de teclear por 5s, abre
-const KEYBOARD_IDLE_MS = 5000;
+// Segundos antes de mostrar el badge de notificación (no abre automáticamente)
+const BADGE_DELAY_MS = 10000;
 
 export const ChatbotWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showBadge, setShowBadge] = useState(false);
-  const hasAutoOpened = useRef(false);
-  // Flag: el usuario cerró manualmente con X — nunca volver a auto-abrir
-  const userClosed = useRef(false);
 
+  // Mostrar el badge rojo de notificación después de BADGE_DELAY_MS
+  // El chat NO se abre automáticamente — solo al hacer click
   useEffect(() => {
-    const triggerAutoOpen = () => {
-      if (hasAutoOpened.current || userClosed.current || isOpen) return;
-      hasAutoOpened.current = true;
-      setIsOpen(true);
-      setShowBadge(false);
-    };
-
-    // Timer principal: abrir después de AUTO_OPEN_DELAY_MS (15s)
-    const timer = setTimeout(triggerAutoOpen, AUTO_OPEN_DELAY_MS);
-
-    // Scroll: abrir si el usuario baja más de SCROLL_TRIGGER_PX px
-    const handleScroll = () => {
-      if (window.scrollY > SCROLL_TRIGGER_PX) {
-        triggerAutoOpen();
-      }
-    };
-
-    // Inactividad de teclado: si tecleó algo y lleva 5s sin teclear → abrir
-    let keyboardIdleTimer: ReturnType<typeof setTimeout> | null = null;
-    const handleKeydown = () => {
-      if (hasAutoOpened.current || userClosed.current) return;
-      // Reiniciar el temporizador de inactividad de teclado
-      if (keyboardIdleTimer) clearTimeout(keyboardIdleTimer);
-      keyboardIdleTimer = setTimeout(triggerAutoOpen, KEYBOARD_IDLE_MS);
-    };
-
-    // Mostrar badge de notificación a los 11 segundos (antes del auto-open a los 15s)
     const badgeTimer = setTimeout(() => {
-      if (!hasAutoOpened.current && !userClosed.current) setShowBadge(true);
-    }, 11000);
+      if (!isOpen) setShowBadge(true);
+    }, BADGE_DELAY_MS);
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('keydown', handleKeydown, { passive: true });
-
-    return () => {
-      clearTimeout(timer);
-      clearTimeout(badgeTimer);
-      if (keyboardIdleTimer) clearTimeout(keyboardIdleTimer);
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('keydown', handleKeydown);
-    };
+    return () => clearTimeout(badgeTimer);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleToggle = () => {
-    setIsOpen((prev) => !prev);
+  const handleOpen = () => {
+    setIsOpen(true);
     setShowBadge(false);
-    if (!hasAutoOpened.current) hasAutoOpened.current = true;
   };
 
-  // Cierre manual con X: marcar que el usuario no quiere el bot abierto
   const handleClose = () => {
     setIsOpen(false);
-    userClosed.current = true;
-    hasAutoOpened.current = true; // Bloquear futuros auto-opens
-    setShowBadge(false);
   };
 
   return (
@@ -82,16 +36,16 @@ export const ChatbotWidget = () => {
       {/* Botón flotante — solo visible cuando el chat está cerrado */}
       {!isOpen && (
         <button
-          onClick={handleToggle}
+          onClick={handleOpen}
           aria-label="Abrir chat con IA"
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 transition-colors duration-200 hover:scale-110 active:scale-95"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-primary rounded-full shadow-lg flex items-center justify-center hover:bg-blue-700 active:scale-95"
           style={{ transition: 'transform 0.15s ease, background-color 0.2s ease' }}
         >
           {/* Badge de notificación */}
           {showBadge && (
             <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-white animate-pulse" />
           )}
-          {/* Burbuja de chat */}
+          {/* Ícono de burbuja de chat */}
           <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
           </svg>
@@ -131,7 +85,7 @@ export const ChatbotWidget = () => {
           </button>
         </div>
 
-        {/* iFrame del chatbot */}
+        {/* iFrame del chatbot — se carga solo cuando está abierto */}
         {isOpen && (
           <iframe
             src={CHATBOT_URL}
