@@ -98,6 +98,11 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                 <p className="antialiased">SOSTENIBILIDAD</p>
                             </Link>
                         </li>
+                        <li className="flex justify-center px-5 py-3">
+                            <Link href="/blog" onClick={() => setToggleMenu(false)} className="text-white hover:text-blue-400 text-2xl">
+                                <p className="antialiased">BLOG</p>
+                            </Link>
+                        </li>
                     </ul>
                 )}
                 {

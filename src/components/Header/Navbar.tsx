@@ -104,7 +104,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                   <Link className={`antialiased hover:text-lime-400 cursor-pointer text-lime-500`} href={"/sostenibilidad"}>SOSTENIBILIDAD</Link>
                 </li>
                 <li>
-                  <span className={`antialiased text-gray-300 cursor-not-allowed font-semibold select-none`} title="Próximamente">BLOG</span>
+                  <Link className={`antialiased hover:text-blue-400 cursor-pointer text-white`} href={"/blog"}>BLOG</Link>
                 </li>
               </ul>
             </div>
