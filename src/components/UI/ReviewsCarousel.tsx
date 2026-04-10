@@ -1,5 +1,5 @@
 "use client"
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll';
 
@@ -66,22 +66,10 @@ const GoogleIcon = () => (
 
 export const ReviewsCarousel = () => {
   const [data, setData] = useState<ReviewsData | null>(null);
-  const [emblaRef, emblaApi] = useEmblaCarousel(
-    { loop: true, align: 'start' },
-    [AutoScroll({ playOnInit: true, speed: 0.8 })]
+  const [emblaRef] = useEmblaCarousel(
+    { loop: true, align: 'start', dragFree: true },
+    [AutoScroll({ playOnInit: true, speed: 1, stopOnInteraction: false })]
   );
-
-  const toggleAutoplay = useCallback(() => {
-    const autoScroll = emblaApi?.plugins()?.autoScroll;
-    if (!autoScroll) return;
-    const playOrStop = autoScroll.isPlaying() ? autoScroll.stop : autoScroll.play;
-    playOrStop();
-  }, [emblaApi]);
-
-  useEffect(() => {
-    toggleAutoplay();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // Cargar reseñas reales desde Google Places API
   useEffect(() => {

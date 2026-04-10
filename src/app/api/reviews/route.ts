@@ -16,6 +16,7 @@ export async function GET() {
       `https://maps.googleapis.com/maps/api/place/details/json` +
       `?place_id=${PLACE_ID}` +
       `&fields=name,rating,user_ratings_total,reviews` +
+      `&language=es` +
       `&key=${API_KEY}`;
 
     const res = await fetch(url, { next: { revalidate: 3600 } });

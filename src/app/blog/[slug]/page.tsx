@@ -69,7 +69,7 @@ export default function BlogPostPage({ params }: Props) {
   const relacionados = blogPosts.filter((p) => p.slug !== params.slug).slice(0, 2);
 
   return (
-    <main className="max-w-4xl mx-auto px-4 py-16">
+    <main className="max-w-4xl mx-auto px-6 sm:px-10 md:px-14 py-16">
       {/* Breadcrumb */}
       <nav className="text-sm text-gray-400 mb-8 flex items-center gap-2">
         <Link href="/" className="hover:text-blue-600 transition-colors">
