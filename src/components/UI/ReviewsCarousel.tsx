@@ -68,7 +68,7 @@ export const ReviewsCarousel = () => {
   const [data, setData] = useState<ReviewsData | null>(null);
   const [emblaRef] = useEmblaCarousel(
     { loop: true, align: 'start', dragFree: true },
-    [AutoScroll({ playOnInit: true, speed: 2, stopOnInteraction: false })]
+    [AutoScroll({ playOnInit: true, speed: 1.4, stopOnInteraction: false })]
   );
 
   // Cargar reseñas reales desde Google Places API
