@@ -103,6 +103,10 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                 <p className="antialiased">BLOG</p>
                             </Link>
                         </li>
+                        <li className="flex justify-center items-center gap-2 px-5 py-3 opacity-50">
+                            <p className="antialiased text-gray-400 text-2xl cursor-not-allowed select-none">MEMBERSHIP</p>
+                            <span className="text-[10px] font-bold uppercase bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full tracking-wide">Pronto</span>
+                        </li>
                     </ul>
                 )}
                 {
@@ -183,7 +187,7 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                     </div>
                                     <ul className={`flex flex-col items-start justify-start content-start gap-x-20 gap-y-2`}>
                                         {
-                                            servicios.map((servicio) => (
+                                            servicios.filter(s => s.visible !== false).map((servicio) => (
                                                 <MobileLink key={servicio.slug} path={`servicios`} slug={servicio.slug} label={servicio.title} handleItemClick={handleItemClick} />
                                             ))
                                         }

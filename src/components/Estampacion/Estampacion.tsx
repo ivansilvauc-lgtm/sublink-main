@@ -44,7 +44,7 @@ export const Estampacion = () => {
             initial={{ opacity: 0, y: 20, rotateZ: 10 }}
             animate={isInView ? { opacity: 1, y: 0, rotateZ:0 } : {}}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="w-full relative my-16 px-3" onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}>
+            className="w-full relative my-14 px-3" onMouseUp={handleMouseUp} onTouchEnd={handleMouseUp}>
                 <div className="relative w-full max-w-[450px] aspect-[40/50] m-auto overflow-hidden rounded-[34px] select-none"
                     onMouseMove={handleMove}
                     onTouchMove={handleTouch}
