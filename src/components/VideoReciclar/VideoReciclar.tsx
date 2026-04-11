@@ -1,29 +1,17 @@
 "use client"
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export const VideoReciclar = () => {
-    const controls = useAnimation();
     const ref = useRef(null)
     const isInView = useInView(ref, { once: true })
-
-    useEffect(() => {
-        if (isInView) {
-            controls.start({ 
-                clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-                transition: { duration: 2, delay: 0.5 }
-            })
-        }
-    }, [controls, isInView]);
     return (
         <motion.section
             ref={ref}
             id="reciclar"
             className="relative w-full aspect-[1/1] lg:aspect-[4/1] mb-20 overflow-hidden h-auto"
-            animate={controls}
-            initial={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)" }}
         >
 
             <motion.div

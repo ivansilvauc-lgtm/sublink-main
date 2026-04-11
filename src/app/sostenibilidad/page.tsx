@@ -33,7 +33,7 @@ export default function SostenibilidadPage() {
                     <span>¿QUÉ SON</span>
                     <h2>LAS TELAS ECOLÓGICAS?</h2>
                 </div>
-                <div className="mt-6 border border-zinc-200 rounded-2xl p-5 sm:p-8 bg-white/60 max-w-4xl">
+                <div className="mt-6 max-w-4xl">
                     <div className="text-base sm:text-xl [&>p]:mb-4 text-[#535353]">
                         <p>Un tejido sostenible es aquel que se preocupa por minimizar las emisiones y generar el mínimo impacto posible en el medio ambiente a la hora de ser fabricado. En la lista de tejidos sostenibles podríamos incluir algunos tejidos reciclados, orgánicos, ecológicos, veganos, o incluso biodegradables.</p>
                         <p>Las telas elaboradas con botellas PET recicladas, son una opción más sostenible para los consumidores preocupados por el medio ambiente, ya que contribuyen a la reducción de residuos y plásticos en el planeta.</p>
@@ -50,7 +50,7 @@ export default function SostenibilidadPage() {
                     <h2>TELAS RECICLADAS</h2>
                     <h2>PET</h2>
                 </div>
-                <div className="mt-6 border border-zinc-200 rounded-2xl p-5 sm:p-8 bg-white/60 max-w-4xl text-base sm:text-xl text-[#535353]">
+                <div className="mt-6 max-w-4xl text-base sm:text-xl text-[#535353]">
                     <div className="mb-5">
                         <h2 className="text-[#619b55] font-semibold mb-1">RECICLAJE</h2>
                         <p>Un tejido sostenible es aquel que se preocupa por minimizar las emisiones y generar el mínimo impacto posible en el medio ambiente a la hora de ser fabricado. En la lista de tejidos sostenibles podríamos incluir algunos tejidos reciclados, orgánicos, ecológicos, veganos, o incluso biodegradables.</p>
@@ -83,7 +83,7 @@ export default function SostenibilidadPage() {
             </section>
             <section className="py-16 sm:py-20 px-4 sm:px-20">
                 <h2 className="text-[#619b55] text-3xl font-black">SOSTENIBILIDAD</h2>
-                <div className="mt-6 border border-zinc-200 rounded-2xl p-5 sm:p-8 bg-white/60 max-w-4xl text-base sm:text-xl text-[#535353] [&>p]:mb-4">
+                <div className="mt-6 max-w-4xl text-base sm:text-xl text-[#535353] [&>p]:mb-4">
                     <p>Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
                     <p>Gracias a este innovador proceso de reciclaje, contribuimos a la construcción de un futuro sostenible a largo plazo al tiempo que apoyamos el reciclaje con una economía circular.</p>
                     <p>También adoptamos políticas de cero residuos y practicamos la sostenibilidad en diferentes etapas de nuestra producción, esforzándonos por minimizar nuestro impacto ambiental y promover un futuro más verde para la industria textil.</p>
@@ -92,7 +92,7 @@ export default function SostenibilidadPage() {
             </section>
             <section className="py-4 sm:py-20 px-4 sm:px-20">
                 <h2 className="text-[#619b55] text-3xl font-black">NUESTRAS POLÍTICAS</h2>
-                <div className="mt-6 border border-zinc-200 rounded-2xl p-5 sm:p-8 bg-white/60 max-w-4xl text-base sm:text-xl text-[#535353]">
+                <div className="mt-6 max-w-4xl text-base sm:text-xl text-[#535353]">
                     <h3 className="text-lg sm:text-2xl font-bold text-[#707070] mb-3">Comprometidos con nuestro entorno y nuestros clientes</h3>
                     <p className="mb-5">Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
                     <h3 className="text-lg sm:text-2xl font-bold text-[#707070] mb-3">Fábrica por encargo (Print On Demand)</h3>
