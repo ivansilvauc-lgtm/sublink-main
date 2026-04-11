@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // Evita que Next.js intente bundlear paquetes Node.js nativos como undici
+    serverExternalPackages: ['@mendable/firecrawl-js', 'undici'],
+
     images: {
         remotePatterns: [
           {
