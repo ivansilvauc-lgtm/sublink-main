@@ -1,5 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+    // undici es usado internamente por @mendable/firecrawl-js
+    // webpack no puede bundlearlo, se deja como require nativo de Node.js
+    webpack: (config, { isServer }) => {
+      if (isServer) {
+        config.externals = [...(config.externals || []), 'undici'];
+      } else {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          undici: false,
+        };
+      }
+      return config;
+    },
+
     images: {
         remotePatterns: [
           {
@@ -48,12 +62,12 @@ const nextConfig = {
                 key: 'Content-Security-Policy',
                 value: [
                   "default-src 'self'",
-                  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://cdnjs.cloudflare.com https://*.vercel-insights.com",
+                  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://cdnjs.cloudflare.com https://*.vercel-insights.com https://www.clarity.ms",
                   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
                   "font-src 'self' https://fonts.gstatic.com",
                   "img-src 'self' data: blob: https://lh3.googleusercontent.com https://via.placeholder.com",
                   "frame-src 'self' https://chatbotgamma.sublink.company https://www.youtube.com https://cal.com",
-                  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://api.firecrawl.dev https://*.vercel-insights.com",
+                  "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://api.firecrawl.dev https://*.vercel-insights.com https://www.clarity.ms",
                   "worker-src blob:",
                 ].join('; '),
               },
