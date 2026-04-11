@@ -1,18 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // undici es usado internamente por @mendable/firecrawl-js
-    // webpack no puede bundlearlo, se deja como require nativo de Node.js
-    webpack: (config, { isServer }) => {
-      if (isServer) {
-        config.externals = [...(config.externals || []), 'undici'];
-      } else {
-        config.resolve.fallback = {
-          ...config.resolve.fallback,
-          undici: false,
-        };
-      }
-      return config;
-    },
+    // Evita que Next.js intente bundlear paquetes Node.js nativos como undici
+    serverExternalPackages: ['@mendable/firecrawl-js', 'undici'],
 
     images: {
         remotePatterns: [

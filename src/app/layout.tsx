@@ -144,21 +144,15 @@ export default function RootLayout({
   return (
     <html lang="es-VE">
       <head>
-        {/* VWO Smart Code — reemplazar XXXXXX con tu Account ID de vwo.com */}
+        {/* Microsoft Clarity — heatmaps y grabaciones de sesión (gratis) */}
         <script
           type="text/javascript"
-          id="vwoCode"
           dangerouslySetInnerHTML={{
-            __html: `
-window._vwo_code || (function() {
-  var account_id=XXXXXX,
-  version=2.1,
-  settings_tolerance=2000,
-  hide_element='body',
-  hide_element_style='opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;transition:none !important;',
-  /* DO NOT EDIT BELOW THIS LINE */
-  f=false,w=window,d=document,v=d.querySelector('#vwoCode'),cK='_vwo_'+account_id+'_settings',cc={};try{var c=JSON.parse(localStorage.getItem('_vwo_'+account_id+'_config'));cc=c&&typeof c==='object'?c:{}}catch(e){}var stT=cc.stT==='session'?w.sessionStorage:w.localStorage;code={nonce:v&&v.nonce,use_existing_jquery:function(){return typeof use_existing_jquery!=='undefined'?use_existing_jquery:undefined},library_tolerance:function(){return typeof library_tolerance!=='undefined'?library_tolerance:undefined},settings_tolerance:function(){return cc.sT||settings_tolerance},hide_element_style:function(){return'{'+(cc.hES||hide_element_style)+'}'},hide_element:function(){if(performance.getEntriesByType('navigation')[0].entryType==='back_forward'){var r=!0,u=!1;return{src:r,hMB:u}}return cc.hE||hide_element},getVersion:function(){return version},getMatchedCookies:function(e){var t=[];if(document.cookie){t=document.cookie.split(';').filter(function(n){return n.match(e)})}return t},getCombinationCookie:function(){var e=code.getMatchedCookies(/(?:^|;)\\s?(_vis_opt_exp_\\d+_combi=[^;$]*)/gi);var t=e.map(function(n){try{return JSON.parse(decodeURIComponent(n.trim().split('=').slice(1).join('=')))}catch(e){}}).filter(Boolean);return Object.assign.apply(Object,[{}].concat(t))},launchSurvey:function(){if(d.getElementById('vwo-survey-widget')){return}var e=d.createElement('div');e.id='vwo-survey-widget';d.documentElement.appendChild(e)},isMobile:function(){return/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)},getMetaData:function(e){var t='',n=d.querySelectorAll('meta');for(var i=0;i<n.length;i++){if(n[i].getAttribute('name')===e){t=n[i].getAttribute('content');break}}return t},onUserAgent:function(t){if(t.method==='STUB'){var e=[];return{getItem:function(n){return e[n]||null},setItem:function(n,r){e[n]=r},removeItem:function(n){delete e[n]}}}else{return w[t.method+'Storage']}},getFirstParsedUrl:function(){var e=w.location.href;return e},getQueryParams:function(){var e={};w.location.search.substring(1).split('&').forEach(function(n){var r=n.split('=');if(r.length===2){e[decodeURIComponent(r[0])]=decodeURIComponent(r[1])}});return e}};w._vwo_settings_timer=setTimeout(function(){w.VWO&&VWO.caE&&(VWO.caE('settingsError'),w._vwo_settings_timer&&clearTimeout(w._vwo_settings_timer))},code.settings_tolerance());var r,e=d.createElement('script');e.src='https://dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&domain='+w.location.hostname+'&n=t&rnd='+Math.random();e.setAttribute('nonce',(v&&v.nonce)||'');e.addEventListener('error',function(){w._vwo_code.finished(8)});e.addEventListener('load',function(){if(!w._vwo_loaded){w._vwo_code.finished(7)}});var t=d.getElementsByTagName('head')[0];t.insertBefore(e,t.firstChild);return code}());
-            `,
+            __html: `(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wa7dky6252");`,
           }}
         />
       </head>
