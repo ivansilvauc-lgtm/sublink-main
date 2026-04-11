@@ -13,13 +13,13 @@ export const IconBar = () => {
     const isInView = useInView(ref, { once: true });
 
     return (
-        <section className="w-full mb-16">
+        <section className="w-full py-16">
             <motion.div
                 ref={ref}
                 variants={containerVariants}
                 initial="hidden"
                 animate={isInView ? "visible" : "hidden"}
-                className="flex flex-row items-baseline justify-evenly mt-16 space-x-2">
+                className="flex flex-row items-center justify-center gap-x-8 sm:gap-x-16 md:gap-x-24 px-6">
                 <div>
                     <Image src="/assets/metro.webp" width={120} height={120} alt="Desde 1 metro" className="w-16 md:w-24 m-auto" />
                     <p className="text-xs sm:text-sm md:text-lg text-zinc-800 mt-1 text-center">Desde 1 metro</p>

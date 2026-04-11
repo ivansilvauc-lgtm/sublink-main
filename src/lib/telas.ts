@@ -267,11 +267,11 @@ export const telas: ITela[] = [
         id: "TI005"
     },
     {
-        nombre: 'Lycra Colombiana',
+        nombre: 'Lycra NewFlex',
         categoria: 'Telas Importadas',
         categoria_slug: 'telas-importadas',
-        slug: 'lycra-colombiana',
-        descripcion: 'La lycra colombiana es una tela semi-liviana, con un sutil acabado satinado que le otorga un brillo distintivo. Destaca por su excelente adherencia al cuerpo y su capacidad de estiramiento en todas direcciones (4way-stretch). Una característica notable es su factor de protección UPF20, que resguarda la piel de los dañinos rayos solares. Es una elección popular para prendas de baño y activewear, ofreciendo comodidad, y protección bajo el sol.',
+        slug: 'lycra-newflex',
+        descripcion: 'La Lycra NewFlex es una tela semi-liviana, con un sutil acabado satinado que le otorga un brillo distintivo. Destaca por su excelente adherencia al cuerpo y su capacidad de estiramiento en todas direcciones (4way-stretch). Una característica notable es su factor de protección UPF20, que resguarda la piel de los dañinos rayos solares. Es una elección popular para prendas de baño y activewear, ofreciendo comodidad, y protección bajo el sol.',
         composition: '87% Poliester / 13% Elastano',
         ancho: 1.48,
         peso: 200,
@@ -291,7 +291,7 @@ export const telas: ITela[] = [
         ],
         caracteristicas: "Lycra",
         imagen_zoom: "/img/telas/telas-importadas/lycra-colombiana-zoom.webp",
-        id: "TI007"
+        id: "TI007",
     },
     {
         nombre: 'Lycra Peruana',
@@ -321,11 +321,11 @@ export const telas: ITela[] = [
         id: "TI008"
     },
     {
-        nombre: 'Lycra Legging',
+        nombre: 'Lycra Superpacific',
         categoria: 'Telas Importadas',
         categoria_slug: 'telas-importadas',
-        slug: 'lycra-legging',
-        descripcion: 'Es una tela diseñada específicamente para la confección de prendas diseñadas para el movimiento y el rendimiento en diversas actividades físicas y de estilo activo, especialmente leggings y ropa deportiva. Tiene propiedades de secado rápido y transpirabilidad para mantener la comodidad durante el ejercicio. Es una tela bastante pesada y, por lo tanto, su principal característica es su grosor y compresión, que evita las transparencias de la ropa interior.',
+        slug: 'lycra-superpacific',
+        descripcion: 'La Lycra Superpacific está diseñada específicamente para la confección de prendas de movimiento y rendimiento en diversas actividades físicas y de estilo activo, especialmente leggings y ropa deportiva. Tiene propiedades de secado rápido y transpirabilidad para mantener la comodidad durante el ejercicio. Es una tela bastante pesada y, por lo tanto, su principal característica es su grosor y compresión, que evita las transparencias de la ropa interior.',
         composition: '81% Poliester / 19% Elastano',
         ancho: 1.48,
         peso: 320,
@@ -345,7 +345,7 @@ export const telas: ITela[] = [
         ],
         caracteristicas: "Lycra",
         imagen_zoom: "/img/telas/telas-importadas/lycra-legging-zoom.webp",
-        id: "TI009"
+        id: "TI009",
     },
     {
         nombre: 'Microdurazno',
@@ -662,6 +662,31 @@ export const telas: ITela[] = [
         imagen_zoom: "/img/telas/telas-nacionales/lycra-everlast-zoom.webp",
     },
     {
+        nombre: 'Lycra Eternity',
+        categoria: 'Telas Nacionales',
+        categoria_slug: 'telas-nacionales',
+        slug: 'lycra-eternity',
+        descripcion: 'Es ideal para trajes de baños, se considera no muy pesada y tiene un ligero acabado con brillo. Es una buena alternativa para las marcas que desean una licra de precio accesible, sin comprometer la calidad.',
+        composition: '87% Poliester/13% Elastano',
+        ancho: 1.48,
+        peso: 190,
+        precio: 18,
+        usos: 'Trajes de baño.',
+        tejido: 'Punto',
+        rotacion: 'No',
+        base_ecologica: 'No',
+        imagenes: [],
+        iconos: [
+            Iconos.FourWayStretch,
+        ],
+        colors: [
+            '#f1f1f1'
+        ],
+        id: "TN011",
+        caracteristicas: "Lycra",
+        imagen_zoom: "/img/telas/telas-nacionales/lycra-everlast-zoom.webp",
+    },
+    {
         nombre: 'Seda Nacional Betty',
         categoria: 'Telas Nacionales',
         categoria_slug: 'telas-nacionales',
@@ -800,4 +825,13 @@ export const telas: ITela[] = [
         caracteristicas: "Impermeable, resistente moho.",
         imagen_zoom: "/img/telas/telas-importadas/loneta-imp-600d-zoom.webp",
     },
-]
+];
+
+// Ordenar alfabéticamente dentro de cada categoría (manteniendo el orden: ecológicas → importadas → nacionales)
+const CATEGORY_ORDER = ['telas-ecologicas', 'telas-importadas', 'telas-nacionales'];
+telas.sort((a, b) => {
+    const catA = CATEGORY_ORDER.indexOf(a.categoria_slug);
+    const catB = CATEGORY_ORDER.indexOf(b.categoria_slug);
+    if (catA !== catB) return catA - catB;
+    return a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' });
+});
