@@ -17,10 +17,10 @@ export function ModalComponent({ list, label }: ModalComponentProps) {
 
     return (
         <>
-            <button className="absolute bottom-4 sm:bottom-16" onClick={() => setOpenModal(true)}>
-                <div className="flex items-center justify-center cursor-pointer hover:bg-zinc-200 active:bg-zinc-300 bg-zinc-100 px-2 py-1.5 sm:px-5 sm:py-3 rounded-full ml-1 sm:ml-10">
-                    <p className="text-[10px] sm:text-sm mr-1 sm:mr-2">Ver más</p>
-                    <Image src="/assets/right-arrow.svg" width={8} height={8} alt="Icono de flecha" className="sm:w-[10px] sm:h-[10px]" />
+            <button className="absolute bottom-4" onClick={() => setOpenModal(true)}>
+                <div className="flex items-center justify-center cursor-pointer hover:bg-zinc-200 active:bg-zinc-300 bg-zinc-100 px-2.5 py-1.5 rounded-full ml-1">
+                    <p className="text-[10px] mr-1">Ver más</p>
+                    <Image src="/assets/right-arrow.svg" width={7} height={7} alt="Icono de flecha" />
                 </div>
             </button>
             <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
