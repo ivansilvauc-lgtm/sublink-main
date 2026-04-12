@@ -93,7 +93,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                   href="/"
                   className="flex gap-1 font-bold text-gray-700 items-center "
                 >
-                  <Image src="/logo-sublink.svg" width={425} height={98} alt="Logo de empresa Sublink" priority className="w-32 sm:w-44 h-auto" />
+                  <Image src="/logo-sublink.png" width={425} height={98} alt="Logo de empresa Sublink" priority className="w-32 sm:w-44 h-auto" />
                 </Link>
               </div>
               <ul className="hidden lg:flex items-center justify-evenly space-x-2 font-semibold text-lg w-full">

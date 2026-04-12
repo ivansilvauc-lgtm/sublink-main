@@ -45,7 +45,7 @@ export default function BlogPage() {
   );
 
   return (
-    <main className="max-w-5xl mx-auto px-4 py-16">
+    <main className="max-w-5xl mx-auto px-4 pt-44 pb-16">
       {/* Encabezado */}
       <div className="text-center mb-14">
         <span className="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-4 py-1 rounded-full mb-4 uppercase tracking-wide">
