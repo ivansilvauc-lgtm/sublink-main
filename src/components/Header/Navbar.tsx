@@ -86,7 +86,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
         <div className="mx-auto w-full">
           <div className="flex mx-auto justify-between w-full ">
             {/* Primary menu and logo */}
-            <div className={`flex items-center w-full shadow-b-md px-2 sm:px-12 space-x-2 transition-all py-3`}>
+            <div className={`flex items-center w-full shadow-b-md px-2 sm:px-12 space-x-2 transition-all py-3.5`}>
               {/* logo */}
               <div>
                 <Link

@@ -35,7 +35,7 @@ export default function SostenibilidadPage() {
     return (
         <main className="sostenibilidad-bg pt-20 overflow-x-hidden">
             <h1 className="sr-only">Telas Ecológicas y Sostenibilidad Textil — Sublink Company, Valencia Venezuela</h1>
-            <section className="relative h-[480px] sm:h-[700px]">
+            <section className="relative h-[560px] sm:h-[700px]">
                 <div className="absolute w-full sm:w-[45%] opacity-80 h-auto -top-6 left-0">
                     <Image src="/img/sostenibilidad/vector-hojas.webp" alt="Sostenibilidad" width={1618} height={1343} className="object-cover" />
                 </div>
@@ -127,13 +127,13 @@ export default function SostenibilidadPage() {
             </section>
             <section className="py-10 px-6 sm:px-20">
                 <div className="flex flex-row items-center justify-center mx-auto gap-8 sm:gap-12">
-                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                    <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                    <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                    <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>
