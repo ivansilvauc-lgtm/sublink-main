@@ -61,7 +61,7 @@ export const VideoReciclar = () => {
                     className="w-full p-6 absolute -left-1/2 -bottom-[580px] pointer-events-none hidden xl:block"
                     >
                         
-                    <Image src="/img/reciclaje/cloud-a.png" alt="Nube decorativa" width={400} height={200} className="w-full" />
+                    <Image src="/img/reciclaje/cloud-a.webp" alt="Nube decorativa" width={400} height={200} className="w-full" />
                 </motion.div>
                 <motion.div
                     initial={{ x: "100%" }}
@@ -69,8 +69,8 @@ export const VideoReciclar = () => {
                     transition={{ duration: 100, repeat: Infinity, repeatType:"reverse" ,ease: "linear"}}
                     className="w-full p-6 absolute -left-1/2 -bottom-32 sm:-bottom-96 lg:-bottom-32 xl:-bottom-20 2xl:-bottom-10 pointer-events-none opacity-80"
                     >
-                        
-                    <Image src="/img/reciclaje/cloud-a.png" alt="Nube decorativa" width={400} height={200} className="w-full" />
+
+                    <Image src="/img/reciclaje/cloud-a.webp" alt="Nube decorativa" width={400} height={200} className="w-full" />
                 </motion.div>
             </motion.div>
         </motion.section>

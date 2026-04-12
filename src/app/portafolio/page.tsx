@@ -17,6 +17,21 @@ export const metadata: Metadata = {
   alternates: {
     canonical: `${SUBLINK_URL}/portafolio`,
   },
+  openGraph: {
+    title: "Portafolio | Sublink — Sublimación Textil Venezuela",
+    description: "Proyectos reales de sublimación textil en Valencia, Venezuela. Uniformes, trajes de baño, ropa deportiva, artículos promocionales y más.",
+    url: `${SUBLINK_URL}/portafolio`,
+    siteName: "Sublink Company",
+    images: [{ url: `${SUBLINK_URL}/opengraph-image.jpg`, width: 1200, height: 630 }],
+    locale: "es_VE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portafolio | Sublink — Sublimación Textil Venezuela",
+    description: "Proyectos reales de sublimación textil en Valencia, Venezuela. Uniformes, trajes de baño, ropa deportiva y más.",
+    images: [`${SUBLINK_URL}/opengraph-image.jpg`],
+  },
 };
 
 const PROYECTOS = [

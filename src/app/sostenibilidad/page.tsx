@@ -13,12 +13,28 @@ export const metadata: Metadata = {
     category: 'Ecología',
     alternates: {
         canonical: SUBLINK_URL + "/sostenibilidad",
-      },
+    },
+    openGraph: {
+        title: "Telas Ecológicas y Sostenibilidad Textil | Sublink Company",
+        description: "Sublink es la primera empresa en Venezuela con telas hechas de botellas PET recicladas. Conoce nuestras políticas de cero desperdicio y producción sostenible.",
+        url: `${SUBLINK_URL}/sostenibilidad`,
+        siteName: "Sublink Company",
+        images: [{ url: `${SUBLINK_URL}/opengraph-image.jpg`, width: 1200, height: 630 }],
+        locale: "es_VE",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Telas Ecológicas y Sostenibilidad Textil | Sublink Company",
+        description: "Sublink es la primera empresa en Venezuela con telas hechas de botellas PET recicladas. Cero desperdicio, Print On Demand.",
+        images: [`${SUBLINK_URL}/opengraph-image.jpg`],
+    },
 }
 
 export default function SostenibilidadPage() {
     return (
         <main className="sostenibilidad-bg pt-20 overflow-x-hidden">
+            <h1 className="sr-only">Telas Ecológicas y Sostenibilidad Textil — Sublink Company, Valencia Venezuela</h1>
             <section className="relative h-[480px] sm:h-[700px]">
                 <div className="absolute w-full sm:w-[45%] opacity-80 h-auto -top-6 left-0">
                     <Image src="/img/sostenibilidad/vector-hojas.webp" alt="Sostenibilidad" width={1618} height={1343} className="object-cover" />
