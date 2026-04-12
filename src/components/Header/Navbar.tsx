@@ -128,8 +128,8 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
       </nav>
       {
         (
-          <div className={`bg-zinc-50 shadow-md px-12 relative ${menuState.toggleTelas ? "py-4 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
-            <div className="flex flex-col h-[550px] 2xl:h-72 flex-wrap content-around">
+          <div className={`bg-zinc-50 shadow-md px-12 relative ${menuState.toggleTelas ? "py-6 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
+            <div className="flex flex-col h-[660px] 2xl:h-[345px] flex-wrap content-around">
               <div className="flex flex-col h-full">
                 <div className="py-4 flex items-center justify-start gap-x-2">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#157ec2" viewBox="0 0 16 16">
@@ -175,7 +175,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
       }
       {
         (
-          <div className={`bg-zinc-50 shadow-md w-full relative ${menuState.toggleTelasEco ? "h-56 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
+          <div className={`bg-zinc-50 shadow-md w-full relative ${menuState.toggleTelasEco ? "h-[270px] border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
             <div className="px-24 py-4 flex items-center justify-start gap-x-2">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#157ec2" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
@@ -183,7 +183,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
               </svg>
               <h3 className="font-semibold text-lg ">Telas Ecológicas</h3>
             </div>
-            <ul className={`flex flex-col items-start justify-start content-start gap-x-20 gap-y-2 px-32 flex-wrap h-32`}>
+            <ul className={`flex flex-col items-start justify-start content-start gap-x-20 gap-y-2 px-32 flex-wrap h-40`}>
               {
                 telas.filter(tela => tela.categoria_slug === "telas-ecologicas").map((tela) => (
                   <li key={tela.slug} >
@@ -200,7 +200,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
       }
       {
         (
-          <div className={`bg-zinc-50 shadow-md relative ${menuState.toggleServicios ? "py-2 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
+          <div className={`bg-zinc-50 shadow-md relative ${menuState.toggleServicios ? "py-5 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
             <ul className={`flex flex-col items-start justify-start content-start gap-x-20 gap-y-2 px-32 py-6 flex-wrap h-full`}>
               <li >
                 <Link href={`/servicios/sublimacion-textil-a-gran-formato`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Sublimación a GRAN Formato</Link>

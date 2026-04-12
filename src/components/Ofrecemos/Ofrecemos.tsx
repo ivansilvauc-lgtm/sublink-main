@@ -22,7 +22,7 @@ export const Ofrecemos = () => {
                 {/* Card 1: Telas */}
                 <div className="relative my-2 md:my-20">
                     <div className="relative w-[29vw] sm:w-60 md:w-60 lg:w-72 xl:w-96 aspect-[40/50] rounded-2xl md:rounded-3xl overflow-hidden">
-                        <Image src="/img/ofrecemos/sublimacion-textil.webp" width={600} height={799}
+                        <Image src="/img/ofrecemos/telas-card.webp" width={600} height={750}
                             alt="Sublimación textil telas"
                             className="absolute w-full h-auto object-cover -z-10"
                         />
@@ -39,7 +39,7 @@ export const Ofrecemos = () => {
                 {/* Card 2: Servicios */}
                 <div className="relative my-2 md:my-20">
                     <div className="relative w-[29vw] sm:w-60 md:w-60 lg:w-72 xl:w-96 aspect-[40/50] rounded-2xl md:rounded-3xl overflow-hidden">
-                        <Image src="/img/ofrecemos/servicios-textiles.webp" width={600} height={799}
+                        <Image src="/img/ofrecemos/servicios-card.webp" width={600} height={750}
                             alt="Servicios textiles"
                             className="absolute w-full h-auto object-cover -z-10"
                         />
@@ -57,7 +57,7 @@ export const Ofrecemos = () => {
                 {/* Card 3: Telas Eco */}
                 <div className="relative my-2 md:my-20">
                     <div className="relative w-[29vw] sm:w-60 md:w-60 lg:w-72 xl:w-96 aspect-[40/50] rounded-2xl md:rounded-3xl overflow-hidden">
-                        <Image src="/img/ofrecemos/productos-complementarios.webp" width={600} height={799}
+                        <Image src="/img/ofrecemos/eco-card.webp" width={600} height={750}
                             alt="Telas ecológicas"
                             className="absolute w-full h-auto object-cover -z-10"
                         />

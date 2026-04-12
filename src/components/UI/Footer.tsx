@@ -147,7 +147,7 @@ export const Footer = () => {
           </div>
 
           {/* Badge DPI — slogan de marca */}
-          <div className="mt-3 flex flex-col items-center gap-2 border border-zinc-700 rounded-xl px-4 py-3 w-full max-w-[180px] bg-white/5">
+          <div className="mt-3 flex flex-col items-center gap-2 border border-zinc-700 rounded-xl px-4 py-3 w-full max-w-[180px]">
             <Image
               src="/assets/logos-clientes/dpi-logo_organized.png"
               width={144}

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 export default function SostenibilidadPage() {
     return (
         <main className="sostenibilidad-bg pt-20 overflow-x-hidden">
-            <section className="relative h-[590px] sm:h-[1000px]">
+            <section className="relative h-[480px] sm:h-[700px]">
                 <div className="absolute w-full sm:w-[45%] opacity-80 h-auto -top-6 left-0">
                     <Image src="/img/sostenibilidad/vector-hojas.webp" alt="Sostenibilidad" width={1618} height={1343} className="object-cover" />
                 </div>
@@ -28,7 +28,7 @@ export default function SostenibilidadPage() {
                     <TreeReveal />
                 </div>
             </section>
-            <section className="py-8 sm:py-20 px-4 sm:px-20">
+            <section className="py-6 sm:py-10 px-4 sm:px-20">
                 <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
                     <span>¿QUÉ SON</span>
                     <h2>LAS TELAS ECOLÓGICAS?</h2>
@@ -40,11 +40,11 @@ export default function SostenibilidadPage() {
                         <p className="mb-0">La tela producida a partir de botellas PET recicladas se utiliza en una variedad de productos, como ropa, bolsas, mochilas, y otros productos textiles.</p>
                     </div>
                 </div>
-                <div className="max-w-[75%] mx-auto mt-10">
+                <div className="max-w-[75%] mx-auto mt-4">
                     <Image src="/img/sostenibilidad/botellas-conteo.webp" alt="Telas ecológicas" width={2058} height={2235} className="object-cover" />
                 </div>
             </section>
-            <section className="py-16 sm:py-20 px-4 sm:px-20">
+            <section className="py-6 sm:py-10 px-4 sm:px-20">
                 <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
                     <span>PORQUE USAR</span>
                     <h2>TELAS RECICLADAS</h2>
@@ -69,7 +69,7 @@ export default function SostenibilidadPage() {
                     </div>
                 </div>
             </section>
-            <section className="h-96 sm:h-[450px] bg-[#a2c0c2] w-full">
+            <section className="h-72 sm:h-[380px] bg-[#a2c0c2] w-full">
                 <div className="w-full sm:w-[50%] relative h-full mx-auto" >
                     <iframe
                         className="absolute top-0 left-0 w-full h-full"
@@ -81,7 +81,7 @@ export default function SostenibilidadPage() {
                     ></iframe>
                 </div>
             </section>
-            <section className="py-16 sm:py-20 px-4 sm:px-20">
+            <section className="py-6 sm:py-10 px-4 sm:px-20">
                 <h2 className="text-[#619b55] text-3xl font-black">SOSTENIBILIDAD</h2>
                 <div className="mt-6 max-w-4xl mx-auto bg-white border border-[#c5ddb8] rounded-2xl px-6 py-6 shadow-sm text-base sm:text-xl text-[#535353] [&>p]:mb-4">
                     <p>Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
@@ -90,7 +90,7 @@ export default function SostenibilidadPage() {
                     <p className="text-center mt-6 text-zinc-900 font-semibold !mb-0">Descubre cómo podemos ayudarte a transformar tu producción con precisión y eficiencia incomparables.</p>
                 </div>
             </section>
-            <section className="py-4 sm:py-20 px-4 sm:px-20">
+            <section className="py-6 sm:py-10 px-4 sm:px-20">
                 <h2 className="text-[#619b55] text-3xl font-black">NUESTRAS POLÍTICAS</h2>
                 <div className="mt-6 max-w-4xl mx-auto flex flex-col gap-4 text-base sm:text-xl text-[#535353]">
                     <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
@@ -109,21 +109,21 @@ export default function SostenibilidadPage() {
                     </div>
                 </div>
             </section>
-            <section className="py-20 px-20">
-                <div className="flex flex-row items-center justify-center max-w-2xl mx-auto gap-12 flex-wrap">
-                    <div className="w-52 h-auto">
-                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="object-contain" />
+            <section className="py-10 px-6 sm:px-20">
+                <div className="flex flex-row items-center justify-center mx-auto gap-8 sm:gap-12">
+                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-44 h-auto flex items-center justify-center">
-                        <Image src="/img/sostenibilidad/logo-textilia.png" alt="Logo Textilia - proveedor de materiales textiles" width={400} height={200} className="object-contain" />
+                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                        <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-52 h-auto">
-                        <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="object-contain" />
+                    <div className="w-36 sm:w-44 h-16 sm:h-20 flex items-center justify-center">
+                        <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>
             </section>
             {/* CTA Telas ECO */}
-            <section className="py-16 px-6 bg-[#f2f8ee]">
+            <section className="py-8 px-6 bg-[#f2f8ee]">
                 <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-6">
                     <span className="inline-block bg-[#619b55]/15 text-[#619b55] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Telas Ecológicas</span>
                     <h2 className="text-3xl sm:text-4xl font-bold text-[#2d5a1e] leading-tight">
@@ -146,7 +146,7 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
 
-            <section className="h-[450px] relative">
+            <section className="h-[280px] sm:h-[380px] relative">
                 <div className="absolute w-full sm:w-[45%] opacity-80 h-auto bottom-0 right-0">
                     <Image src="/img/sostenibilidad/vector-hojas-derecho.webp" alt="vector-de-hojas" width={1618} height={1343} className="object-cover" />
                 </div>
