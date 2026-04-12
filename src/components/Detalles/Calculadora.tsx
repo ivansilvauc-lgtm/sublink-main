@@ -12,14 +12,12 @@ export const Calculadora = ({ precio, nombreTela }: { precio: number, nombreTela
     const fetchBcvRate = useCallback(async () => {
         setLoadingRate(true);
         try {
-            const res = await fetch('https://ve.dolarapi.com/v1/dolares', { cache: 'no-store' });
-            if (!res.ok) throw new Error('API down');
+            // Usa el proxy interno de Vercel para evitar CORS y tener fallback
+            const res = await fetch('/api/bcv-rate', { cache: 'no-store' });
+            if (!res.ok) throw new Error('proxy down');
             const data = await res.json();
-            const eur = Array.isArray(data)
-                ? data.find((d: { moneda?: string }) => d.moneda === 'EUR')
-                : null;
-            if (eur?.promedio) {
-                setBsRate(eur.promedio);
+            if (data.rate && data.rate > 0) {
+                setBsRate(data.rate);
             } else {
                 setBsRate(null);
             }

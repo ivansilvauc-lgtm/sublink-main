@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -65,6 +66,9 @@ function formatFecha(fechaStr: string): string {
 }
 
 export default function BlogPostPage({ params }: Props) {
+  // Blog en desarrollo — redirige al inicio
+  redirect("/");
+
   const post = getBlogPost(params.slug);
   if (!post) notFound();
 

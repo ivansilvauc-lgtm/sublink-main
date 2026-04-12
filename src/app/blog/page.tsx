@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -40,6 +41,9 @@ function formatFecha(fechaStr: string): string {
 }
 
 export default function BlogPage() {
+  // Blog en desarrollo — redirige al inicio
+  redirect("/");
+
   const posts = [...blogPosts].sort(
     (a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime()
   );
