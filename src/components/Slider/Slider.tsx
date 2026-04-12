@@ -1,17 +1,13 @@
-"use client"
-import { Carousel } from "flowbite-react/lib/esm/components/Carousel/Carousel";
 import { InteractiveImage } from "../InteractiveImage/InteractiveImage";
 
+// Carousel eliminado — solo hay 1 slide, no tiene sentido cargar la librería de flowbite.
+// Si se agregan más slides en el futuro, restaurar el <Carousel> wrapper.
 export const Slider = () => {
     return (
-        
-        <Carousel pauseOnHover slideInterval={5000}
-        className='[&>*:first-child]:rounded-none h-auto w-full mt-14 [&>div]:!static [&>div]:!h-auto'
-        indicators={true}
-        >
+        <div className="w-full mt-14">
             <InteractiveImage />
-        </Carousel>
-    )
+        </div>
+    );
 }
 
 

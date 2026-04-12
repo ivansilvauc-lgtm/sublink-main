@@ -16,7 +16,7 @@ export const PreFooter = () => {
         {/* Izquierda — mensaje + trust indicators */}
         <div className="flex flex-col gap-5 max-w-xl">
           <p className="text-xs font-bold uppercase tracking-widest text-[#157ec2]">
-            Valencia, Venezuela · Desde 2011
+            Valencia, Venezuela · Desde 2018
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
             ¿Listo para estampar<br className="hidden md:block" /> tu próximo proyecto?
@@ -82,21 +82,8 @@ export const PreFooter = () => {
             <span className="text-xs font-normal text-zinc-300 ml-1">· gratis</span>
           </a>
 
-          {/* Experto en diseño — deshabilitado */}
-          <button
-            disabled
-            aria-disabled="true"
-            className="flex items-center justify-center gap-3 bg-zinc-800 text-zinc-500 font-bold rounded-xl px-6 py-4 border border-zinc-700 cursor-not-allowed opacity-60 relative"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Hablar con experto en diseño
-            <span className="text-xs font-normal ml-1">· próximamente</span>
-          </button>
-
           <p className="text-xs text-zinc-500 text-center">
-            Mar – Jue · 5:00 pm – 5:30 pm
+            Llamadas de asesoría: Mar – Jue · 5:00 pm – 5:30 pm
           </p>
         </div>
       </div>
