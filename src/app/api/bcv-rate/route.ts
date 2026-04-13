@@ -75,6 +75,17 @@ const SOURCES = [
   },
 ];
 
+// CORS abierto para que herramientas Sublink (cotizador, etc.) accedan cross-origin
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+
+export async function OPTIONS() {
+  return new Response(null, { status: 204, headers: CORS });
+}
+
 export async function GET() {
   for (const source of SOURCES) {
     try {
@@ -92,7 +103,7 @@ export async function GET() {
       if (rate && rate > 0) {
         return NextResponse.json(
           { rate, source: new URL(source.url).hostname },
-          { headers: { 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=3600' } }
+          { headers: { ...CORS, 'Cache-Control': 'public, max-age=1800, stale-while-revalidate=3600' } }
         );
       }
     } catch {
@@ -102,6 +113,6 @@ export async function GET() {
   }
   return NextResponse.json(
     { rate: null, error: 'Tasa EUR/VES no disponible en este momento' },
-    { status: 503 }
+    { status: 503, headers: CORS }
   );
 }
