@@ -28,29 +28,28 @@ export const Slider = () => {
           <InteractiveImage />
         </div>
 
-        {/* ── Slide 2: Impresión textil — fondo azul Sublink ── */}
+        {/* ── Slide 2: Impresión textil — azul celeste sólido ── */}
         <div
           className="min-w-full relative flex items-center overflow-hidden"
-          style={{ background: '#157ec2', minHeight: 420 }}
+          style={{ background: '#00AAEB', minHeight: 420 }}
         >
-          {/* Imagen completa con mix-blend-mode para tonos azules */}
-          <div className="absolute inset-0 z-0" style={{ isolation: 'isolate' }}>
+          {/* Imagen a la derecha, sin blend */}
+          <div className="absolute right-0 top-0 bottom-0 w-1/2 md:w-[55%]">
             <Image
               src="/img/ofrecemos/impresion-textil-1126250.webp"
               alt="Impresión textil sublimación Sublink"
               fill
               className="object-cover object-center"
-              style={{ mixBlendMode: 'luminosity', opacity: 0.75 }}
               priority
             />
           </div>
 
-          {/* Gradiente: cubre lado izquierdo con azul para el texto */}
+          {/* Gradiente que funde la imagen hacia el fondo azul */}
           <div
             className="absolute inset-0 z-10"
             style={{
               background:
-                'linear-gradient(to right, #157ec2 0%, #157ec2 38%, rgba(21,126,194,0.72) 55%, transparent 100%)',
+                'linear-gradient(to right, #00AAEB 0%, #00AAEB 42%, rgba(0,170,235,0.85) 55%, rgba(0,170,235,0.3) 75%, transparent 100%)',
             }}
           />
 
