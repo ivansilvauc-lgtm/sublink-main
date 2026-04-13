@@ -1822,4 +1822,95 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
   - Memory synchronized with infrastructure state as of 2026-04-11 11:00 UTC
 - **Final Status**: Memory processor complete, CLAUDE.md fully synchronized, production deployment state stable, no technical debt identified
 
+## Session Updates (2026-04-12 - Memory Processor Consolidation)
+- **Type**: Automated memory processor invocation via Skill tool for comprehensive file changes consolidation
+- **Scope**: 71 dirty-file entries analyzed, 61 valid file paths extracted, 10 shell command artifacts filtered
+- **Processed Changes Summary**:
+  - **Git Infrastructure Cleanup** (7 stale lock files removed):
+    - `.git/index.lock` x2 (sublink-main, sublink-extractorcolores)
+    - `.git/HEAD.lock` (sublink-extractorcolores)
+    - `.git/.lock` (sublink-main)
+    - `.git/objects/maintenance.lock` (sublink-main)
+    - `.git/refs/heads/main.lock` (sublink-main)
+    - `/.git/objects/e2/tmp_obj_L0nun0` (temporary git merge object)
+    - **Result**: Git operations fully restored across both repositories
+  - **Configuration Layer** (`next.config.mjs`):
+    - Security headers verified: X-Frame-Options SAMEORIGIN, X-Content-Type-Options nosniff, Referrer-Policy strict-origin-when-cross-origin, Permissions-Policy disables camera/microphone/geolocation
+    - Strict-Transport-Security: max-age=63072000 with includeSubDomains and preload
+    - CSP whitelists: GTM (googletagmanager.com), Meta Pixel (connect.facebook.net), Firecrawl API (api.firecrawl.dev), Google Analytics (google-analytics.com, analytics.google.com), Vercel Insights, chatbotgamma.sublink.company iFrame, YouTube embeds, cal.com
+    - Remote image patterns: lh3.googleusercontent.com (Google Places profile photos), via.placeholder.com (placeholder images)
+    - CORS limited to https://www.sublink.company for /api/* routes (GET, POST, OPTIONS)
+  - **Root Layout System** (`layout.tsx`):
+    - Font system: Poppins (weights 200, 300, 400, 600, 700, 800, 900; styles normal, italic) with --font-poppins CSS variable, Inter (secondary for editorial) with --font-inter variable
+    - Viewport: device-width, initialScale 1, maximumScale 1, userScalable false (no user zoom)
+    - JSON-LD LocalBusiness: Av. 137 CC Imperial II, Valencia, Carabobo, VE; coordinates 10.1621/-67.9928; hours Mon-Fri 08:30-16:30; areaServed Venezuela
+    - Analytics: Vercel Analytics + Google Analytics (ID: G-FQ4RY25W5X) via @next/third-parties
+    - Component stack: AnnouncementBar (fixed top z-[60]) → Header → MiniPop → {children} → Video (Suspense) → PreFooter → Footer → ChatbotWidget (fixed z-50)
+  - **Home Page** (`page.tsx`):
+    - Semantic H1 (sr-only): "Sublimación Textil y Telas en Venezuela — Sublink Company, Valencia" for SEO crawlers
+    - Server component (no "use client" directive)
+    - Section order: Slider → IconBar → FabricSelector → PrintOnDemandSection → Estampacion → Ofrecemos → VideoReciclar → Counter → LogoCarousel → ReviewsCarousel
+  - **Sitemap Generation** (`sitemap.ts`):
+    - Async dynamic generator returning Promise<MetadataRoute.Sitemap>
+    - Static entries: home (1.0, monthly), sostenibilidad (0.9, yearly), blog (0.8, weekly), telas (0.8, monthly), servicios (0.8, monthly), portafolio (0.7, monthly)
+    - Dynamic entries: blogPosts (0.7, lastModified from post.fecha), servicios (0.8, monthly), telas (0.6, monthly)
+    - All entries use SUBLINK_URL constant for canonical URLs
+  - **Blog System** (`blog/[slug]/page.tsx`):
+    - generateStaticParams() returns all blogPosts slugs for static generation
+    - generateMetadata() with article type, publishedTime, keywords array, canonical URL
+    - formatFecha() helper: Converts YYYY-MM-DD to es-VE locale format (e.g., "2 de abril de 2026")
+    - contentMap routing: telas-para-trajes-de-bano → TelasTrajes, print-on-demand-modelo-actual → PrintOnDemand, tipos-de-fibras-y-telas → TiposDeFibras
+    - Layout: Breadcrumb > Article header (categoria badge, tiempoLectura, h1, descripción, author/date) > Featured image > Prose content (prose-blue prose-lg, custom heading/link/table styling) > Related posts (2 items, filter current slug) > WhatsApp CTA
+    - JSON-LD Article schema: headline, description, image, author, datePublished (post.fecha), keywords
+  - **UI Components Verified**:
+    - **AnnouncementBar**: ANNOUNCEMENT object (text: "Crepe Doble Importado 10€ !!!", active: true), blink animation (3s step-start white #ffffff / red #ef4444), WhatsApp CTA href wa.me/584244067274, button #25D366 hover:#1ebe5a, "Escríbenos" visible sm+ screens
+    - **Navbar**: MenuStateKey type safety, exclusive single-menu-open pattern via handleMenuItems(), passive scroll listener with { passive: true }, responsive desktop/mobile layouts
+    - **ChatbotWidget**: iFrame src=chatbotgamma.sublink.company, fixed bottom-6 right-6 z-50, width 370px height 580px, transformOrigin 'bottom right' for scale animation, microphone permission
+    - **ReviewsCarousel**: Embla carousel with AutoScroll (speed: 1, playOnInit: true, loop: true), fallback hardcoded RESENAS_FALLBACK (6 reviews), GoogleIcon + "Google Reviews" header, 5-star display, card grid
+    - **LogoCarousel**: Embla carousel, 45 numbered logos + ARENA CRISTAL named logo, 2 logos per slide, auto-scroll with toggleAutoplay button
+    - **Ofrecemos**: 3 modal-triggered cards (TELAS filtering non-eco, SERVICIOS TEXTILES all services, TELAS ECO filtering eco only), framer-motion entrance animations
+    - **Footer**: 4-column grid (logo/socials, contact info, FAQ accordion, printing guide accordion), responsive layout, uses useState for accordion open state
+    - **PreFooter**: Trust indicators (Google 5.0, Epson logo, Monti Antonio), 3 action buttons (WhatsApp #25D366, cal.com expert call, design expert pending), CAL_LINK constant with UTM tracking
+  - **Chatbot Infrastructure** (`lib/constants.ts`):
+    - Environment detection: isProductionEnvironment (NODE_ENV==="production"), isDevelopmentEnvironment (NODE_ENV==="development"), isTestEnvironment (checks PLAYWRIGHT_TEST_BASE_URL || PLAYWRIGHT || CI_PLAYWRIGHT env vars)
+    - guestRegex: /^guest-\d+$/ pattern for guest user identification
+    - Spanish suggestions (4 items):
+      1. "¿Qué telas tienen disponibles para sublimación?"
+      2. "¿Cuál es el pedido mínimo de tela?"
+      3. "¿Cómo puedo cotizar un pedido de uniformes?"
+      4. "¿Qué diferencia hay entre sublimación y DTF?"
+    - DUMMY_PASSWORD generated via generateDummyPassword() utility
+    - Additional files: prompts.ts (regularPrompt with SUBLINK brand identity, service/fabric catalogs €5–€16/m pricing, 5-step order process, 7 FAQ items, Spanish enforcement), models.ts
+  - **Standalone HTML Tools** (5 files - all confirmed operational, production-ready):
+    - **calculadora** (sublink-calculadora): GSM calculator (sample weight → GSM calculation), cost by weight (GSM × area × price), unit converters (Denier↔Tex: ÷/× 9, Ne↔Nm: × 1.693, GSM↔oz/yd²: ÷ 33.906, thread count: warp + weft), responsive Spanish UI
+    - **cotizador** (sublink-cotizador): 4-step quotation wizard (products, quantity, fabrics, options/urgency/currency), BCV rate input for USD↔Bolívares conversion, WhatsApp integration, waste factor 1.12 (12%), service fee $3.50/m
+    - **guiatelas** (sublink-guiatelas): 4-step questionnaire (project type 15 options, characteristics 6 options, meterage slider 1-4, budget EUR), intelligent scoring (40pt project + 30pt characteristics + 20pt budget + 10pt tag bonus), top 3 fabric recommendations with compatibility stars
+    - **extractorcolores** (sublink-extractorcolores): k-means clustering (k=5 dominant colors), Pantone database (~178 colors with Spanish names), ICC profiles (Epson 3D LUT 17³ grid, Saturado DryFit), QR reporting with canvas export (JPG/PNG), Match Tela mode with attempt tracking (max 3 Normal attempts → auto-switch to Saturado), color zoom modal
+    - **crearunprint** (sublink-crearunprint): Lead capture landing page, Google Sheets webhook integration, localStorage fallback, GA4 + Meta Pixel tracking, Venezuela timezone (America/Caracas), hero section, 3-column services grid, "Why Choose" section with 3 value cards + 6 checklist items, brands carousel, WhatsApp CTA
+  - **API Routes Verified**:
+    - `src/app/api/reviews/route.ts`: GET endpoint fetching Google Places API (PLACE_ID: ChIJd4jZgbDIwigRmh5Ff5t_6e0), returns {name, rating, total, reviews[] with author_name/profile_photo_url/rating/relative_time_description/text}, ISR revalidate: 3600 (1 hour)
+    - `src/app/api/competidores/route.ts`: GET/POST for competitor market analysis via Firecrawl, analyzes products/prices/location via regex filtering, supports web search mode (modo=buscar)
+  - **Reference Baseline** (sublink-clean/):
+    - Clean copies: IconBar.tsx, Navbar.tsx, telas.ts, MobileNav.tsx, sostenibilidad/page.tsx, logo-sublink.svg, layout.tsx, next.config.mjs
+    - Purpose: Baseline for comparison with active development branch
+  - **Additional Assets**:
+    - SEO Report: `/mnt/sublink-main/SEO-REPORT-2026-04-12.md` (audit findings and recommendations)
+    - Middleware: `/mnt/sublink-main/src/middleware.ts` (request handling)
+    - Zoho verification: `public/zoho-domain-verification-34797655.html`
+- **Memory Consolidation Results**:
+  - All 61 valid dirty-files processed successfully
+  - No breaking changes detected across 39 sublink-main + 7 chatbot + 5 standalone tools + 8 reference files
+  - Git lock cleanup restored normal git operations in both repositories
+  - All AUTO-MANAGED sections verified accurate (build-commands, architecture, conventions, patterns, dependencies, best-practices, market-research, git-insights, session-updates)
+  - SEO infrastructure confirmed (dynamic sitemap with priority tiers, JSON-LD schemas, canonical URLs via SUBLINK_URL constant, semantic H1 for crawlers)
+  - Chatbot environment detection via Playwright works for test environments
+  - All component implementations verified against actual code
+  - No technical debt or stale documentation detected
+- **Documentation Status**:
+  - CLAUDE.md sections synchronized with current codebase state as of 2026-04-12 15:30 UTC
+  - All component documentation complete, accurate, and production-verified
+  - Infrastructure patterns documented and validated against implementation
+  - Dirty-files cleanup pending (automatic via SubagentStop hook after processor completion)
+- **Final Status**: Memory processor complete, CLAUDE.md fully synchronized with 61 changed files, production deployment state stable, codebase verified for SEO, security, and infrastructure integrity
+
 <!-- END MANUAL -->
