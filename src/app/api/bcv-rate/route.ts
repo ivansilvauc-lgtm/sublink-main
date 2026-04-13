@@ -5,6 +5,22 @@ export const revalidate = 1800; // cache 30 min
 // Fuentes en orden de prioridad — si una falla, pasa a la siguiente
 const SOURCES = [
   {
+    // fawazahmed0 CDN — muy confiable, sin auth, actualizado diariamente
+    url: 'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json',
+    parse: (data: unknown) => {
+      const d = data as { eur?: { ves?: number } };
+      return (d?.eur?.ves && d.eur.ves > 0) ? d.eur.ves : null;
+    },
+  },
+  {
+    // fawazahmed0 fallback alternativo
+    url: 'https://latest.currency-api.pages.dev/v1/currencies/eur.json',
+    parse: (data: unknown) => {
+      const d = data as { eur?: { ves?: number } };
+      return (d?.eur?.ves && d.eur.ves > 0) ? d.eur.ves : null;
+    },
+  },
+  {
     // yadio.io — especializado en tasas venezolanas (BCV + paralelo)
     url: 'https://api.yadio.io/rate/EUR/VES',
     parse: (data: unknown) => {

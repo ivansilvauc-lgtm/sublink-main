@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { InteractiveImage } from '../InteractiveImage/InteractiveImage';
@@ -11,10 +11,7 @@ export const Slider = () => {
   const next = useCallback(() => setCurrent(c => (c + 1) % SLIDES), []);
   const prev = useCallback(() => setCurrent(c => (c - 1 + SLIDES) % SLIDES), []);
 
-  useEffect(() => {
-    const t = setInterval(next, 6500);
-    return () => clearInterval(t);
-  }, [next]);
+  // Sin autoplay — solo se mueve con las flechas
 
   return (
     <div className="w-full mt-14 relative overflow-hidden">
@@ -28,12 +25,12 @@ export const Slider = () => {
           <InteractiveImage />
         </div>
 
-        {/* ── Slide 2: Impresión textil — azul celeste sólido ── */}
+        {/* ── Slide 2: Colores EPSON — azul Sublink muy claro ── */}
         <div
           className="min-w-full relative flex items-center overflow-hidden"
-          style={{ background: '#00AAEB', minHeight: 420 }}
+          style={{ background: '#E8F5FC', minHeight: 420 }}
         >
-          {/* Imagen a la derecha, sin blend */}
+          {/* Imagen a la derecha */}
           <div className="absolute right-0 top-0 bottom-0 w-1/2 md:w-[55%]">
             <Image
               src="/img/ofrecemos/impresion-textil-1126250.webp"
@@ -44,32 +41,30 @@ export const Slider = () => {
             />
           </div>
 
-          {/* Gradiente que funde la imagen hacia el fondo azul */}
-          <div
-            className="absolute inset-0 z-10"
-            style={{
-              background:
-                'linear-gradient(to right, #00AAEB 0%, #00AAEB 42%, rgba(0,170,235,0.85) 55%, rgba(0,170,235,0.3) 75%, transparent 100%)',
-            }}
-          />
-
           {/* Contenido */}
           <div className="relative z-20 px-10 md:px-20 py-16 max-w-lg">
-            <h2
-              className="text-white leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)', fontWeight: 300 }}
-            >
-              Impresión<br />textil
-            </h2>
-            <p className="text-white/80 text-lg md:text-xl mt-3 font-light">
-              Colores que fascinan
+            {/* Eyebrow */}
+            <p className="text-[#157ec2] text-xs sm:text-sm font-bold uppercase tracking-widest mb-3">
+              No estás solo, te acompañamos en este proceso
             </p>
-            <Link
-              href="/telas"
-              className="mt-6 inline-flex items-center gap-2 text-white font-medium text-base hover:gap-4 transition-all duration-200"
+            {/* Heading principal — letras montadas */}
+            <h2
+              className="leading-tight tracking-tight text-gray-900 mb-6"
+              style={{
+                fontSize: 'clamp(1.8rem, 4vw, 3.6rem)',
+                fontWeight: 900,
+                textShadow: '2px 2px 0px rgba(21,126,194,0.12)',
+              }}
             >
-              Comenzar a diseñar <span className="text-xl">→</span>
-            </Link>
+              Colores EPSON<br />que te van a fascinar
+            </h2>
+            {/* CTA — sin flecha, solo texto */}
+            <a
+              href="#print-on-demand"
+              className="inline-flex items-center justify-center bg-[#157ec2] hover:bg-[#1270A8] text-white font-extrabold px-8 py-3.5 rounded-full transition-colors text-sm sm:text-base uppercase tracking-widest shadow-md"
+            >
+              DISEÑA CONMIGO
+            </a>
           </div>
         </div>
       </div>
@@ -82,7 +77,7 @@ export const Slider = () => {
             onClick={() => setCurrent(i)}
             aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
-              i === current ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/50'
+              i === current ? 'w-8 h-[10px] bg-[#157ec2]' : 'w-[10px] h-[10px] bg-gray-400 hover:w-4 hover:h-4 hover:bg-gray-500'
             }`}
           />
         ))}
@@ -92,14 +87,14 @@ export const Slider = () => {
       <button
         onClick={prev}
         aria-label="Slide anterior"
-        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 rounded-full w-9 h-9 flex items-center justify-center text-white text-xl transition"
+        className="absolute left-3 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-white text-2xl transition"
       >
         ‹
       </button>
       <button
         onClick={next}
         aria-label="Siguiente slide"
-        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 rounded-full w-9 h-9 flex items-center justify-center text-white text-xl transition"
+        className="absolute right-3 top-1/2 -translate-y-1/2 z-30 bg-black/20 hover:bg-black/40 rounded-full w-12 h-12 flex items-center justify-center text-white text-2xl transition"
       >
         ›
       </button>
