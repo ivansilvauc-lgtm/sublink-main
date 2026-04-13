@@ -65,26 +65,9 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
             <section className="py-6 sm:py-10 px-4 sm:px-20 overflow-hidden bg-white">
-                <div className="w-full text-center mb-6">
-                    <div className="inline-block">
-                        <span className="block text-[#619b55] font-black text-[47px] sm:text-[84px] leading-tight tracking-tight underline decoration-double decoration-[#619b55]">
-                            PORQUE USAR TELAS
-                        </span>
-                        <h2 className="block text-[#619b55] font-black text-[47px] sm:text-[84px] leading-tight tracking-tight underline decoration-double decoration-[#619b55]">
-                            RECICLADAS PET
-                        </h2>
-                    </div>
-                    {/* Flecha interactiva animada */}
-                    <div className="flex justify-center mt-4">
-                        <div className="animate-bounce flex flex-col items-center gap-1 cursor-default">
-                            <svg className="w-10 h-10 sm:w-14 sm:h-14 text-[#619b55] drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                            <svg className="w-10 h-10 sm:w-14 sm:h-14 text-[#157ec2] opacity-50 -mt-6 drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </div>
-                    </div>
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[80px] leading-tight tracking-tight w-full text-center mb-6">
+                    <span className="block">PORQUE USAR TELAS</span>
+                    <h2 className="block">RECICLADAS PET</h2>
                 </div>
                 <div className="mt-6 max-w-4xl mx-auto grid sm:grid-cols-2 gap-4 text-base sm:text-xl text-[#535353]">
                     <div className="bg-white border border-[#c5ddb8] rounded-2xl px-5 py-5 shadow-sm">
@@ -107,31 +90,12 @@ export default function SostenibilidadPage() {
             </section>
             {/* Video eliminado por solicitud del usuario */}
             <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <h2 className="text-[#619b55] text-4xl sm:text-5xl font-black text-center">Sostenibilidad, nuestras políticas</h2>
+                <h2 className="text-[#619b55] text-4xl sm:text-5xl font-black text-center">Sostenibilidad</h2>
                 <div className="mt-6 max-w-4xl mx-auto bg-white border border-[#c5ddb8] rounded-2xl px-6 py-6 shadow-sm text-base sm:text-xl text-[#535353] [&>p]:mb-4">
                     <p>Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
                     <p>Gracias a este innovador proceso de reciclaje, contribuimos a la construcción de un futuro sostenible a largo plazo al tiempo que apoyamos el reciclaje con una economía circular.</p>
                     <p>También adoptamos políticas de cero residuos y practicamos la sostenibilidad en diferentes etapas de nuestra producción, esforzándonos por minimizar nuestro impacto ambiental y promover un futuro más verde para la industria textil.</p>
                     <p className="text-center mt-6 text-zinc-900 font-semibold !mb-0">Descubre cómo podemos ayudarte a transformar tu producción con precisión y eficiencia incomparables.</p>
-                </div>
-            </section>
-            <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <h2 className="text-[#619b55] text-3xl font-black text-center">Nuestras políticas</h2>
-                <div className="mt-6 max-w-4xl mx-auto flex flex-col gap-4 text-base sm:text-xl text-[#535353]">
-                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
-                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Comprometidos con nuestro entorno y nuestros clientes</h3>
-                        <p>Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
-                    </div>
-                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
-                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Fábrica por encargo (Print On Demand)</h3>
-                        <p className="mb-3">Nuestro objetivo es minimizar los residuos de tela imprimiendo sólo lo necesario. No mantenemos telas estampadas en existencia. Cuando nos realizas un pedido, fabricamos y enviamos tu tela al instante, reduciendo el consumo energético.</p>
-                        <p>Además, mantenemos nuestra huella de carbono al mínimo, ya que fabricamos todo en una sola instalación. Tus telas se elaboran bajo un solo techo y se envían directamente a ti.</p>
-                    </div>
-                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
-                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Cero Desperdicio (Zero Waist Policy)</h3>
-                        <p className="mb-3">Minimizamos nuestro impacto ambiental mediante la reducción, reutilización y reciclaje de materiales en cada proceso, comprometiéndonos con un futuro más sostenible.</p>
-                        <p>Hemos reducido nuestros residuos textiles al ofrecer los retazos de las telas de manera gratuita a artesanos, artistas o cualquiera que quiera un reto creativo. Incluso reutilizamos la tela sobrante para otros productos y proyectos.</p>
-                    </div>
                 </div>
             </section>
             {/* Logos proveedores — Textilia en centro, Lafayette y Protela equidistantes, Protela +25% */}
@@ -146,7 +110,7 @@ export default function SostenibilidadPage() {
                         <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
                     {/* Protela — +50% */}
-                    <div className="w-[210px] sm:w-[330px] h-[120px] sm:h-[180px] flex items-center justify-center shrink-0">
+                    <div className="w-[315px] sm:w-[495px] h-[180px] sm:h-[270px] flex items-center justify-center shrink-0">
                         <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>

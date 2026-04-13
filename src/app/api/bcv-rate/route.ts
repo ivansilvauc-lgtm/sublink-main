@@ -111,8 +111,10 @@ export async function GET() {
       continue;
     }
   }
+  // Fallback hardcoded: tasa oficial BCV (actualizar periódicamente)
+  const FALLBACK_RATE = 560.04863251;
   return NextResponse.json(
-    { rate: null, error: 'Tasa EUR/VES no disponible en este momento' },
-    { status: 503, headers: CORS }
+    { rate: FALLBACK_RATE, source: 'fallback-bcv', warning: 'Tasa de respaldo — verificar en bcv.org.ve' },
+    { headers: { ...CORS, 'Cache-Control': 'public, max-age=300' } }
   );
 }

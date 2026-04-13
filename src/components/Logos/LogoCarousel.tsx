@@ -75,8 +75,8 @@ export const LogoCarousel = () => {
                                         const name0 = slide[0].type === "named" ? slide[0].name : null;
                                         const noBox0 = name0 && NO_BOX_LOGOS.has(name0);
                                         return (
-                                            <div className={noBox0 ? "w-36 h-36 flex items-center justify-center p-2" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
-                                                <Image src={logoSrc(slide[0])} alt="Logo cliente" width={100} height={100} className="w-full h-full object-contain p-3" />
+                                            <div className={noBox0 ? "w-36 h-36 flex items-center justify-center" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
+                                                <Image src={logoSrc(slide[0])} alt="Logo cliente" width={100} height={100} className={noBox0 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
                                             </div>
                                         );
                                     })()}
@@ -84,8 +84,8 @@ export const LogoCarousel = () => {
                                         const name1 = slide[1].type === "named" ? slide[1].name : null;
                                         const noBox1 = name1 && NO_BOX_LOGOS.has(name1);
                                         return (
-                                            <div className={noBox1 ? "w-36 h-36 flex items-center justify-center p-2" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
-                                                <Image src={logoSrc(slide[1])} alt="Logo cliente" width={100} height={100} className="w-full h-full object-contain p-3" />
+                                            <div className={noBox1 ? "w-36 h-36 flex items-center justify-center" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
+                                                <Image src={logoSrc(slide[1])} alt="Logo cliente" width={100} height={100} className={noBox1 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
                                             </div>
                                         );
                                     })()}
