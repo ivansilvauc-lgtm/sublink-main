@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image";
-import { useState, useCallback } from "react";
+import { useState, useEffect } from "react";
 
 const PRINTS = [
   {
@@ -21,9 +21,12 @@ const PRINTS = [
 export const PrintOnDemandSection = () => {
   const [active, setActive] = useState(0);
 
-  // Sin autoplay — solo se mueve con las flechas
-  const prevPrint = useCallback(() => setActive(a => (a - 1 + PRINTS.length) % PRINTS.length), []);
-  const nextPrint = useCallback(() => setActive(a => (a + 1) % PRINTS.length), []);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActive((prev) => (prev + 1) % PRINTS.length);
+    }, 980);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="print-on-demand" className="w-full bg-white py-10 md:py-14 px-4">
@@ -32,7 +35,7 @@ export const PrintOnDemandSection = () => {
         {/* Left: Text content */}
         <div>
           <span className="text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-3 block">
-            SUBLIMA...
+            Sublimación Digital
           </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
             Estampa tus diseños<br />en cualquier tela
@@ -92,7 +95,7 @@ export const PrintOnDemandSection = () => {
           </div>
         </div>
 
-        {/* Right: Print carousel — solo flechas, sin autoplay */}
+        {/* Right: Dynamic print carousel */}
         <div className="relative w-full h-56 sm:h-72 lg:h-[420px] rounded-2xl overflow-hidden shadow-xl">
           {PRINTS.map((print, i) => (
             <div
@@ -100,7 +103,7 @@ export const PrintOnDemandSection = () => {
               className="absolute inset-0"
               style={{
                 opacity: active === i ? 1 : 0,
-                transition: 'opacity 300ms ease-in-out',
+                transition: 'opacity 245ms ease-in-out',
               }}
             >
               <Image
@@ -109,8 +112,8 @@ export const PrintOnDemandSection = () => {
                 fill
                 className="object-cover"
                 style={{
-                  transform: active === i ? 'scale(1.04)' : 'scale(1)',
-                  transition: 'transform 600ms ease-out',
+                  transform: active === i ? 'scale(1.065)' : 'scale(1)',
+                  transition: 'transform 980ms ease-out, opacity 245ms ease-in-out',
                 }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 priority={i === 0}
@@ -118,30 +121,14 @@ export const PrintOnDemandSection = () => {
             </div>
           ))}
 
-          {/* Flechas de navegación */}
-          <button
-            onClick={prevPrint}
-            aria-label="Print anterior"
-            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/25 hover:bg-black/45 rounded-full w-10 h-10 flex items-center justify-center text-white text-xl transition"
-          >
-            ‹
-          </button>
-          <button
-            onClick={nextPrint}
-            aria-label="Siguiente print"
-            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/25 hover:bg-black/45 rounded-full w-10 h-10 flex items-center justify-center text-white text-xl transition"
-          >
-            ›
-          </button>
-
-          {/* Dots */}
+          {/* Dot indicators */}
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
             {PRINTS.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`h-[8px] rounded-full transition-all duration-300 ${
-                  active === i ? "bg-white w-6" : "bg-white/50 w-2"
+                className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  active === i ? "bg-white w-6" : "bg-white/50"
                 }`}
                 aria-label={`Print ${i + 1}`}
               />

@@ -25,10 +25,10 @@ export const Slider = () => {
           <InteractiveImage />
         </div>
 
-        {/* ── Slide 2: Colores EPSON — azul Sublink muy claro ── */}
+        {/* ── Slide 2: Acompañamiento — azul Sublink oscuro sólido ── */}
         <div
           className="min-w-full relative flex items-center overflow-hidden"
-          style={{ background: '#E8F5FC', minHeight: 420 }}
+          style={{ background: '#0D5E8C', minHeight: 420 }}
         >
           {/* Imagen a la derecha */}
           <div className="absolute right-0 top-0 bottom-0 w-1/2 md:w-[55%]">
@@ -43,28 +43,12 @@ export const Slider = () => {
 
           {/* Contenido */}
           <div className="relative z-20 px-10 md:px-20 py-16 max-w-lg">
-            {/* Eyebrow */}
-            <p className="text-[#157ec2] text-xs sm:text-sm font-bold uppercase tracking-widest mb-3">
-              No estás solo, te acompañamos en este proceso
-            </p>
-            {/* Heading principal — letras montadas */}
             <h2
-              className="leading-tight tracking-tight text-gray-900 mb-6"
-              style={{
-                fontSize: 'clamp(1.8rem, 4vw, 3.6rem)',
-                fontWeight: 900,
-                textShadow: '2px 2px 0px rgba(21,126,194,0.12)',
-              }}
+              className="leading-tight tracking-tight text-white"
+              style={{ fontSize: 'clamp(2rem, 4.5vw, 4rem)', fontWeight: 800 }}
             >
-              Colores EPSON<br />que te van a fascinar
+              NO estás solo,<br />TE acompañamos<br />en todo el proceso.
             </h2>
-            {/* CTA — sin flecha, solo texto */}
-            <a
-              href="#print-on-demand"
-              className="inline-flex items-center justify-center bg-[#157ec2] hover:bg-[#1270A8] text-white font-extrabold px-8 py-3.5 rounded-full transition-colors text-sm sm:text-base uppercase tracking-widest shadow-md"
-            >
-              DISEÑA CONMIGO
-            </a>
           </div>
         </div>
       </div>
@@ -77,7 +61,7 @@ export const Slider = () => {
             onClick={() => setCurrent(i)}
             aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
-              i === current ? 'w-8 h-[10px] bg-[#157ec2]' : 'w-[10px] h-[10px] bg-gray-400 hover:w-4 hover:h-4 hover:bg-gray-500'
+              i === current ? 'w-8 h-[10px] bg-[#157ec2]' : 'w-[10px] h-[10px] bg-[#157ec2]/40'
             }`}
           />
         ))}
