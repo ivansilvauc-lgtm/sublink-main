@@ -45,8 +45,8 @@ export default function SostenibilidadPage() {
                     <TreeReveal />
                 </div>
             </section>
-            <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-tight tracking-tight w-full text-left">
+            <section className="py-6 sm:py-10 px-4 sm:px-20 overflow-hidden">
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[80px] leading-tight tracking-tight w-full text-left">
                     <span className="block">¿QUÉ SON</span>
                     <h2 className="block">LAS TELAS ECOLÓGICAS?</h2>
                 </div>
@@ -61,8 +61,8 @@ export default function SostenibilidadPage() {
                     <Image src="/img/sostenibilidad/botellas-conteo.webp" alt="Telas ecológicas" width={2058} height={2235} className="object-cover" />
                 </div>
             </section>
-            <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-tight tracking-tight w-full text-left">
+            <section className="py-6 sm:py-10 px-4 sm:px-20 overflow-hidden">
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[80px] leading-tight tracking-tight w-full text-left">
                     <span className="block">PORQUE USAR</span>
                     <h2 className="block">TELAS RECICLADAS</h2>
                     <h2 className="block">PET</h2>
@@ -122,12 +122,12 @@ export default function SostenibilidadPage() {
                     <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
                     </div>
-                    {/* Textilia — 40% más grande */}
-                    <div className="w-52 sm:w-60 h-28 sm:h-32 flex items-center justify-center">
+                    {/* Textilia — 15% más grande desde estado actual */}
+                    <div className="w-60 sm:w-72 h-32 sm:h-36 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
-                    {/* Protela — 40% más grande */}
-                    <div className="w-52 sm:w-60 h-28 sm:h-32 flex items-center justify-center">
+                    {/* Protela — 50% más grande desde estado actual */}
+                    <div className="w-80 sm:w-[22rem] h-44 sm:h-48 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>

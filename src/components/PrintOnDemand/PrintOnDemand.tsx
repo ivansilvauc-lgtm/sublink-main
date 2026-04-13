@@ -34,8 +34,11 @@ export const PrintOnDemandSection = () => {
 
         {/* Left: Text content */}
         <div>
+          <span className="text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-3 block">
+            Sublimación Digital
+          </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
-            no estás solo,<br />te acompañamos en este proceso
+            Estampa tus diseños<br />en cualquier tela
           </h2>
 
           <ul className="space-y-3 mb-6">
