@@ -10,10 +10,10 @@ import AutoScroll from 'embla-carousel-auto-scroll';
 // To remove SUTEX and greentex: delete their numbers from the numbered list below
 // (Ivan: open the folder logos-clientes, check which .svg files match those logos)
 const NUMBERED_LOGOS = [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,49,50];
-const NAMED_LOGOS = ["ARENA CRISTAL", "DPI"]; // named PNGs/SVGs added to logos-clientes folder
+const NAMED_LOGOS = ["ARENA CRISTAL"]; // named PNGs/SVGs added to logos-clientes folder
 
 // Logos that should render WITHOUT the white box (transparent background, no border)
-const NO_BOX_LOGOS = new Set(["DPI"]);
+const NO_BOX_LOGOS = new Set<string>();
 
 type LogoEntry = { type: "numbered"; n: number } | { type: "named"; name: string };
 
@@ -30,7 +30,6 @@ const slides = allLogos.reduce<LogoEntry[][]>((acc, logo, i) => {
 // Map named logos to their actual filenames (name → full filename with extension)
 const NAMED_LOGO_FILE: Record<string, string> = {
   "ARENA CRISTAL": "ARENA CRISTAL.png",
-  "DPI": "dpi-logo_organized.png",
 };
 
 function logoSrc(entry: LogoEntry): string {

@@ -133,7 +133,7 @@ export default function SostenibilidadPage() {
                         </div>
                         {/* Protela — +50% */}
                         <div className="w-[315px] sm:w-[495px] h-[180px] sm:h-[270px] flex items-center justify-center shrink-0">
-                            <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
+                            <Image src="/img/sostenibilidad/LOGO PROTELA.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                         </div>
                     </div>
                     {/* CTA Telas ECO — alineado verticalmente con Textilia */}

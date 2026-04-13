@@ -6,7 +6,7 @@ const ANNOUNCEMENT = {
   text: "Crepe Doble Importado 10€ !!!",
   link: "",
   linkText: "",
-  active: false, // ← cambiar a false para ocultar la barra
+  active: true, // ← cambiar a false para ocultar la barra
 };
 
 // ✏️ Número de WhatsApp y mensaje del botón CTA
