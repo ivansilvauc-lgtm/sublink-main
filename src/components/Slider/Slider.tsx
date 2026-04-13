@@ -25,7 +25,7 @@ export const Slider = () => {
 
         {/* Slide 2: Acompanamiento - azul Sublink oscuro solido */}
         <div
-          className="min-w-full relative flex items-start justify-center overflow-hidden pt-12"
+          className="min-w-full relative flex items-center justify-center overflow-hidden"
           style={{ background: '#0D5E8C', minHeight: 420 }}
         >
           {/* Imagen a la derecha */}
@@ -39,13 +39,13 @@ export const Slider = () => {
             />
           </div>
 
-          {/* Contenido centrado, mitad superior */}
-          <div className="relative z-20 px-10 md:px-20 max-w-xl text-center">
+          {/* Contenido centrado vertical y horizontal */}
+          <div className="relative z-20 px-10 md:px-20 max-w-xl text-center flex items-center justify-center" style={{ minHeight: 420 }}>
             <h2
               className="leading-tight tracking-tight"
               style={{ fontSize: 'clamp(1.4rem, 3.15vw, 2.8rem)', fontWeight: 800, color: '#BDE8FF' }}
             >
-              NO estas solo, TE acompanamos<br />en todo el proceso.
+              NO estas solo, TE acompañamos<br />en todo el proceso.
             </h2>
           </div>
         </div>

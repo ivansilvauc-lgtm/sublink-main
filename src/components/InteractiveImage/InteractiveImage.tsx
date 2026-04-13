@@ -25,7 +25,7 @@ export const InteractiveImage = () => {
                 </div>
                 <div className="item cojin z-50" style={{ top: '75%', left: '30%' }}>
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
-                        <div className="icon w-3 h-3 rounded-full opacity-80 border border-zinc-50" />
+                        <div className="icon w-5 h-5 rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
                             <h3 className="text-primary">Tela de Toalla</h3>
                         </div>
@@ -33,7 +33,7 @@ export const InteractiveImage = () => {
                 </div>
                 <div className="item cojin" style={{ top: '64%', left: '25%' }}>
                     <Link href="/telas/telas-importadas/lycra-lafayette">
-                        <div className="icon w-3 h-3 rounded-full opacity-80 border border-zinc-50" />
+                        <div className="icon w-5 h-5 rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
                             <h3 className="text-primary">Tela traje de bano</h3>
                         </div>
@@ -41,7 +41,7 @@ export const InteractiveImage = () => {
                 </div>
                 <div className="item trapo" style={{ top: '30%', left: '90%' }}>
                     <Link href="/telas/telas-nacionales/microfibra-nacional">
-                        <div className="icon w-3 h-3 rounded-full opacity-80 border border-zinc-50" />
+                        <div className="icon w-5 h-5 rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
                             <h3 className="text-primary">Tela cortina</h3>
                         </div>
@@ -49,7 +49,7 @@ export const InteractiveImage = () => {
                 </div>
                 <div className="item trapo" style={{ top: '77%', left: '68%' }}>
                     <Link href="/telas/telas-importadas/loneta-soft">
-                        <div className="icon w-3 h-3 rounded-full opacity-80 border border-zinc-50" />
+                        <div className="icon w-5 h-5 rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
                             <h3 className="text-primary">Tela para muebles</h3>
                         </div>

@@ -49,7 +49,7 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
             <section className="py-6 sm:py-10 px-4 sm:px-20 overflow-hidden bg-white">
-                <div className="text-[#619b55] font-bold text-[45px] sm:text-[80px] leading-tight tracking-tight w-full text-left">
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[80px] leading-tight tracking-tight w-full text-center">
                     <span className="block">¿QUÉ SON</span>
                     <h2 className="block">LAS TELAS ECOLÓGICAS?</h2>
                 </div>
@@ -67,17 +67,17 @@ export default function SostenibilidadPage() {
             <section className="py-6 sm:py-10 px-4 sm:px-20 overflow-hidden bg-white">
                 <div className="w-full text-center mb-6">
                     <div className="inline-block">
-                        <span className="block text-[#157ec2] font-black text-[67px] sm:text-[120px] leading-tight tracking-tight underline decoration-double decoration-[#157ec2]">
+                        <span className="block text-[#619b55] font-black text-[47px] sm:text-[84px] leading-tight tracking-tight underline decoration-double decoration-[#619b55]">
                             PORQUE USAR TELAS
                         </span>
-                        <h2 className="block text-[#157ec2] font-black text-[67px] sm:text-[120px] leading-tight tracking-tight underline decoration-double decoration-[#157ec2]">
+                        <h2 className="block text-[#619b55] font-black text-[47px] sm:text-[84px] leading-tight tracking-tight underline decoration-double decoration-[#619b55]">
                             RECICLADAS PET
                         </h2>
                     </div>
                     {/* Flecha interactiva animada */}
                     <div className="flex justify-center mt-4">
                         <div className="animate-bounce flex flex-col items-center gap-1 cursor-default">
-                            <svg className="w-10 h-10 sm:w-14 sm:h-14 text-[#157ec2] drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                            <svg className="w-10 h-10 sm:w-14 sm:h-14 text-[#619b55] drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                             <svg className="w-10 h-10 sm:w-14 sm:h-14 text-[#157ec2] opacity-50 -mt-6 drop-shadow-md" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
@@ -141,12 +141,12 @@ export default function SostenibilidadPage() {
                     <div className="w-28 sm:w-44 h-16 sm:h-24 flex items-center justify-center shrink-0">
                         <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
                     </div>
-                    {/* Textilia — centro */}
-                    <div className="w-48 sm:w-72 h-24 sm:h-36 flex items-center justify-center shrink-0">
+                    {/* Textilia — centro, +20% */}
+                    <div className="w-[230px] sm:w-[346px] h-[115px] sm:h-[173px] flex items-center justify-center shrink-0">
                         <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
-                    {/* Protela — +25% respecto a Lafayette: 28→35 / 44→55 */}
-                    <div className="w-[140px] sm:w-[220px] h-20 sm:h-[120px] flex items-center justify-center shrink-0">
+                    {/* Protela — +50% */}
+                    <div className="w-[210px] sm:w-[330px] h-[120px] sm:h-[180px] flex items-center justify-center shrink-0">
                         <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>
