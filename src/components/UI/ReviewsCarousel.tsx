@@ -96,7 +96,7 @@ export const ReviewsCarousel = () => {
     : RESENAS_FALLBACK.map(r => ({ nombre: r.nombre, rating: r.rating, text: r.text, fecha: r.relative_time_description }));
 
   const rating = data?.rating ?? 5.0;
-  const total  = data?.total  ?? null;
+  const total  = data?.total  ?? 13; // número real de reseñas en Google Business Profile
 
   // Duplicar reseñas para loop continuo visible
   const resenasDuplicadas = [...resenas, ...resenas, ...resenas];

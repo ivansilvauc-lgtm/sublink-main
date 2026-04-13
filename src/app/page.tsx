@@ -24,7 +24,7 @@ export default function Home() {
           {/* Trust signals + CTA */}
           <div className="flex items-center gap-3 flex-shrink-0">
             <span className="hidden md:flex items-center gap-1 text-xs text-zinc-600 font-medium">
-              <span className="text-yellow-400">★★★★★</span> 5.0 · +500 clientes
+              <span className="text-yellow-400">★★★★★</span> 5.0 · 13 reseñas
             </span>
             <a
               href="https://wa.me/584244067274?text=Hola%20Sublink%2C%20quiero%20cotizar%20un%20proyecto%20👋"

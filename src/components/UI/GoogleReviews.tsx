@@ -20,7 +20,7 @@ interface ReviewsData {
 
 // ✏️ EDITAR AQUÍ — actualiza con tu rating real de Google Business Profile
 const GOOGLE_RATING = 5.0;
-const GOOGLE_TOTAL_REVIEWS = 1; // número de reseñas visible en tu perfil
+const GOOGLE_TOTAL_REVIEWS = 13; // número de reseñas visible en tu perfil
 const GOOGLE_REVIEWS_URL = "https://search.google.com/local/reviews?placeid=ChIJd4jZgbDIwigRmh5Ff5t_6e0";
 
 // ─── Badge compacto (ya existente en home) ────────────────────────────────────
