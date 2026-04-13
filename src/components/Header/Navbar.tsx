@@ -80,8 +80,19 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
     handleMenuItems(toggleState);
   }, []);
 
+  // ✏️ Oferta del mes — editar aquí para cambiar el texto del anuncio en el header
+  const ANNOUNCEMENT_TEXT = "Crepe Doble Importado 10€ !!!";
+  const WA_LINK = `https://wa.me/584244067274?text=${encodeURIComponent("Hola Sublink, vengo de la página web 👋")}`;
+
   return (
     <>
+      <style>{`
+        @keyframes blink-nav-announce {
+          0%, 49% { color: #ffffff; }
+          50%, 100% { color: #ef4444; }
+        }
+        .blink-nav-announce { animation: blink-nav-announce 3s step-start infinite; }
+      `}</style>
       <nav className="bg-white shadow-xl relative z-50">
         <div className="mx-auto w-full">
           <div className="flex mx-auto justify-between w-full ">
@@ -113,7 +124,21 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                 </li>
               </ul>
             </div>
-            <div className="flex">
+            <div className="flex items-center">
+              {/* Announcement — desktop only, right side of navbar */}
+              <div className="hidden lg:flex items-center gap-2 pr-6 shrink-0">
+                <span className="bg-zinc-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full blink-nav-announce whitespace-nowrap">
+                  {ANNOUNCEMENT_TEXT}
+                </span>
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-[#25D366] hover:bg-[#1ebe5a] text-white text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap transition-colors"
+                >
+                  Escríbenos
+                </a>
+              </div>
               {/* Mobile navigation toggle */}
               <div className="lg:hidden flex items-center">
                 <Button size="sm" color="light" onClick={() => { setToggleMenu(!toggleMenu) }} className="mr-8 p-0! focus:ring-primary">

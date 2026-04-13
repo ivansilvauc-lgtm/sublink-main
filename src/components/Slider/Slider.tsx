@@ -39,10 +39,10 @@ export const Slider = () => {
             />
           </div>
 
-          {/* Contenido centrado vertical y horizontal */}
-          <div className="relative z-20 px-10 md:px-20 max-w-xl text-center flex items-center justify-center" style={{ minHeight: 420 }}>
+          {/* Contenido — alineado a la izquierda (~40% izquierdo del slide) */}
+          <div className="absolute left-0 top-0 bottom-0 w-[45%] md:w-[40%] flex items-center z-20 pl-8 md:pl-16 lg:pl-24">
             <h2
-              className="leading-tight tracking-tight"
+              className="leading-tight tracking-tight text-left"
               style={{ fontSize: 'clamp(1.4rem, 3.15vw, 2.8rem)', fontWeight: 800, color: '#BDE8FF' }}
             >
               NO estas solo, TE acompañamos<br />en todo el proceso.
