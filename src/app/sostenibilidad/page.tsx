@@ -98,44 +98,65 @@ export default function SostenibilidadPage() {
                     <p className="text-center mt-6 text-zinc-900 font-semibold !mb-0">Descubre cómo podemos ayudarte a transformar tu producción con precisión y eficiencia incomparables.</p>
                 </div>
             </section>
-            {/* Logos proveedores — Textilia en centro, Lafayette y Protela equidistantes, Protela +25% */}
-            <section className="py-10 px-6 sm:px-20">
-                <div className="flex flex-row items-center justify-center gap-10 sm:gap-20 mx-auto w-full">
-                    {/* Lafayette */}
-                    <div className="w-28 sm:w-44 h-16 sm:h-24 flex items-center justify-center shrink-0">
-                        <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
+            {/* Nuestras políticas */}
+            <section className="py-6 sm:py-10 px-4 sm:px-20">
+                <h2 className="text-[#619b55] text-3xl font-black text-center">Nuestras políticas</h2>
+                <div className="mt-6 max-w-4xl mx-auto flex flex-col gap-4 text-base sm:text-xl text-[#535353]">
+                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
+                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Comprometidos con nuestro entorno y nuestros clientes</h3>
+                        <p>Sublink es la primera y única empresa en Venezuela que incluye en su portafolio telas hechas a partir de botellas PET recicladas. El poliéster reciclado da una segunda vida a un material que no es biodegradable y que, de lo contrario, iría al vertedero o al océano.</p>
                     </div>
-                    {/* Textilia — centro, +20% */}
-                    <div className="w-[230px] sm:w-[346px] h-[115px] sm:h-[173px] flex items-center justify-center shrink-0">
-                        <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
+                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
+                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Fábrica por encargo (Print On Demand)</h3>
+                        <p className="mb-3">Nuestro objetivo es minimizar los residuos de tela imprimiendo sólo lo necesario. No mantenemos telas estampadas en existencia. Cuando nos realizas un pedido, fabricamos y enviamos tu tela al instante, reduciendo el consumo energético.</p>
+                        <p>Además, mantenemos nuestra huella de carbono al mínimo, ya que fabricamos todo en una sola instalación. Tus telas se elaboran bajo un solo techo y se envían directamente a ti.</p>
                     </div>
-                    {/* Protela — +50% */}
-                    <div className="w-[315px] sm:w-[495px] h-[180px] sm:h-[270px] flex items-center justify-center shrink-0">
-                        <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
+                    <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-5 shadow-sm">
+                        <h3 className="text-lg sm:text-2xl font-bold text-[#619b55] mb-2">Cero Desperdicio (Zero Waist Policy)</h3>
+                        <p className="mb-3">Minimizamos nuestro impacto ambiental mediante la reducción, reutilización y reciclaje de materiales en cada proceso, comprometiéndonos con un futuro más sostenible.</p>
+                        <p>Hemos reducido nuestros residuos textiles al ofrecer los retazos de las telas de manera gratuita a artesanos, artistas o cualquiera que quiera un reto creativo. Incluso reutilizamos la tela sobrante para otros productos y proyectos.</p>
                     </div>
                 </div>
             </section>
-            {/* CTA Telas ECO */}
-            <section className="py-8 px-6 bg-[#f2f8ee]">
-                <div className="max-w-2xl mx-auto text-center flex flex-col items-center gap-6">
-                    <span className="inline-block bg-[#619b55]/15 text-[#619b55] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Telas Ecológicas</span>
-                    <h2 className="text-3xl sm:text-4xl font-bold text-[#2d5a1e] leading-tight">
-                        ¿Listo para apostar por la moda sostenible?
-                    </h2>
-                    <p className="text-zinc-600 text-lg max-w-xl">
-                        Cotiza tu proyecto con nuestras telas ECO hechas de PET reciclado. Calidad premium, huella mínima.
-                    </p>
-                    <a
-                        href={`https://wa.me/584244067274?text=${encodeURIComponent('Hola Sublink! Me interesa cotizar un proyecto con telas ECO (sostenibles). ¿Pueden ayudarme? 🌱')}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-3 bg-[#619b55] hover:bg-[#4d7d42] text-white font-bold py-4 px-10 rounded-2xl transition-colors text-lg shadow-lg shadow-green-900/20"
-                    >
-                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 shrink-0">
-                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-                        </svg>
-                        Cotizar tela ECO
-                    </a>
+            {/* Logos proveedores + CTA Telas ECO — lado a lado en desktop, Textilia alineada con badge */}
+            <section className="py-10 px-6 sm:px-20 bg-[#f2f8ee]">
+                <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-start gap-12 lg:gap-16">
+                    {/* Logos — distancia horizontal equidistante entre los tres */}
+                    <div className="flex flex-row flex-wrap items-center justify-evenly gap-8 sm:gap-12 flex-1">
+                        {/* Lafayette */}
+                        <div className="w-28 sm:w-44 h-16 sm:h-24 flex items-center justify-center shrink-0">
+                            <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
+                        </div>
+                        {/* Textilia */}
+                        <div className="w-[230px] sm:w-[346px] h-[115px] sm:h-[173px] flex items-center justify-center shrink-0">
+                            <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
+                        </div>
+                        {/* Protela — +50% */}
+                        <div className="w-[315px] sm:w-[495px] h-[180px] sm:h-[270px] flex items-center justify-center shrink-0">
+                            <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
+                        </div>
+                    </div>
+                    {/* CTA Telas ECO — alineado verticalmente con Textilia */}
+                    <div className="flex flex-col items-center lg:items-start text-center lg:text-left gap-6 lg:w-[360px] shrink-0">
+                        <span className="inline-block bg-[#619b55]/15 text-[#619b55] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">Telas Ecológicas</span>
+                        <h2 className="text-3xl sm:text-4xl font-bold text-[#2d5a1e] leading-tight">
+                            ¿Listo para apostar por la moda sostenible?
+                        </h2>
+                        <p className="text-zinc-600 text-lg">
+                            Cotiza tu proyecto con nuestras telas ECO hechas de PET reciclado. Calidad premium, huella mínima.
+                        </p>
+                        <a
+                            href={`https://wa.me/584244067274?text=${encodeURIComponent('Hola Sublink! Me interesa cotizar un proyecto con telas ECO (sostenibles). ¿Pueden ayudarme? 🌱')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-3 bg-[#619b55] hover:bg-[#4d7d42] text-white font-bold py-4 px-10 rounded-2xl transition-colors text-lg shadow-lg shadow-green-900/20"
+                        >
+                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 shrink-0">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                            Cotizar tela ECO
+                        </a>
+                    </div>
                 </div>
             </section>
 
