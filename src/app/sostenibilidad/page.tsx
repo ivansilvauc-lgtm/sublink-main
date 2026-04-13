@@ -164,3 +164,5 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
         </main>
+    );
+}
