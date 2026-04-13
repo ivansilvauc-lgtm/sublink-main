@@ -7,14 +7,11 @@ export const InteractiveImage = () => {
         <div className="w-full m-auto">
             <div className="relative max-w-full h-full top-0 hidden md:block">
                 <Image src="/img/imagen-interactiva-final.webp" width={1920} height={830} alt="Imagen de chica en una sala con objectos flotantes y la playa de fondo" />
-                {/* Overlay texto central */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                    <p className="text-center font-extrabold text-2xl sm:text-4xl text-gray-900 tracking-tight drop-shadow-sm px-4" style={{ textShadow: '0 2px 8px rgba(255,255,255,0.7)' }}>
-                        Toca la Tela que más te guste
+                {/* Overlay texto — arriba centrado */}
+                <div className="absolute inset-0 flex flex-col items-center justify-start pt-[5cm] z-20 pointer-events-none">
+                    <p className="text-center font-black uppercase text-2xl sm:text-3xl text-gray-900 tracking-tight drop-shadow-sm px-4" style={{ textShadow: '0 2px 8px rgba(255,255,255,0.7)' }}>
+                        Click en la Tela de la Imagen
                     </p>
-                    <svg className="w-10 h-10 mt-4 text-[#157ec2] animate-bounce drop-shadow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
                 </div>
                 <div className="item cojin z-50" style={{ top: '75%', left: '30%' }}>
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
@@ -51,14 +48,11 @@ export const InteractiveImage = () => {
             </div>
             <div className="relative max-w-full h-full top-0 block md:hidden">
                 <Image src="/img/imagen-interactiva-final-mobile.webp" width={950} height={980} alt="Imagen de sala con objectos flotantes" priority />
-                {/* Overlay texto central — mobile */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none">
-                    <p className="text-center font-extrabold text-xl text-gray-900 tracking-tight px-4" style={{ textShadow: '0 2px 8px rgba(255,255,255,0.7)' }}>
-                        Toca la Tela que más te guste
+                {/* Overlay texto — arriba centrado — mobile */}
+                <div className="absolute inset-0 flex flex-col items-center justify-start pt-[3cm] z-20 pointer-events-none">
+                    <p className="text-center font-black uppercase text-lg text-gray-900 tracking-tight px-4" style={{ textShadow: '0 2px 8px rgba(255,255,255,0.7)' }}>
+                        Click en la Tela de la Imagen
                     </p>
-                    <svg className="w-8 h-8 mt-3 text-[#157ec2] animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
-                    </svg>
                 </div>
                 <div className="item cojin z-40" style={{ top: '54%', left: '48%' }}>
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
@@ -84,7 +78,7 @@ export const InteractiveImage = () => {
                         </div>
                     </Link>
                 </div>
-                <div className="item trapo z-50" style={{ top: '77%', left: '68%' }}>
+                <div className="item trapo" style={{ top: '62%', left: '68%' }}>
                     <Link href="/telas/telas-importadas/loneta-soft">
                         <div className="icon w-8 h-8 rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
@@ -94,5 +88,5 @@ export const InteractiveImage = () => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
