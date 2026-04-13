@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
           height: 630,
         },
       ],
-      locale: 'es_ES',
+      locale: 'es_VE',
       type: 'website',
     },
   }

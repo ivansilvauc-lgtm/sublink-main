@@ -31,8 +31,6 @@ const inter = Inter({
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
 }
 
 export const metadata: Metadata = {
@@ -52,7 +50,7 @@ export const metadata: Metadata = {
   publisher: 'Sublink',
   openGraph: {
     title: 'Sublink | Estampados y Sublimación Textil Venezuela',
-    description: 'Personalizamos +40 tipos de telas que tenemos disponibles, a través de la tecnología de Sublimación Textil Continua, con máquinas que permiten estampar el ancho de las telas en su totalidad, desde un metro hasta un rollo completo!.',
+    description: "Sublimación textil continua en Venezuela. +40 tipos de telas desde 1 metro. Estampados, DTF, corte láser, vinil textil y etiquetas. Valencia, Carabobo.",
     url: SUBLINK_URL,
     siteName: 'Sublink Company',
     images: [
@@ -63,7 +61,7 @@ export const metadata: Metadata = {
         height: 630,
       },
     ],
-    locale: 'es_ES',
+    locale: 'es_VE',
     type: 'website',
   },
   twitter: {
@@ -131,7 +129,7 @@ export default function RootLayout({
     name: 'Cómo se fabrican las telas de poliéster reciclado — Sublink',
     description: 'Descubre cómo Sublink elabora sus telas de poliéster reciclado a partir de botellas PET. Proceso de fabricación de telas ecológicas en Venezuela.',
     thumbnailUrl: `${SUBLINK_URL}/img/reciclaje/fondo-cielo.webp`,
-    uploadDate: '2023-01-01',
+    uploadDate: '2024-06-01',
     embedUrl: 'https://www.youtube.com/embed/lMJXxhRFO2k',
     url: 'https://www.youtube.com/watch?v=lMJXxhRFO2k',
     publisher: {

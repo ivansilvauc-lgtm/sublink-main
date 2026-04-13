@@ -18,6 +18,15 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
     title: seoTitle,
     description: tela?.descripcion ?? '',
     category: "Tela",
+    keywords: tela ? [
+      tela.nombre,
+      `${tela.nombre} Venezuela`,
+      `tela ${tela.nombre.toLowerCase()} sublimación`,
+      "telas para sublimación Venezuela",
+      "telas Valencia Venezuela",
+      "sublimación textil",
+      tela.composition ?? '',
+    ].filter(Boolean) : [],
     alternates: {
       canonical: SUBLINK_URL + "/telas/" + tela?.categoria_slug + "/" + tela?.slug,
     },

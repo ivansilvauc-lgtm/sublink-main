@@ -29,7 +29,7 @@ export const Ofrecemos = () => {
                         <div className="flex mt-3 ml-2 sm:mt-8 sm:ml-6 md:ml-4 xl:ml-10 space-x-1.5 sm:space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-1 sm:mt-2" />
                             <div>
-                                <h2 className="font-bold text-zinc-50 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">TELAS</h2>
+                                <h2 className="font-bold text-zinc-900 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">TELAS</h2>
                             </div>
                         </div>
                         <ModalComponent list={telas.filter((tela) => tela.categoria_slug !== "telas-ecologicas")} label={"Telas"} />
@@ -46,8 +46,8 @@ export const Ofrecemos = () => {
                         <div className="flex mt-3 ml-2 sm:mt-8 sm:ml-6 md:ml-4 xl:ml-10 space-x-1.5 sm:space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-1 sm:mt-2" />
                             <div>
-                                <h2 className="font-bold text-zinc-50 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">SERV.</h2>
-                                <h3 className="font-bold text-zinc-50 text-xs sm:text-xl md:text-2xl xl:text-4xl tracking-tighter leading-tight">TEXTIL</h3>
+                                <h2 className="font-bold text-zinc-900 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">SERV.</h2>
+                                <h3 className="font-bold text-zinc-900 text-xs sm:text-xl md:text-2xl xl:text-4xl tracking-tighter leading-tight">TEXTIL</h3>
                             </div>
                         </div>
                     </div>
@@ -64,8 +64,8 @@ export const Ofrecemos = () => {
                         <div className="flex mt-3 ml-2 sm:mt-8 sm:ml-6 md:ml-4 xl:ml-10 space-x-1.5 sm:space-x-3">
                             <div className="w-[2px] h-auto bg-primary mt-1 sm:mt-2" />
                             <div>
-                                <h2 className="font-bold text-zinc-50 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">TELAS</h2>
-                                <h3 className="font-bold text-zinc-50 text-xs sm:text-xl md:text-2xl xl:text-4xl tracking-tighter leading-tight">ECO</h3>
+                                <h2 className="font-bold text-zinc-900 text-sm sm:text-2xl md:text-3xl xl:text-4xl tracking-tighter leading-tight">TELAS</h2>
+                                <h3 className="font-bold text-zinc-900 text-xs sm:text-xl md:text-2xl xl:text-4xl tracking-tighter leading-tight">ECO</h3>
                             </div>
                         </div>
                     </div>
