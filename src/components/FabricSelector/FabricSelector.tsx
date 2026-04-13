@@ -180,11 +180,14 @@ export const FabricSelector = () => {
           <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-3">
             Encuentra tu tela ideal
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
             ¿Qué vas a confeccionar?
           </h2>
           <p className="text-gray-500 mt-3 max-w-lg mx-auto text-sm">
             Selecciona el tipo de prenda y te mostramos las telas que tenemos para ese uso.
+          </p>
+          <p className="text-center font-black text-base text-[#157ec2] mt-4 tracking-wide">
+            Click en la Tela de la Imagen
           </p>
         </div>
 

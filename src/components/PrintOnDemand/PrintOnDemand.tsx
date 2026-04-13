@@ -29,16 +29,13 @@ export const PrintOnDemandSection = () => {
   }, []);
 
   return (
-    <section className="w-full bg-white py-10 md:py-14 px-4">
+    <section id="print-on-demand" className="w-full bg-white py-10 md:py-14 px-4">
       <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center">
 
         {/* Left: Text content */}
         <div>
-          <span className="inline-block text-xs font-bold uppercase tracking-widest text-[#157ec2] mb-4">
-            Sublimación Digital
-          </span>
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
-            Estampa tus diseños<br />en cualquier tela
+            no estás solo,<br />te acompañamos en este proceso
           </h2>
 
           <ul className="space-y-3 mb-6">

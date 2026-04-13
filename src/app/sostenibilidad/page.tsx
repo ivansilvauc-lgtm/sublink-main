@@ -35,7 +35,8 @@ export default function SostenibilidadPage() {
     return (
         <main className="sostenibilidad-bg pt-20 overflow-x-hidden">
             <h1 className="sr-only">Telas Ecológicas y Sostenibilidad Textil — Sublink Company, Valencia Venezuela</h1>
-            <section className="relative h-[560px] sm:h-[700px]">
+            {/* Hero con animaciones — overflow-hidden evita que las letras grandes se solapen */}
+            <section className="relative overflow-hidden" style={{ minHeight: 560 }}>
                 <div className="absolute w-full sm:w-[45%] opacity-80 h-auto -top-6 left-0">
                     <Image src="/img/sostenibilidad/vector-hojas.webp" alt="Sostenibilidad" width={1618} height={1343} className="object-cover" />
                 </div>
@@ -45,9 +46,9 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
             <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
-                    <span>¿QUÉ SON</span>
-                    <h2>LAS TELAS ECOLÓGICAS?</h2>
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-tight tracking-tight w-full text-left">
+                    <span className="block">¿QUÉ SON</span>
+                    <h2 className="block">LAS TELAS ECOLÓGICAS?</h2>
                 </div>
                 <div className="mt-6 max-w-4xl mx-auto">
                     <div className="bg-white border border-[#c5ddb8] rounded-2xl px-6 py-6 shadow-sm text-base sm:text-xl [&>p]:mb-4 text-[#535353]">
@@ -61,10 +62,10 @@ export default function SostenibilidadPage() {
                 </div>
             </section>
             <section className="py-6 sm:py-10 px-4 sm:px-20">
-                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-none tracking-tight w-full text-left">
-                    <span>PORQUE USAR</span>
-                    <h2>TELAS RECICLADAS</h2>
-                    <h2>PET</h2>
+                <div className="text-[#619b55] font-bold text-[45px] sm:text-[110px] leading-tight tracking-tight w-full text-left">
+                    <span className="block">PORQUE USAR</span>
+                    <h2 className="block">TELAS RECICLADAS</h2>
+                    <h2 className="block">PET</h2>
                 </div>
                 <div className="mt-6 max-w-4xl mx-auto grid sm:grid-cols-2 gap-4 text-base sm:text-xl text-[#535353]">
                     <div className="bg-white border border-[#c5ddb8] rounded-2xl px-5 py-5 shadow-sm">
@@ -85,18 +86,7 @@ export default function SostenibilidadPage() {
                     </div>
                 </div>
             </section>
-            <section className="h-72 sm:h-[380px] bg-[#a2c0c2] w-full">
-                <div className="w-full sm:w-[50%] relative h-full mx-auto" >
-                    <iframe
-                        className="absolute top-0 left-0 w-full h-full"
-                        src="https://www.youtube.com/embed/0lTb4e28IMU"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                        loading="lazy"
-                        title="Proceso de fabricación de telas ecológicas recicladas - Sublink"
-                    ></iframe>
-                </div>
-            </section>
+            {/* Video eliminado por solicitud del usuario */}
             <section className="py-6 sm:py-10 px-4 sm:px-20">
                 <h2 className="text-[#619b55] text-3xl font-black">SOSTENIBILIDAD</h2>
                 <div className="mt-6 max-w-4xl mx-auto bg-white border border-[#c5ddb8] rounded-2xl px-6 py-6 shadow-sm text-base sm:text-xl text-[#535353] [&>p]:mb-4">
@@ -125,15 +115,19 @@ export default function SostenibilidadPage() {
                     </div>
                 </div>
             </section>
+            {/* Logos proveedores — Textilia y Protela 40% más grandes */}
             <section className="py-10 px-6 sm:px-20">
                 <div className="flex flex-row items-center justify-center mx-auto gap-8 sm:gap-12">
+                    {/* Lafayette — tamaño original */}
                     <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-lafayette.png" alt="Logo Lafayette - proveedor de materiales textiles" width={640} height={240} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
+                    {/* Textilia — 40% más grande */}
+                    <div className="w-52 sm:w-60 h-28 sm:h-32 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-textilia-clean.png" alt="Logo Textilia - proveedor de materiales textiles" width={224} height={224} className="w-full h-full object-contain" />
                     </div>
-                    <div className="w-36 sm:w-44 h-20 sm:h-24 flex items-center justify-center">
+                    {/* Protela — 40% más grande */}
+                    <div className="w-52 sm:w-60 h-28 sm:h-32 flex items-center justify-center">
                         <Image src="/img/sostenibilidad/logo-protela.png" alt="Logo Protela - proveedor de materiales textiles" width={490} height={143} className="w-full h-full object-contain" />
                     </div>
                 </div>
@@ -168,10 +162,8 @@ export default function SostenibilidadPage() {
                 </div>
                 <div className="absolute w-[95%] sm:w-[45%] h-auto left-0 bottom-0 ml-0 sm:ml-20">
                     <SublinkLogo />
-                    {/* <Image src="/logo-sublink.svg" alt="logo-empresa-sublink" width={1280} height={850} className="object-cover" /> */}
                 </div>
             </section>
         </main>
     )
 }
-

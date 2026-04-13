@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { InteractiveImage } from '../InteractiveImage/InteractiveImage';
@@ -11,10 +11,7 @@ export const Slider = () => {
   const next = useCallback(() => setCurrent(c => (c + 1) % SLIDES), []);
   const prev = useCallback(() => setCurrent(c => (c - 1 + SLIDES) % SLIDES), []);
 
-  useEffect(() => {
-    const t = setInterval(next, 6500);
-    return () => clearInterval(t);
-  }, [next]);
+  // Sin autoplay — solo se mueve con las flechas
 
   return (
     <div className="w-full mt-14 relative overflow-hidden">
@@ -28,12 +25,12 @@ export const Slider = () => {
           <InteractiveImage />
         </div>
 
-        {/* ── Slide 2: Impresión textil — azul celeste sólido ── */}
+        {/* ── Slide 2: Impresión textil — azul claro sólido ── */}
         <div
           className="min-w-full relative flex items-center overflow-hidden"
-          style={{ background: '#00AAEB', minHeight: 420 }}
+          style={{ background: '#E8F5FC', minHeight: 420 }}
         >
-          {/* Imagen a la derecha, sin blend */}
+          {/* Imagen a la derecha */}
           <div className="absolute right-0 top-0 bottom-0 w-1/2 md:w-[55%]">
             <Image
               src="/img/ofrecemos/impresion-textil-1126250.webp"
@@ -44,32 +41,33 @@ export const Slider = () => {
             />
           </div>
 
-          {/* Gradiente que funde la imagen hacia el fondo azul */}
+          {/* Gradiente que funde la imagen hacia el fondo azul claro */}
           <div
             className="absolute inset-0 z-10"
             style={{
               background:
-                'linear-gradient(to right, #00AAEB 0%, #00AAEB 42%, rgba(0,170,235,0.85) 55%, rgba(0,170,235,0.3) 75%, transparent 100%)',
+                'linear-gradient(to right, #E8F5FC 0%, #E8F5FC 42%, rgba(232,245,252,0.9) 55%, rgba(232,245,252,0.4) 75%, transparent 100%)',
             }}
           />
 
           {/* Contenido */}
           <div className="relative z-20 px-10 md:px-20 py-16 max-w-lg">
             <h2
-              className="text-white leading-tight tracking-tight"
-              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)', fontWeight: 300 }}
+              className="leading-tight tracking-tight"
+              style={{ fontSize: 'clamp(2.4rem, 5vw, 4.5rem)', fontWeight: 700, color: '#1270A8' }}
             >
               Impresión<br />textil
             </h2>
-            <p className="text-white/80 text-lg md:text-xl mt-3 font-light">
-              Colores que fascinan
+            <p className="text-lg md:text-xl mt-3 font-semibold" style={{ color: '#157ec2' }}>
+              Colores EPSON que te van a fascinar
             </p>
-            <Link
-              href="/telas"
-              className="mt-6 inline-flex items-center gap-2 text-white font-medium text-base hover:gap-4 transition-all duration-200"
+            <a
+              href="#print-on-demand"
+              className="mt-6 inline-flex items-center font-bold text-sm tracking-wide px-7 py-3.5 rounded-full transition-all duration-200 hover:opacity-90 hover:scale-105"
+              style={{ background: '#157ec2', color: '#fff' }}
             >
-              Comenzar a diseñar <span className="text-xl">→</span>
-            </Link>
+              DISEÑA CONMIGO
+            </a>
           </div>
         </div>
       </div>
@@ -82,7 +80,7 @@ export const Slider = () => {
             onClick={() => setCurrent(i)}
             aria-label={`Slide ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
-              i === current ? 'w-6 h-2 bg-white' : 'w-2 h-2 bg-white/50'
+              i === current ? 'w-6 h-2 bg-[#157ec2]' : 'w-2 h-2 bg-[#157ec2]/40'
             }`}
           />
         ))}
