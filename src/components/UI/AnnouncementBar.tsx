@@ -27,7 +27,7 @@ export const AnnouncementBar = () => {
           animation: blink-announcement 3s step-start infinite;
         }
       `}</style>
-    <div className="fixed top-0 left-0 w-full bg-zinc-900 text-white text-sm py-2 px-4 flex items-center justify-center z-[60] relative">
+    <div className="fixed top-0 left-0 w-full bg-zinc-900 text-white text-sm py-2 px-4 flex items-center justify-center z-[60]">
       {/* Centro — texto de la oferta (perfectamente centrado) */}
       <span className="font-semibold text-center announcement-blink">
         {ANNOUNCEMENT.text}
@@ -46,7 +46,7 @@ export const AnnouncementBar = () => {
         href={`https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`}
         target="_blank"
         rel="noopener noreferrer"
-        className="absolute right-4 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5a] transition-colors text-white rounded-full w-7 h-7"
+        className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center bg-[#25D366] hover:bg-[#1ebe5a] transition-colors text-white rounded-full w-7 h-7"
         aria-label="Contactar por WhatsApp"
       >
         <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">

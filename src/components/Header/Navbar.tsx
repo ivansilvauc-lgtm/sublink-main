@@ -103,8 +103,9 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                 <li>
                   <Link className={`antialiased hover:text-lime-400 cursor-pointer text-lime-500`} href={"/sostenibilidad"}>SOSTENIBILIDAD</Link>
                 </li>
-                <li>
-                  <Link className={`antialiased hover:text-primary cursor-pointer text-gray-700`} href={"/blog"}>BLOG</Link>
+                <li className="flex items-center gap-1">
+                  <span className="antialiased text-gray-400 cursor-not-allowed select-none">BLOG</span>
+                  <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
                 </li>
                 <li className="flex items-center gap-1">
                   <span className="antialiased text-gray-400 cursor-not-allowed select-none">MEMBERSHIP</span>
