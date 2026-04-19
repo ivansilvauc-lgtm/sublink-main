@@ -41,8 +41,10 @@ src/
 │   ├── api/                # API routes for backend functionality
 │   │   ├── reviews/        # Google Places reviews endpoint
 │   │   │   └── route.ts    # GET async handler: Fetches business reviews from Google Places API. PLACE_ID: ChIJd4jZgbDIwigRmh5Ff5t_6e0 (Sublink Valencia). revalidate: 3600 (ISR, 1 hour). Constructs Google Maps API URL with fields (name, rating, user_ratings_total, reviews, language=es), returns {name, rating, total: user_ratings_total, reviews: slice(0, 5)}. Error handling: validates GOOGLE_PLACES_API_KEY env var, fetch error → NextResponse.json {error, detail: String(err)} status 500
-│   │   └── competidores/   # Competitor market analysis endpoint
-│   │       └── route.ts    # GET: analyzes all COMPETIDORES in parallel (array: telasvenezuela.com, sublimacionvenezuela.com, extensible) or searches web (modo=buscar query param, default "proveedor telas sublimación textil Venezuela precio", limit 5). Returns {fecha, competidores: InfoCompetidor[], total} or {query, resultados: ResultadoScrape[]}. POST: single URL analysis with body {url, nombre?}, returns {fecha, resultado: InfoCompetidor}. Uses analizarCompetidor/buscarProveedores from @/lib/firecrawl. Error handling: catch → NextResponse.json {error, detalle: String(err)}
+│   │   ├── competidores/   # Competitor market analysis endpoint
+│   │   │   └── route.ts    # GET: analyzes all COMPETIDORES in parallel (array: telasvenezuela.com, sublimacionvenezuela.com, extensible) or searches web (modo=buscar query param, default "proveedor telas sublimación textil Venezuela precio", limit 5). Returns {fecha, competidores: InfoCompetidor[], total} or {query, resultados: ResultadoScrape[]}. POST: single URL analysis with body {url, nombre?}, returns {fecha, resultado: InfoCompetidor}. Uses analizarCompetidor/buscarProveedores from @/lib/firecrawl. Error handling: catch → NextResponse.json {error, detalle: String(err)}
+│   │   └── bcv-rate/       # BCV/EUR currency rate endpoint (NEW)
+│   │       └── route.ts    # GET: EUR→VES live exchange rate with 8 ordered fallback sources. revalidate: 1800 (30 min ISR). CORS: Access-Control-Allow-Origin: * (open, for cross-origin access from standalone tools). OPTIONS handler for preflight. Sources tried in order: (1) cdn.jsdelivr.net/@fawazahmed0/currency-api (primary), (2) latest.currency-api.pages.dev (fawazahmed0 fallback), (3) api.yadio.io/rate/EUR/VES (Venezuelan specialist), (4) api.yadio.io/exrates/EUR, (5) open.er-api.com/v6/latest/EUR (no auth), (6) api.exchangerate-api.com/v4/latest/EUR, (7) ve.dolarapi.com/v1/dolares (Venezuelan array format, finds EUR by moneda/nombre), (8) pydolarve.pythonanywhere.com/api/v1/dollar?page=bcv. Returns: {rate: number, source: string} or error 500. Used by: sublink-cotizador and other standalone tools for live BCV currency conversion. Note: Unlike other /api/* routes (restricted to sublink.company), bcv-rate uses open CORS (*) intentionally
 │   ├── layout.tsx          # Root layout: Poppins font (weights: 200, 300, 400, 600, 700, 800, 900; styles: normal, italic; display: swap), Inter font (secondary), exportedMetadata with metadataBase URL, title template "Sublink | %s", description, keywords array, canonical alternate, robots "index, follow", creator/publisher. Viewport: device-width, initialScale 1, maximumScale 1, userScalable false. JSON-LD LocalBusiness schema (name, url, logo, image, description, telephone, email, address with coordinates, openingHoursSpecification Mon-Fri 08:30-16:30, areaServed array, contactPoint). JSON-LD VideoObject schema for YouTube embed (lMJXxhRFO2k). Analytics: Vercel Analytics + Google Analytics (gaId: G-FQ4RY25W5X). Layout structure: AnnouncementBar > Header > MiniPop > {children} > Suspense(Video) > PreFooter > Footer > ChatbotWidget (floating, always visible z-50). Container: max-w-[1920px] mx-auto
 │   ├── page.tsx            # Home page: Server component with semantic h1 (w-full text-center text-sm font-medium text-zinc-500 px-4 pt-[72px] pb-1 tracking-wide) "Sublimación Textil y Telas en Venezuela — Sublink Company, Valencia" for SEO. Component sequence: Slider > IconBar > FabricSelector > PrintOnDemandSection > Estampacion > Ofrecemos > VideoReciclar > Counter (blue stats bar before customers) > LogoCarousel > ReviewsCarousel
 │   ├── robots.ts           # Robots metadata
@@ -775,6 +777,22 @@ Key configuration:
     - Productos: /tela|sublimación|algodón|poliéster|spandex|licra|confección|metros|rollo/i (slice 15 lines)
     - Precios: /precio|bs|bolívar|dólar|\$|usd|tarifa|costo/i (slice 10 lines)
     - Ubicación: /valencia|caracas|maracay|venezuela|dirección|zona/i (slice 5 lines)
+- **GET /api/bcv-rate** (`src/app/api/bcv-rate/route.ts`):
+  - Purpose: Live EUR→VES exchange rate for BCV currency conversion, used by cotizador and standalone tools
+  - Revalidation: `export const revalidate = 1800` (30 min ISR)
+  - CORS: `Access-Control-Allow-Origin: *` (open, intentionally different from other /api/* routes which restrict to sublink.company)
+  - OPTIONS handler: Returns 204 with CORS headers for preflight requests
+  - Fallback chain (8 sources tried in order, first successful wins):
+    1. `cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/eur.json` → `d.eur.ves`
+    2. `latest.currency-api.pages.dev/v1/currencies/eur.json` → `d.eur.ves` (fawazahmed0 mirror)
+    3. `api.yadio.io/rate/EUR/VES` → `d.rate` (Venezuelan rates specialist)
+    4. `api.yadio.io/exrates/EUR` → `d.rates.VES`
+    5. `open.er-api.com/v6/latest/EUR` → `d.rates.VES` (public, no auth)
+    6. `api.exchangerate-api.com/v4/latest/EUR` → `d.rates.VES`
+    7. `ve.dolarapi.com/v1/dolares` → array find by moneda/nombre === 'eur'/'euro'/'euros', returns `.promedio`
+    8. `pydolarve.pythonanywhere.com/api/v1/dollar?page=bcv` → `d.EUR.price`
+  - Returns: `{ rate: number, source: string }` on success, 500 on all sources failing
+  - No environment variables required (all sources are public APIs)
 
 ### CLI Scripts & Tools
 - **`scripts/monitoreo-precios.ts`** (`npx ts-node --skip-project scripts/monitoreo-precios.ts`):
@@ -1969,7 +1987,7 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
     - Purpose: Baseline for comparison with active development branch
   - **Additional Assets**:
     - SEO Report: `/mnt/sublink-main/SEO-REPORT-2026-04-12.md` (audit findings and recommendations)
-    - Middleware: `/mnt/sublink-main/src/middleware.ts` (request handling)
+    - Middleware: `/mnt/sublink-main/src/middleware.ts` — redirects ALL `/blog` and `/blog/:path*` routes to home (`/`). Matcher: `['/blog', '/blog/:path*']`. Blog code is complete but not publicly accessible.
     - Zoho verification: `public/zoho-domain-verification-34797655.html`
 - **Memory Consolidation Results**:
   - All 61 valid dirty-files processed successfully
@@ -2275,5 +2293,29 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
   - Production deployment state stable and fully verified
   - Git lock cleanup documented for automatic execution via SubagentStop hook
 - **Final Status**: Memory processor complete, CLAUDE.md fully synchronized with 64 consolidated files as of 2026-04-14 20:30 UTC, all infrastructure patterns validated, production deployment verified stable
+
+## Session Updates (2026-04-18 - Memory Processor Run)
+- **Type**: Automated memory processor invocation for dirty-files consolidation
+- **Dirty-Files Analysis**:
+  - Total entries: 80 lines in `.claude/auto-memory/dirty-files`
+  - Valid file paths extracted: 65 real files (after filtering 15 shell/lock artifacts)
+  - Shell artifacts filtered: 15 lines (echo, rm, 2>/dev/null;, "locks removed", "cleaned", "mi-clon", root directory markers, redirection operators)
+  - Git infrastructure cleanup: 8 stale lock files identified
+    - Root: `.git/index.lock`, `.git/objects/e2/tmp_obj_L0nun0`
+    - Sublink-main: `.git/index.lock`, `.git/.lock`, `.git/objects/maintenance.lock`, `.git/refs/heads/main.lock`
+    - Sublink-extractorcolores: `.git/HEAD.lock`, `.git/index.lock`
+- **Files Categorized** (65 valid):
+  - Sublink-main project: 44 files (same set as prior sessions — config, pages, components, lib, API routes, middleware, assets)
+  - Chatbot project: 7 files (chat components, lib/constants.ts, lib/ai/prompts.ts, lib/ai/models.ts)
+  - Standalone HTML tools: 5 files (calculadora, cotizador, guiatelas, extractorcolores, crearunprint)
+  - Sublink-clean reference: 8 files (baseline copies)
+  - Python utility: benson_hero_gen.py (already documented)
+- **Verification Results**:
+  - **No breaking changes**: All 65 files verified, infrastructure stable, zero regressions
+  - **API Routes**: bcv-rate open CORS (*) confirmed intentional; all other /api/* routes restricted to sublink.company
+  - **Middleware**: src/middleware.ts redirects /blog and /blog/:path* to home — blog code complete but not publicly accessible
+  - **Standalone tools**: All 5 HTML tools production-ready
+  - **Components**: All documented implementations remain valid
+- **Memory Status**: All AUTO-MANAGED sections remain accurate. Production deployment state stable as of 2026-04-18.
 
 <!-- END MANUAL -->
