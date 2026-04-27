@@ -791,7 +791,8 @@ Key configuration:
     6. `api.exchangerate-api.com/v4/latest/EUR` → `d.rates.VES`
     7. `ve.dolarapi.com/v1/dolares` → array find by moneda/nombre === 'eur'/'euro'/'euros', returns `.promedio`
     8. `pydolarve.pythonanywhere.com/api/v1/dollar?page=bcv` → `d.EUR.price`
-  - Returns: `{ rate: number, source: string }` on success, 500 on all sources failing
+    9. Hardcoded fallback: `FALLBACK_RATE = 560.04863251` — returned when all 8 sources fail; response includes `warning: 'Tasa de respaldo — verificar en bcv.org.ve'`; Cache-Control: `public, max-age=300` (5 min, shorter than normal 1800); source field: `'fallback-bcv'`
+  - Returns: `{ rate: number, source: string }` always — never returns error 500 (9th hardcoded fallback guarantees a response)
   - No environment variables required (all sources are public APIs)
 
 ### CLI Scripts & Tools
@@ -1534,7 +1535,7 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
 - **Repository**: github.com/ivansilvauc-lgtm
 - **CSS**: Tailwind
 
-### Vercel Projects (as of 2026-04-08)
+### Vercel Projects (as of 2026-04-26)
 | Proyecto | Dominio | Estado |
 |----------|---------|--------|
 | sublink-main | sublink.company | Activo |
@@ -1543,6 +1544,7 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
 | sublink-guiatelas | guiatelas.sublink.company | Activo |
 | sublink-extractorcolores | colores.sublink.company | Activo |
 | sublink-crearunprint | print.sublink.company | Activo |
+| sublink-colecciones | — | Nuevo (sin deploy asignado aún) |
 | ganaconsublink | gana.sublink.company | Activo |
 | chatbot | — | Sin deploy |
 | slack-agent-template | — | Sin deploy |
@@ -2317,5 +2319,46 @@ Recent changes focused on SEO optimization, component fixes, and project infrast
   - **Standalone tools**: All 5 HTML tools production-ready
   - **Components**: All documented implementations remain valid
 - **Memory Status**: All AUTO-MANAGED sections remain accurate. Production deployment state stable as of 2026-04-18.
+
+## Session Updates (2026-04-26 - Memory Processor Run)
+- **Type**: Automated memory processor invocation for dirty-files consolidation
+- **Dirty-Files Analysis**:
+  - Total entries: 80 lines in `.claude/auto-memory/dirty-files`
+  - Valid file paths extracted: 65 real files (after filtering 15 shell/lock artifacts)
+  - Shell artifacts filtered: echo, rm, 2>/dev/null;, "locks removed", "cleaned", "mi-clon", root directory markers
+  - Git infrastructure cleanup: 8 stale lock files identified (same set as prior sessions)
+- **New Finding Documented**:
+  - **bcv-rate route (`src/app/api/bcv-rate/route.ts`) — Hardcoded fallback added**:
+    - After all 8 API sources fail, now returns `FALLBACK_RATE = 560.04863251` instead of error 500
+    - Response shape on fallback: `{ rate: 560.04863251, source: 'fallback-bcv', warning: 'Tasa de respaldo — verificar en bcv.org.ve' }`
+    - Fallback Cache-Control: `public, max-age=300` (5 min vs normal 1800 for live rates)
+    - Route now NEVER returns error 500 — always returns a rate value
+- **All Other Files**: Consistent with prior documented state, zero breaking changes detected
+- **Updated Section**: API Routes > GET /api/bcv-rate in sublink-main/CLAUDE.md
+- **Memory Status**: Production deployment state stable as of 2026-04-26
+
+## Session Updates (2026-04-26 - New Tool: sublink-colecciones)
+- **Type**: Automated memory processor — new standalone tool detected and documented
+- **Dirty-Files Analysis**:
+  - Total entries: 81 lines in `.claude/auto-memory/dirty-files`
+  - Valid file paths extracted: ~65 real files (after filtering ~16 shell/lock artifacts)
+  - Shell artifacts filtered: echo, rm, 2>/dev/null;, "locks removed", "cleaned", "mi-clon", root directory markers
+  - Git infrastructure cleanup: 8 stale lock files identified (same set as prior sessions)
+- **NEW TOOL DOCUMENTED: sublink-colecciones/index.html**
+  - Title: "Sublink Colecciones – Lanzadera de Paleta"
+  - Purpose: Textile collection design wizard (3-step: palette → moodboard → 2D mockup)
+  - Architecture: Single HTML file, embedded CSS + JavaScript, no backend required
+  - Fonts: Playfair Display + Montserrat (same as extractorcolores)
+  - Analytics: Vercel Insights via `/_vercel/insights/script.js`
+  - Branding: SUBLINK navy header, WhatsApp CTA to wa.me/584244067274
+  - **Step 1 – Paleta**: Collection name/season inputs (live preview), base color picker (native + HEX synced), 6 chromatic harmony modes (Complementaria, Análoga, Triádica, Monocromática, Split-comp., Cuadrada), generated palette strip (pal-chip 36×36px), Pantone card visualization (pantone-card 156px / main-card 188px), preset SUTEX inspiration palettes, export to image (card + full palette)
+  - **Step 2 – Moodboard**: Drag-and-drop multi-image upload (JPG/PNG/WEBP ≤20MB), image grid display with remove-on-hover, automatic color extraction from uploaded images, up to 4 colors selectable for palette, live mini-preview canvas (240×180px), moodboard export, "Usar esta paleta" applies extracted colors to other steps
+  - **Step 3 – Mockup 2D**: Garment type grid selector (2 columns with emoji), print/design upload (JPG/PNG/SVG ≤15MB), garment background color from Step 1 palette, print scale slider (10–120), print position toggle, Canvas-based 2D mockup rendering, mockup export, "💬 Sublimar con Sublink" WhatsApp CTA
+  - **CSS tokens**: --blue (#1789C4), --bdk (#0D6A9A), --blt (#E8F5FC), --bmd (#C8E8F7), --navy (#0D2E5A), --g9/g7/g5/g2/g1, --wht, --bdr
+  - **JS functions**: goStep(n), onPickerChange/onHexInput (color sync), setHarmony(mode), updatePreview(), exportCard/exportFullPalette, mbAddFiles/mbDrop/mbDragOver/mbDragLeave, exportMoodboard(), useMbColors(), printDropHandler/loadPrint, drawMockup(), exportMockup(), togglePrintPos()
+  - **Related**: shares Pantone card design patterns with sublink-extractorcolores; shares WhatsApp number with all standalone tools; references SUTEX catalog inspiration folder
+  - Vercel Projects table updated: sublink-colecciones added (no domain assigned yet)
+- **All Other Files**: Consistent with prior documented state, zero breaking changes
+- **Memory Status**: Production deployment state stable as of 2026-04-26
 
 <!-- END MANUAL -->
