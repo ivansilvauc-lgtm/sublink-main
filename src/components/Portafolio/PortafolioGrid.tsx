@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import { buildWhatsAppUrl, trackWhatsAppClick } from "@/lib/whatsapp";
 
 type Proyecto = {
   id: number;
@@ -35,7 +36,8 @@ export function PortafolioGrid({ proyectos }: { proyectos: Proyecto[] }) {
 
   const handleWhatsApp = (titulo: string) => {
     const mensaje = `Hola Sublink, vi su portafolio y me interesa un proyecto similar a "${titulo}"`;
-    const enlace = `https://wa.me/584244067274?text=${encodeURIComponent(mensaje)}`;
+    const enlace = buildWhatsAppUrl(mensaje, "portafolio");
+    trackWhatsAppClick("portafolio");
     window.open(enlace, "_blank");
   };
 

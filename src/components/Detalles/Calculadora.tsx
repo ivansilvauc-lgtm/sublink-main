@@ -1,6 +1,7 @@
 "use client"
 import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
+import { WhatsAppLink } from '@/components/UI/WhatsAppLink';
 
 export const Calculadora = ({ precio, nombreTela }: { precio: number, nombreTela: string }) => {
 
@@ -99,7 +100,11 @@ export const Calculadora = ({ precio, nombreTela }: { precio: number, nombreTela
 
             <div className="flex flex-row justify-between items-start mt-3 gap-3">
                 <p className="text-xs">*Precio basado en el tiempo de producción</p>
-                <a href={`https://api.whatsapp.com/send/?phone=584244067274&text=${encodeURIComponent(`¡Hola! Me gustaría comprar ${metrosTela ? `${metrosTela}mts de tela`:"" }: ${nombreTela}`)}&type=phone_number&app_absent=0`} target="_blank" rel="noopener" className="bg-[#0082c9] text-white py-1 px-10 rounded-lg font-semibold">Comprar</a>
+                <WhatsAppLink
+                    message={`¡Hola! Me gustaría comprar ${metrosTela ? `${metrosTela}mts de tela` : ""}: ${nombreTela}`}
+                    source="tela-detalle"
+                    className="bg-[#0082c9] text-white py-1 px-10 rounded-lg font-semibold"
+                >Comprar</WhatsAppLink>
             </div>
         </div>
     )
