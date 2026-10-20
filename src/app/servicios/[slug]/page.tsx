@@ -64,9 +64,48 @@ export default function ServicioPage({ params }: { params: { slug: string } }) {
     ],
   };
 
+  // Service schema — habilita rich snippet con proveedor, área de servicio y descripción
+  const serviceJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: servicio.title,
+    description: servicio.metaDescription ?? servicio.description,
+    url: `${SUBLINK_URL}/servicios/${servicio.slug}`,
+    image: `${SUBLINK_URL}${servicio.equipment_image}`,
+    serviceType: servicio.title,
+    provider: {
+      '@type': 'LocalBusiness',
+      name: 'Sublink Company',
+      url: SUBLINK_URL,
+      telephone: '+58-424-4067274',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Av. 137, CC Imperial II 3-08, Piso 3',
+        addressLocality: 'Valencia',
+        addressRegion: 'Carabobo',
+        addressCountry: 'VE',
+      },
+    },
+    areaServed: [
+      { '@type': 'City', name: 'Valencia' },
+      { '@type': 'State', name: 'Carabobo' },
+      { '@type': 'Country', name: 'Venezuela' },
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: `Ventajas de ${servicio.title}`,
+      itemListElement: servicio.advantages.map((v, i) => ({
+        '@type': 'Offer',
+        position: i + 1,
+        itemOffered: { '@type': 'Service', name: v },
+      })),
+    },
+  };
+
   return (
     <main className="min-h-screen mt-40 mx-auto mb-20">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd) }} />
       <div className="flex flex-col lg:flex-row w-full 2xl:max-w-[1920px] mx-auto items-center justify-center px-12 lg:px-24 mb-0 gap-x-4 2xl:gap-x-0">
         <div className="basis-full flex flex-col justify-center items-center lg:items-center text-center lg:text-left">
           <h1 className={`${servicio?.title.length > 16 ? "text-4xl sm:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl" : "text-4xl sm:text-6xl lg:text-6xl xl:text-7xl 2xl:text-[84px]"} text-primary font-bold drop-shadow-sm leading-none tracking-tight `}>{servicio.title}</h1>

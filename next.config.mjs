@@ -7,6 +7,35 @@ const nextConfig = {
         serverComponentsExternalPackages: ['@mendable/firecrawl-js', 'undici'],
     },
 
+    // OPCIÓN A — Dominios secundarios redirigen a sublink.company (308 permanent).
+    // Preserva el SEO acumulado del dominio canónico y protege la marca "textil".
+    // IMPORTANTE: también hay que añadir sublinktextil.com como dominio en Vercel
+    // (Settings → Domains → Add). Vercel lo apuntará a este proyecto y los redirects
+    // se aplicarán por el matcher `has.host` de abajo.
+    async redirects() {
+        return [
+            {
+                source: '/:path*',
+                has: [{ type: 'host', value: 'sublinktextil.com' }],
+                destination: 'https://www.sublink.company/:path*',
+                permanent: true,
+            },
+            {
+                source: '/:path*',
+                has: [{ type: 'host', value: 'www.sublinktextil.com' }],
+                destination: 'https://www.sublink.company/:path*',
+                permanent: true,
+            },
+            // Canonicalización: sublink.company (sin www) → www.sublink.company
+            {
+                source: '/:path*',
+                has: [{ type: 'host', value: 'sublink.company' }],
+                destination: 'https://www.sublink.company/:path*',
+                permanent: true,
+            },
+        ];
+    },
+
     images: {
         remotePatterns: [
           {
