@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
   
   const tela: ITela | undefined = telas.find(tela => tela.slug === params.slug[1]);
   
-  const seoTitle = tela ? `${tela.nombre} — Tela para Sublimación Venezuela` : '';
+  const seoTitle = tela ? `${tela.nombre} — Tela para Sublimación Venezuela | Sublink` : '';
   return {
     title: seoTitle,
     description: tela?.descripcion ?? '',
@@ -45,6 +45,12 @@ export async function generateMetadata({ params }: { params: { slug: string[] } 
       ],
       locale: 'es_VE',
       type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: tela?.descripcion ?? '',
+      images: tela?.imagen_zoom ? [`${SUBLINK_URL}${tela.imagen_zoom}`] : [`${SUBLINK_URL}/opengraph-image.jpg`],
     },
   }
 }

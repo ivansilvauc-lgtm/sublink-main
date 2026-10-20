@@ -12,6 +12,7 @@ import { SUBLINK_URL } from "@/lib/constant";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ChatbotWidget } from "@/components/UI/ChatbotWidget";
+import { FAQ_ITEMS } from "@/lib/faq";
 import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
 
 const poppins = Poppins({
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SUBLINK_URL),
   title: {
     default: 'Sublink | Estampados y Sublimación Textil Venezuela',
-    template: `Sublink | %s`,
+    template: `%s`,
   },
   description: "Sublimación textil continua en Venezuela. +40 tipos de telas desde 1 metro. Estampados, DTF, corte láser, vinil textil y etiquetas. Valencia, Carabobo.",
   keywords: ["telas", "sublimacion", "estampados", "sublimacion textil", "sublimacion continua", "sublimacion digital", "sublimacion por rollo", "sublimacion por metro", "sublimacion venezuela", "sublimacion textil venezuela", "estampados venezuela"],
@@ -145,56 +146,11 @@ export default function RootLayout({
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: '¿Qué es la sublimación textil y en qué telas funciona?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'La sublimación textil es un proceso de impresión donde la tinta pasa de sólido a gas al calentarse, fundiéndose directamente con la fibra de la tela. Funciona exclusivamente en telas con alto contenido de poliéster (recomendado 100%). En Sublink trabajamos con más de 40 tipos de telas aptas para sublimación: lycras, chiffons, microfibras, telas ecológicas de botellas PET recicladas y más.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Cuál es la cantidad mínima para pedir sublimación en Sublink?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'En Sublink puedes solicitar desde 1 metro de tela sublimada. No tenemos mínimo de producción, lo que nos hace ideales para marcas emergentes, prototipos, muestras y producciones pequeñas o medianas.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Dónde está ubicada Sublink Company?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sublink está ubicada en Valencia, estado Carabobo, Venezuela — Av. 137, CC Imperial II, piso 3, local 3-08. Trabajamos con clientes de toda Venezuela y gestionamos envíos nacionales.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Qué diferencia hay entre sublimación, DTF y vinil textil?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'La sublimación se funde con la fibra del poliéster y es permanente, sin textura al tacto; solo funciona en claros. El DTF (Direct to Film) imprime sobre un film con tinta y adhesivo que se aplica por calor sobre cualquier tela y cualquier color, con muy alta durabilidad. El vinil textil es un material plano precortado que se adhiere con calor, ideal para diseños simples y colores sólidos.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Cuánto tarda un pedido de sublimación en Sublink?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Los tiempos dependen del volumen y del servicio. Para DTF formato A4 o tabloide ofrecemos entrega express en 1 hora. Para sublimación textil continua, los pedidos pequeños suelen entregarse en 24-72 horas hábiles. Para producciones grandes coordinamos un cronograma al momento de confirmar.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: '¿Sublink ofrece telas ecológicas o recicladas?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Sí. Sublink fue la primera empresa en Venezuela en ofrecer telas hechas con poliéster reciclado proveniente de botellas PET. Nuestras líneas ecológicas incluyen Chiffon Eco, Lycra Ecológica, Toalla Microfibra reciclada y más, con certificaciones de origen reciclado.',
-        },
-      },
-    ],
+    mainEntity: FAQ_ITEMS.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
   };
 
   return (

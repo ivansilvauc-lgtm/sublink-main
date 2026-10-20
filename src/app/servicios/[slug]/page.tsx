@@ -35,6 +35,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       locale: 'es_VE',
       type: 'website',
     },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: seoDescription,
+      images: servicio?.equipment_image ? [`${SUBLINK_URL}${servicio.equipment_image}`] : [`${SUBLINK_URL}/opengraph-image.jpg`],
+    },
   }
 }
 

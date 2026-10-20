@@ -19,7 +19,7 @@ export default async function sitemap():Promise<MetadataRoute.Sitemap> {
         priority: 0.6
     }))
 
-    const serviciosEntries: MetadataRoute.Sitemap = servicios?.map((servicio: IServicios) => ({
+    const serviciosEntries: MetadataRoute.Sitemap = servicios?.filter((s: IServicios) => s.visible !== false).map((servicio: IServicios) => ({
         url: `${SUBLINK_URL}/servicios/${servicio?.slug}`,
         changeFrequency: 'monthly',
         lastModified: now,
