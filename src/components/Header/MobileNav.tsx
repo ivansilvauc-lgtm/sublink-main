@@ -195,6 +195,10 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                                 <MobileLink key={servicio.slug} path={`servicios`} slug={servicio.slug} label={servicio.title} handleItemClick={handleItemClick} />
                                             ))
                                         }
+                                        <li className="flex items-center gap-1.5 px-4 py-1">
+                                            <span className="text-gray-400 cursor-not-allowed select-none text-sm">Servicio de Costura</span>
+                                            <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

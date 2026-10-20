@@ -222,8 +222,9 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
               <li >
                 <Link href={`/servicios/etiquetas-nylon-y-silicon-monocromaticas`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Etiquetas Nylon y Silicon Monocromáticas (Resina Negra)</Link>
               </li>
-              <li >
-                <Link href={`/servicios/servicio-de-costura`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Servicio de Costura</Link>
+              <li className="flex items-center gap-1.5">
+                <span className="text-gray-400 cursor-not-allowed select-none">Servicio de Costura</span>
+                <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
               </li>
             </ul>
             <div className="absolute bottom-5 right-5">
