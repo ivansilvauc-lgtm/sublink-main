@@ -153,34 +153,7 @@ export const servicios: IServicios[] = [
         doit: "¡Mejora significativamente la percepción de tu producto y fortalece la relación con tus clientes con nuestras etiquetas personalizadas!"      
     },
     {
-        slug: "vinil-textil",
-        title: "Vinil Textil",
-        subtitle: "",
-        equipment_image:"/img/servicios/2.webp",
-        results_image:"/img/servicios/colocacion-de-texto-en-vinil-textil-de-diferentes-colores-sobre-tela-negra.webp",
-        results_image_alt: "Colocación de texto en vinil textil de diferentes colores sobre tela negra",
-        metaTitle: "Vinil Textil para Personalización de Prendas Venezuela | Sublink",
-        metaDescription: "Servicio de vinil textil termoadhesivo en Venezuela. Colores especiales, reflectivos, metalizados y glow in the dark para personalizar prendas. Valencia.",
-        keywords: ["vinil textil venezuela", "htv venezuela", "vinil transfer textil", "personalizar prendas vinil venezuela", "vinil textil sublink"],
-        description: "El vinil textil de corte es una lámina termoadhesiva, perfecta para aplicar diseños personalizados sobre diferentes tejidos. Está disponible en una amplia variedad de colores, acabados y texturas, lo que permite una amplia gama de aplicaciones creativas y comerciales.",
-        details: [
-            "Esta técnica es muy usada para personalizar prendas ya confeccionadas, y además es sumamente versátil, ya que provee colores y texturas que no pueden lograrse con las tintas convencionales de DTF y Sublimación.",
-            "Este material, también conocido como vinil de transferencia térmica (HTV por sus siglas en inglés), se debe cortar con un plotter para crear tus diseños, y se adhiere a las telas mediante el uso de una plancha de calor.",
-        ],
-        advantages: [
-            "Amplia variedad de acabados.",
-            "Es un material de alta durabilidad (50 lavados).",
-            "Se puede colocar en textiles de algodón, poliéster, jeans y ropa de trabajo.",
-            "Ideal usar para logos a un color para fácil aplicación.",  
-        ],
-        sublink: [
-            "En Sublink tenemos una gran variedad de viniles textiles para aplicación térmica de texturas y colores especiales, reflectivos, glow in the dark, metalizados, entre otros.",
-        ],
-        doit: "¡Utiliza esta poderosa y versátil técnica para la personalización de tus prendas y accesorios para realzar tus prendas!"
-    },
-    {
         slug: "servicio-de-costura",
-        visible: false,
         title: "Servicio de Costura",
         subtitle: "",
         equipment_image: "/img/servicios/6.webp",

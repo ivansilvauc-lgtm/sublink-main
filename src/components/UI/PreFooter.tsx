@@ -2,6 +2,7 @@
 import Link from "next/link";
 
 // ── CTA de agendamiento de llamada ───────────────────────────────────────────
+// ⚠️ TODO: link reportado como caído. Actualizar al nuevo slug de Cal.com cuando esté listo.
 const CAL_LINK =
   "https://cal.com/ivan-silva-qa8jpy/15min?utm_source=sublink.company&utm_medium=web&utm_campaign=prefooter";
 

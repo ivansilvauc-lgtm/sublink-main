@@ -580,34 +580,6 @@ export const telas: ITela[] = [
         imagen_zoom: "/img/telas/telas-nacionales/microfibra-nacional-zoom.webp",
     },
     {
-        nombre: 'Minimat',
-        categoria: 'Telas Nacionales',
-        categoria_slug: 'telas-nacionales',
-        slug: 'minimat',
-        descripcion: 'Es una tela de tejido de canasta que tiene múltiples usos. Es una opción popular para la confección de prendas formales y de trabajo, así como para prendas casuales y de moda urbana que necesitan versatilidad. Entre los usos más comunes de esta tela podemos encontrar: pantalones, manteles, servilletas, birretes, togas, entre otros. Podría decirse que es un tejido similar a la gabardina, pero su peso y tacto son diferentes.',
-        composition: '100% Poliester',
-        ancho: 1.47,
-        peso: 180,
-        precio: 13,
-        usos: 'Mantelería, uniformes, delantales.',
-        tejido: 'Plano',
-        rotacion: 'No',
-        base_ecologica: 'No',
-        imagenes: [
-            "/img/telas/telas-nacionales/minimat-1.webp",
-        ],
-        iconos: [
-            Iconos.HomeDecor,
-            Iconos.Resistente,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TN008",
-        caracteristicas: "Microfibra",
-        imagen_zoom: "/img/telas/telas-nacionales/minimat-zoom.webp",
-    },
-    {
         nombre: 'Muselina',
         categoria: 'Telas Nacionales',
         categoria_slug: 'telas-nacionales',
@@ -658,31 +630,6 @@ export const telas: ITela[] = [
             '#f1f1f1'
         ],
         id: "TN010",
-        caracteristicas: "Lycra",
-        imagen_zoom: "/img/telas/telas-nacionales/lycra-everlast-zoom.webp",
-    },
-    {
-        nombre: 'Lycra Eternity',
-        categoria: 'Telas Nacionales',
-        categoria_slug: 'telas-nacionales',
-        slug: 'lycra-eternity',
-        descripcion: 'Es ideal para trajes de baños, se considera no muy pesada y tiene un ligero acabado con brillo. Es una buena alternativa para las marcas que desean una licra de precio accesible, sin comprometer la calidad.',
-        composition: '87% Poliester/13% Elastano',
-        ancho: 1.48,
-        peso: 190,
-        precio: 18,
-        usos: 'Trajes de baño.',
-        tejido: 'Punto',
-        rotacion: 'No',
-        base_ecologica: 'No',
-        imagenes: [],
-        iconos: [
-            Iconos.FourWayStretch,
-        ],
-        colors: [
-            '#f1f1f1'
-        ],
-        id: "TN011",
         caracteristicas: "Lycra",
         imagen_zoom: "/img/telas/telas-nacionales/lycra-everlast-zoom.webp",
     },

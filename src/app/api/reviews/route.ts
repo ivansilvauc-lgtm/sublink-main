@@ -30,7 +30,8 @@ export async function GET() {
       name: data.result.name,
       rating: data.result.rating ?? null,
       total: data.result.user_ratings_total ?? null,
-      reviews: (data.result.reviews ?? []).slice(0, 5),
+      // Google Places API legacy returns max 5 reviews. Component supplements with curated.
+      reviews: data.result.reviews ?? [],
     });
   } catch (err) {
     return NextResponse.json({ error: "Error al obtener reseñas", detail: String(err) }, { status: 500 });

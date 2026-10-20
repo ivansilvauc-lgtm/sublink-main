@@ -5,8 +5,8 @@ export const InteractiveImage = () => {
 
     return (
         <div className="w-full m-auto">
-            <div className="relative max-w-full h-full top-0 hidden md:block">
-                <Image src="/img/imagen-interactiva-final.webp" width={1920} height={830} alt="Imagen de chica en una sala con objectos flotantes y la playa de fondo" />
+            <div className="relative w-full h-full top-0 hidden md:block">
+                <Image src="/img/imagen-interactiva-final.webp" width={1920} height={830} alt="Imagen de chica en una sala con objectos flotantes y la playa de fondo" className="w-full h-auto" priority />
                 {/* Overlay texto -- arriba centrado */}
                 <div className="absolute inset-0 flex flex-col items-center justify-start pt-[2.5cm] z-20 pointer-events-none">
                     <span className="inline-block bg-[#157ec2]/10 text-[#157ec2] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full"

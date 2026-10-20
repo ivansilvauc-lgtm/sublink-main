@@ -5,12 +5,18 @@ import useEmblaCarousel from 'embla-carousel-react'
 import AutoScroll from 'embla-carousel-auto-scroll';
 
 // ── Logo list ─────────────────────────────────────────────────────────────────
-// Numbered logos: /assets/logos-clientes/[n].svg
-// Named logos: /assets/logos-clientes/[name].svg
-// To remove SUTEX and greentex: delete their numbers from the numbered list below
-// (Ivan: open the folder logos-clientes, check which .svg files match those logos)
-const NUMBERED_LOGOS = [1,2,3,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,49,50];
+// Numbered logos: /assets/logos-clientes/[n].svg (default ext = svg)
+// For a different extension, add to NUMBERED_LOGO_EXT below.
+// Named logos: /assets/logos-clientes/[name].svg (or override via NAMED_LOGO_FILE)
+// To remove a client: delete the number from NUMBERED_LOGOS below.
+// 2026-10-20: removed 3 (Locos de Viaje duplicado), added 51 (MARNIE Swimwear, PNG)
+const NUMBERED_LOGOS = [1,2,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,49,50,51];
 const NAMED_LOGOS = ["ARENA CRISTAL"]; // named PNGs/SVGs added to logos-clientes folder
+
+// Override extension for specific numbered logos (default = svg)
+const NUMBERED_LOGO_EXT: Record<number, string> = {
+  51: "png", // MARNIE Swimwear
+};
 
 // Logos that should render WITHOUT the white box (transparent background, no border)
 const NO_BOX_LOGOS = new Set<string>();
@@ -33,7 +39,10 @@ const NAMED_LOGO_FILE: Record<string, string> = {
 };
 
 function logoSrc(entry: LogoEntry): string {
-  if (entry.type === "numbered") return `/assets/logos-clientes/${entry.n}.svg`;
+  if (entry.type === "numbered") {
+    const ext = NUMBERED_LOGO_EXT[entry.n] ?? "svg";
+    return `/assets/logos-clientes/${entry.n}.${ext}`;
+  }
   const file = NAMED_LOGO_FILE[entry.name] ?? `${entry.name}.svg`;
   return `/assets/logos-clientes/${file}`;
 }

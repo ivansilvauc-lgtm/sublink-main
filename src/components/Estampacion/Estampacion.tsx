@@ -85,7 +85,7 @@ export const Estampacion = () => {
             {/* CTA post-slider */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-2 mb-6 px-4">
                 <Link
-                    href="/servicios"
+                    href="https://www.sublink.company/servicios"
                     className="inline-flex items-center gap-2 bg-primary hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-full transition-all duration-200 text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5"
                 >
                     Ver todos nuestros servicios →

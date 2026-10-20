@@ -104,6 +104,10 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                             </Link>
                         </li>
                         <li className="flex justify-center items-center gap-2 px-5 py-3 opacity-50">
+                            <p className="antialiased text-gray-400 text-2xl cursor-not-allowed select-none">ACADEMY</p>
+                            <span className="text-[10px] font-bold uppercase bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full tracking-wide">Bloqueado</span>
+                        </li>
+                        <li className="flex justify-center items-center gap-2 px-5 py-3 opacity-50">
                             <p className="antialiased text-gray-400 text-2xl cursor-not-allowed select-none">MEMBERSHIP</p>
                             <span className="text-[10px] font-bold uppercase bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full tracking-wide">Pronto</span>
                         </li>
@@ -191,10 +195,6 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                                 <MobileLink key={servicio.slug} path={`servicios`} slug={servicio.slug} label={servicio.title} handleItemClick={handleItemClick} />
                                             ))
                                         }
-                                        <li className="flex items-center gap-1.5 px-4 py-1">
-                                            <span className="text-gray-400 cursor-not-allowed select-none text-sm">Servicio de Costura</span>
-                                            <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>

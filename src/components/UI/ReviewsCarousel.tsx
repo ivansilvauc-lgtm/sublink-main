@@ -85,15 +85,26 @@ export const ReviewsCarousel = () => {
       });
   }, []);
 
-  // Normalizar reseñas para el render
-  const resenas = data?.reviews?.length
+  // Combinar reseñas de la API con curadas (Google API legacy max 5 reviews).
+  // Ivan: añade más entradas a RESENAS_FALLBACK copiando textos reales del Google Business Profile.
+  const reviewsApi = data?.reviews?.length
     ? data.reviews.map((r: GoogleReview) => ({
         nombre: r.author_name,
         rating: r.rating,
         text: r.text,
         fecha: r.relative_time_description,
       }))
-    : RESENAS_FALLBACK.map(r => ({ nombre: r.nombre, rating: r.rating, text: r.text, fecha: r.relative_time_description }));
+    : [];
+  const curadas = RESENAS_FALLBACK.map(r => ({
+    nombre: r.nombre, rating: r.rating, text: r.text, fecha: r.relative_time_description,
+  }));
+  const seen = new Set<string>();
+  const resenas = [...reviewsApi, ...curadas].filter(r => {
+    const key = `${r.nombre}::${(r.text || "").slice(0, 30)}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
 
   const rating = data?.rating ?? 5.0;
   const total  = data?.total  ?? 13; // número real de reseñas en Google Business Profile

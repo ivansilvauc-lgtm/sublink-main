@@ -99,7 +99,6 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
     { nombre: "Loneta IMP 600D", slug: "loneta-imp-600d", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-imp-600d-zoom.webp",  usos: "Tapicería, toldos, muebles", tag: "Resistente" },
     { nombre: "Loneta Soft",     slug: "loneta-soft",     categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-soft-zoom.webp",      usos: "Tapicería, morralería",      tag: "Pet Friendly" },
     { nombre: "Gabardina",       slug: "gabardina",       categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/gabardina-zoom.webp",        usos: "Decoración, cortinas" },
-    { nombre: "Minimat",         slug: "minimat",         categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/minimat-zoom.webp",          usos: "Manteles, tapetes, muebles" },
   ],
   chaqueta: [
     { nombre: "Microfibra Antifluido", slug: "microfibra-antifluido", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/microfibra-antifluido-zoom.webp", usos: "Chaquetas, uniformes", tag: "Antifluido" },
@@ -123,12 +122,10 @@ const fabricsByCategory: Record<CategoryKey, FabricCard[]> = {
     { nombre: "Microfibra Nacional", slug: "microfibra-nacional", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/microfibra-nacional-zoom.webp", usos: "Bolsos, tote bags livianos" },
   ],
   mantel: [
-    { nombre: "Minimat",      slug: "minimat",      categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/minimat-zoom.webp",     usos: "Manteles, servilletas" },
     { nombre: "Gabardina",    slug: "gabardina",    categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/gabardina-zoom.webp",   usos: "Mantelería, decoración" },
     { nombre: "Lino Poliéster", slug: "lino-poliester", categoria_slug: "telas-importadas", imagen: "/img/telas/telas-especiales/lino-poliester-zoom.webp", usos: "Manteles formales" },
   ],
   delantal: [
-    { nombre: "Minimat",           slug: "minimat",           categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/minimat-zoom.webp",                   usos: "Delantales, uniformes" },
     { nombre: "Gabardina",         slug: "gabardina",         categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/gabardina-zoom.webp",                 usos: "Delantales, uniformes" },
     { nombre: "Microfibra Nacional", slug: "microfibra-nacional", categoria_slug: "telas-nacionales", imagen: "/img/telas/telas-nacionales/microfibra-nacional-zoom.webp", usos: "Delantales deportivos" },
     { nombre: "Loneta Soft",       slug: "loneta-soft",       categoria_slug: "telas-importadas", imagen: "/img/telas/telas-importadas/loneta-soft-zoom.webp",               usos: "Delantales, morrales",    tag: "Pet Friendly" },

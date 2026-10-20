@@ -108,6 +108,10 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                   <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
                 </li>
                 <li className="flex items-center gap-1">
+                  <span className="antialiased text-gray-400 cursor-not-allowed select-none">ACADEMY</span>
+                  <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Bloqueado</span>
+                </li>
+                <li className="flex items-center gap-1">
                   <span className="antialiased text-gray-400 cursor-not-allowed select-none">MEMBERSHIP</span>
                   <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
                 </li>
@@ -219,11 +223,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                 <Link href={`/servicios/etiquetas-nylon-y-silicon-monocromaticas`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Etiquetas Nylon y Silicon Monocromáticas (Resina Negra)</Link>
               </li>
               <li >
-                <Link href={`/servicios/vinil-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Vinil Textil</Link>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <span className="text-gray-400 cursor-not-allowed select-none">Servicio de Costura</span>
-                <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
+                <Link href={`/servicios/servicio-de-costura`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Servicio de Costura</Link>
               </li>
             </ul>
             <div className="absolute bottom-5 right-5">

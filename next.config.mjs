@@ -1,7 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // Evita que Next.js intente bundlear paquetes Node.js nativos como undici
-    serverExternalPackages: ['@mendable/firecrawl-js', 'undici'],
+    // Evita que Next.js intente bundlear paquetes Node.js nativos como undici.
+    // En Next 14 se llama experimental.serverComponentsExternalPackages
+    // (en Next 15 pasó a ser serverExternalPackages a nivel raíz).
+    experimental: {
+        serverComponentsExternalPackages: ['@mendable/firecrawl-js', 'undici'],
+    },
 
     images: {
         remotePatterns: [

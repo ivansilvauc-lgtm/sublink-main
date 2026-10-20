@@ -33,8 +33,8 @@ export const IconBar = () => {
                     <p className="text-xs sm:text-sm md:text-lg text-zinc-800 mt-1 text-center">Diferentes telas</p>
                 </div>
                 <div>
-                    <Image src="/assets/ecologica.webp" width={120} height={120} alt="Tela ecológica" className="w-16 md:w-24 m-auto" />
-                    <p className="text-xs sm:text-sm md:text-lg text-zinc-800 mt-1 text-center">Tela ecológica</p>
+                    <Image src="/assets/ecologica.webp" width={120} height={120} alt="Telas ecológicas" className="w-16 md:w-24 m-auto" />
+                    <p className="text-xs sm:text-sm md:text-lg text-zinc-800 mt-1 text-center">Telas ecológicas</p>
                 </div>
             </motion.div>
         </section>
