@@ -132,17 +132,13 @@ export default function RootLayout({
   const videoJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
-    name: 'Cómo se fabrican las telas de poliéster reciclado — Sublink',
-    description: 'Descubre cómo Sublink elabora sus telas de poliéster reciclado a partir de botellas PET. Proceso de fabricación de telas ecológicas en Venezuela.',
-    thumbnailUrl: `${SUBLINK_URL}/img/reciclaje/fondo-cielo.webp`,
-    uploadDate: '2024-06-01',
-    embedUrl: 'https://www.youtube.com/embed/lMJXxhRFO2k',
-    url: 'https://www.youtube.com/watch?v=lMJXxhRFO2k',
-    publisher: {
-      '@type': 'Organization',
-      name: 'Sublink Company',
-      logo: { '@type': 'ImageObject', url: `${SUBLINK_URL}/logo-sublink.png` },
-    },
+    name: 'Textiles sostenibles',
+    description: 'Video sobre textiles sostenibles del canal Telas Lafayette.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/Yv-IqBSyaR0/hqdefault.jpg',
+    uploadDate: '2025-07-07',
+    embedUrl: 'https://www.youtube.com/embed/Yv-IqBSyaR0',
+    url: 'https://www.youtube.com/watch?v=Yv-IqBSyaR0',
+    creator: { '@type': 'Organization', name: 'Telas Lafayette' },
   };
 
   // FAQPage schema — las preguntas más buscadas sobre sublimación textil en Venezuela.

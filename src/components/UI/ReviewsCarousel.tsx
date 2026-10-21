@@ -1,7 +1,5 @@
 "use client"
-import { useEffect, useState } from 'react';
-import useEmblaCarousel from 'embla-carousel-react'
-import AutoScroll from 'embla-carousel-auto-scroll';
+import { useEffect, useRef, useState } from 'react';
 
 // Colores de avatar por inicial
 const AVATAR_COLORS: Record<string, string> = {
@@ -66,18 +64,21 @@ const GoogleIcon = () => (
 
 export const ReviewsCarousel = () => {
   const [data, setData] = useState<ReviewsData | null>(null);
-  const [emblaRef] = useEmblaCarousel(
-    { loop: true, align: 'start', dragFree: true },
-    [AutoScroll({ playOnInit: true, speed: 0.88, stopOnInteraction: false })]
-  );
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const pausedUntil = useRef(0);
 
   // Cargar reseñas reales desde Google Places API
   useEffect(() => {
     fetch('/api/reviews')
       .then(res => res.json())
       .then((json) => {
-        if (json.reviews && Array.isArray(json.reviews) && json.reviews.length > 0) {
-          setData({ rating: json.rating, total: json.total, reviews: json.reviews });
+        // Se acepta la respuesta aunque no traiga reseñas: rating y total siguen siendo reales
+        if (json && !json.error) {
+          setData({
+            rating: json.rating ?? null,
+            total: json.total ?? null,
+            reviews: Array.isArray(json.reviews) ? json.reviews : [],
+          });
         }
       })
       .catch(() => {
@@ -96,7 +97,7 @@ export const ReviewsCarousel = () => {
       }))
     : [];
   const curadas = RESENAS_FALLBACK.map(r => ({
-    nombre: r.nombre, rating: r.rating, text: r.text, fecha: r.relative_time_description,
+    nombre: r.nombre, rating: r.rating, text: r.text, fecha: "", // fecha fija obsoleta: no se muestra
   }));
   const seen = new Set<string>();
   const resenas = [...reviewsApi, ...curadas].filter(r => {
@@ -107,10 +108,31 @@ export const ReviewsCarousel = () => {
   });
 
   const rating = data?.rating ?? 5.0;
-  const total  = data?.total  ?? 13; // número real de reseñas en Google Business Profile
+  const total  = data?.total  ?? 26; // respaldo: reseñas actuales en Google (la API lo actualiza)
 
-  // Duplicar reseñas para loop continuo visible
-  const resenasDuplicadas = [...resenas, ...resenas, ...resenas];
+  const CARD = 316; // 300px de tarjeta + 16px de separación
+
+  // Pausa el avance automático cuando la persona interactúa
+  const pausar = (ms: number) => { pausedUntil.current = Date.now() + ms; };
+
+  const mover = (dir: 1 | -1) => {
+    pausar(10000);
+    scrollerRef.current?.scrollBy({ left: dir * CARD, behavior: 'smooth' });
+  };
+
+  // Avance suave; al llegar al final vuelve al inicio. Cada reseña existe UNA sola vez.
+  useEffect(() => {
+    const el = scrollerRef.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const id = window.setInterval(() => {
+      if (Date.now() < pausedUntil.current) return;
+      const alFinal = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+      if (alFinal) el.scrollTo({ left: 0, behavior: 'smooth' });
+      else el.scrollBy({ left: CARD, behavior: 'smooth' });
+    }, 4500);
+    return () => window.clearInterval(id);
+  }, []);
 
   return (
     <section className="w-full pt-10 pb-16 bg-gray-50">
@@ -140,39 +162,57 @@ export const ReviewsCarousel = () => {
         </p>
       </div>
 
-      {/* Carousel */}
-      <div className="pointer-events-none overflow-hidden w-full">
-        <div ref={emblaRef} style={{ overflow: 'hidden' }}>
-          <div style={{ display: 'flex', backfaceVisibility: 'hidden', touchAction: 'pan-y pinch-zoom' }}>
-            {resenasDuplicadas.map((r, i) => {
-              const inicial = (r.nombre?.[0] ?? "S").toUpperCase();
-              return (
-                <div
-                  key={i}
-                  style={{ flex: '0 0 300px', minWidth: 0, paddingLeft: '16px' }}
-                >
-                  <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
-                    {/* Avatar + nombre */}
-                    <div className="flex items-center gap-3 mb-4">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
-                        style={{ backgroundColor: avatarColor(r.nombre) }}
-                      >
-                        {inicial}
-                      </div>
-                      <div>
-                        <p className="font-semibold text-gray-900 text-sm">{r.nombre}</p>
-                        <p className="text-xs text-gray-400">{r.fecha}</p>
-                      </div>
-                      <GoogleIcon />
+      {/* Carousel: finito, deslizable, sin reseñas repetidas */}
+      <div className="relative w-full">
+        <button
+          type="button"
+          aria-label="Reseña anterior"
+          onClick={() => mover(-1)}
+          className="hidden md:flex absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow items-center justify-center text-gray-600 hover:bg-gray-50"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button
+          type="button"
+          aria-label="Reseña siguiente"
+          onClick={() => mover(1)}
+          className="hidden md:flex absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow items-center justify-center text-gray-600 hover:bg-gray-50"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        <div
+          ref={scrollerRef}
+          onPointerDown={() => pausar(10000)}
+          onMouseEnter={() => pausar(8000)}
+          onFocus={() => pausar(10000)}
+          className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          {resenas.map((r) => {
+            const inicial = (r.nombre?.[0] ?? "S").toUpperCase();
+            return (
+              <div key={`${r.nombre}-${(r.text || "").slice(0, 20)}`} className="w-[300px] shrink-0 snap-start">
+                <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
+                  {/* Avatar + nombre */}
+                  <div className="flex items-center gap-3 mb-4">
+                    <div
+                      className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0"
+                      style={{ backgroundColor: avatarColor(r.nombre) }}
+                    >
+                      {inicial}
                     </div>
-                    <Estrellas n={r.rating} />
-                    <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{r.text}&rdquo;</p>
+                    <div>
+                      <p className="font-semibold text-gray-900 text-sm">{r.nombre}</p>
+                      {r.fecha ? <p className="text-xs text-gray-400">{r.fecha}</p> : null}
+                    </div>
+                    <GoogleIcon />
                   </div>
+                  <Estrellas n={r.rating} />
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{r.text}&rdquo;</p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
