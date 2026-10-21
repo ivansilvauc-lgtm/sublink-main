@@ -13,6 +13,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ChatbotWidget } from "@/components/UI/ChatbotWidget";
 import { FAQ_ITEMS } from "@/lib/faq";
+import { MAPS_PLACE_URL } from "@/lib/maps";
 import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
 
 const poppins = Poppins({
@@ -83,7 +84,9 @@ export default function RootLayout({
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: 'Sublink Company',
+    alternateName: 'Sublink Sublimación Textil',
     url: SUBLINK_URL,
+    hasMap: MAPS_PLACE_URL,
     logo: `${SUBLINK_URL}/logo-sublink.png`,
     image: `${SUBLINK_URL}/opengraph-image.jpg`,
     description: 'Empresa líder en sublimación textil, estampados, DTF, corte láser y telas ecológicas en Venezuela.',

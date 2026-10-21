@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { FAQ_ITEMS } from "@/lib/faq";
+import { MAPS_PLACE_URL, MAPS_DIRECTIONS_URL } from "@/lib/maps";
 
 const socialLinks = [
   {
@@ -141,12 +142,20 @@ export const Footer = () => {
 
         {/* Col 2 — Contacto */}
         <div className="flex flex-col gap-3">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Contacto</h4>
+          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Ubicación y contacto</h4>
           <p className="text-sm text-zinc-400 leading-relaxed">
             Av. 137, CC Imperial II 3-08<br />
             Piso 3 (frente CC Galería)<br />
             Valencia, Carabobo, Venezuela
           </p>
+          <div className="flex flex-wrap gap-x-4 gap-y-1">
+            <a href={MAPS_DIRECTIONS_URL} target="_blank" rel="noopener noreferrer" className="text-sm text-white font-semibold hover:underline">
+              Cómo llegar →
+            </a>
+            <a href={MAPS_PLACE_URL} target="_blank" rel="noopener noreferrer" className="text-sm text-zinc-400 hover:text-white transition-colors">
+              Ver en Google Maps
+            </a>
+          </div>
           <a href="tel:+584244067274" className="text-sm text-zinc-400 hover:text-white transition-colors">
             +58 424-4067274
           </a>
