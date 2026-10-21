@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/lib/blog";
 import { SUBLINK_URL } from "@/lib/constant";
+import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
 
 // Importar contenido de artículos
 import TelasTrajes from "../posts/telas-para-trajes-de-bano";
@@ -187,14 +188,13 @@ export default function BlogPostPage({ params }: Props) {
           Nuestro equipo puede asesorarte sobre telas, sublimación o cualquier
           servicio textil.
         </p>
-        <a
-          href="https://wa.me/584162698802?text=Vengo%20de%20la%20Web"
-          target="_blank"
-          rel="noopener noreferrer"
+        <WhatsAppLink
+          message="Hola Sublink, vengo del blog 👋"
+          source="blog"
           className="inline-block bg-white text-blue-600 font-bold px-7 py-3 rounded-full hover:bg-blue-50 transition-colors text-sm"
         >
           Escribir por WhatsApp
-        </a>
+        </WhatsAppLink>
       </div>
 
       {/* JSON-LD Article Schema */}
