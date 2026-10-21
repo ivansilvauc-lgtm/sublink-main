@@ -24,9 +24,45 @@ export type WaSource =
   | "announcement"
   | "servicios_index_cta";
 
-export function buildWhatsAppUrl(message: string, source: WaSource): string {
-  // Append source tag at the end of message (visible to Ivan in WhatsApp)
-  const taggedMessage = `${message} [#${source}]`;
+// ── Atribución de Google Ads ──────────────────────────────────────────────
+// Si el visitante llegó desde un anuncio (gclid / gbraid / wbraid o
+// utm_source=google&utm_medium=cpc), se recuerda durante la sesión del navegador
+// y el mensaje de WhatsApp lleva además la etiqueta [#ads].
+const ADS_KEY = "sl_ads";
+
+export function captureAdsAttribution(): void {
+  if (typeof window === "undefined") return;
+  try {
+    const q = new URLSearchParams(window.location.search);
+    const fromAds =
+      q.has("gclid") ||
+      q.has("gbraid") ||
+      q.has("wbraid") ||
+      (q.get("utm_source") === "google" && q.get("utm_medium") === "cpc");
+    if (fromAds) window.sessionStorage.setItem(ADS_KEY, "1");
+  } catch {
+    /* sessionStorage bloqueado: sin atribución, sin error */
+  }
+}
+
+export function isAdsSession(): boolean {
+  if (typeof window === "undefined") return false;
+  try {
+    return window.sessionStorage.getItem(ADS_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * `withAds` es false por defecto para que el HTML del servidor y el primer render
+ * del cliente coincidan (sin errores de hidratación). Los componentes lo activan
+ * después de montar, o al hacer clic (ver WhatsAppLink / PortafolioGrid).
+ */
+export function buildWhatsAppUrl(message: string, source: WaSource, withAds = false): string {
+  // Etiquetas al final del mensaje (las ve Ivan en WhatsApp)
+  const adsTag = withAds ? " [#ads]" : "";
+  const taggedMessage = `${message} [#${source}]${adsTag}`;
   return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(taggedMessage)}`;
 }
 

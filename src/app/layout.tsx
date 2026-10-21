@@ -12,6 +12,7 @@ import { SUBLINK_URL } from "@/lib/constant";
 import { Analytics } from "@vercel/analytics/react";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { ChatbotWidget } from "@/components/UI/ChatbotWidget";
+import { AdsAttribution } from "@/components/UI/AdsAttribution";
 import { FAQ_ITEMS } from "@/lib/faq";
 import { MAPS_PLACE_URL } from "@/lib/maps";
 import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
@@ -207,6 +208,7 @@ export default function RootLayout({
           </svg>
         </WhatsAppLink>
 
+        <AdsAttribution />
         <Analytics />
         <GoogleAnalytics gaId="G-FQ4RY25W5X" />
       </body>

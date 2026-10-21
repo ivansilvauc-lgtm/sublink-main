@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
-import { buildWhatsAppUrl, trackWhatsAppClick, WaSource } from "@/lib/whatsapp";
+import { ReactNode, useEffect, useState } from "react";
+import { buildWhatsAppUrl, captureAdsAttribution, isAdsSession, trackWhatsAppClick, WaSource } from "@/lib/whatsapp";
 
 interface WhatsAppLinkProps {
   message: string;
@@ -23,9 +23,16 @@ export function WhatsAppLink({
   children,
   "aria-label": ariaLabel,
 }: WhatsAppLinkProps) {
+  // Tras montar (evita desajuste de hidratación) se añade [#ads] si la sesión viene de un anuncio
+  const [fromAds, setFromAds] = useState(false);
+  useEffect(() => {
+    captureAdsAttribution();
+    setFromAds(isAdsSession());
+  }, []);
+
   return (
     <a
-      href={buildWhatsAppUrl(message, source)}
+      href={buildWhatsAppUrl(message, source, fromAds)}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={ariaLabel}
