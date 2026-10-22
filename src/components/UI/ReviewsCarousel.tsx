@@ -19,12 +19,32 @@ function avatarColor(nombre: string): string {
 
 // ── Fallback hardcodeado ─────────────────────────────────────────────────────
 const RESENAS_FALLBACK = [
-  { nombre: "Alfredo Silva",    rating: 5, text: "Increíble calidad en la sublimación. Los colores quedaron exactamente como el diseño original, vivos y duraderos. 100% recomendados.",         relative_time_description: "Hace 1 semana" },
-  { nombre: "Valentina Rojas",  rating: 5, text: "Mandé mis diseños un lunes y el miércoles ya tenía todo listo. Calidad excelente y atención al cliente de primera.",                         relative_time_description: "Hace 2 semanas" },
-  { nombre: "Carlos Medina",    rating: 5, text: "Hicimos los uniformes de nuestro equipo de fútbol y quedaron espectaculares. El sublimado aguantó varios lavados sin perder color.",          relative_time_description: "Hace 3 semanas" },
-  { nombre: "Luisa Fernández",  rating: 5, text: "Pedí telas personalizadas para mi colección y superaron mis expectativas. El proceso fue muy sencillo y el resultado profesional.",           relative_time_description: "Hace 1 mes" },
-  { nombre: "Roberto Díaz",     rating: 5, text: "Excelente servicio. Trabajamos con Sublink para nuestros productos promocionales y siempre entregan con puntualidad y calidad.",             relative_time_description: "Hace 1 mes" },
-  { nombre: "Gabriela Torres",  rating: 5, text: "La mejor empresa de sublimación en Valencia. Los colores son vibrantes, la tela se siente premium. Ya hice mi tercer pedido.",               relative_time_description: "Hace 2 meses" },
+  { nombre: "Chain a la Parrilla Restaurante", rating: 5, text: "Excelente servicio. Calidad y diseños insuperables, en Chain a la Parrilla encontramos en Sublilnk al aliado perfecto. No solo nos fabrican los uniformes del restaurante con una calidad superior, sino que también nos han hecho todo el marketing visual: banderines, toldos personalizados y más. Cada detalle lo entregan impecable, con materiales resistentes y un diseño que realza nuestra marca. 100% recomendados para cualquier negocio que busque calidad y confianza" },
+  { nombre: "Anabela Pantin", rating: 5, text: "Ofrecen una calidad excepcional en sublimación textil y una atención de primera. El equipo es sumamente atento y nos brinda una asesoría excelente de principio a fin. Llevamos más de 5 años de relación comercial y, sin duda, seguiremos confiando en su trabajo." },
+  { nombre: "Katherine Quintero", rating: 5, text: "Excelente calidad en telas y atención impecable. Los materiales superaron mis expectativas en textura, color y durabilidad. Además, el proceso de compra es rápido y eficiente. Sin duda, seguiré trabajando con ellos. 1000/10" },
+  { nombre: "Gabriela Castillo", rating: 5, text: "Agradezco mucho haber coincidido con ustedes de verdad hacen posible todos mis sueños..gracias por formar parte de mis colecciones. 100% recomendados." },
+  { nombre: "eliecer diaz", rating: 5, text: "Excelente calidad en todos sus productos, super puntuales y con muy buena atencion, me gustan  sus diseños y el tiempo de entrega  pero sobre todo la calidad volví por más tengo empleados con uniformes de hasta 3 años y aún se ven bien, recomendado 100%" },
+  { nombre: "Magalis Mavares", rating: 5, text: "Excelente servicio de sublimación y asesoría textil! Graciass a Sublink  siento la confianza de ofrecer un producto de calidad a mis clientes!  Excelente trato y rapidez en las entregas!" },
+  { nombre: "Sunala Swimwear", rating: 5, text: "Increíble atención y servicio. La calidad de las telas es muy buena, siempre dispuestos ayudarnos y hacer lo imposible por darnos el mejor servicio. Muchos años trabajando con SUBLINK sin inconvenientes." },
+  { nombre: "Libys Baldwin", rating: 5, text: "Excelente atencion tengo mas de 4 años con sublink, atencion personalizada, atentos a los detalles, te acompañan en todo el proceso desde el inicio hasta el final cuando ya tienes el producto terminado" },
+  { nombre: "Maragoza", rating: 5, text: "Gran aliado para nuestra marca, los acabados textiles son de primera y el trato muy profesional, un servicio confiable y de alta calidad para cualquier proyecto textil 💜 ..." },
+  { nombre: "karen pescoso", rating: 5, text: "Excelente equipo de trabajo y calidad garantizada, años trabajando con Sublink , sin duda alguna el mejor aliado para mi marca 🤝 ..." },
+  { nombre: "Kevin Uzcategui", rating: 5, text: "Excelente atención. Destaco especialmente la alta calidad de sus productos y la amabilidad del personal, quienes brindan un trato sumamente profesional." },
+  { nombre: "Claudia Fugazza Trevisi", rating: 5, text: "Muchos años creando juntas 💜 Siempre impecables en calidad, atención y servicio...." },
+  { nombre: "Jesus Garcia", rating: 5, text: "Excelente calidad de la tela y de las impresiones, una durabilidad de mas de 10 años, los recomiendo." },
+  { nombre: "ALEX MARTINEZ", rating: 5, text: "Excelente calidad en sus productos, buenos materiales y buen precio... 100% recomendados" },
+  { nombre: "LILIBETH FUENMAYOR", rating: 5, text: "Súper recomendable responsables y rápidos tiempo trabajando con ellos excelente equipo ✅ 🫶 👍 ..." },
+  { nombre: "Paola Alfonsi", rating: 5, text: "Responsables, creativos y entregas en tiempo récord. Llegamos mucho tiempo trabajando con ellos y tenemos muy buena experiencia." },
+  { nombre: "KAMA MERU CA", rating: 5, text: "Me gustó la variedad de telas, tienes desde nacionales hasta premiun, lafayette lo mejor, y la tinta EPSON no tiene comparación" },
+  { nombre: "Nathaly", rating: 5, text: "Súper buenos, responsables y atentos, siempre me ayudan a resolver, a veces hasta en tiempo record 💙 ..." },
+  { nombre: "Fabiola Cecilia Pietri Pavan", rating: 5, text: "Excelente servicio! Felices de trabajar nuestras creaciones con ustedes" },
+  { nombre: "carly tomei", rating: 5, text: "Muy buena la experiencia! Todo el personal muy amable." },
+  { nombre: "Eyling susej yanes camacho", rating: 5, text: "Muy buena atención" },
+  { nombre: "Marievi Alvarado", rating: 5, text: "Excelente servicio" },
+  { nombre: "andreina moreno", rating: 5, text: "" },
+  { nombre: "anii kmero", rating: 5, text: "" },
+  { nombre: "Maria A. Guzmán A.", rating: 5, text: "" },
+  { nombre: "Afrodizia Swimwear", rating: 5, text: "" },
 ];
 
 interface GoogleReview {
@@ -87,7 +107,7 @@ export const ReviewsCarousel = () => {
   }, []);
 
   // Combinar reseñas de la API con curadas (Google API legacy max 5 reviews).
-  // Ivan: añade más entradas a RESENAS_FALLBACK copiando textos reales del Google Business Profile.
+  // RESENAS_FALLBACK = las 26 reseñas reales del Google Business Profile (copiadas tal cual).
   const reviewsApi = data?.reviews?.length
     ? data.reviews.map((r: GoogleReview) => ({
         nombre: r.author_name,
@@ -101,7 +121,7 @@ export const ReviewsCarousel = () => {
   }));
   const seen = new Set<string>();
   const resenas = [...reviewsApi, ...curadas].filter(r => {
-    const key = `${r.nombre}::${(r.text || "").slice(0, 30)}`;
+    const key = (r.nombre || "").trim().toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
     return true;
@@ -192,10 +212,10 @@ export const ReviewsCarousel = () => {
           onFocus={() => pausar(10000)}
           className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         >
-          {resenas.map((r) => {
+          {resenas.map((r, idx) => {
             const inicial = (r.nombre?.[0] ?? "S").toUpperCase();
             return (
-              <div key={`${r.nombre}-${(r.text || "").slice(0, 20)}`} className="w-[300px] shrink-0 snap-start">
+              <div key={`${idx}-${r.nombre}`} className="w-[300px] shrink-0 snap-start">
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 h-full flex flex-col">
                   {/* Avatar + nombre */}
                   <div className="flex items-center gap-3 mb-4">
@@ -212,7 +232,7 @@ export const ReviewsCarousel = () => {
                     <GoogleIcon />
                   </div>
                   <Estrellas n={r.rating} />
-                  <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{r.text}&rdquo;</p>
+                  {r.text ? <p className="text-sm text-gray-600 leading-relaxed flex-1">&ldquo;{r.text}&rdquo;</p> : null}
                 </div>
               </div>
             );
