@@ -47,6 +47,63 @@ function logoSrc(entry: LogoEntry): string {
   return `/assets/logos-clientes/${file}`;
 }
 
+// Texto alternativo (SEO + accesibilidad) por logo
+const LOGO_ALT_NUM: Record<number, string> = {
+  1: "Logo de Olga Bolaños",
+  2: "Logo de Mako Fishing & Kitesurf",
+  4: "Logo de Vanessa Farina",
+  5: "Logo de Lanchas Venezuela",
+  7: "Logo de Filamento",
+  8: "Logo de Lembo Master Fishing",
+  10: "Logo de Atelier Tepuy",
+  11: "Logo de Saia",
+  12: "Logo de Rekyte",
+  13: "Logo de Grupo Satélite",
+  14: "Logo de Katoah",
+  15: "Logo de Mar Azul",
+  16: "Logo de Mia Swimwears",
+  17: "Logo de Kassia Sea Collection",
+  18: "Logo de Katcow Swimwear",
+  19: "Logo de Athuah",
+  20: "Logo de Makai Clothing & Stuff",
+  21: "Logo de Piropo",
+  22: "Logo de Fornace",
+  23: "Logo de Bajo el Mar",
+  24: "Logo de Rabirrubia Swimwear",
+  25: "Logo de Sunala Swimwear",
+  26: "Logo de Capraia Swimwear",
+  27: "Logo de Haawa",
+  28: "Logo de H2O",
+  29: "Logo de Afrodizia Swimwear",
+  30: "Logo de Moana Swimwear",
+  31: "Logo de Spranger Swimwear",
+  32: "Logo de Henalu",
+  33: "Logo de Kukui",
+  34: "Logo de Bezo",
+  35: "Logo de Mykonos Swimwear",
+  36: "Logo de Agua Viva",
+  37: "Logo de Playasha",
+  39: "Logo de Vibes",
+  40: "Logo de Sweet Peas",
+  41: "Logo de Bascano",
+  42: "Logo de Maraná",
+  43: "Logo de Mera Kids",
+  45: "Logo de Moda Hidráulica",
+  46: "Logo de Al Sole",
+  47: "Logo de Tucuchire",
+  49: "Logo de Parakeet Beach Wear",
+  50: "Logo de Moana Swimwear",
+  51: "Logo de Marnie Swimwear",
+};
+const LOGO_ALT_NAMED: Record<string, string> = {
+  "ARENA CRISTAL": "Logo de Arena Cristal Swimwear",
+};
+
+function logoAlt(entry: LogoEntry): string {
+  if (entry.type === "numbered") return LOGO_ALT_NUM[entry.n] ?? "Logo de cliente de Sublink";
+  return LOGO_ALT_NAMED[entry.name] ?? "Logo de cliente de Sublink";
+}
+
 export const LogoCarousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [
         AutoScroll({ playOnInit: true, speed: 1 })
@@ -84,7 +141,7 @@ export const LogoCarousel = () => {
                                         const noBox0 = name0 && NO_BOX_LOGOS.has(name0);
                                         return (
                                             <div className={noBox0 ? "w-36 h-36 flex items-center justify-center" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
-                                                <Image src={logoSrc(slide[0])} alt="Logo cliente" width={100} height={100} className={noBox0 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
+                                                <Image src={logoSrc(slide[0])} alt={logoAlt(slide[0])} width={100} height={100} className={noBox0 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
                                             </div>
                                         );
                                     })()}
@@ -93,7 +150,7 @@ export const LogoCarousel = () => {
                                         const noBox1 = name1 && NO_BOX_LOGOS.has(name1);
                                         return (
                                             <div className={noBox1 ? "w-36 h-36 flex items-center justify-center" : "w-36 h-36 shadow-md bg-white border border-zinc-200 rounded-lg flex items-center justify-center p-4"}>
-                                                <Image src={logoSrc(slide[1])} alt="Logo cliente" width={100} height={100} className={noBox1 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
+                                                <Image src={logoSrc(slide[1])} alt={logoAlt(slide[1])} width={100} height={100} className={noBox1 ? "w-full h-full object-contain" : "w-full h-full object-contain p-3"} />
                                             </div>
                                         );
                                     })()}
