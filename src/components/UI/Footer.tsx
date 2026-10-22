@@ -38,8 +38,8 @@ const socialLinks = [
 ];
 
 const navLinks = [
-  { label: "Telas", href: "/" },
-  { label: "Servicios", href: "/" },
+  { label: "Telas", href: "/telas" },
+  { label: "Servicios", href: "/servicios" },
   { label: "Sostenibilidad", href: "/sostenibilidad" },
   { label: "Blog", href: "/blog" },
 ];

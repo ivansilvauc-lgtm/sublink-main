@@ -124,13 +124,17 @@ export const ReviewsCarousel = () => {
   useEffect(() => {
     const el = scrollerRef.current;
     if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Con "reducir movimiento" en el sistema se mantiene el avance, pero SIN animación
+    // (cambio directo de tarjeta) y más espaciado. Sin esa preferencia: desplazamiento suave.
+    const reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const comportamiento: ScrollBehavior = reducir ? 'auto' : 'smooth';
+    const cada = reducir ? 7000 : 4500;
     const id = window.setInterval(() => {
       if (Date.now() < pausedUntil.current) return;
       const alFinal = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
-      if (alFinal) el.scrollTo({ left: 0, behavior: 'smooth' });
-      else el.scrollBy({ left: CARD, behavior: 'smooth' });
-    }, 4500);
+      if (alFinal) el.scrollTo({ left: 0, behavior: comportamiento });
+      else el.scrollBy({ left: CARD, behavior: comportamiento });
+    }, cada);
     return () => window.clearInterval(id);
   }, []);
 
