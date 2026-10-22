@@ -9,8 +9,9 @@ import AutoScroll from 'embla-carousel-auto-scroll';
 // For a different extension, add to NUMBERED_LOGO_EXT below.
 // Named logos: /assets/logos-clientes/[name].svg (or override via NAMED_LOGO_FILE)
 // To remove a client: delete the number from NUMBERED_LOGOS below.
+// 2026-10-22: removed 50 (Moana duplicado), added 38 (Ces)
 // 2026-10-20: removed 3 (Locos de Viaje duplicado), added 51 (MARNIE Swimwear, PNG)
-const NUMBERED_LOGOS = [1,2,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,39,40,41,42,43,45,46,47,49,50,51];
+const NUMBERED_LOGOS = [1,2,4,5,7,8,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,45,46,47,49,51];
 const NAMED_LOGOS = ["ARENA CRISTAL"]; // named PNGs/SVGs added to logos-clientes folder
 
 // Override extension for specific numbered logos (default = svg)
@@ -83,6 +84,7 @@ const LOGO_ALT_NUM: Record<number, string> = {
   35: "Logo de Mykonos Swimwear",
   36: "Logo de Agua Viva",
   37: "Logo de Playasha",
+  38: "Logo de Ces Swimwear",
   39: "Logo de Vibes",
   40: "Logo de Sweet Peas",
   41: "Logo de Bascano",
@@ -92,7 +94,6 @@ const LOGO_ALT_NUM: Record<number, string> = {
   46: "Logo de Al Sole",
   47: "Logo de Tucuchire",
   49: "Logo de Parakeet Beach Wear",
-  50: "Logo de Moana Swimwear",
   51: "Logo de Marnie Swimwear",
 };
 const LOGO_ALT_NAMED: Record<string, string> = {
