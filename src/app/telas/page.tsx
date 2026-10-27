@@ -55,7 +55,7 @@ export default function TelasPage() {
       offers: {
         "@type": "Offer",
         price: tela.precio,
-        priceCurrency: "VES",
+        priceCurrency: "EUR",
         availability: "https://schema.org/InStock",
       },
     })),

@@ -27,9 +27,9 @@ type MenuState = {
 };
 
 const navItems: NavItem[] = [
-  { key: "navitem-telas", toggleState: NAV_ITEM_KEYS[0], label: "TELAS" },
-  { key: "navitem-telas-eco", toggleState: NAV_ITEM_KEYS[1], label: "TELAS ECO" },
-  { key: "navitem-servicios", toggleState: NAV_ITEM_KEYS[2], label: "SERVICIOS" },
+  { key: "navitem-telas", toggleState: NAV_ITEM_KEYS[0], label: "Telas" },
+  { key: "navitem-telas-eco", toggleState: NAV_ITEM_KEYS[1], label: "Telas Eco" },
+  { key: "navitem-servicios", toggleState: NAV_ITEM_KEYS[2], label: "Servicios" },
 ];
 
 export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServicios[] }) => {
@@ -101,19 +101,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
                   <NavItemLink key={item.key} onClick={handleNavItemClick(item.toggleState)} label={item.label} state={menuState[item.toggleState]} classNames={item.classNames} />
                 ))}
                 <li>
-                  <Link className={`antialiased hover:text-lime-400 cursor-pointer text-lime-500`} href={"/sostenibilidad"}>SOSTENIBILIDAD</Link>
-                </li>
-                <li className="flex items-center gap-1">
-                  <span className="antialiased text-gray-400 cursor-not-allowed select-none">BLOG</span>
-                  <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
-                </li>
-                <li className="flex items-center gap-1">
-                  <span className="antialiased text-gray-400 cursor-not-allowed select-none">ACADEMY</span>
-                  <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Bloqueado</span>
-                </li>
-                <li className="flex items-center gap-1">
-                  <span className="antialiased text-gray-400 cursor-not-allowed select-none">MEMBERSHIP</span>
-                  <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
+                  <Link className={`antialiased uppercase hover:text-lime-400 cursor-pointer text-lime-500`} href={"/sostenibilidad"}>Sostenibilidad</Link>
                 </li>
               </ul>
             </div>
@@ -208,26 +196,22 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
           <div className={`bg-zinc-50 shadow-md relative ${menuState.toggleServicios ? "py-5 border-t-2 border-t-primary opacity-100" : "h-0 opacity-0 pointer-events-none"} transition-all z-20`}>
             <ul className={`flex flex-col items-start justify-start content-start gap-x-20 gap-y-2 px-32 py-6 flex-wrap h-full`}>
               <li >
-                <Link href={`/servicios/sublimacion-textil-a-gran-formato`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Sublimación a GRAN Formato</Link>
+                <Link href={`/servicios/sublimacion-textil-a-gran-formato`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Sublimación textil a gran formato</Link>
               </li>
               <li >
-                <Link href={`/servicios/dtf-para-marquillas-laser-toner`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">DTF para marquillas LÁSER TONER</Link>
+                <Link href={`/servicios/dtf-para-marquillas-laser-toner`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">DTF para marquillas láser tóner</Link>
               </li>
               <li >
                 <Link href={`/servicios/dtf-industrial-continuo`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">DTF Industrial Continuo</Link>
               </li>
               <li >
-                <Link href={`/servicios/corte-laser-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Corte Láser Textil</Link>
+                <Link href={`/servicios/corte-laser-textil`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Corte láser textil</Link>
               </li>
               <li >
                 <Link href={`/servicios/etiquetas-nylon-y-silicon-monocromaticas`} onClick={() => handleMenuItems("toggleServicios")} className="text-gray-900 hover:text-primary">Etiquetas Nylon y Silicon Monocromáticas (Resina Negra)</Link>
               </li>
               <li >
                 <Link href={`/servicios`} onClick={() => handleMenuItems("toggleServicios")} className="text-primary font-semibold hover:underline">Ver todos los servicios →</Link>
-              </li>
-              <li className="flex items-center gap-1.5">
-                <span className="text-gray-400 cursor-not-allowed select-none">Servicio de Costura</span>
-                <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
               </li>
             </ul>
             <div className="absolute bottom-5 right-5">

@@ -4,7 +4,7 @@ import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
 
 // ✏️ EDITAR AQUÍ el texto de la oferta del mes
 const ANNOUNCEMENT = {
-  text: "Crepe Doble Importado 10€ !!!",
+  text: "Crepe Doble Importado 10,5€ !!!",
   link: "",
   linkText: "",
   active: true, // ← cambiar a false para ocultar la barra

@@ -46,7 +46,7 @@ export const servicios: IServicios[] = [
     },
     {
         slug: "dtf-para-marquillas-laser-toner",
-        title: "DTF para marquillas LASER TONER",
+        title: "DTF para marquillas láser tóner",
         subtitle: "",
         equipment_image:"/img/servicios/4.webp",
         results_image:"/img/servicios/tela-de-color-amarillo-con-marquillas.webp",
@@ -102,7 +102,7 @@ export const servicios: IServicios[] = [
     },
     {
         slug: "corte-laser-textil",
-        title: "Corte Laser Textil",
+        title: "Corte láser textil",
         subtitle: "",
         equipment_image:"/img/servicios/3.webp",
         results_image:"/img/servicios/proceso-de-corte-laser-sobre-textil.webp",

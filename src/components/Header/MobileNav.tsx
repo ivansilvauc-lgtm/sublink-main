@@ -75,41 +75,28 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                     <ul className={`flex flex-col gap-6 font-bold tracking-wider items-center mt-10 sm:mt-20 ${someShowLinks ? 'fadeInDown' : 'fadeInUp'}`}>
                          <li className="flex justify-center px-5 py-3">
                             <Link href="/" onClick={() => setToggleMenu(false)} className="text-gray-700 hover:text-gray-800 text-2xl">
-                                <p className="antialiased">INICIO</p>
+                                <p className="antialiased uppercase">Inicio</p>
                             </Link>
                         </li>
                         <li>
                             <button onClick={() => handleButtonClick("telas")} className="text-gray-700 hover:text-gray-800 text-2xl px-5 py-3">
-                                <p className="antialiased">TELAS</p>
+                                <p className="antialiased uppercase">Telas</p>
                             </button>
                         </li>
                         <li>
                             <button onClick={() => handleButtonClick("eco")} className="text-gray-700 hover:text-gray-800 text-2xl px-5 py-3">
-                                <p className="antialiased">TELAS ECO</p>
+                                <p className="antialiased uppercase">Telas Eco</p>
                             </button>
                         </li>
                         <li>
                             <button onClick={() => handleButtonClick("servicios")} className="text-gray-700 hover:text-gray-800 text-2xl px-5 py-3">
-                                <p className="antialiased">SERVICIOS</p>
+                                <p className="antialiased uppercase">Servicios</p>
                             </button>
                         </li>
                         <li className="flex justify-center px-5 py-3">
                             <Link href="/sostenibilidad" onClick={() => setToggleMenu(false)} className="text-[#4ec437] hover:text-gray-800 text-2xl">
-                                <p className="antialiased">SOSTENIBILIDAD</p>
+                                <p className="antialiased uppercase">Sostenibilidad</p>
                             </Link>
-                        </li>
-                        <li className="flex justify-center px-5 py-3">
-                            <Link href="/blog" onClick={() => setToggleMenu(false)} className="text-white hover:text-blue-400 text-2xl">
-                                <p className="antialiased">BLOG</p>
-                            </Link>
-                        </li>
-                        <li className="flex justify-center items-center gap-2 px-5 py-3 opacity-50">
-                            <p className="antialiased text-gray-400 text-2xl cursor-not-allowed select-none">ACADEMY</p>
-                            <span className="text-[10px] font-bold uppercase bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full tracking-wide">Bloqueado</span>
-                        </li>
-                        <li className="flex justify-center items-center gap-2 px-5 py-3 opacity-50">
-                            <p className="antialiased text-gray-400 text-2xl cursor-not-allowed select-none">MEMBERSHIP</p>
-                            <span className="text-[10px] font-bold uppercase bg-gray-700 text-gray-300 px-2 py-0.5 rounded-full tracking-wide">Pronto</span>
                         </li>
                     </ul>
                 )}
@@ -195,10 +182,6 @@ export const MobileNav = ({ toggleMenu, setToggleMenu, telas, servicios }: Mobil
                                                 <MobileLink key={servicio.slug} path={`servicios`} slug={servicio.slug} label={servicio.title} handleItemClick={handleItemClick} />
                                             ))
                                         }
-                                        <li className="flex items-center gap-1.5 px-4 py-1">
-                                            <span className="text-gray-400 cursor-not-allowed select-none text-sm">Servicio de Costura</span>
-                                            <span className="text-[9px] font-bold uppercase bg-gray-200 text-gray-400 px-1.5 py-0.5 rounded-full tracking-wide">Pronto</span>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>

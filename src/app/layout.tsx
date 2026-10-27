@@ -16,6 +16,7 @@ import { AdsAttribution } from "@/components/UI/AdsAttribution";
 import { FAQ_ITEMS } from "@/lib/faq";
 import { MAPS_PLACE_URL } from "@/lib/maps";
 import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
+import Script from "next/script";
 
 const poppins = Poppins({
   weight: ['200', '300', '400', '600', '700', '800', '900'],
@@ -84,6 +85,8 @@ export default function RootLayout({
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': `${SUBLINK_URL}/#localbusiness`,
+    parentOrganization: { '@id': `${SUBLINK_URL}/#organization` },
     name: 'Sublink Company',
     alternateName: 'Sublink Sublimación Textil',
     url: SUBLINK_URL,
@@ -129,6 +132,45 @@ export default function RootLayout({
     ],
   };
 
+  // Organization schema — entidad de marca (nombre legal, logo, redes y contacto) para el Knowledge Graph.
+  const orgJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${SUBLINK_URL}/#organization`,
+    name: 'Sublink Company',
+    legalName: 'Sublink C.A.',
+    alternateName: 'Sublink Sublimación Textil',
+    url: SUBLINK_URL,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${SUBLINK_URL}/logo-sublink.png`,
+      width: 425,
+      height: 98,
+    },
+    image: `${SUBLINK_URL}/opengraph-image.jpg`,
+    description: 'Sublimación textil continua, DTF, corte láser y telas ecológicas en Valencia, Venezuela.',
+    email: 'sublinkve@gmail.com',
+    telephone: '+58-424-4067274',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Av. 137, CC Imperial II 3-08, Piso 3',
+      addressLocality: 'Valencia',
+      addressRegion: 'Carabobo',
+      addressCountry: 'VE',
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: '+58-424-4067274',
+      contactType: 'sales',
+      areaServed: 'VE',
+      availableLanguage: 'Spanish',
+    },
+    sameAs: [
+      'https://www.instagram.com/sublink.ve',
+      'https://www.facebook.com/sublink.ve',
+    ],
+  };
+
   const videoJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'VideoObject',
@@ -155,19 +197,6 @@ export default function RootLayout({
 
   return (
     <html lang="es-VE">
-      <head>
-        {/* Microsoft Clarity — heatmaps y grabaciones de sesión (gratis) */}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `(function(c,l,a,r,i,t,y){
-  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "wa7dky6252");`,
-          }}
-        />
-      </head>
       <body className={`${poppins.className} ${poppins.variable} ${inter.variable} max-w-[1920px] mx-auto`}>
         <script
           type="application/ld+json"
@@ -180,6 +209,22 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
+        {/* Microsoft Clarity — carga diferida: no bloquea el render ni compite con el LCP */}
+        <Script
+          id="ms-clarity"
+          strategy="lazyOnload"
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "wa7dky6252");`,
+          }}
         />
         <AnnouncementBar />
         <Header />

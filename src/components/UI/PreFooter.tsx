@@ -71,29 +71,6 @@ export const PreFooter = () => {
             Cotizar por WhatsApp
           </WhatsAppLink>
 
-          {/* Experto en telas — BLOQUEADO */}
-          <div
-            className="flex items-center justify-center gap-3 bg-zinc-800/60 text-zinc-500 font-bold rounded-xl px-6 py-4 border border-zinc-700 cursor-not-allowed select-none"
-            aria-disabled="true"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Hablar con experto en telas
-            <span className="text-[10px] font-bold uppercase bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full tracking-wide ml-1">Pronto</span>
-          </div>
-
-          {/* Experto en diseño — BLOQUEADO */}
-          <div
-            className="flex items-center justify-center gap-3 bg-zinc-800/60 text-zinc-500 font-bold rounded-xl px-6 py-4 border border-zinc-700 cursor-not-allowed select-none"
-            aria-disabled="true"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-            </svg>
-            Hablar con experto en diseño
-            <span className="text-[10px] font-bold uppercase bg-zinc-700 text-zinc-300 px-2 py-0.5 rounded-full tracking-wide ml-1">Pronto</span>
-          </div>
 
           <p className="text-xs text-zinc-500 text-center">
             Llamadas de asesoría: Mar – Mi - Jue · 5:00 pm – 5:30 pm
