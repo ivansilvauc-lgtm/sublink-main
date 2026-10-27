@@ -214,16 +214,26 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
         />
-        {/* Microsoft Clarity — carga diferida: no bloquea el render ni compite con el LCP */}
+        {/* Microsoft Clarity — se carga en la primera interacción (o a los 20 s): no compite con el LCP */}
         <Script
           id="ms-clarity"
           strategy="lazyOnload"
           dangerouslySetInnerHTML={{
-            __html: `(function(c,l,a,r,i,t,y){
-  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-})(window, document, "clarity", "script", "wa7dky6252");`,
+            __html: `(function(){
+  var done=false;
+  function load(){
+    if(done) return; done=true;
+    (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wa7dky6252");
+  }
+  ["pointerdown","keydown","scroll","touchstart"].forEach(function(e){
+    window.addEventListener(e, load, {once:true, passive:true});
+  });
+  setTimeout(load, 20000);
+})();`,
           }}
         />
         <AnnouncementBar />

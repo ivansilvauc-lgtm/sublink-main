@@ -116,6 +116,7 @@ export const PrintOnDemandSection = () => {
                   transition: 'transform 980ms ease-out, opacity 245ms ease-in-out',
                 }}
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                quality={60}
                 priority={i === 0}
               />
             </div>

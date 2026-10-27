@@ -54,14 +54,14 @@ export const Estampacion = () => {
                     onTouchStart={handleMouseDown}
 
                 >
-                    <Image src="/img/estampacion/before-sublink.webp" width={800} height={910}
+                    <Image src="/img/estampacion/before-sublink.webp" width={800} height={910} sizes="(min-width: 480px) 450px, 100vw"
                         alt="Mujer de espalda sosteniendo tela estampada descolorida"
                         className="absolute h-full"
                     />
                     <div className="absolute top-0 left-0 right-0 w-full max-w-[450px] aspect-[40/50] m-auto overflow-hidden select-none"
                         style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                     >
-                        <Image src="/img/estampacion/after-sublink.webp" width={800} height={910}
+                        <Image src="/img/estampacion/after-sublink.webp" width={800} height={910} sizes="(min-width: 480px) 450px, 100vw"
                             alt="Mujer de espalpa sosteniendo tela estampada colorida"
                             className="absolute h-full"
                         />
