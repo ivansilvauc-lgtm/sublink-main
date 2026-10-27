@@ -122,16 +122,20 @@ export const PrintOnDemandSection = () => {
           ))}
 
           {/* Dot indicators */}
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex z-10">
             {PRINTS.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  active === i ? "bg-white w-6" : "bg-white/50"
-                }`}
+                className="h-6 min-w-6 px-1 flex items-center justify-center"
                 aria-label={`Print ${i + 1}`}
-              />
+              >
+                <span
+                  className={`block h-2 rounded-full transition-all duration-300 ${
+                    active === i ? "bg-white w-6" : "bg-white/50 w-2"
+                  }`}
+                />
+              </button>
             ))}
           </div>
         </div>

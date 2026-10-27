@@ -154,7 +154,7 @@ export const Footer = () => {
 
         {/* Col 2 — Contacto */}
         <div className="flex flex-col gap-3">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Ubicación y contacto</h4>
+          <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Ubicación y contacto</h3>
           <p className="text-sm text-zinc-400 leading-relaxed">
             Av. 137, CC Imperial II 3-08<br />
             Piso 3 (frente CC Galería)<br />
@@ -178,7 +178,7 @@ export const Footer = () => {
 
           {/* Navegación rápida */}
           <div className="mt-3 flex flex-col gap-2">
-            <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Navegación</h4>
+            <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Navegación</h3>
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -193,13 +193,13 @@ export const Footer = () => {
 
         {/* Col 3 — Preguntas Frecuentes */}
         <div className="flex flex-col gap-3">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Preguntas Frecuentes</h4>
+          <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Preguntas Frecuentes</h3>
           <Accordion items={FAQ_ITEMS} />
         </div>
 
         {/* Col 4 — Guía de Impresión */}
         <div className="flex flex-col gap-3">
-          <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Guía de Impresión</h4>
+          <h3 className="text-white text-xs font-bold uppercase tracking-widest mb-1">Guía de Impresión</h3>
           <Accordion items={GUIA_ITEMS} />
         </div>
       </div>

@@ -108,7 +108,7 @@ export const Navbar = ({ telas, servicios }: { telas: ITela[], servicios: IServi
             <div className="flex items-center">
               {/* Mobile navigation toggle */}
               <div className="lg:hidden flex items-center">
-                <Button size="sm" color="light" onClick={() => { setToggleMenu(!toggleMenu) }} className="mr-8 p-0! focus:ring-primary">
+                <Button size="sm" color="light" onClick={() => { setToggleMenu(!toggleMenu) }} aria-label={toggleMenu ? "Cerrar menú" : "Abrir menú"} aria-expanded={toggleMenu} className="mr-8 p-0! focus:ring-primary">
                   <Hamburger isOpen={toggleMenu} />
                 </Button>
               </div>
