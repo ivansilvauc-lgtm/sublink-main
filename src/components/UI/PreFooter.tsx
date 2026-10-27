@@ -70,11 +70,6 @@ export const PreFooter = () => {
             </svg>
             Cotizar por WhatsApp
           </WhatsAppLink>
-
-
-          <p className="text-xs text-zinc-500 text-center">
-            Llamadas de asesoría: Mar – Mi - Jue · 5:00 pm – 5:30 pm
-          </p>
         </div>
       </div>
     </section>
