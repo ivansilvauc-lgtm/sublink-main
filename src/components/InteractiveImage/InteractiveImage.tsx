@@ -6,7 +6,7 @@ export const InteractiveImage = () => {
     return (
         <div className="w-full m-auto">
             <div className="relative w-full h-full top-0 hidden md:block">
-                <Image src="/img/imagen-interactiva-final.webp" width={1920} height={830} alt="Imagen de chica en una sala con objectos flotantes y la playa de fondo" className="w-full h-auto" priority />
+                <Image src="/img/imagen-interactiva-final.webp" width={1920} height={830} alt="Imagen de chica en una sala con objectos flotantes y la playa de fondo" className="w-full h-auto" sizes="100vw" />
                 {/* Overlay texto -- arriba centrado */}
                 <div className="absolute inset-0 flex flex-col items-center justify-start pt-[2.5cm] z-20 pointer-events-none">
                     <span className="inline-block bg-[#157ec2]/10 text-[#157ec2] text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full"
@@ -18,7 +18,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela de Toalla</h3>
+                            <p className="text-primary">Tela de Toalla</p>
                         </div>
                     </Link>
                 </div>
@@ -26,7 +26,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-importadas/lycra-lafayette">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela traje de bano</h3>
+                            <p className="text-primary">Tela traje de bano</p>
                         </div>
                     </Link>
                 </div>
@@ -34,7 +34,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-nacionales/microfibra-nacional">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela cortina</h3>
+                            <p className="text-primary">Tela cortina</p>
                         </div>
                     </Link>
                 </div>
@@ -42,13 +42,13 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-importadas/loneta-soft">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela para muebles</h3>
+                            <p className="text-primary">Tela para muebles</p>
                         </div>
                     </Link>
                 </div>
             </div>
             <div className="relative max-w-full h-full top-0 block md:hidden">
-                <Image src="/img/imagen-interactiva-final-mobile.webp" width={950} height={980} alt="Imagen de sala con objectos flotantes" priority />
+                <Image src="/img/imagen-interactiva-final-mobile.webp" width={950} height={980} alt="Imagen de sala con objectos flotantes" sizes="100vw" priority />
                 {/* Overlay texto -- arriba centrado -- mobile */}
                 <div className="absolute inset-0 flex flex-col items-center justify-start pt-[1.5cm] z-20 pointer-events-none">
                     <span className="inline-block text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full"
@@ -60,7 +60,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-ecologicas/toalla-microfibra">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela de Toalla</h3>
+                            <p className="text-primary">Tela de Toalla</p>
                         </div>
                     </Link>
                 </div>
@@ -68,7 +68,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-importadas/lycra-lafayette">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela traje de bano</h3>
+                            <p className="text-primary">Tela traje de bano</p>
                         </div>
                     </Link>
                 </div>
@@ -76,7 +76,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-nacionales/microfibra-nacional">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela cortina</h3>
+                            <p className="text-primary">Tela cortina</p>
                         </div>
                     </Link>
                 </div>
@@ -84,7 +84,7 @@ export const InteractiveImage = () => {
                     <Link href="/telas/telas-importadas/loneta-soft">
                         <div className="icon w-[25px] h-[25px] rounded-full opacity-70 border-2 border-zinc-50" />
                         <div className="tooltip text-lg">
-                            <h3 className="text-primary">Tela para muebles</h3>
+                            <p className="text-primary">Tela para muebles</p>
                         </div>
                     </Link>
                 </div>

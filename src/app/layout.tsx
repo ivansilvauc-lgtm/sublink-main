@@ -19,8 +19,8 @@ import { WhatsAppLink } from "@/components/UI/WhatsAppLink";
 import Script from "next/script";
 
 const poppins = Poppins({
-  weight: ['200', '300', '400', '600', '700', '800', '900'],
-  style: ['normal', 'italic'],
+  weight: ['300', '400', '600', '700', '800', '900'],
+  style: ['normal'],
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-poppins',

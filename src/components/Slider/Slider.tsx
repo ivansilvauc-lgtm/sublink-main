@@ -35,7 +35,7 @@ export const Slider = () => {
               alt="Impresion textil sublimacion Sublink"
               fill
               className="object-cover object-center"
-              priority
+              sizes="(min-width: 768px) 55vw, 50vw"
             />
           </div>
 
@@ -52,16 +52,20 @@ export const Slider = () => {
       </div>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex z-30">
         {Array.from({ length: SLIDES }).map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Slide ${i + 1}`}
-            className={`rounded-full transition-all duration-300 ${
-              i === current ? 'w-8 h-[10px] bg-[#157ec2]' : 'w-[10px] h-[10px] bg-[#157ec2]/40'
-            }`}
-          />
+            className="h-6 min-w-6 px-1 flex items-center justify-center"
+          >
+            <span
+              className={`block rounded-full transition-all duration-300 ${
+                i === current ? 'w-8 h-[10px] bg-[#157ec2]' : 'w-[10px] h-[10px] bg-[#157ec2]/40'
+              }`}
+            />
+          </button>
         ))}
       </div>
 
