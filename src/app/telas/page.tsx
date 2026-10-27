@@ -36,29 +36,28 @@ const categorias = [
 ];
 
 export default function TelasPage() {
+  // Listado de catálogo: ItemList con url + nombre + imagen por tela. El Product completo (precio, marca,
+  // disponibilidad) vive en la ficha de cada tela; repetirlo aquí sin imagen generaba 27 elementos no válidos.
   const collectionJsonLd = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Catálogo de Telas para Sublimación — Sublink",
     description: "Más de 40 tipos de telas para sublimación textil disponibles en Venezuela. Telas ecológicas, importadas y nacionales.",
     url: `${SUBLINK_URL}/telas`,
-    provider: {
-      "@type": "Organization",
-      name: "Sublink Company",
-      url: SUBLINK_URL,
+    publisher: { "@id": `${SUBLINK_URL}/#organization` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: telas.length,
+      itemListElement: telas.map((tela, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `${SUBLINK_URL}/telas/${tela.categoria_slug}/${tela.slug}`,
+        name: tela.nombre,
+        image: tela.imagen_zoom
+          ? `${SUBLINK_URL}${tela.imagen_zoom}`
+          : `${SUBLINK_URL}/opengraph-image.jpg`,
+      })),
     },
-    hasPart: telas.map((tela) => ({
-      "@type": "Product",
-      name: tela.nombre,
-      description: tela.descripcion,
-      url: `${SUBLINK_URL}/telas/${tela.categoria_slug}/${tela.slug}`,
-      offers: {
-        "@type": "Offer",
-        price: tela.precio,
-        priceCurrency: "EUR",
-        availability: "https://schema.org/InStock",
-      },
-    })),
   };
 
   const telasPorCategoria = categorias.map((cat) => ({
